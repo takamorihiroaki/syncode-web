@@ -6,7 +6,7 @@
     <div class="hero-content">
       <h1 class="hero-title">
         Antigravityで挫折したから分かった、<br />
-        公式ガイドにはない「本当に使いこなす」コツ
+        公式ガイドにはない<span class="marker-highlight">「本当に使いこなす」</span>コツ
       </h1>
       <p class="hero-lead">
         AI任せで記事が崩れる、指示が通らない…。<br />
@@ -38,8 +38,8 @@
         <a href="/articles/antigravity-start" class="btn primary">
           → まずは解決の第一歩を踏む
         </a>
-        <a href="/articles" class="btn secondary">
-          → 実験ログをすべて見る
+        <a href="/articles/" class="btn secondary">
+          → EXPLORE ALL RECORDS
         </a>
       </div>
     </div>
@@ -81,6 +81,15 @@
     color: #000;
   }
 
+  .marker-highlight {
+    background: linear-gradient(transparent 50%, #fff100 50%);
+    padding: 0;
+    margin: 0;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    display: inline;
+  }
+
   .hero-lead {
     font-size: 1.15rem;
     color: #666;
@@ -120,14 +129,16 @@
 
   .hero-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 24px;
   }
 
   .btn {
     display: inline-block;
-    width: 100%;
+    width: auto;
+    min-width: 280px;
     max-width: 400px;
     padding: 18px 30px;
     font-size: 1rem;
@@ -136,6 +147,7 @@
     transition: all 0.3s ease;
     border-radius: 4px;
     letter-spacing: 0.05em;
+    text-align: center;
   }
 
   .btn.primary {
@@ -166,6 +178,10 @@
     .hero-title {
       font-size: 1.6rem;
     }
+    .marker-highlight {
+      padding: 0;
+      margin: 0;
+    }
     .hero-lead {
       font-size: 1rem;
     }
@@ -174,6 +190,14 @@
     }
     .hero-inner {
       padding: 40px 20px;
+    }
+    .hero-actions {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .btn {
+      width: 100%;
+      max-width: none;
     }
   }
 </style>

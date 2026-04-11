@@ -17,8 +17,10 @@ const seriesArticles = seriesIds
 
 <section class="premium-documentary">
   <div class="documentary-header">
-    <span class="sub-label">SPECIAL DOCUMENTARY</span>
-    <h2 class="series-title">【全4回】AIエージェント共創実録：GA4分析からSEO改善まで</h2>
+    <div class="header-line"></div>
+    <span class="sub-label">Featured Story</span>
+    <h2 class="series-title">AI Agent Co-creation Chronicles</h2>
+    <div class="series-subtitle">【全4回】実録：GA4分析からSEO改善まで</div>
     <p class="series-desc">
       分析から課題発見、そしてAIとの共同作業でサイトを成長させていく軌跡を、全4回のストーリーでまとめました。
     </p>
@@ -29,7 +31,9 @@ const seriesArticles = seriesIds
       <ArticleCard article={article} variant="premium" step={index + 1} />
     ))}
   </div>
+</section>
 
+<div class="filter-bar-wrapper">
   <div class="filter-bar">
     <div class="filter-inner">
       <a href="#" class="filter-item active">ALL</a>
@@ -37,61 +41,82 @@ const seriesArticles = seriesIds
       <a href="#" class="filter-item">AIツール</a>
       <a href="#" class="filter-item">技術検証</a>
       <a href="#" class="filter-item">自動化</a>
-      <div class="sub-filter">
-          <a href="#" class="filter-item secondary">効率化テクニック</a>
-      </div>
+      <a href="#" class="filter-item secondary">効率化テクニック</a>
     </div>
   </div>
-</section>
+</div>
 
 <style>
   .premium-documentary {
     background: #000;
-    padding: 100px 0 80px;
-    margin: 60px calc(50% - 50vw);
-    width: 100vw;
+    padding: 100px 0 60px; /* ボトムの余白を調整 */
+    margin: 60px auto 40px; /* 下部マージンを減らし、フィルターとの距離を調整 */
+    max-width: 1100px;
+    width: 100%;
+    border-radius: 20px;
     position: relative;
     color: #fff;
     overflow: hidden;
   }
 
+  /* ...中略（header, labels, gridなどのスタイルは維持）... */
+  
   .documentary-header {
     max-width: 1000px;
-    margin: 0 auto 60px;
+    margin: 0 auto 80px;
     padding: 0 20px;
     text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .header-line {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    margin: 0 auto 40px;
   }
 
   .sub-label {
-    display: inline-block;
+    display: block;
     font-size: 0.75rem;
     font-weight: 700;
     color: #b8860b;
     letter-spacing: 0.4em;
     margin-bottom: 24px;
-    border-bottom: 1px solid #b8860b;
-    padding-bottom: 4px;
+    text-transform: uppercase;
   }
 
   .series-title {
     font-size: 2.2rem;
-    font-weight: 800;
-    margin-bottom: 24px;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 0.15em;
     line-height: 1.3;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .series-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
   }
 
   .series-desc {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.95rem;
+    color: #ccc;
     line-height: 1.8;
     max-width: 650px;
     margin: 0 auto;
+    letter-spacing: 0.02em;
   }
 
   .documentary-grid {
     max-width: 1200px;
-    margin: 0 auto 80px;
+    margin: 0 auto;
     padding: 0 40px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -114,53 +139,86 @@ const seriesArticles = seriesIds
     }
   }
 
-  /* Filter Bar Style */
+  /* Filter Bar Style - 外側（白背景）向けに独立性を強化 */
+  .filter-bar-wrapper {
+    max-width: 1100px;
+    margin: 40px auto 100px; /* 上部マージンを少し増やして独立させる */
+    padding: 0 20px;
+  }
+
   .filter-bar {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 40px;
+    border-top: 1px solid #f0f0f0; /* より繊細なラインに */
+    padding-top: 60px;
   }
 
   .filter-inner {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 40px; /* アイテム間の距離を最適化 */
   }
 
   .filter-item {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.4);
-    text-decoration: none;
-    letter-spacing: 0.1em;
+    color: #555; /* ベースのコントラストを強化 (#888 -> #555) */
+    text-decoration: none !important;
+    letter-spacing: 0.2em; /* 文字間隔を広げ、高級感を演出 */
     position: relative;
-    padding-bottom: 8px;
-    transition: color 0.3s ease;
+    padding-bottom: 12px;
+    transition: color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
+  /* ホバー & アクティブ時の色変化 */
   .filter-item:hover, .filter-item.active {
-    color: #fff;
+    color: #000;
   }
 
-  .filter-item.active::after {
+  /* アンダーライン：初期状態（非表示） */
+  .filter-item::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
     height: 1px;
-    background: #fff;
+    background: #000;
+    transform: scaleX(0); /* 横幅0から開始 */
+    transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
-  .sub-filter {
-      width: 100%;
-      text-align: center;
-      margin-top: 5px;
+  /* ホバー時に線を伸ばす */
+  .filter-item:hover::after {
+    transform: scaleX(0.6); /* ホバー時は控えめに伸ばす */
+  }
+
+  /* アクティブ時は線をフルで表示 */
+  .filter-item.active::after {
+    transform: scaleX(1);
+    background: #000;
   }
 
   .filter-item.secondary {
+    color: #999;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .filter-item.secondary:hover {
+    color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .filter-inner {
+      gap: 20px 30px;
+    }
+    .filter-item {
       font-size: 0.75rem;
-      color: #666;
+      letter-spacing: 0.1em;
+    }
   }
 </style>

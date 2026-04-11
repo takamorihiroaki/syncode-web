@@ -36,16 +36,37 @@ allArticles.forEach(article => {
         categoryGroups[cat].push(article);
     }
 });
+
+// システム開発履歴（Milestones）の定義
+const systemLogs = [
+    { title: "Library構造の定義と1カラム型アーカイブの完成", date: "2026.04.11", id: "4687c7fc" },
+    { title: "Heroセクションにおけるマーカーハイライト演出の実装", date: "2026.04.11", id: "948f3486" },
+    { title: "Gitバージョン管理体制の構築と安全性の確保", date: "2026.04.11", id: "8c983a58" },
+    { title: "3D Blueprintアセットの復元とTrue Northへの回帰", date: "2026.04.11", id: "718e7c4a" },
+    { title: "連載第1章の執筆とドキュメンタリー性の強調", date: "2026.04.10", id: "cd776ec2" },
+    { title: "記事メタデータの標準化と全43記事の整合性修復", date: "2026.04.10", id: "bbacc58c" },
+    { title: "SVGベースのサムネイル管理システムの試作と検証", date: "2026.04.10", id: "6da351fc" },
+    { title: "Astroコンテンツコレクションのスキーマ最適化", date: "2026.04.10", id: "daade84c" },
+    { title: "Zenn等の外部メディア・コンテンツの統合と回遊性強化", date: "2026.04.10", id: "07dc1449" },
+    { title: "大規模MDXマイグレーションと画像パスの健全化", date: "2026.04.10", id: "45772e74" },
+    { title: "GA4データとの同期による実証的コンテンツ解析", date: "2026.04.09", id: "9b261e62" },
+    { title: "検索コンソール同期とSEOインデックスの自動最適化", date: "2026.04.09", id: "620961b1" },
+    { title: "人間とAIの共創ドキュメントの構造化", date: "2026.04.09", id: "5436195c" },
+    { title: "モバイル環境におけるヘッダーレイアウトのレスポンス修正", date: "2026.04.09", id: "815c7164" },
+    { title: "AIエージェントによる文脈に即したテキストの磨き上げ", date: "2026.04.09", id: "178074af" }
+];
 ---
 
 <BaseLayout title="Library - SYNCODE 技術と変革の全記録">
-    <FeaturedSeries />
-
     <div class="archive-container">
-        <div class="section-title-wrapper">
+        <div class="section-title-wrapper top-title">
             <h1 class="section-title">The Library</h1>
             <p class="section-subtitle">体系化された技術、思考、そして進化の全記録</p>
         </div>
+
+        <FeaturedSeries />
+
+        {/* シリーズセクション */}
 
         {/* シリーズセクション */}
         <div class="archive-segment">
@@ -65,23 +86,45 @@ allArticles.forEach(article => {
             ))}
         </div>
 
+        {/* システムログセクション */}
+        <div class="archive-segment">
+            <h2 class="segment-title">SYSTEM CHRONICLES</h2>
+            <div class="logs-container">
+                {systemLogs.map(log => (
+                    <div class="log-entry">
+                        <div class="log-meta">
+                            <span class="log-date">{log.date}</span>
+                            <span class="log-id">#{log.id}</span>
+                        </div>
+                        <div class="log-content">
+                            <h3 class="log-title">{log.title}</h3>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+
         {/* カテゴリー別セクション */}
         <div class="archive-segment">
-            <h2 class="segment-title">Knowledge Clusters</h2>
+            <h2 class="segment-title">KNOWLEDGE BASE</h2>
             <div class="category-grid">
                 {Object.keys(categoryGroups).map(category => (
                     <div class="category-group">
-                        <h3 class="category-group-name">{category}</h3>
+                        <h3 class="category-group-name">
+                            <span class="category-text">{category}</span>
+                            <span class="category-line"></span>
+                        </h3>
                         <div class="article-compact-list">
                             {categoryGroups[category].map(article => (
                                 <a href={`/articles/${article.id}/`} class="compact-article">
-                                    <span class="article-date">
-                                        {article.data.date.toLocaleDateString("ja-JP", {
-                                            month: "2-digit",
-                                            day: "2-digit",
-                                        }).replace(/\//g, ".")}
-                                    </span>
-                                    <span class="article-dot">•</span>
+                                    <div class="article-meta-area">
+                                        <span class="article-date">
+                                            {article.data.date.toLocaleDateString("ja-JP", {
+                                                month: "2-digit",
+                                                day: "2-digit",
+                                            }).replace(/\//g, ".")}
+                                        </span>
+                                    </div>
                                     <span class="article-title">{article.data.title}</span>
                                 </a>
                             ))}
@@ -95,12 +138,16 @@ allArticles.forEach(article => {
 
 <style>
     .archive-container {
-        padding: 60px 0;
+        padding: 80px 0;
     }
 
     .section-title-wrapper {
-        margin-bottom: 60px;
+        margin-bottom: 80px;
         text-align: center;
+    }
+
+    .section-title-wrapper.top-title {
+        margin-bottom: 60px;
     }
 
     .section-title {
@@ -127,6 +174,9 @@ allArticles.forEach(article => {
         margin-bottom: 40px;
         padding-bottom: 10px;
         border-bottom: 1px solid #eee;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     /* シリーズパッケージ */
@@ -208,45 +258,162 @@ allArticles.forEach(article => {
         gap: 40px;
     }
 
+    /* KNOWLEDGE BASE (1 Column Style) */
+    .category-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 100px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .category-group {
+        width: 100%;
+    }
+
     .category-group-name {
-        font-size: 1.2rem;
-        font-weight: 800;
-        margin-bottom: 20px;
-        padding-left: 10px;
-        border-left: 4px solid #000;
+        margin-bottom: 30px;
+        position: relative;
+        display: block;
+        padding-bottom: 8px;
+    }
+
+    .category-text {
+        font-size: 1.4rem;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        color: #000;
+    }
+
+    .category-line {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: #1a1a1a;
     }
 
     .article-compact-list {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 0;
     }
 
     .compact-article {
         text-decoration: none;
-        color: #444;
-        font-size: 0.9rem;
+        color: #333;
         display: flex;
-        align-items: flex-start;
-        transition: color 0.2s ease;
+        align-items: center;
+        padding: 24px 10px;
+        border-bottom: none;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border-radius: 2px;
     }
 
     .compact-article:hover {
-        color: #0099ff;
+        transform: translateX(15px);
+        color: #000;
+    }
+
+    .article-meta-area {
+        min-width: 80px;
+        margin-right: 30px;
     }
 
     .article-date {
-        font-family: monospace;
-        color: #AAA;
-        margin-right: 10px;
-    }
-
-    .article-dot {
-        margin-right: 10px;
-        color: #EEE;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9rem;
+        color: #bbb;
+        font-weight: 500;
+        letter-spacing: 0.05em;
     }
 
     .article-title {
-        line-height: 1.4;
+        font-size: clamp(1rem, 3vw, 1.9rem);
+        font-weight: 800;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        word-break: break-word;
+    }
+
+    @media (max-width: 600px) {
+        .compact-article {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px 10px;
+        }
+        .article-meta-area {
+            margin-bottom: 8px;
+        }
+        .article-title {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* システムログのスタイル */
+    .logs-container {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .log-entry {
+        display: flex;
+        align-items: flex-start;
+        padding: 30px 10px;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.3s ease;
+    }
+
+    .log-entry:hover {
+        background: #fcfcfc;
+    }
+
+    .log-meta {
+        min-width: 140px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-right: 40px;
+    }
+
+    .log-date {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+        color: #999;
+        font-weight: 500;
+    }
+
+    .log-id {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.65rem;
+        color: #ccc;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .log-title {
+        font-size: clamp(1rem, 2.5vw, 1.3rem);
+        font-weight: 700;
+        line-height: 1.5;
+        color: #1a1a1a;
+        letter-spacing: -0.01em;
+    }
+
+    @media (max-width: 600px) {
+        .log-entry {
+            flex-direction: column;
+            padding: 24px 10px;
+        }
+        .log-meta {
+            margin-right: 0;
+            margin-bottom: 12px;
+            flex-direction: row;
+            align-items: center;
+            gap: 15px;
+        }
     }
 </style>

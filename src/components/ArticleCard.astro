@@ -36,21 +36,16 @@ const categoryColor = getCategoryColor(article.data.category || '');
       
       {variant === 'premium' && step && (
         <div class="step-badge">
-          <span class="step-text">STEP</span>
-          <span class="step-num">{step}</span>
+          <span class="step-num">{String(step).padStart(2, '0')}</span>
         </div>
       )}
       
-      {variant === 'premium' && (
-        <div class="corner-marker"></div>
-      )}
     </div>
 
     <div class="card-content">
       {variant === 'premium' ? (
         <div class="premium-meta">
-          <div class="story-chronicle">STORY CHRONICLE</div>
-          <div class="volume-label">{article.data.label || `VOLUME ${step}`}</div>
+          <div class="story-chronicle">PROJECT STORY CHRONICLES</div>
           <h3 class="card-title">{article.data.title}</h3>
           <p class="card-excerpt">{article.data.excerpt}</p>
         </div>
@@ -213,43 +208,22 @@ const categoryColor = getCategoryColor(article.data.category || '');
   /* UI Decorations */
   .step-badge {
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 0;
-    background: #000;
-    color: #fff;
-    padding: 6px 12px;
+    background: #fff;
+    color: #000;
+    padding: 6px 14px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-top: 1px solid #1a88ff;
-    border-left: 1px solid #1a88ff;
     z-index: 10;
   }
 
-  .step-text {
-    font-size: 0.5rem;
-    letter-spacing: 0.1em;
-    color: #1a88ff;
-  }
-
   .step-num {
-    font-size: 0.9rem;
+    font-size: 0.65rem;
     font-weight: 900;
-  }
-
-  .corner-marker {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 30px;
-    height: 30px;
-    border-top: 2px solid #1a88ff;
-    border-left: 2px solid #1a88ff;
-    opacity: 0.8;
+    letter-spacing: 0.1em;
   }
 
   /* Hover states */
-  .article-card:hover .card-title {
-    color: #0099ff !important;
-  }
 </style>

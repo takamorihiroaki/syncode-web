@@ -35,7 +35,7 @@ const essentialArticles = essentialConfig
 
 const latestArticles = sortedArticles
     .filter(article => !documentaryIds.includes(article.id) && !essentialConfig.some(c => c.id === article.id))
-    .slice(0, 9);
+    .slice(0, 6);
 ---
 
 <BaseLayout 
@@ -65,7 +65,7 @@ const latestArticles = sortedArticles
         <section class="home-section latest">
             <div class="section-title-wrapper">
                 <h2 class="section-title">Latest Articles</h2>
-                <a href="/articles" class="view-all">View Library →</a>
+                <a href="/articles/" class="view-all">EXPLORE ARCHIVE →</a>
             </div>
             <div class="latest-grid">
                 {latestArticles.map(article => (
@@ -73,8 +73,11 @@ const latestArticles = sortedArticles
                 ))}
             </div>
             
-            <div class="pagination-mock">
-                <a href="/articles" class="more-link">もっと見る →</a>
+            <div class="explore-archive-wrapper">
+                <a href="/articles/" class="explore-btn">
+                    <span class="btn-text">EXPLORE ALL RECORDS</span>
+                    <span class="btn-arrow">→</span>
+                </a>
             </div>
         </section>
     </div>
@@ -88,7 +91,7 @@ const latestArticles = sortedArticles
     }
 
     .home-section {
-        margin-bottom: 100px;
+        margin-bottom: 120px;
     }
 
     .section-title-wrapper {
@@ -97,24 +100,27 @@ const latestArticles = sortedArticles
         align-items: center;
         margin-bottom: 40px;
         padding-bottom: 15px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 2px solid #1a1a1a;
     }
 
     .section-title {
         font-size: 1.5rem;
-        font-weight: 800;
-        letter-spacing: -0.01em;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
     }
 
     .view-all {
-        font-size: 0.85rem;
-        font-weight: 700;
+        font-size: 0.75rem;
+        font-weight: 800;
         color: #999;
         text-decoration: none;
+        letter-spacing: 0.1em;
+        transition: color 0.3s ease;
     }
 
     .view-all:hover {
-        color: #333;
+        color: #000;
     }
 
     /* Essential Grid - 3 columns */
@@ -146,25 +152,39 @@ const latestArticles = sortedArticles
         }
     }
 
-    .pagination-mock {
-        text-align: center;
-        margin-top: 60px;
+    .explore-archive-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 80px;
     }
 
-    .more-link {
-        display: inline-block;
-        font-size: 0.9rem;
-        font-weight: 700;
-        padding: 12px 40px;
-        border: 1px solid #eee;
-        color: #666;
+    .explore-btn {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 60px;
+        background: #000;
+        color: #fff;
         text-decoration: none;
-        transition: all 0.3s ease;
+        font-weight: 900;
+        font-size: 1rem;
+        letter-spacing: 0.1em;
+        border-radius: 2px;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
-    .more-link:hover {
-        background: #fafafa;
-        border-color: #ddd;
-        color: #333;
+    .explore-btn:hover {
+        background: #333;
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-arrow {
+        transition: transform 0.4s ease;
+    }
+
+    .explore-btn:hover .btn-arrow {
+        transform: translateX(8px);
     }
 </style>
