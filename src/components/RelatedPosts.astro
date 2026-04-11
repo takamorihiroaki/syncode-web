@@ -1,0 +1,80 @@
+---
+import { getCollection } from "astro:content";
+import ArticleCard from "./ArticleCard.astro";
+
+interface Props {
+  currentId: string;
+  tags?: string[];
+  category?: string;
+}
+
+const { category: currentCategory, currentId, tags: currentTags = [] } = Astro.props;
+const allArticles = await getCollection("articles");
+
+// シンプルな関連度計算
+const relatedArticles = allArticles
+  .filter((article) => article.id !== currentId) // 自分自身を除外
+  .map((article) => {
+    let score = 0;
+    if (article.data.category === currentCategory) score += 5;
+    const commonTags = article.data.tags?.filter((tag) => currentTags.includes(tag));
+    score += (commonTags?.length || 0) * 2;
+    return { article, score };
+  })
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map((item) => item.article);
+---
+
+{relatedArticles.length > 0 && (
+  <section class="related-posts">
+    <div class="section-title-wrapper-compact">
+      <h2 class="section-title-compact">Related Articles</h2>
+    </div>
+
+    <div class="article-grid">
+      {relatedArticles.map((article) => (
+        <ArticleCard article={article} variant="standard" />
+      ))}
+    </div>
+  </section>
+)}
+
+<style>
+  .related-posts {
+    margin-top: 80px;
+    padding-top: 60px;
+    border-top: 1px solid #eee;
+  }
+
+  .section-title-wrapper-compact {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .section-title-compact {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  @media (max-width: 900px) {
+    .article-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .article-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

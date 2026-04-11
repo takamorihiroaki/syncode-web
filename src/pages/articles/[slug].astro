@@ -1,0 +1,118 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Tag from "../../components/Tag.astro";
+import Category from "../../components/Category.astro";
+import CtaTools from "../../components/CtaTools.astro";
+import RelatedPosts from "../../components/RelatedPosts.astro";
+import CtaNextBanner from "../../components/CtaNextBanner.astro";
+import FeaturedSeries from "../../components/FeaturedSeries.astro";
+
+export async function getStaticPaths() {
+    const articleEntries = await getCollection("articles");
+    return articleEntries.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+// 次の記事（シリーズ内）を検索
+const allArticles = await getCollection("articles");
+const nextEntry = entry.data.series 
+    ? allArticles.find(a => 
+        a.data.series === entry.data.series && 
+        a.data.seriesOrder === (entry.data.seriesOrder || 0) + 1
+      )
+    : null;
+
+// シリーズ記事かどうかの判定
+const isSeries = !!entry.data.series;
+
+// インテリジェント導線の判定
+let customNextEntry = null;
+
+// シリーズが最終章（12）の場合、技術実例記事へ誘導する
+if (isSeries && !nextEntry && entry.data.series === "AI Collaboration Story" && entry.data.seriesOrder === 12) {
+    customNextEntry = allArticles.find(a => a.id === "seo-optimization-with-ai");
+}
+
+// 最終的な表示用Next
+const displayNext = nextEntry || customNextEntry;
+---
+
+<BaseLayout 
+    title={entry.data.title} 
+    description={entry.data.excerpt} 
+    image={entry.data.image} 
+    isArticle={true}
+    publishDate={entry.data.date}
+>
+
+    <div class="article-header">
+        {entry.data.category && <Category name={entry.data.category} />}
+        <h1 class="article-title">{entry.data.title}</h1>
+        <time class="article-date" datetime={entry.data.date.toISOString()}>
+            {entry.data.date
+                .toLocaleDateString("ja-JP", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                })
+                .replace(/\//g, ".")}
+        </time>
+    </div>
+
+    {
+        entry.data.image && (
+            <div class="article-eyecatch">
+                <img
+                    src={entry.data.image}
+                    alt={`${entry.data.title}のアイキャッチ画像 - SYNCODE`}
+                />
+            </div>
+        )
+    }
+
+    <article class="article-content">
+        <Content />
+        
+        <!-- 動的導線（CTA）セクション -->
+        <div class="article-cta-area" style="margin-top: 40px;">
+            {displayNext ? (
+                /* 次の記事（シリーズの次、またはロジックで判定された重要記事）を表示 */
+                <CtaNextBanner 
+                    title={displayNext.data.title}
+                    excerpt={displayNext.data.excerpt}
+                    image={displayNext.data.image || ""}
+                    link={`/articles/${displayNext.id}/`}
+                    order={displayNext.data.seriesOrder}
+                />
+            ) : (
+                <CtaTools title={entry.data.ctaTitle} description={entry.data.ctaDesc} />
+            )}
+        </div>
+        
+        {entry.data.tags && entry.data.tags.length > 0 && (
+            <div class="tag-list" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--color-border);">
+                {entry.data.tags.map((tag) => <Tag name={tag} />)}
+            </div>
+        )}
+    </article>
+
+    { !isSeries && (
+        /* 単発記事の場合はシリーズ特集枠を表示（記事本文の外に出して1100px幅を確保） */
+        <FeaturedSeries />
+    )}
+
+    <RelatedPosts 
+        currentId={entry.id} 
+        tags={entry.data.tags} 
+        category={entry.data.category} 
+        series={entry.data.series}
+        seriesOrder={entry.data.seriesOrder}
+    />
+
+</BaseLayout>

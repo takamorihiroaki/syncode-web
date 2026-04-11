@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+    title="ABOUT | SYNCODE"
+    description="SYNCODE Identity & Strategy. 30年のディレクション経験とAIの演算能力を同期させ、ブランドの本質を抽出するクリエイティブ・プロトコルについて。"
+>
+    <style>
+        .about-layout {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 6%;
+            color: var(--color-text);
+            line-height: 2.2; /* Line height for readability */
+            letter-spacing: 0.08em;
+        }
+
+        .about-section {
+            margin-bottom: 100px; /* Spacious vertical margin */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .about-section:last-child {
+            margin-bottom: 40px;
+        }
+
+        .about-section h2 { 
+            font-size: 1rem;
+            font-weight: 300; 
+            text-transform: uppercase; 
+            letter-spacing: 0.15em;
+            color: var(--color-text-light); 
+            margin: 0 0 32px 0; /* Space below header */
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 12px;
+        }
+        
+        .about-section p { 
+            margin: 0; 
+            font-size: 1.05rem;
+            word-break: keep-all; 
+            overflow-wrap: break-word; 
+        }
+
+        /* Keeping spans inline-block allows them to optionally break gracefully without clipping */
+        .about-section p span {
+            display: inline-block;
+        }
+
+        .spacer {
+            display: block;
+            height: 20px; /* Consistent spacing separator */
+        }
+
+        .about-section strong span {
+            font-weight: 500;
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .about-layout {
+                padding: 100px 5% 160px;
+            }
+            .about-section {
+                margin-bottom: 140px; /* Larger margin on desktop */
+            }
+            .about-section h2 {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+
+    <div class="about-layout">
+        <section class="about-section">
+            <h2>Identity</h2>
+            <p>
+                <span>孝森 弘章 / Hiroaki Takamori</span>
+                <span class="spacer"></span>
+                <span>AI Creative Director / Brand Director</span>
+            </p>
+        </section>
+
+        <section class="about-section">
+            <h2>Method</h2>
+            <p>
+                <span>Logic & Intuition</span>
+                <span class="spacer"></span>
+                <span>Experience & AI Acceleration</span>
+            </p>
+        </section>
+
+        <section class="about-section">
+            <h2>History</h2>
+            <p>
+                <strong><span>30 Years of Insight. Synchronized with AI.</span></strong>
+                <span>デザイン黎明期から現在に至るまで、</span><br>
+                <span>30年にわたりブランドの核心を射抜く</span><br>
+                <span>ディレクションを積み重ねてきました。</span>
+                <span class="spacer"></span>
+                <span>蓄積された審美眼とAIの演算能力を同期させ、</span><br>
+                <span>時代に流されない本質的な価値を構築します。</span>
+            </p>
+        </section>
+
+        <section class="about-section">
+            <h2>Strategy</h2>
+            <p>
+                <strong><span>Minimalist Logic. Maximum Impact.</span></strong>
+                <span>不要な要素を削ぎ落とし、ブランドが持つ</span><br>
+                <span>「真の記号（SYNCODE）」を抽出すること。</span>
+                <span class="spacer"></span>
+                <span>熟練の直感による「判断」と、AIによる</span><br>
+                <span>「具現化」を高度に同期させ、ビジネスに</span><br>
+                <span>静かな、しかし確かな熱量をもたらします。</span>
+            </p>
+        </section>
+    </div>
+</BaseLayout>

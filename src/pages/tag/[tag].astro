@@ -1,0 +1,117 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+
+export async function getStaticPaths() {
+    const allArticles = await getCollection("articles");
+    
+    // Get unique tags and normalize them (lowercase for URL)
+    const tags = [...new Set(allArticles.flatMap(article => article.data.tags || []).filter(Boolean))];
+    
+    return tags.map(tag => {
+        if (!tag) return null;
+        const filteredArticles = allArticles.filter(article => article.data.tags?.includes(tag))
+            .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+            
+        return {
+            params: { tag: tag.toLowerCase() },
+            props: { tag, articles: filteredArticles }
+        };
+    });
+}
+
+const { tag, articles } = Astro.props;
+---
+
+<BaseLayout title={`${tag} - タグ一覧`}>
+    <div class="archive-header">
+        <div class="section-title-wrapper-tag">
+            <span class="tag-label-top">Tag</span>
+            <h1 class="section-title-tag">{tag}</h1>
+        </div>
+    </div>
+
+    <div class="article-grid">
+        {
+            articles.map((article) => (
+                <ArticleCard article={article} variant="standard" />
+            ))
+        }
+    </div>
+    
+    <div class="archive-footer">
+        <a href="/" class="back-link">TOPページに戻る</a>
+    </div>
+</BaseLayout>
+
+<style>
+    .archive-header {
+        text-align: center;
+        margin-bottom: 80px;
+    }
+
+    .section-title-wrapper-tag {
+        display: inline-block;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .tag-label-top {
+        display: block;
+        font-size: 0.75rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        margin-bottom: 12px;
+    }
+
+    .section-title-tag {
+        font-size: 2.2rem;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        color: #000;
+    }
+
+    .article-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 60px 40px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 1024px) {
+        .article-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 640px) {
+        .article-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .archive-footer {
+        text-align: center;
+        margin-top: 100px;
+        padding-top: 40px;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    .back-link {
+        display: inline-block;
+        padding: 12px 32px;
+        background: #000;
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 700;
+        transition: background 0.3s ease;
+    }
+
+    .back-link:hover {
+        background: #333;
+    }
+</style>

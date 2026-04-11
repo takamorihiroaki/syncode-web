@@ -1,0 +1,255 @@
+---
+import Category from "./Category.astro";
+import Tag from "./Tag.astro";
+
+interface Props {
+  article: any;
+  variant?: 'premium' | 'standard';
+  step?: number;
+  topLabel?: string;
+}
+
+const { article, variant = 'standard', step, topLabel } = Astro.props;
+
+// カテゴリに応じたアクセントカラー
+const getCategoryColor = (category: string) => {
+  switch (category) {
+    case 'AI戦略': return '#0099ff';
+    case 'AIツール': return '#00d1b2';
+    case '技術検証': return '#ffdd57';
+    case 'SEO': return '#ff3860';
+    default: return '#333';
+  }
+};
+
+const categoryColor = getCategoryColor(article.data.category || '');
+---
+
+<article class={`article-card ${variant}`}>
+  <a href={`/articles/${article.id}/`} class="card-link">
+    <div class="thumbnail-wrapper">
+      <img
+        src={article.data.image}
+        alt={`${article.data.title}のサムネイル`}
+        loading="lazy"
+      />
+      
+      {variant === 'premium' && step && (
+        <div class="step-badge">
+          <span class="step-text">STEP</span>
+          <span class="step-num">{step}</span>
+        </div>
+      )}
+      
+      {variant === 'premium' && (
+        <div class="corner-marker"></div>
+      )}
+    </div>
+
+    <div class="card-content">
+      {variant === 'premium' ? (
+        <div class="premium-meta">
+          <div class="story-chronicle">STORY CHRONICLE</div>
+          <div class="volume-label">{article.data.label || `VOLUME ${step}`}</div>
+          <h3 class="card-title">{article.data.title}</h3>
+          <p class="card-excerpt">{article.data.excerpt}</p>
+        </div>
+      ) : (
+        <div class="standard-meta">
+          {topLabel && <div class="top-label">{topLabel}</div>}
+          <div class="category-wrapper">
+            <span class="category-name">{article.data.category}</span>
+            <div class="category-line" style={`background-color: ${categoryColor};`}></div>
+          </div>
+          <time class="post-date">
+            {article.data.date
+              .toLocaleDateString("ja-JP", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })
+              .replace(/\//g, ".")}
+          </time>
+          <h3 class="card-title">{article.data.title}</h3>
+          <p class="card-excerpt">{article.data.excerpt}</p>
+          
+          {article.data.tags && article.data.tags.length > 0 && (
+            <div class="tag-list">
+              {article.data.tags.slice(0, 3).map((tag: string) => <Tag name={tag} />)}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  </a>
+</article>
+
+<style>
+  .article-card {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .thumbnail-wrapper {
+    position: relative;
+    aspect-ratio: 1 / 1 !important; /* 絶対の正方形 */
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: #f0f0f0;
+    border: 1px solid #f0f0f0;
+  }
+
+  .premium .thumbnail-wrapper {
+    background: #111;
+    border-color: #222;
+  }
+
+  .thumbnail-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .article-card:hover .thumbnail-wrapper img {
+    transform: scale(1.05);
+  }
+
+  /* Premium (Documentary) styles */
+  .premium .story-chronicle {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #1a88ff;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+
+  .premium .volume-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #b8860b;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .premium .card-title {
+    color: #fff;
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+  }
+
+  .premium .card-excerpt {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+  }
+
+  /* Standard styles */
+  .standard-meta {
+    text-align: left;
+  }
+
+  .category-wrapper {
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .category-name {
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: #333;
+    letter-spacing: 0.1em;
+  }
+
+  .category-line {
+    height: 2px;
+    margin-top: 4px;
+    width: 100%;
+  }
+
+  .post-date {
+    display: block;
+    font-size: 0.75rem;
+    color: #999;
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  .top-label {
+    font-size: 0.65rem;
+    font-weight: 900;
+    color: #1a88ff;
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .standard .card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    color: #2c2c2c;
+  }
+
+  .standard .card-excerpt {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 20px;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* UI Decorations */
+  .step-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #000;
+    color: #fff;
+    padding: 6px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid #1a88ff;
+    border-left: 1px solid #1a88ff;
+    z-index: 10;
+  }
+
+  .step-text {
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    color: #1a88ff;
+  }
+
+  .step-num {
+    font-size: 0.9rem;
+    font-weight: 900;
+  }
+
+  .corner-marker {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    border-top: 2px solid #1a88ff;
+    border-left: 2px solid #1a88ff;
+    opacity: 0.8;
+  }
+
+  /* Hover states */
+  .article-card:hover .card-title {
+    color: #0099ff !important;
+  }
+</style>

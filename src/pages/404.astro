@@ -1,0 +1,129 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="404: NOT FOUND | SYNCODE" description="Requested signal not found. Back to SYNCODE Home.">
+    <div class="error-container">
+        <div class="error-visual">
+            <div class="noise-bg"></div>
+            <span class="error-code">404</span>
+        </div>
+        
+        <div class="error-content">
+            <span class="status-label">Access Denied</span>
+            <h1 class="error-title">DESTINATION NOT FOUND</h1>
+            <p class="error-desc">
+                リクエストされた信号を同期できませんでした。<br>
+                指定されたアドレスに誤りがあるか、<br>
+                あるいはその情報は別の次元へ移動した可能性があります。
+            </p>
+            
+            <div class="action-wrap">
+                <a href="/" class="home-link">
+                    <span class="link-label">System Recovery</span>
+                    <span class="link-text">RETURN TO HOME</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+    .error-container {
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .error-visual {
+        position: relative;
+        margin-bottom: 60px;
+    }
+
+    .error-code {
+        font-size: 8rem;
+        font-weight: 900;
+        letter-spacing: 0.2em;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
+        display: block;
+        line-height: 1;
+    }
+
+    .status-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: #b8860b; /* アクセントカラー */
+        display: block;
+        margin-bottom: 24px;
+    }
+
+    .error-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        margin-bottom: 32px;
+        color: var(--color-text);
+    }
+
+    .error-desc {
+        font-size: 14.4px;
+        line-height: 2.2;
+        color: var(--color-text-light);
+        margin-bottom: 60px;
+        letter-spacing: 0.05em;
+    }
+
+    .action-wrap {
+        margin-top: 40px;
+    }
+
+    .home-link {
+        text-decoration: none;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        transition: opacity 0.3s ease;
+    }
+
+    .home-link:hover {
+        opacity: 0.6;
+    }
+
+    .link-label {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #999;
+    }
+
+    .link-text {
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.25em;
+        color: var(--color-text);
+        padding-bottom: 4px;
+        border-bottom: 1px solid var(--color-text);
+    }
+
+    /* モバイル対応 */
+    @media (max-width: 768px) {
+        .error-code {
+            font-size: 5rem;
+        }
+        .error-title {
+            font-size: 1.4rem;
+        }
+        .error-desc {
+            font-size: 13px;
+        }
+    }
+</style>

@@ -1,0 +1,108 @@
+---
+interface Props {
+    tag?: string;
+    title: string;
+    buttonText?: string;
+    buttonLink?: string;
+}
+
+const { 
+    tag = "Recommendation", 
+    title, 
+    buttonText = "詳細を見る", 
+    buttonLink = "/tools/" 
+} = Astro.props;
+---
+
+<a href={buttonLink} class="cta-inline">
+    <div class="cta-inline__content">
+        <span class="cta-inline__tag">{tag}</span>
+        <p class="cta-inline__text">{title}</p>
+    </div>
+    <span class="cta-inline__link-mock">{buttonText}</span>
+</a>
+
+<style>
+    .cta-inline {
+        margin: 48px auto;
+        padding: 24px 32px;
+        background: #ffffff;
+        border: 1px solid #f0f0f0;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        max-width: 100%;
+        width: 100%;
+        text-decoration: none !important; /* リンク装飾の強制削除 */
+        color: inherit !important;
+    }
+
+    .cta-inline:hover {
+        border-color: #e5e5e5;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .cta-inline__content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        text-align: left;
+    }
+
+    .cta-inline__tag {
+        font-size: 0.65rem;
+        font-weight: bold;
+        color: #b8860b;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        display: inline-block;
+    }
+
+    .cta-inline__text {
+        margin: 0 !important;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+        line-height: 1.5;
+    }
+
+    .cta-inline__link-mock {
+        white-space: nowrap;
+        background: #1a1a1a;
+        color: #fff !important;
+        padding: 12px 28px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cta-inline:hover .cta-inline__link-mock {
+        background: #333;
+        transform: scale(1.04);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* モバイル対応：縦並び */
+    @media (max-width: 640px) {
+        .cta-inline {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 24px;
+            gap: 20px;
+        }
+        
+        .cta-inline__link-mock {
+            width: 100%;
+            text-align: center;
+            padding: 14px;
+        }
+    }
+</style>

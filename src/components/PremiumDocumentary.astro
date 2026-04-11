@@ -1,0 +1,166 @@
+---
+import { getCollection } from "astro:content";
+import ArticleCard from "./ArticleCard.astro";
+
+const seriesIds = [
+  'ga4-analysis-discovery',
+  'ga4-sync-technical-guide',
+  'ai-collaboration-ip-filter',
+  'data-driven-seo-optimization'
+];
+
+const allArticles = await getCollection("articles");
+const seriesArticles = seriesIds
+  .map(id => allArticles.find(a => a.id === id))
+  .filter(Boolean);
+---
+
+<section class="premium-documentary">
+  <div class="documentary-header">
+    <span class="sub-label">SPECIAL DOCUMENTARY</span>
+    <h2 class="series-title">【全4回】AIエージェント共創実録：GA4分析からSEO改善まで</h2>
+    <p class="series-desc">
+      分析から課題発見、そしてAIとの共同作業でサイトを成長させていく軌跡を、全4回のストーリーでまとめました。
+    </p>
+  </div>
+
+  <div class="documentary-grid">
+    {seriesArticles.map((article, index) => (
+      <ArticleCard article={article} variant="premium" step={index + 1} />
+    ))}
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-inner">
+      <a href="#" class="filter-item active">ALL</a>
+      <a href="#" class="filter-item">AI戦略</a>
+      <a href="#" class="filter-item">AIツール</a>
+      <a href="#" class="filter-item">技術検証</a>
+      <a href="#" class="filter-item">自動化</a>
+      <div class="sub-filter">
+          <a href="#" class="filter-item secondary">効率化テクニック</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .premium-documentary {
+    background: #000;
+    padding: 100px 0 80px;
+    margin: 60px calc(50% - 50vw);
+    width: 100vw;
+    position: relative;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  .documentary-header {
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .sub-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #b8860b;
+    letter-spacing: 0.4em;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #b8860b;
+    padding-bottom: 4px;
+  }
+
+  .series-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .series-desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.8;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .documentary-grid {
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  @media (max-width: 1024px) {
+    .documentary-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px 30px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .documentary-grid {
+      grid-template-columns: 1fr;
+    }
+    .series-title {
+      font-size: 1.6rem;
+    }
+  }
+
+  /* Filter Bar Style */
+  .filter-bar {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 40px;
+  }
+
+  .filter-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  .filter-item {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    position: relative;
+    padding-bottom: 8px;
+    transition: color 0.3s ease;
+  }
+
+  .filter-item:hover, .filter-item.active {
+    color: #fff;
+  }
+
+  .filter-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #fff;
+  }
+
+  .sub-filter {
+      width: 100%;
+      text-align: center;
+      margin-top: 5px;
+  }
+
+  .filter-item.secondary {
+      font-size: 0.75rem;
+      color: #666;
+  }
+</style>

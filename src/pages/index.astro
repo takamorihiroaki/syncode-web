@@ -1,0 +1,170 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
+import PremiumDocumentary from "../components/PremiumDocumentary.astro";
+import ArticleCard from "../components/ArticleCard.astro";
+
+const allArticles = await getCollection("articles");
+// Sort by date descending
+const sortedArticles = allArticles.sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+// Documentaryで使用しているIDを除去してLatestを作成
+const documentaryIds = [
+  'ga4-analysis-discovery',
+  'ga4-sync-technical-guide',
+  'ai-collaboration-ip-filter',
+  'data-driven-seo-optimization'
+];
+
+// Essential Guidesの定義 (PDFのPOPULAR, GUIDE, ADVANCEDに対応)
+const essentialConfig = [
+  { id: 'seo-optimization-with-ai', label: 'POPULAR' },
+  { id: 'antigravity-start', label: 'GUIDE' },
+  { id: 'antigravity-browser-control-guide', label: 'ADVANCED' }
+];
+
+const essentialArticles = essentialConfig
+    .map(config => {
+      const article = allArticles.find(a => a.id === config.id);
+      return article ? { ...article, topLabel: config.label } : null;
+    })
+    .filter(Boolean);
+
+const latestArticles = sortedArticles
+    .filter(article => !documentaryIds.includes(article.id) && !essentialConfig.some(c => c.id === article.id))
+    .slice(0, 9);
+---
+
+<BaseLayout 
+    title="SYNCODE | AI・Antigravityを使いこなすための実践技術ブログ"
+    description="AIエージェントAntigravityと共に歩む、ブログ制作と収益化の記録。ディレクトリ構成の最適化からSEO、自動化技術まで、AI共創の最前線を技術ブログとして公開。"
+>
+    <!-- ヒーローセクション (PDF Page 1) -->
+    <Hero />
+
+    <!-- ドキュメンタリーセクション -->
+    <PremiumDocumentary />
+
+    <div class="content-sections">
+        <!-- Essential Guides -->
+        <section class="home-section essential">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Essential Guides</h2>
+            </div>
+            <div class="essential-grid">
+                {essentialArticles.map(item => (
+                    <ArticleCard article={item} variant="standard" topLabel={item.topLabel} />
+                ))}
+            </div>
+        </section>
+
+        <!-- Latest Articles -->
+        <section class="home-section latest">
+            <div class="section-title-wrapper">
+                <h2 class="section-title">Latest Articles</h2>
+                <a href="/articles" class="view-all">View Library →</a>
+            </div>
+            <div class="latest-grid">
+                {latestArticles.map(article => (
+                    <ArticleCard article={article} variant="standard" />
+                ))}
+            </div>
+            
+            <div class="pagination-mock">
+                <a href="/articles" class="more-link">もっと見る →</a>
+            </div>
+        </section>
+    </div>
+</BaseLayout>
+
+<style>
+    .content-sections {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 5%;
+    }
+
+    .home-section {
+        margin-bottom: 100px;
+    }
+
+    .section-title-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+    }
+
+    .view-all {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #999;
+        text-decoration: none;
+    }
+
+    .view-all:hover {
+        color: #333;
+    }
+
+    /* Essential Grid - 3 columns */
+    .essential-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+    }
+
+    /* Latest Grid - 3rd columns */
+    .latest-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 60px 40px;
+    }
+
+    @media (max-width: 900px) {
+        .essential-grid {
+            grid-template-columns: 1fr;
+        }
+        .latest-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .latest-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .pagination-mock {
+        text-align: center;
+        margin-top: 60px;
+    }
+
+    .more-link {
+        display: inline-block;
+        font-size: 0.9rem;
+        font-weight: 700;
+        padding: 12px 40px;
+        border: 1px solid #eee;
+        color: #666;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .more-link:hover {
+        background: #fafafa;
+        border-color: #ddd;
+        color: #333;
+    }
+</style>

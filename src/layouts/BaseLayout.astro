@@ -1,0 +1,370 @@
+---
+import "../styles/global.css";
+
+interface Props {
+    title: string;
+    description?: string;
+    image?: string;
+    isArticle?: boolean;
+    publishDate?: Date;
+    updatedDate?: Date;
+}
+
+const {
+    title,
+    description = "AntigravityなどのAIエージェントを実践で使いこなすためのノウハウやエラー解決法を記録する技術ブログです。",
+    image = "/assets/series-vol1-square.png",
+    isArticle = false,
+    publishDate,
+    updatedDate,
+} = Astro.props;
+
+const { pathname } = Astro.url;
+const siteUrl = Astro.site?.toString() || "https://syncode.jp";
+const canonicalURL = new URL(pathname, siteUrl);
+const ogImageURL = new URL(image, siteUrl);
+
+// JSON-LD (Structured Data)
+const ldJson: any = {
+    "@context": "https://schema.org",
+};
+
+if (isArticle) {
+    ldJson["@type"] = "BlogPosting";
+    ldJson["headline"] = title;
+    ldJson["description"] = description;
+    ldJson["image"] = [ogImageURL.toString()];
+    ldJson["datePublished"] = publishDate ? publishDate.toISOString() : undefined;
+    ldJson["dateModified"] = updatedDate ? updatedDate.toISOString() : (publishDate ? publishDate.toISOString() : undefined);
+    ldJson["author"] = {
+        "@type": "Organization",
+        "name": "SYNCODE",
+        "url": siteUrl
+    };
+    ldJson["publisher"] = {
+        "@type": "Organization",
+        "name": "SYNCODE",
+        "logo": {
+            "@type": "ImageObject",
+            "url": new URL("/assets/series-vol1-square.png", siteUrl).toString()
+        }
+    };
+} else {
+    ldJson["@type"] = "WebSite";
+    ldJson["name"] = "SYNCODE";
+    ldJson["url"] = siteUrl;
+    ldJson["description"] = description;
+    ldJson["publisher"] = {
+        "@type": "Organization",
+        "name": "SYNCODE",
+        "logo": {
+            "@type": "ImageObject",
+            "url": new URL("/assets/series-vol1-square.png", siteUrl).toString()
+        }
+    };
+}
+
+// Breadcrumb List
+const breadcrumbLdJson = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "TOP",
+            "item": siteUrl
+        },
+        ...(isArticle ? [{
+            "@type": "ListItem",
+            "position": 2,
+            "name": title,
+            "item": canonicalURL.toString()
+        }] : [])
+    ]
+};
+---
+
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="google-site-verification"
+            content="876TBT0pVAHypmR5TeZih86wuOn1IRKM_Rphyfno6WA"
+        />
+        <link rel="canonical" href={canonicalURL} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content={isArticle ? "article" : "website"} />
+        <meta property="og:url" content={canonicalURL} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={ogImageURL} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="ja_JP" />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={canonicalURL} />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content={ogImageURL} />
+
+        <!-- Structured Data -->
+        <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
+        <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLdJson)} />
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SE8GNFY6EM"></script>
+        <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SE8GNFY6EM');
+        </script>
+    </head>
+    <body id="top">
+        <header class="site-header">
+            <div class="header-inner">
+                <h1 class="logo"><a href="/">SYNCODE</a></h1>
+                <nav class="main-nav">
+                    <ul>
+                        <li>
+                            <a href="/" class={pathname === "/" ? "active" : ""}
+                                >TOP</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/about/"
+                                class={pathname.startsWith("/about")
+                                    ? "active"
+                                    : ""}>ABOUT</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/works/"
+                                class={pathname.startsWith("/works")
+                                    ? "active"
+                                    : ""}>WORK</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="/tools/"
+                                class={pathname.startsWith("/tools")
+                                    ? "active"
+                                    : ""}>TOOLS</a
+                            >
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- スクロール固定時のレイアウトずれを防ぐスペーサー -->
+        <div id="header-spacer" style="height: 0;"></div>
+
+        <main class={`site-main ${isArticle ? "article-page" : ""}`}>
+            <slot />
+        </main>
+
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <div class="footer-logo">SYNCODE</div>
+                <ul class="footer-links">
+                    <li><a href="#">X (Twitter)</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">RSS</a></li>
+                </ul>
+                <p class="copyright">&copy; 2026 SYNCODE.</p>
+            </div>
+        </footer>
+
+        <!-- Back to Top Button -->
+        <button
+            id="back-to-top"
+            class="back-to-top"
+            aria-label="ページトップへ戻る">TOP</button
+        >
+
+        <script>
+            const header = document.querySelector('.site-header') as HTMLElement | null;
+            const spacer = document.getElementById('header-spacer');
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            // --- Sticky header ---
+            const SCROLL_THRESHOLD = 80;
+
+            function updateHeader() {
+                if (!header || !spacer) return;
+                if (window.scrollY > SCROLL_THRESHOLD) {
+                    header.classList.add('is-scrolled');
+                    spacer.style.height = header.offsetHeight + 'px';
+                } else {
+                    header.classList.remove('is-scrolled');
+                    spacer.style.height = '0px';
+                }
+            }
+
+            window.addEventListener('scroll', updateHeader, { passive: true });
+            updateHeader(); // 初期状態にも適用
+
+            // --- Back to Top ---
+            if (backToTopBtn) {
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                }, { passive: true });
+            }
+        </script>
+
+        <style is:global>
+            /* ===== ヘッダー：通常状態 ===== */
+            .site-header {
+                padding: 60px 0 40px !important;
+                text-align: center !important;
+                background: #fff !important;
+                transition: box-shadow 0.3s ease;
+                position: relative;
+                z-index: 100;
+                display: block !important; /* flexによる横並びを阻止 */
+            }
+
+            .site-header .header-inner {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 0 !important;
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 0 5%;
+            }
+
+            .site-header .logo {
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size: 1.4rem !important;
+                font-weight: bold !important;
+                letter-spacing: 0.12em !important;
+                margin-bottom: 30px !important;
+                transition: all 0.3s ease;
+            }
+
+            /* ===== ヘッダー：スクロール後（固定状態） ===== */
+            .site-header.is-scrolled {
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                padding: 0 !important;
+                background: rgba(255, 255, 255, 0.98) !important;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border-bottom: 1px solid #f0f0f0;
+                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+            }
+
+            .site-header.is-scrolled .header-inner {
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                height: 60px !important;
+                gap: 0 !important;
+            }
+
+            .site-header.is-scrolled .logo {
+                font-size: 1.1rem !important;
+                margin-bottom: 0 !important;
+                flex-shrink: 0;
+            }
+
+            /* ===== ナビゲーション共通 ===== */
+            .main-nav ul {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 12px !important;
+                padding: 0;
+                margin: 0;
+                list-style: none;
+            }
+
+            .main-nav a {
+                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                font-size: 0.75rem !important;
+                text-transform: uppercase;
+                letter-spacing: 0.15em !important;
+                color: #999 !important;
+                display: inline-block;
+                padding: 6px 14px;
+                border-radius: 4px;
+                background-color: transparent;
+                transition: all 0.3s ease;
+                text-decoration: none;
+            }
+
+            .main-nav a:hover {
+                color: #333 !important;
+                background-color: #fafafa;
+            }
+
+            .main-nav a.active {
+                background-color: #f7f7f7;
+                color: #2c2c2c !important;
+                font-weight: bold;
+            }
+
+            /* スクロール後はナビの文字をやや小さく */
+            .site-header.is-scrolled .main-nav a {
+                padding: 6px 10px;
+                font-size: 0.7rem !important;
+            }
+
+            /* スマホ（iPhone 13 mini等）でのナビゲーションはみ出し対策 */
+            @media (max-width: 480px) {
+                .site-header {
+                    padding: 40px 0 30px !important;
+                }
+                .site-header .logo {
+                    font-size: 1.3rem !important;
+                    margin-bottom: 20px !important;
+                }
+                .main-nav a {
+                    font-size: 0.7rem !important;
+                    padding: 6px 6px;
+                    letter-spacing: 0.05em !important;
+                }
+                .site-header.is-scrolled .header-inner {
+                    padding: 0 3% !important;
+                }
+                .site-header.is-scrolled .logo {
+                    font-size: 0.9rem !important;
+                }
+                .site-header.is-scrolled .main-nav a {
+                    font-size: 0.65rem !important;
+                    padding: 6px 4px;
+                    letter-spacing: 0.02em !important;
+                }
+            }
+        </style>
+    </body>
+</html>

@@ -1,0 +1,305 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+    title="WORKS | SYNCODE"
+    description="SYNCODEの制作実績とディレクション・ポートフォリオ。AIとの共創によって具現化された、論理的かつミニマルな設計思想の実例を公開。"
+>
+    <style>
+        .works-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 20px 160px;
+            color: var(--color-text);
+            /* 極限の制約: 10.8pt / Tracking 80 */
+            font-size: 14.4px; 
+            letter-spacing: 0.08em; 
+            line-height: 2.0;
+        }
+
+        /* プロジェクト間の巨大な余白による「静寂」の演出 */
+        .project-item {
+            margin-bottom: 240px;
+        }
+
+        .project-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* アイキャッチ（ビジュアル）部分 */
+        .project-visual {
+            margin-bottom: 60px;
+            overflow: hidden;
+            background-color: #f8f8f8; /* 画像がない場合のプレースホルダー色 */
+            aspect-ratio: 1 / 1;
+        }
+
+        .project-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(10%) contrast(105%); /* 少し無機質なトーンに調整 */
+            transition: transform 1.2s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .project-visual:hover img {
+            transform: scale(1.03);
+        }
+
+        /* プロジェクト概要ヘッダー */
+        .project-header {
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 50px;
+            margin-bottom: 60px;
+        }
+
+        /* 見出しも14.4pxを維持し、太字と大文字でのみ差別化 */
+        .project-header h2 { 
+            font-size: 14.4px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            margin-bottom: 20px; 
+            color: var(--color-text);
+        }
+        
+        .project-num { 
+            color: #bbb; 
+            font-weight: 400; 
+            margin-right: 20px; 
+            letter-spacing: 0.15em;
+        }
+
+        /* ロジック（内容）セクション */
+        .logic-section {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .logic-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .logic-section .label { 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            color: var(--color-text-light); 
+            font-size: 13px; /* ラベルのみわずかに縮小し構造を明確化 */
+            letter-spacing: 0.15em;
+            padding-top: 4px;
+        }
+        
+        .logic-section .content p { 
+            margin: 0; 
+            font-size: 14.4px;
+        }
+        
+        .logic-section p span { 
+            display: inline-block; 
+        }
+
+        .spacer { 
+            display: block; 
+            height: 16px; 
+        }
+
+        /* スマートフォン向け最適化 */
+        @media (max-width: 768px) {
+            .works-container {
+                padding: 40px 20px 120px;
+            }
+            .project-item {
+                margin-bottom: 160px;
+            }
+            .logic-section { 
+                grid-template-columns: 1fr; 
+                gap: 16px; 
+                margin-bottom: 60px;
+            }
+            .logic-section .label {
+                padding-top: 0;
+                border-bottom: 1px solid var(--color-border);
+                padding-bottom: 8px;
+                margin-bottom: 8px;
+                display: inline-block;
+            }
+            .logic-section p span { 
+                display: inline; 
+            }
+            .project-visual {
+                aspect-ratio: 1 / 1;
+            }
+        }
+    </style>
+
+    <div class="works-container">
+        
+        <!-- PROJECT 01 -->
+        <article class="project-item">
+            <div class="project-visual">
+                <!-- アセットの抽象的な画像を使用（静寂感を表現） -->
+                <img src="/assets/quiet_morning.png" alt="Project 01 Visual" loading="lazy" />
+            </div>
+            
+            <div class="project-info">
+                <header class="project-header">
+                    <h2><span class="project-num">01</span><span>Identity Reconstruction: SYNCODE</span></h2>
+                    <p>
+                        <span>蓄積された直感とAIの演算能力を同期させる、</span><br>
+                        <span>ブランド再起動のプロセス。</span>
+                    </p>
+                </header>
+
+                <div class="logic-wrap">
+                    <section class="logic-section">
+                        <div class="label">Challenge</div>
+                        <div class="content">
+                            <p>
+                                <span>氾濫する情報の中からブランドの本質（記号）を抽出し、</span><br>
+                                <span>変化の激しい市場環境においても揺らぐことのない</span><br>
+                                <span>強固な視覚的秩序を再構築すること。</span>
+                            </p>
+                        </div>
+                    </section>
+
+                    <section class="logic-section">
+                        <div class="label">Logic</div>
+                        <div class="content">
+                            <p>
+                                <span>長年培われたディレクションの知見が導き出す「確信」と、</span><br>
+                                <span>AIによる多角的な解析を高度に同期。</span><br>
+                                <span>主観を排し、徹底した論理に基づきノイズを削ぎ落とす。</span>
+                            </p>
+                            <span class="spacer"></span>
+                            <p>
+                                <span>10.8pt / Tracking 80 という極限の制約を設けることで、</span><br>
+                                <span>タイポグラフィの緊張感を最大化させ、</span><br>
+                                <span>「静寂の中に宿る熱量」を視覚化するプロセス。</span>
+                            </p>
+                        </div>
+                    </section>
+
+                    <section class="logic-section">
+                        <div class="label">Result</div>
+                        <div class="content">
+                            <p>
+                                <span>思考の純度を極限まで高めた、SYNCODEの具現化。</span><br>
+                                <span>過去の形式に捉われず、最新の技術を独自の規範で統制し、</span><br>
+                                <span>永続的な価値を持つアイデンティティを創出した。</span>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROJECT 02 -->
+        <article class="project-item">
+            <div class="project-visual">
+                <!-- 抽象画像 -->
+                <img src="/assets/img1.png" alt="Project 02 Visual" loading="lazy" />
+            </div>
+            
+            <div class="project-info">
+                <header class="project-header">
+                    <h2><span class="project-num">02</span><span>System Architecture & Engineering</span></h2>
+                    <p>
+                        <span>Astroを採用した超高速かつミニマルなブログシステムの構築。</span><br>
+                        <span>静的な美しさと動的な機能性を両立させる緻密な設計。</span>
+                    </p>
+                </header>
+
+                <div class="logic-wrap">
+                    <section class="logic-section">
+                        <div class="label">Challenge</div>
+                        <div class="content">
+                            <p>
+                                <span>デザインの意図（審美眼）を一切損なうことなく、</span><br>
+                                <span>技術的基盤（システム）へと変換する過程で生じる</span><br>
+                                <span>ノイズと制約をいかに排除し適応させるか。</span>
+                            </p>
+                        </div>
+                    </section>
+
+                    <section class="logic-section">
+                        <div class="label">Logic</div>
+                        <div class="content">
+                            <p>
+                                <span>静的に構築されたHTMLから、Content Collectionsを活用した</span><br>
+                                <span>動的Markdownレンダリングへとシームレスに移行。</span><br>
+                                <span>過剰なスクリプトを排除し、無駄のない強固なルーティングを設計。</span>
+                            </p>
+                        </div>
+                    </section>
+
+                    <section class="logic-section">
+                        <div class="label">Result</div>
+                        <div class="content">
+                            <p>
+                                <span>一切の遅延を感じさせない超高速な描画性能と、</span><br>
+                                <span>複雑化を拒むミニマリズムのシステム的具現化。</span><br>
+                                <span>デザイン哲学がそのまま息づく、恒久的なメディア基盤の完成。</span>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </article>
+
+        <!-- PROJECT 03 -->
+        <article class="project-item">
+            <div class="project-visual">
+                <!-- ミニマル思考を表現する画像 -->
+                <img src="/assets/minimal_thinking.png" alt="Project 03 Visual" loading="lazy" />
+            </div>
+            
+            <div class="project-info">
+                <header class="project-header">
+                    <h2><span class="project-num">03</span><span>AI Co-Creation Process</span></h2>
+                    <p>
+                        <span>AI機能（Antigravity）との対話・同期によって生成された、</span><br>
+                        <span>新たなメディア戦略と運用スキーム。</span>
+                    </p>
+                </header>
+
+                <div class="logic-wrap">
+                    <section class="logic-section">
+                        <div class="label">Challenge</div>
+                        <div class="content">
+                            <p>
+                                <span>従来の「ツールとしてのAI」という枠組みを超え、</span><br>
+                                <span>独自の感性と高度な演算をいかに並走させ、</span><br>
+                                <span>一つの統制されたブランド世界（SYNCODE）へと昇華させるか。</span>
+                            </p>
+                        </div>
+                    </section>
+
+                    <section class="logic-section">
+                        <div class="label">Logic</div>
+                        <div class="content">
+                            <p>
+                                <span>プロンプトによる一方向の指示ではなく、論理の対話を構築。</span><br>
+                                <span>生じたエラーをシステムからの応答として捉え直し、</span><br>
+                                <span>相互に理解を深めながら自動出力システムを共創する。</span>
+                            </p>
+                        </div>
+                    </section>
+
+                    <section class="logic-section">
+                        <div class="label">Result</div>
+                        <div class="content">
+                            <p>
+                                <span>人間の美意識とAIの技術が完全に「同期」した状態の達成。</span><br>
+                                <span>構想からシステム統合までの圧倒的な加速と、</span><br>
+                                <span>次なるクリエイティブの可能性を提示する運用モデルの確立。</span>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</BaseLayout>

@@ -1,0 +1,332 @@
+---
+import { getCollection } from 'astro:content';
+
+// シリーズの最初の数記事を取得
+const allArticles = await getCollection('articles');
+const seriesArticles = allArticles
+  .filter(a => a.data.series === "AI Collaboration Story" && a.data.seriesOrder <= 3)
+  .sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
+---
+
+<section class="featured-series">
+  <div class="series-header">
+    <div class="header-line"></div>
+    <span class="series-label">Featured Story</span>
+    <h2 class="series-main-title">AI Collaboration Chronicles</h2>
+    <p class="series-description">
+      AIとの対話、物理的な破綻、そして再構築。SYNCODEが辿った深淵なる記録を、第1章から追体験する。
+    </p>
+  </div>
+
+  <div class="series-grid">
+    {seriesArticles.map((article) => (
+      <a href={`/articles/${article.id}/`} class="series-card">
+        <div class="card-image-wrapper">
+          <div class="card-image">
+            <img src={article.data.image} alt="" loading="lazy" />
+            <div class="card-order">Vol.{String(article.data.seriesOrder).padStart(2, '0')}</div>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title">{article.data.title}</h3>
+          <p class="card-excerpt">{article.data.excerpt}</p>
+          <span class="card-more">Read Story</span>
+        </div>
+      </a>
+    ))}
+  </div>
+  
+  <div class="series-footer">
+    <div class="footer-divider"></div>
+    <a href="/articles/post-1/" class="series-start-btn">
+      <span>連載を最初から読む</span>
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .featured-series {
+    margin: 120px -150px; /* 800px + 150px*2 = 1100px でヘッダー幅と完全一致 */
+    width: auto;
+    background: #111; /* トップページと完全に一致 */
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 4px;
+    padding: 100px 60px;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  /* 内部コンテンツの配置調整 */
+  .series-header,
+  .series-grid,
+  .series-footer {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  .series-header {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .header-line {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    margin: 0 auto 40px;
+  }
+
+  .series-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.6em;
+    color: #b8860b; /* トップページと完全に一致 */
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .series-main-title {
+    font-size: 2.2rem;
+    font-weight: 700; /* トップページと完全に一致 */
+    margin-bottom: 24px;
+    color: #fff;
+    line-height: 1.3;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .series-description {
+    font-size: 0.95rem;
+    color: #ccc; /* トップページと完全に一致 */
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+  }
+
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 2;
+  }
+  .series-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card-image-wrapper {
+    position: relative;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .card-image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: #000;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: border-color 0.4s ease;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .series-card:hover .card-image img {
+    transform: scale(1.06);
+  }
+
+  .series-card:hover .card-image {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .card-order {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #fff;
+    color: #000;
+    padding: 6px 14px;
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    z-index: 3;
+  }
+
+  .card-content {
+    text-align: left;
+  }
+
+  .card-title {
+    font-size: 1.05rem; /* トップページと完全に一致 */
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #fff;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    transition: color 0.3s ease;
+  }
+
+  .series-card:hover .card-title {
+    color: #fff;
+  }
+
+  .card-excerpt {
+    font-size: 0.85rem;
+    color: #ccc; /* トップページと完全に一致 */
+    line-height: 1.6;
+    margin-bottom: 24px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-more {
+    font-size: 0.7rem;
+    color: #aaaaaa;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .card-more::after {
+    content: "";
+    width: 16px;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.3s ease, background 0.3s ease;
+  }
+
+  .series-card:hover .card-more {
+    color: #fff;
+  }
+
+  .series-card:hover .card-more::after {
+    width: 32px;
+    background: #fff;
+  }
+
+  .series-footer {
+    text-align: center;
+    margin-top: 60px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    margin-bottom: 60px;
+  }
+
+  .series-start-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 48px;
+    background: transparent;
+    color: #ffffff; /* ボタンの文字を純白に */
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.6); /* 境界線をさらに強調 */
+    font-size: 0.75rem;
+    font-weight: 600; /* ウェイトを上げ、視認性を最大化 */
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .series-start-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+  .series-start-btn:hover {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .series-start-btn:hover svg {
+    transform: translateX(6px);
+  }
+
+  /* Media Queries */
+  @media (max-width: 1100px) {
+    .featured-series {
+      margin: 80px 0; /* ネガティブマージンを解除して親コンテナ内に収める */
+      padding: 80px 32px;
+      border-radius: 0; /* モバイルでは端まで背景を広げるため角丸を無効化 */
+      width: 100%;
+    }
+    .series-grid {
+      gap: 32px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .featured-series {
+      margin: 60px 0;
+      padding: 60px 24px;
+    }
+    .series-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .series-main-title {
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+    }
+    .series-description {
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .card-title {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .featured-series {
+      padding: 48px 20px;
+    }
+    .series-main-title {
+      font-size: 1.3rem;
+    }
+    .series-description {
+      font-size: 0.85rem;
+    }
+    .series-start-btn {
+      width: 100%;
+      padding: 16px 20px;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+  }
+</style>

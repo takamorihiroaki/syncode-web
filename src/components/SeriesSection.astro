@@ -1,0 +1,185 @@
+---
+import { getCollection } from "astro:content";
+
+const articles = await getCollection("articles");
+const seriesIds = [
+  "site-reform-ch1-showcase-library",
+  "site-reform-ch2-ui-minimalism",
+  "site-reform-ch3-technical-seo",
+  "site-reform-ch4-ai-autonomy-recap"
+];
+
+const seriesArticles = seriesIds
+  .map(id => articles.find(a => a.id === id))
+  .filter(Boolean);
+---
+
+<section class="series-section">
+  <div class="series-header">
+    <div class="header-inner">
+      <span class="series-tag">Documentary Series</span>
+      <h2 class="series-title">SYNCODE 構造改革の全記録</h2>
+      <p class="series-desc">
+        分析から課題発見、そしてAIとの共同作業でサイトを成長させていく軌跡を、全4回のストーリーでまとめました。
+      </p>
+    </div>
+  </div>
+
+  <div class="series-timeline">
+    {seriesArticles.map((article, index) => (
+      <a href={`/articles/${article.id}/`} class="series-item">
+        <div class="item-visual">
+          <img src={article.data.image} alt={article.data.title} />
+        </div>
+        <div class="item-content">
+          <h3 class="item-title">{article.data.title}</h3>
+          <p class="item-excerpt">{article.data.excerpt}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .series-section {
+    padding: 80px 0;
+    background: #000;
+    color: #fff;
+    margin: 60px calc(50% - 50vw);
+    width: 100vw;
+    position: relative;
+    left: 0;
+  }
+
+  .header-inner {
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .series-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: #0099ff;
+    margin-bottom: 20px;
+    border: 1px solid #0099ff;
+    padding: 4px 12px;
+  }
+
+  .series-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .series-desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .series-timeline {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .series-timeline {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px 20px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .series-timeline {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .series-item {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+
+  .series-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .item-visual {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid #222;
+  }
+
+  .item-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .series-item:hover .item-visual img {
+    transform: scale(1.1);
+  }
+
+  .item-number {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #0099ff;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .item-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: #888;
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+
+  .item-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .item-excerpt {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

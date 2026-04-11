@@ -1,0 +1,252 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FeaturedSeries from "../../components/FeaturedSeries.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import Tag from "../../components/Tag.astro";
+import Category from "../../components/Category.astro";
+
+const allArticles = await getCollection("articles");
+const sortedArticles = allArticles.sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+// 連続記事（シリーズ）の特定
+const seriesGroups: Record<string, { name: string; articles: any[] }> = {};
+allArticles.forEach(article => {
+    if (article.data.series) {
+        if (!seriesGroups[article.data.series]) {
+            seriesGroups[article.data.series] = { name: article.data.series, articles: [] };
+        }
+        seriesGroups[article.data.series].articles.push(article);
+    }
+});
+
+// 各シリーズ内でのソート
+Object.values(seriesGroups).forEach(group => {
+    group.articles.sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
+});
+
+// カテゴリーごとのグルーピング（シリーズ以外）
+const categoryGroups: Record<string, any[]> = {};
+allArticles.forEach(article => {
+    if (!article.data.series) {
+        const cat = article.data.category || "Uncategorized";
+        if (!categoryGroups[cat]) categoryGroups[cat] = [];
+        categoryGroups[cat].push(article);
+    }
+});
+---
+
+<BaseLayout title="Library - SYNCODE 技術と変革の全記録">
+    <FeaturedSeries />
+
+    <div class="archive-container">
+        <div class="section-title-wrapper">
+            <h1 class="section-title">The Library</h1>
+            <p class="section-subtitle">体系化された技術、思考、そして進化の全記録</p>
+        </div>
+
+        {/* シリーズセクション */}
+        <div class="archive-segment">
+            <h2 class="segment-title">Documentation Packages</h2>
+            {Object.values(seriesGroups).map(group => (
+                <div class="series-package">
+                    <div class="package-header">
+                        <span class="package-count">全{group.articles.length}話</span>
+                        <h3 class="package-title">{group.name}</h3>
+                    </div>
+                    <div class="package-grid">
+                        {group.articles.map((article) => (
+                             <ArticleCard article={article} variant="standard" />
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        {/* カテゴリー別セクション */}
+        <div class="archive-segment">
+            <h2 class="segment-title">Knowledge Clusters</h2>
+            <div class="category-grid">
+                {Object.keys(categoryGroups).map(category => (
+                    <div class="category-group">
+                        <h3 class="category-group-name">{category}</h3>
+                        <div class="article-compact-list">
+                            {categoryGroups[category].map(article => (
+                                <a href={`/articles/${article.id}/`} class="compact-article">
+                                    <span class="article-date">
+                                        {article.data.date.toLocaleDateString("ja-JP", {
+                                            month: "2-digit",
+                                            day: "2-digit",
+                                        }).replace(/\//g, ".")}
+                                    </span>
+                                    <span class="article-dot">•</span>
+                                    <span class="article-title">{article.data.title}</span>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+    .archive-container {
+        padding: 60px 0;
+    }
+
+    .section-title-wrapper {
+        margin-bottom: 60px;
+        text-align: center;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        margin-bottom: 10px;
+    }
+
+    .section-subtitle {
+        color: #888;
+        font-size: 1.1rem;
+    }
+
+    .archive-segment {
+        margin-bottom: 80px;
+    }
+
+    .segment-title {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.4em;
+        color: #0099ff;
+        margin-bottom: 40px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* シリーズパッケージ */
+    .series-package {
+        background: #fafafa;
+        border: 1px solid #eee;
+        padding: 40px;
+        margin-bottom: 40px;
+    }
+
+    .package-header {
+        margin-bottom: 30px;
+    }
+
+    .package-count {
+        font-size: 0.7rem;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .package-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+        margin-top: 5px;
+    }
+
+    .package-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+    }
+
+    .package-item {
+        text-decoration: none;
+        color: #000;
+        transition: transform 0.3s ease;
+    }
+
+    .package-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .item-visual {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+    }
+
+    .item-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .item-index {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #000;
+        color: #fff;
+        font-size: 0.6rem;
+        padding: 2px 6px;
+        font-weight: 700;
+    }
+
+    .item-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    /* ナレッジクラスター */
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 40px;
+    }
+
+    .category-group-name {
+        font-size: 1.2rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        padding-left: 10px;
+        border-left: 4px solid #000;
+    }
+
+    .article-compact-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .compact-article {
+        text-decoration: none;
+        color: #444;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: flex-start;
+        transition: color 0.2s ease;
+    }
+
+    .compact-article:hover {
+        color: #0099ff;
+    }
+
+    .article-date {
+        font-family: monospace;
+        color: #AAA;
+        margin-right: 10px;
+    }
+
+    .article-dot {
+        margin-right: 10px;
+        color: #EEE;
+    }
+
+    .article-title {
+        line-height: 1.4;
+    }
+</style>

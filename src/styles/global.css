@@ -1,0 +1,642 @@
+/* Custom properties for consistency and premium feel */
+:root {
+    --color-text: #2c2c2c;
+    --color-text-light: #888888;
+    --color-bg: #ffffff;
+    --color-border: #f0f0f0;
+    --color-accent: #333333;
+    /* Added for tags/categories */
+    --font-primary: 'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+/* Reset basics */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.8;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Layout containers */
+.site-main,
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 5%; /* ヘッダーと合わせる */
+}
+
+/* Header styling is now handled in BaseLayout.astro to prevent conflicts */
+
+/* Main content */
+.site-main {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+.article-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+}
+
+/* Post styling */
+.post {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-thumb {
+    display: block;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.post-thumb img {
+    width: 100%;
+    aspect-ratio: 1 / 1 !important; /* 正方形を強制 */
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.post-thumb:hover img {
+    transform: scale(1.04);
+}
+
+.post-date {
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    font-weight: 400;
+}
+
+.post-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+}
+
+.post-excerpt {
+    font-size: 14.4px;
+    /* Strictly 10.8pt */
+    color: var(--color-text-light);
+    line-height: 1.8;
+    letter-spacing: 0.08em;
+    /* Tracking 80 */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 3;
+}
+
+/* Responsive grid */
+@media (min-width: 768px) {
+    /* Layout adjustments moved to components where appropriate */
+
+    .article-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 100px 50px;
+        /* Increased vertical and horizontal gaps */
+    }
+
+    .post-title {
+        font-size: 1.0rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .article-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 140px 60px;
+        /* Massively increased gap for breathing room with two rows */
+    }
+}
+
+/* Footer styling */
+.site-footer {
+    padding: 80px 0 60px;
+    border-top: 1px solid var(--color-border);
+}
+
+.footer-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.footer-logo {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    font-weight: bold;
+}
+
+.footer-links {
+    display: flex;
+    gap: 28px;
+}
+
+.footer-links a {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-light);
+}
+
+.copyright {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    margin-top: 24px;
+    letter-spacing: 0.05em;
+}
+
+/* Single Article Styling */
+
+.article-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.article-date {
+    display: block;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+}
+
+.article-title {
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.015em;
+    margin-bottom: 8px;
+}
+
+.article-eyecatch {
+    margin-bottom: 50px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.article-eyecatch img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.article-content {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--color-text);
+    letter-spacing: 0.03em;
+}
+
+.article-content p {
+    margin-bottom: 32px;
+}
+
+.article-content h2 {
+    font-size: 1.35rem;
+    font-weight: 400;
+    margin: 60px 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+@media (min-width: 768px) {
+    .article-title {
+        font-size: 2.2rem;
+    }
+}
+
+/* TOP Button */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background-color: #2c2c2c;
+    /* ダークグレー */
+    color: #ffffff;
+    padding: 12px 24px;
+    font-size: 0.8rem;
+    font-family: var(--font-primary);
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    z-index: 999;
+    transition: opacity var(--transition-speed) ease, background-color var(--transition-speed) ease;
+
+    /* フェードイン・アウトのための初期状態 */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.back-to-top:hover {
+    background-color: #444444;
+    opacity: 0.8;
+}
+
+/* 新着情報 (Section Title) */
+.section-title-wrapper {
+    text-align: center;
+    margin: 80px auto 40px;
+    /* 余白を広めにとる */
+    border-bottom: 1px solid #e0e0e0;
+    /* コンテンツエリア全体幅の下線を引く */
+    padding-bottom: 20px;
+    /* テキストと下線の間の余白 */
+}
+
+.section-title {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    /* 文字間隔を少し広めに */
+    color: var(--color-text);
+}
+
+/* ===== 記事ページ 最適化（安定版） ===== */
+
+.site-main.article-page {
+    max-width: 800px; /* 本来の値に戻してモバイル表示を安定化 */
+}
+
+/* 本文エリア */
+.article-content {
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    letter-spacing: 0.03em;
+}
+
+/* 段落 */
+.article-content p {
+    margin-bottom: 1.8em;
+}
+
+/* 見出し */
+.article-content h2 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-top: 3em;
+    margin-bottom: 1.2em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.article-content h3 {
+    margin-top: 2.2em;
+    margin-bottom: 1em;
+}
+
+/* リスト（復活させる） */
+.article-content ul {
+    list-style: disc;
+    padding-left: 1.5em;
+    margin-bottom: 1.8em;
+}
+
+.article-content ol {
+    padding-left: 1.5em;
+    margin-bottom: 1.8em;
+}
+
+/* 区切り */
+.article-content hr {
+    margin: 3em 0;
+}
+
+/* 画像 */
+.article-content img {
+    margin: 2.5em 0;
+    border-radius: 6px;
+}
+
+/* 引用 */
+.article-content blockquote {
+    border-left: 3px solid #ddd;
+    padding-left: 1em;
+    color: #666;
+    margin: 2em 0;
+}
+
+/* コードブロック */
+.article-content pre {
+    background: #0d1117 !important;
+    /* GitHub Dark background */
+    color: #e6edf3 !important;
+    /* GitHub Dark text color */
+    padding: 1.5em;
+    overflow-x: auto;
+    margin: 2.5em 0;
+    border-radius: 8px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+/* インラインコード */
+.article-content code {
+    background: #f3f4f6;
+    color: #1f2937;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+/* コードブロック内のコード要素 */
+.article-content pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+}
+
+/* 太字の強調 */
+.article-content strong {
+    font-weight: 700;
+}
+
+/* ===== Tag & Category Styles ===== */
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.tag-item {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--color-text-light);
+    background-color: #f8f8f8;
+    padding: 3px 10px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-speed) ease;
+}
+
+.tag-item:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+    opacity: 1;
+}
+
+.category-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-accent);
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--color-accent);
+    padding-bottom: 2px;
+}
+
+.category-label:hover {
+    opacity: 0.7;
+}
+
+/* Filter Navigation */
+.filter-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 40px auto 60px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.filter-link {
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    position: relative;
+}
+
+.filter-link:hover,
+.filter-link.active {
+    color: var(--color-text);
+}
+
+.filter-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-text);
+}
+
+/* Hero CTA Buttons */
+.btn {
+    display: inline-block;
+    padding: 16px 32px;
+    margin: 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn.primary {
+    background: #1a1a1a;
+    color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1), 0 6px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #1a1a1a;
+}
+
+.btn.secondary {
+    border: 1px solid #e0e0e0;
+    color: #444;
+    background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    opacity: 1;
+}
+
+.btn.primary:hover {
+    background: #333;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.15), 0 10px 10px rgba(0, 0, 0, 0.08);
+}
+
+.btn.secondary:hover {
+    background: #fdfdfd;
+    border-color: #ccc;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* ===== 収益導線（CTAボックス）デザイン刷新 ===== */
+.cta-box {
+    margin: 60px 0;
+    padding: 40px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+    border: 1px solid #eee;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    text-align: center; /* センター揃えでボタン感を強調 */
+}
+
+.cta-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+    border-color: #ddd;
+}
+
+.cta-box p {
+    margin: 0 0 20px 0 !important;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: 0.05em;
+    text-transform: none; /* 大文字固定を解除 */
+}
+
+.cta-box a {
+    display: inline-block;
+    background: #1a1a1a;
+    color: #fff !important;
+    padding: 18px 48px;
+    border-radius: 50px; /* 丸みのあるボタン */
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.cta-box a:hover {
+    background: #333;
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+}
+
+/* マイクロコピー */
+.micro-copy {
+    display: block;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    font-weight: 400;
+}
+
+/* 状態別のアクセント */
+.cta-box.top { border-top: 4px solid #333; }
+.cta-box.middle { border-top: 4px solid #666; }
+.cta-box.bottom { border-top: 4px solid #b8860b; }
+
+/* ===== 比較表（Comparison Table）スタイル ===== */
+.comparison-table-wrapper {
+    overflow-x: auto;
+    margin: 40px 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #f0f0f0;
+}
+
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    min-width: 500px;
+}
+
+.comparison-table th, 
+.comparison-table td {
+    padding: 20px 15px;
+    border: 1px solid #f0f0f0;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.comparison-table th {
+    background-color: #fafafa;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.comparison-table .highlight {
+    background-color: #fffdf5;
+    font-weight: 700;
+}
+
+.comparison-table .check { color: #b8860b; font-weight: bold; }
+
+@media (max-width: 768px) {
+    .cta-box {
+        padding: 30px 20px;
+        margin: 40px 0;
+    }
+    .cta-box a {
+        padding: 14px 30px;
+        font-size: 1rem;
+        width: 100%;
+    }
+}
