@@ -4,55 +4,56 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import FeaturedSeries from "../../components/FeaturedSeries.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
 
+// 1. 全61記事を動的に取得
 const allArticles = await getCollection("articles");
 const sortedArticles = allArticles.sort(
     (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 
-// 連続記事（シリーズ）の特定
+// 2. 3本柱（Packages / Chronicles / Knowledge Base）への振り分け
+// PILLAR 1: Documentation Packages
 const seriesGroups: Record<string, { name: string; articles: any[] }> = {};
 allArticles.forEach(article => {
     if (article.data.series) {
-        if (!seriesGroups[article.data.series]) {
-            seriesGroups[article.data.series] = { name: article.data.series, articles: [] };
+        const seriesName = article.data.series;
+        if (!seriesGroups[seriesName]) {
+            seriesGroups[seriesName] = { name: seriesName, articles: [] };
         }
-        seriesGroups[article.data.series].articles.push(article);
+        seriesGroups[seriesName].articles.push(article);
     }
 });
-
-// 各シリーズ内でのソート
 Object.values(seriesGroups).forEach(group => {
     group.articles.sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
 });
 
-// カテゴリーごとのグルーピング（シリーズ以外）
+// PILLAR 2: SYSTEM CHRONICLES
+const chronicles = allArticles
+    .filter(a => a.data.category === "開発実録" || a.id.startsWith("log-"))
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+// PILLAR 3: KNOWLEDGE BASE
+const knowledgeArticles = allArticles.filter(a => 
+    !a.data.series && 
+    a.data.category !== "開発実録" && 
+    !a.id.startsWith("log-")
+);
+
 const categoryGroups: Record<string, any[]> = {};
-allArticles.forEach(article => {
-    if (!article.data.series) {
-        const cat = article.data.category || "Uncategorized";
-        if (!categoryGroups[cat]) categoryGroups[cat] = [];
-        categoryGroups[cat].push(article);
-    }
+knowledgeArticles.forEach(article => {
+    const cat = article.data.category || "Uncategorized";
+    if (!categoryGroups[cat]) categoryGroups[cat] = [];
+    categoryGroups[cat].push(article);
 });
 
-// システム開発履歴（Milestones）の定義
-const systemLogs = [
-    { title: "Library構造の定義と1カラム型アーカイブの完成", date: "2026.04.11", id: "4687c7fc", slug: "site-reform-ch1-showcase-library" },
-    { title: "Heroセクションにおけるマーカーハイライト演出の実装", date: "2026.04.11", id: "948f3486", slug: "log-948f3486" },
-    { title: "Gitバージョン管理体制の構築と安全性の確保", date: "2026.04.11", id: "8c983a58", slug: "log-8c983a58" },
-    { title: "3D Blueprintアセットの復元とTrue Northへの回帰", date: "2026.04.11", id: "718e7c4a", slug: "log-718e7c4a" },
-    { title: "連載第1章の執筆とドキュメンタリー性の強調", date: "2026.04.10", id: "cd776ec2", slug: "log-cd776ec2" },
-    { title: "記事メタデータの標準化と全43記事の整合性修復", date: "2026.04.10", id: "bbacc58c", slug: "log-bbacc58c" },
-    { title: "SVGベースのサムネイル管理システムの試作と検証", date: "2026.04.10", id: "6da351fc", slug: "log-6da351fc" },
-    { title: "Astroコンテンツコレクションのスキーマ最適化", date: "2026.04.10", id: "daade84c", slug: "log-daade84c" },
-    { title: "Zenn等の外部メディア・コンテンツの統合と回遊性強化", date: "2026.04.10", id: "07dc1449", slug: "log-07dc1449" },
-    { title: "大規模MDXマイグレーションと画像パスの健全化", date: "2026.04.10", id: "45772e74", slug: "log-45772e74" },
-    { title: "GA4データとの同期による実証的コンテンツ解析", date: "2026.04.09", id: "9b261e62", slug: "ga4-analysis-discovery" },
-    { title: "検索コンソール同期とSEOインデックスの自動最適化", date: "2026.04.09", id: "620961b1", slug: "search-console-ai-sync-case-study" },
-    { title: "人間とAIの共創ドキュメントの構造化", date: "2026.04.09", id: "5436195c", slug: "log-5436195c" },
-    { title: "モバイル環境におけるヘッダーレイアウトのレスポンス修正", date: "2026.04.09", id: "815c7164", slug: "log-815c7164" },
-    { title: "AIエージェントによる文脈に即したテキストの磨き上げ", date: "2026.04.09", id: "178074af", slug: "log-178074af" }
-];
+// カテゴリーの表示順序を定義
+const categoryOrder = ["マーケティング", "AIツール", "AI戦略", "テクノロジー", "技術検証"];
+const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
+    const indexA = categoryOrder.indexOf(a);
+    const indexB = categoryOrder.indexOf(b);
+    if (indexA === -1) return 1;
+    if (indexB === -1) return -1;
+    return indexA - indexB;
+});
 ---
 
 <BaseLayout title="Library - SYNCODE 技術と変革の全記録">
@@ -64,13 +65,13 @@ const systemLogs = [
 
         <FeaturedSeries />
 
-        {/* 1. DOCUMENTATION PACKAGES */}
+        {/* --- PILLAR 1: DOCUMENTATION PACKAGES --- */}
         <div class="archive-segment">
-            <h2 class="segment-title">Documentation Packages</h2>
+            <h2 class="segment-title">DOCUMENTATION PACKAGES</h2>
             {Object.values(seriesGroups).map(group => (
                 <div class="series-package">
                     <div class="package-header">
-                        <span class="package-count">全{group.articles.length}話</span>
+                        <span class="package-count">全 {group.articles.length} 記事</span>
                         <h3 class="package-title">{group.name}</h3>
                     </div>
                     <div class="package-grid">
@@ -82,209 +83,217 @@ const systemLogs = [
             ))}
         </div>
 
-        {/* 2. SYSTEM CHRONICLES */}
+        {/* --- PILLAR 2: SYSTEM CHRONICLES (日付のみの純化) --- */}
         <div class="archive-segment">
             <h2 class="segment-title">SYSTEM CHRONICLES</h2>
             <div class="logs-container">
-                {systemLogs.map(log => (
-                    <a href={`/articles/${log.slug}/`} class="log-entry">
+                {chronicles.map(log => (
+                    <a href={`/articles/${log.id}/`} class="log-entry">
                         <div class="log-meta">
-                            <span class="log-date">{log.date}</span>
-                            <span class="log-id">#{log.id}</span>
+                            <span class="log-date">
+                                {log.data.date.toLocaleDateString("ja-JP", {
+                                    year: "numeric", month: "2-digit", day: "2-digit"
+                                }).replace(/\//g, ".")}
+                            </span>
                         </div>
                         <div class="log-content">
-                            <h3 class="log-title">{log.title}</h3>
+                            <h3 class="log-title">{log.data.title}</h3>
                         </div>
                     </a>
                 ))}
             </div>
         </div>
 
-        {/* 3. KNOWLEDGE BASE */}
+        {/* --- PILLAR 3: KNOWLEDGE BASE (1-Column List by Category) --- */}
         <div class="archive-segment">
             <h2 class="segment-title">KNOWLEDGE BASE</h2>
-            <div class="category-grid">
-                {Object.keys(categoryGroups).map(category => (
-                    <div class="category-group">
-                        <h3 class="category-group-name">
-                            <span class="category-text">{category}</span>
-                            <span class="category-line"></span>
-                        </h3>
+            {
+                sortedCategories.map(category => (
+                    <div class="category-group-section" key={category}>
+                        <div class="category-header">
+                            <h3 class="category-group-name">
+                                <span class="category-text">{category}</span>
+                                <span class="category-line"></span>
+                            </h3>
+                        </div>
                         <div class="article-compact-list">
-                            {categoryGroups[category].map(article => (
-                                <a href={`/articles/${article.id}/`} class="compact-article">
+                            {categoryGroups[category].sort((a,b) => b.data.date - a.data.date).map(article => (
+                                <a href={`/articles/${article.id}/`} class="compact-article" key={article.id}>
                                     <div class="article-meta-area">
                                         <span class="article-date">
                                             {article.data.date.toLocaleDateString("ja-JP", {
-                                                month: "2-digit",
-                                                day: "2-digit",
+                                                year: "numeric", month: "2-digit", day: "2-digit"
                                             }).replace(/\//g, ".")}
                                         </span>
                                     </div>
-                                    <span class="article-title">{article.data.title}</span>
+                                    <h3 class="article-title">{article.data.title}</h3>
                                 </a>
                             ))}
                         </div>
                     </div>
-                ))}
-            </div>
+                ))
+            }
         </div>
     </div>
 </BaseLayout>
 
 <style>
     .archive-container {
-        padding: 80px 0;
+        padding: 100px 0;
     }
 
     .section-title-wrapper {
-        margin-bottom: 80px;
+        margin-bottom: 120px;
         text-align: center;
     }
 
     .section-title {
         font-size: 3.8rem;
         font-weight: 900;
-        letter-spacing: -0.03em;
-        margin-bottom: 10px;
+        letter-spacing: -0.04em;
+        margin-bottom: 20px;
+        color: #000;
     }
 
     .section-subtitle {
         color: #888;
-        font-size: 1.1rem;
+        font-size: 14.4px; /* 10.8pt */
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
     }
 
     .archive-segment {
-        margin-bottom: 120px;
+        margin-bottom: 180px;
+        max-width: 1200px; /* 全体のベースを一律に */
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 40px;
     }
 
     .segment-title {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         text-transform: uppercase;
-        letter-spacing: 0.4em;
+        letter-spacing: 0.6em;
         color: #1a1a1a;
-        margin-bottom: 60px;
+        margin-bottom: 80px;
         text-align: center;
+        opacity: 0.6;
     }
 
-    /* シリーズパッケージ */
+    /* Package Grid (Documentation) */
     .series-package {
-        background: #fff;
-        padding: 0;
-        margin-bottom: 80px;
-        max-width: 1100px;
-        margin-left: auto;
-        margin-right: auto;
+        margin-bottom: 120px;
     }
 
     .package-header {
-        margin-bottom: 40px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #f0f0f0;
+        margin-bottom: 60px;
     }
 
     .package-count {
-        font-size: 0.75rem;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-size: 14.4px; /* 10.8pt */
         color: #bbb;
+        letter-spacing: 0.08em; /* Tracking 80 */
         text-transform: uppercase;
-        letter-spacing: 0.1em;
     }
 
     .package-title {
-        font-size: 1.6rem;
-        font-weight: 800;
-        margin-top: 5px;
+        font-size: 2.2rem;
+        font-weight: 900;
+        margin-top: 10px;
+        letter-spacing: -0.02em;
     }
 
     .package-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 40px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 60px 40px;
     }
 
     /* 
     ========================================
-    1カラム・ミニマリズム・リスト (Chronicles & Knowledge)
+    UNIFIED LIST DESIGN (Chronicles & Knowledge)
     ========================================
     */
     .logs-container,
-    .category-grid {
-        max-width: 900px;
-        margin: 0 auto;
+    .article-compact-list {
         display: flex;
         flex-direction: column;
-        gap: 0;
     }
 
     .log-entry,
     .compact-article {
         display: flex;
         align-items: flex-start;
-        padding: 60px 0; /* 豊かな余白 */
-        border-bottom: none; /* 境界線を廃止 */
-        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        padding: 80px 0; /* 掟：80pxの余白 */
         text-decoration: none;
         color: inherit;
+        border-bottom: none; /* 境界線を完全排除 */
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     .log-entry:hover,
     .compact-article:hover {
-        transform: translateX(20px);
+        transform: translateX(30px);
     }
 
-    /* メタデータ領域 (10.8pt / Tracking 80) */
+    /* 
+     * 掟：10.8pt / Tracking 80 の日付のみ
+     */
     .log-meta,
     .article-meta-area {
-        min-width: 140px;
+        min-width: 140px; /* 日付のみに合わせて最適化 */
         display: flex;
         flex-direction: column;
-        gap: 4px;
-        margin-right: 60px;
-        padding-top: 15px; /* タイトルの重心に合わせる */
+        padding-top: 1.25rem; /* タイトルの重心に一直線に揃える */
     }
 
     .log-date,
-    .article-date,
-    .log-id {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    .article-date {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
         font-size: 14.4px; /* 10.8pt */
         color: #bbb;
         letter-spacing: 0.08em; /* Tracking 80 */
-        font-weight: 400;
         text-transform: uppercase;
+        font-weight: 400;
     }
 
-    /* 極大タイトル (3.8rem / 900) */
+    /* 
+     * 掟：タイトルの極大化 (3.8rem / 900)
+     */
     .log-title,
     .article-title {
-        font-size: clamp(1.8rem, 5vw, 3.8rem);
+        font-size: clamp(1.8rem, 8vw, 3.8rem);
         font-weight: 900;
-        line-height: 1.1;
+        line-height: 1.05;
         color: #1a1a1a;
-        letter-spacing: -0.04em;
+        letter-spacing: -0.05em;
         margin: 0;
         word-break: break-word;
     }
 
-    /* KNOWLEDGE BASE 特定スタイル */
-    .category-group {
-        width: 100%;
-        margin-bottom: 100px;
+    /* --- KNOWLEDGE BASE Specific --- */
+    .category-group-section {
+        margin-bottom: 120px;
+    }
+
+    .category-header {
+        margin-bottom: 20px;
     }
 
     .category-group-name {
-        margin-bottom: 40px;
         position: relative;
         display: inline-block;
-        padding-bottom: 10px;
+        padding-bottom: 12px;
     }
 
     .category-text {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
         font-weight: 900;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.5em;
         text-transform: uppercase;
         color: #000;
+        padding-left: 0.5em;
     }
 
     .category-line {
@@ -292,51 +301,24 @@ const systemLogs = [
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 4px; /* 厚みのある4pxライン */
-        background: #1a1a1a;
+        height: 4px; /* 掟：厚みのある4pxライン */
+        background: #000;
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
         .log-entry,
         .compact-article {
             flex-direction: column;
-            padding: 40px 0;
+            padding: 50px 0;
         }
         .log-meta,
         .article-meta-area {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.85rem;
-        color: #999;
-        font-weight: 500;
-    }
-
-    .log-id {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.65rem;
-        color: #ccc;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-    }
-
-    .log-title {
-        font-size: clamp(1rem, 2.5vw, 1.3rem);
-        font-weight: 700;
-        line-height: 1.5;
-        color: #1a1a1a;
-        letter-spacing: -0.01em;
-    }
-
-    @media (max-width: 600px) {
-        .log-entry {
-            flex-direction: column;
-            padding: 24px 10px;
+            min-width: auto;
+            margin-bottom: 20px;
+            padding-top: 0;
         }
-        .log-meta {
-            margin-right: 0;
-            margin-bottom: 12px;
-            flex-direction: row;
-            align-items: center;
-            gap: 15px;
+        .archive-segment {
+            padding: 0 24px;
         }
     }
 </style>
