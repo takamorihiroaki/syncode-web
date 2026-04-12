@@ -1,0 +1,15 @@
+- [ ] **1. インデックス登録の強制執行**
+    - [ ] `antigravity-start` のインデックス登録を再リクエスト
+    - [ ] `antigravity-browser-control-guide` のインデックス登録を再リクエスト
+- [ ] **2. 内部構造の再構築（信頼のブリッジ）**
+    - [ ] `antigravity-performance-fix` から未登録記事への内部リンク強化
+    - [ ] 既存記事の内部リンク整合性チェック
+- [ ] **3. メタデータの極限最適化（CTR向上）**
+    - [ ] `antigravity-performance-fix` のタイトルと excerpt 刷新
+    - [ ] `antigravity-start` のタイトルと excerpt 刷新
+- [ ] **4. ビジュアルの正方形同期（最終化）**
+    - [x] ターゲット記事のアイキャッチを最新アセットに刷新
+- [ ] **5. サチコ活用事例記事の極限刷新**
+    - [ ] `search-console-ai-sync-case-study` の数値アップデート（169 impressions等）
+    - [ ] 4/12のインデックス成功事例の追加
+    - [ ] 導線（CtaInline）を SUCCESS タグへ最適化

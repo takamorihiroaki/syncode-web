@@ -1,0 +1,8 @@
+- [x] 不要な記事ファイルの削除
+    - [x] `src/content/articles/antigravity-browser-control-guide-chatgpt.md`
+    - [x] `src/articles_backup/antigravity-browser-control-guide-chatgpt.md`
+- [x] 他の記事内のリンクを削除・整理
+    - [x] `src/content/articles/antigravity-browser-control-guide.md`
+    - [x] `src/articles_backup/antigravity-browser-control-guide.md`
+- [x] ブラウザでトップページを開き、一覧から消えていることを確認
+- [x] リンクを削除した記事のページを開き、表示に問題がないことを確認

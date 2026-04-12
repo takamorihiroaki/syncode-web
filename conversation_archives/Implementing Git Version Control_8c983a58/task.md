@@ -1,0 +1,6 @@
+- [x] Gitリポジトリの初期化 (`git init`)
+- [x] ユーザー情報の登録 (name, email)
+- [x] `.gitignore` の更新 (開発ログ、PDF、一時ファイルの除外)
+- [x] ファイルのステージング (`git add .`)
+- [x] 初回コミットの実行
+- [x] 状態の確認 (`git log`, `git status`)

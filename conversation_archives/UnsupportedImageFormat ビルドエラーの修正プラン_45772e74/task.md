@@ -1,0 +1,4 @@
+- [x] `task.md` の初期化
+- [x] `gemini-error-recap.mdx` のテキスト修正（エスケープ）
+- [x] `chapter-1.mdx` のテキスト修正（エスケープ）
+- [x] ビルドの再試行の依頼

@@ -1,0 +1,18 @@
+- [x] Special Documentary シリーズのサムネイル生成 (第1〜4章)
+    - [x] 第1章：ディレクトリ構成
+    - [x] 第2章：環境要因の切り分け
+    - [x] 第3章：情緒的ノイズ排除
+    - [x] 第4章：再構築アプローチ
+- [x] 目立つ不一致記事のサムネイル生成
+    - [x] GA4同期ガイド
+    - [x] ファイル添付・操作ガイド
+    - [x] サチコ（Search Console）同期ガイド
+- [x] 記事フロントマターの画像パス更新
+    - [x] chapter-1.mdx
+    - [x] chapter-2.mdx
+    - [x] chapter-3.mdx
+    - [x] chapter-4.mdx
+    - [x] ga4-sync-technical-guide.mdx
+    - [x] antigravity-file-ops-mastery.mdx
+    - [x] search-console-ai-sync-case-study.mdx
+- [x] ブラウザでの表示確認と微調整

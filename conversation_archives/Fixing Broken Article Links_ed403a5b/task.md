@@ -1,0 +1,10 @@
+- [ ] 出力ディレクトリ `conversation_archives/` の作成
+- [ ] タイトルマッピングの作成
+    - [ ] プロンプト履歴（10件）のマッピング
+    - [ ] その他のフォルダ（約35件）からのタイトル抽出試行
+- [ ] 各会話フォルダからのエクスポート実行
+    - [ ] implementation_plan.md のコピー
+    - [ ] walkthrough.md のコピー
+    - [ ] task.md のコピー
+    - [ ] browser/scratchpad_*.md のコピー
+- [ ] 完了確認とユーザーへの通知

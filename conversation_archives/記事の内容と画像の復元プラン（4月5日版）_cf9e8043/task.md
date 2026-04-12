@@ -1,0 +1,5 @@
+- [ ] `scripts/cms-repair/index.js` の修正（本文保護ロジックの改善）
+- [ ] バックアップからの復元と修復の実行 (`cp -r src/articles_backup/*.md src/content/articles/ && node scripts/cms-repair/index.js`)
+- [ ] Astro 同期 (`npx astro sync`)
+- [ ] 記事ファイル（antigravity-browser-control-guide.md）の本文が復元されているか確認
+- [ ] ブラウザでの表示確認

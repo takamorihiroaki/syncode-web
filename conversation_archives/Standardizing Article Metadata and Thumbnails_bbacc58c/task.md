@@ -1,0 +1,5 @@
+- [x] 修正プランの策定と承認
+- [ ] `src/components/FeaturedSeries.astro` の配色とタイポグラフィ修正
+- [ ] タイトルの重複削除とレイアウトの純化
+- [ ] `src/components/CtaNextBanner.astro` の彩度抑制とデザイン同期
+- [ ] 最終的な表示確認と検証

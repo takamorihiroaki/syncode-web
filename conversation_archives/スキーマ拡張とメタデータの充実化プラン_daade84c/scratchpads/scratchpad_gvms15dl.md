@@ -1,0 +1,4 @@
+- [x] Navigate to the article `antigravity-markdown-layout-break-fix-guide`.
+- [x] Locate the code blocks containing "## 手順" and "まずこれをやります".
+- [x] Verify that the text is clearly visible against the black background.
+- [x] Capture a screenshot of the improved visibility.
