@@ -92,7 +92,7 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
                         <div class="log-meta">
                             <span class="log-date">
                                 {log.data.date.toLocaleDateString("ja-JP", {
-                                    year: "numeric", month: "2-digit", day: "2-digit"
+                                    month: "2-digit", day: "2-digit"
                                 }).replace(/\//g, ".")}
                             </span>
                         </div>
@@ -122,7 +122,7 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
                                     <div class="article-meta-area">
                                         <span class="article-date">
                                             {article.data.date.toLocaleDateString("ja-JP", {
-                                                year: "numeric", month: "2-digit", day: "2-digit"
+                                                month: "2-digit", day: "2-digit"
                                             }).replace(/\//g, ".")}
                                         </span>
                                     </div>
@@ -145,6 +145,10 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
     .section-title-wrapper {
         margin-bottom: 120px;
         text-align: center;
+        background: #f8f8f8; /* 薄い色を復活 */
+        padding: 100px 0;
+        margin: -100px -80px 120px -80px;
+        border-radius: 4px;
     }
 
     .section-title {
@@ -174,15 +178,20 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.6em;
-        color: #1a1a1a;
-        margin-bottom: 80px;
-        text-align: center;
-        opacity: 0.6;
+        color: #0099ff; /* スカイブルー */
+        margin-bottom: 60px;
+        text-align: left;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #eee; /* 全幅の線 */
     }
 
     /* Package Grid (Documentation) */
     .series-package {
-        margin-bottom: 120px;
+        margin: 80px -80px 120px -80px; /* 横幅を広げてボックス化 */
+        background: #f8f8f8; /* 薄い色に修正 */
+        border: 1px solid #eee;
+        border-radius: 4px;
+        padding: 100px 80px;
     }
 
     .package-header {
@@ -202,11 +211,26 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
         font-weight: 900;
         margin-top: 10px;
         letter-spacing: -0.02em;
+        color: #1a1a1a; /* ダークカラーに戻す */
+    }
+
+    /* ボックス内のカードタイトルの色指定を標準に戻す */
+    .series-package .card-title {
+        color: #1a1a1a !important;
+    }
+    .series-package .category-name {
+        color: #333 !important;
+    }
+    .series-package .post-date {
+        color: #999 !important;
+    }
+    .series-package .card-excerpt {
+        color: #777 !important;
     }
 
     .package-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(3, 1fr); /* 3カラム固定 */
         gap: 60px 40px;
     }
 
@@ -224,17 +248,18 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
     .log-entry,
     .compact-article {
         display: flex;
-        align-items: flex-start;
-        padding: 80px 0; /* 掟：80pxの余白 */
+        align-items: flex-start; /* 極大タイトルに合わせて重心をトップに */
+        padding: 80px 0; /* 掟：極大タイトルに合わせた80pxの余白 */
         text-decoration: none;
         color: inherit;
-        border-bottom: none; /* 境界線を完全排除 */
-        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border-bottom: 1px solid #f5f5f5;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     .log-entry:hover,
     .compact-article:hover {
-        transform: translateX(30px);
+        transform: translateX(10px);
+        color: #0099ff;
     }
 
     /* 
@@ -242,10 +267,9 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
      */
     .log-meta,
     .article-meta-area {
-        min-width: 140px; /* 日付のみに合わせて最適化 */
+        min-width: 100px; /* 日付のみに合わせて最適化 */
         display: flex;
         flex-direction: column;
-        padding-top: 1.25rem; /* タイトルの重心に一直線に揃える */
     }
 
     .log-date,
@@ -263,7 +287,7 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
      */
     .log-title,
     .article-title {
-        font-size: clamp(1.8rem, 8vw, 3.8rem);
+        font-size: clamp(1.8rem, 8vw, 3.8rem); /* 掟：タイトルの極大化 */
         font-weight: 900;
         line-height: 1.05;
         color: #1a1a1a;
@@ -283,17 +307,17 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
 
     .category-group-name {
         position: relative;
-        display: inline-block;
-        padding-bottom: 12px;
+        display: block; /* 全幅にするため */
+        padding-bottom: 14px;
+        margin-top: 60px;
     }
 
     .category-text {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
         font-weight: 900;
-        letter-spacing: 0.5em;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: #000;
-        padding-left: 0.5em;
     }
 
     .category-line {
