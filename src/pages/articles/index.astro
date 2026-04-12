@@ -39,21 +39,21 @@ allArticles.forEach(article => {
 
 // システム開発履歴（Milestones）の定義
 const systemLogs = [
-    { title: "Library構造の定義と1カラム型アーカイブの完成", date: "2026.04.11", id: "4687c7fc" },
-    { title: "Heroセクションにおけるマーカーハイライト演出の実装", date: "2026.04.11", id: "948f3486" },
-    { title: "Gitバージョン管理体制の構築と安全性の確保", date: "2026.04.11", id: "8c983a58" },
-    { title: "3D Blueprintアセットの復元とTrue Northへの回帰", date: "2026.04.11", id: "718e7c4a" },
-    { title: "連載第1章の執筆とドキュメンタリー性の強調", date: "2026.04.10", id: "cd776ec2" },
-    { title: "記事メタデータの標準化と全43記事の整合性修復", date: "2026.04.10", id: "bbacc58c" },
-    { title: "SVGベースのサムネイル管理システムの試作と検証", date: "2026.04.10", id: "6da351fc" },
-    { title: "Astroコンテンツコレクションのスキーマ最適化", date: "2026.04.10", id: "daade84c" },
-    { title: "Zenn等の外部メディア・コンテンツの統合と回遊性強化", date: "2026.04.10", id: "07dc1449" },
-    { title: "大規模MDXマイグレーションと画像パスの健全化", date: "2026.04.10", id: "45772e74" },
-    { title: "GA4データとの同期による実証的コンテンツ解析", date: "2026.04.09", id: "9b261e62" },
-    { title: "検索コンソール同期とSEOインデックスの自動最適化", date: "2026.04.09", id: "620961b1" },
-    { title: "人間とAIの共創ドキュメントの構造化", date: "2026.04.09", id: "5436195c" },
-    { title: "モバイル環境におけるヘッダーレイアウトのレスポンス修正", date: "2026.04.09", id: "815c7164" },
-    { title: "AIエージェントによる文脈に即したテキストの磨き上げ", date: "2026.04.09", id: "178074af" }
+    { title: "Library構造の定義と1カラム型アーカイブの完成", date: "2026.04.11", id: "4687c7fc", slug: "site-reform-ch1-showcase-library" },
+    { title: "Heroセクションにおけるマーカーハイライト演出の実装", date: "2026.04.11", id: "948f3486", slug: "log-948f3486" },
+    { title: "Gitバージョン管理体制の構築と安全性の確保", date: "2026.04.11", id: "8c983a58", slug: "log-8c983a58" },
+    { title: "3D Blueprintアセットの復元とTrue Northへの回帰", date: "2026.04.11", id: "718e7c4a", slug: "log-718e7c4a" },
+    { title: "連載第1章の執筆とドキュメンタリー性の強調", date: "2026.04.10", id: "cd776ec2", slug: "log-cd776ec2" },
+    { title: "記事メタデータの標準化と全43記事の整合性修復", date: "2026.04.10", id: "bbacc58c", slug: "log-bbacc58c" },
+    { title: "SVGベースのサムネイル管理システムの試作と検証", date: "2026.04.10", id: "6da351fc", slug: "log-6da351fc" },
+    { title: "Astroコンテンツコレクションのスキーマ最適化", date: "2026.04.10", id: "daade84c", slug: "log-daade84c" },
+    { title: "Zenn等の外部メディア・コンテンツの統合と回遊性強化", date: "2026.04.10", id: "07dc1449", slug: "log-07dc1449" },
+    { title: "大規模MDXマイグレーションと画像パスの健全化", date: "2026.04.10", id: "45772e74", slug: "log-45772e74" },
+    { title: "GA4データとの同期による実証的コンテンツ解析", date: "2026.04.09", id: "9b261e62", slug: "ga4-analysis-discovery" },
+    { title: "検索コンソール同期とSEOインデックスの自動最適化", date: "2026.04.09", id: "620961b1", slug: "search-console-ai-sync-case-study" },
+    { title: "人間とAIの共創ドキュメントの構造化", date: "2026.04.09", id: "5436195c", slug: "log-5436195c" },
+    { title: "モバイル環境におけるヘッダーレイアウトのレスポンス修正", date: "2026.04.09", id: "815c7164", slug: "log-815c7164" },
+    { title: "AIエージェントによる文脈に即したテキストの磨き上げ", date: "2026.04.09", id: "178074af", slug: "log-178074af" }
 ];
 ---
 
@@ -91,7 +91,7 @@ const systemLogs = [
             <h2 class="segment-title">SYSTEM CHRONICLES</h2>
             <div class="logs-container">
                 {systemLogs.map(log => (
-                    <div class="log-entry">
+                    <a href={`/articles/${log.slug}/`} class="log-entry">
                         <div class="log-meta">
                             <span class="log-date">{log.date}</span>
                             <span class="log-id">#{log.id}</span>
@@ -99,10 +99,11 @@ const systemLogs = [
                         <div class="log-content">
                             <h3 class="log-title">{log.title}</h3>
                         </div>
-                    </div>
+                    </a>
                 ))}
             </div>
         </div>
+
 
         {/* カテゴリー別セクション */}
         <div class="archive-segment">
@@ -365,11 +366,14 @@ const systemLogs = [
         align-items: flex-start;
         padding: 30px 10px;
         border-bottom: 1px solid #f0f0f0;
-        transition: background 0.3s ease;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: inherit;
     }
 
     .log-entry:hover {
-        background: #fcfcfc;
+        background: #fdfdfd;
+        padding-left: 20px;
     }
 
     .log-meta {
