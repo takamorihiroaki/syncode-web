@@ -3,8 +3,6 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FeaturedSeries from "../../components/FeaturedSeries.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
-import Tag from "../../components/Tag.astro";
-import Category from "../../components/Category.astro";
 
 const allArticles = await getCollection("articles");
 const sortedArticles = allArticles.sort(
@@ -66,9 +64,7 @@ const systemLogs = [
 
         <FeaturedSeries />
 
-        {/* シリーズセクション */}
-
-        {/* シリーズセクション */}
+        {/* 1. DOCUMENTATION PACKAGES */}
         <div class="archive-segment">
             <h2 class="segment-title">Documentation Packages</h2>
             {Object.values(seriesGroups).map(group => (
@@ -86,7 +82,7 @@ const systemLogs = [
             ))}
         </div>
 
-        {/* システムログセクション */}
+        {/* 2. SYSTEM CHRONICLES */}
         <div class="archive-segment">
             <h2 class="segment-title">SYSTEM CHRONICLES</h2>
             <div class="logs-container">
@@ -104,8 +100,7 @@ const systemLogs = [
             </div>
         </div>
 
-
-        {/* カテゴリー別セクション */}
+        {/* 3. KNOWLEDGE BASE */}
         <div class="archive-segment">
             <h2 class="segment-title">KNOWLEDGE BASE</h2>
             <div class="category-grid">
@@ -147,12 +142,8 @@ const systemLogs = [
         text-align: center;
     }
 
-    .section-title-wrapper.top-title {
-        margin-bottom: 60px;
-    }
-
     .section-title {
-        font-size: 2.5rem;
+        font-size: 3.8rem;
         font-weight: 900;
         letter-spacing: -0.03em;
         margin-bottom: 10px;
@@ -164,37 +155,37 @@ const systemLogs = [
     }
 
     .archive-segment {
-        margin-bottom: 80px;
+        margin-bottom: 120px;
     }
 
     .segment-title {
         font-size: 0.8rem;
         text-transform: uppercase;
         letter-spacing: 0.4em;
-        color: #0099ff;
-        margin-bottom: 40px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #eee;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
+        color: #1a1a1a;
+        margin-bottom: 60px;
+        text-align: center;
     }
 
     /* シリーズパッケージ */
     .series-package {
-        background: #fafafa;
-        border: 1px solid #eee;
-        padding: 40px;
-        margin-bottom: 40px;
+        background: #fff;
+        padding: 0;
+        margin-bottom: 80px;
+        max-width: 1100px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .package-header {
-        margin-bottom: 30px;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
     }
 
     .package-count {
-        font-size: 0.7rem;
-        color: #888;
+        font-size: 0.75rem;
+        color: #bbb;
         text-transform: uppercase;
         letter-spacing: 0.1em;
     }
@@ -207,82 +198,92 @@ const systemLogs = [
 
     .package-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 20px;
-    }
-
-    .package-item {
-        text-decoration: none;
-        color: #000;
-        transition: transform 0.3s ease;
-    }
-
-    .package-item:hover {
-        transform: translateY(-5px);
-    }
-
-    .item-visual {
-        position: relative;
-        aspect-ratio: 1 / 1;
-        overflow: hidden;
-        margin-bottom: 15px;
-        border: 1px solid #eee;
-    }
-
-    .item-visual img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .item-index {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: #000;
-        color: #fff;
-        font-size: 0.6rem;
-        padding: 2px 6px;
-        font-weight: 700;
-    }
-
-    .item-title {
-        font-size: 0.95rem;
-        font-weight: 700;
-        line-height: 1.4;
-    }
-
-    /* ナレッジクラスター */
-    .category-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 40px;
     }
 
-    /* KNOWLEDGE BASE (1 Column Style) */
+    /* 
+    ========================================
+    1カラム・ミニマリズム・リスト (Chronicles & Knowledge)
+    ========================================
+    */
+    .logs-container,
     .category-grid {
+        max-width: 900px;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
-        gap: 100px;
-        max-width: 800px;
-        margin: 0 auto;
+        gap: 0;
     }
 
+    .log-entry,
+    .compact-article {
+        display: flex;
+        align-items: flex-start;
+        padding: 60px 0; /* 豊かな余白 */
+        border-bottom: none; /* 境界線を廃止 */
+        transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .log-entry:hover,
+    .compact-article:hover {
+        transform: translateX(20px);
+    }
+
+    /* メタデータ領域 (10.8pt / Tracking 80) */
+    .log-meta,
+    .article-meta-area {
+        min-width: 140px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-right: 60px;
+        padding-top: 15px; /* タイトルの重心に合わせる */
+    }
+
+    .log-date,
+    .article-date,
+    .log-id {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 14.4px; /* 10.8pt */
+        color: #bbb;
+        letter-spacing: 0.08em; /* Tracking 80 */
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+
+    /* 極大タイトル (3.8rem / 900) */
+    .log-title,
+    .article-title {
+        font-size: clamp(1.8rem, 5vw, 3.8rem);
+        font-weight: 900;
+        line-height: 1.1;
+        color: #1a1a1a;
+        letter-spacing: -0.04em;
+        margin: 0;
+        word-break: break-word;
+    }
+
+    /* KNOWLEDGE BASE 特定スタイル */
     .category-group {
         width: 100%;
+        margin-bottom: 100px;
     }
 
     .category-group-name {
-        margin-bottom: 30px;
+        margin-bottom: 40px;
         position: relative;
-        display: block;
-        padding-bottom: 8px;
+        display: inline-block;
+        padding-bottom: 10px;
     }
 
     .category-text {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         font-weight: 900;
-        letter-spacing: -0.01em;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
         color: #000;
     }
 
@@ -291,100 +292,18 @@ const systemLogs = [
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 4px;
+        height: 4px; /* 厚みのある4pxライン */
         background: #1a1a1a;
     }
 
-    .article-compact-list {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .compact-article {
-        text-decoration: none;
-        color: #333;
-        display: flex;
-        align-items: center;
-        padding: 24px 10px;
-        border-bottom: none;
-        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-        border-radius: 2px;
-    }
-
-    .compact-article:hover {
-        transform: translateX(15px);
-        color: #000;
-    }
-
-    .article-meta-area {
-        min-width: 80px;
-        margin-right: 30px;
-    }
-
-    .article-date {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 0.9rem;
-        color: #bbb;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-    }
-
-    .article-title {
-        font-size: clamp(1rem, 3vw, 1.9rem);
-        font-weight: 800;
-        line-height: 1.3;
-        letter-spacing: -0.02em;
-        word-break: break-word;
-    }
-
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
+        .log-entry,
         .compact-article {
             flex-direction: column;
-            align-items: flex-start;
-            padding: 20px 10px;
+            padding: 40px 0;
         }
+        .log-meta,
         .article-meta-area {
-            margin-bottom: 8px;
-        }
-        .article-title {
-            font-size: 1.2rem;
-        }
-    }
-
-    /* システムログのスタイル */
-    .logs-container {
-        max-width: 800px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-    }
-
-    .log-entry {
-        display: flex;
-        align-items: flex-start;
-        padding: 30px 10px;
-        border-bottom: 1px solid #f0f0f0;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .log-entry:hover {
-        background: #fdfdfd;
-        padding-left: 20px;
-    }
-
-    .log-meta {
-        min-width: 140px;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        margin-right: 40px;
-    }
-
-    .log-date {
         font-family: "JetBrains Mono", monospace;
         font-size: 0.85rem;
         color: #999;
