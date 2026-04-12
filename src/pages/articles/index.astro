@@ -159,10 +159,10 @@ sortedCategories.forEach(cat => {
     .section-title-wrapper {
         margin-bottom: 120px;
         text-align: center;
-        background: #f8f8f8; /* 薄い色を復活 */
-        padding: 120px 0;
-        margin: -100px -150px 120px -150px; /* 余白を広げてヘッダー幅と一致 */
-        border-radius: 4px;
+        background: none;
+        padding: 60px 0;
+        margin: 0;
+        border-bottom: 1px solid #eee;
     }
 
     .section-title {
@@ -181,31 +181,30 @@ sortedCategories.forEach(cat => {
     }
 
     .archive-segment {
-        margin-bottom: 180px;
-        max-width: 1100px; /* ヘッダー幅と完全一致 */
+        margin-bottom: 120px;
+        max-width: 1100px;
         margin-left: auto;
         margin-right: auto;
-        padding: 0; /* 内側のパディングを解除 */
     }
 
     .segment-title {
         font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 0.6em;
-        color: #0099ff; /* スカイブルー */
-        margin-bottom: 80px;
+        color: #0099ff;
+        margin-bottom: 60px;
         text-align: left;
         padding-bottom: 24px;
-        border-bottom: none; /* 線を撤廃 */
+        border-bottom: 1px solid #eee;
     }
 
     /* Package Grid (Documentation) */
     .series-package {
-        margin: 80px -150px 150px -150px; /* 横幅を広げてヘッダー幅と一致 */
-        background: #f8f8f8; /* 薄い色に修正 */
-        border: none; /* 境界線を撤廃しホワイトスペースで表現 */
+        margin: 60px 0 120px 0;
+        background: #f8f8f8;
+        border: 1px solid #eee;
         border-radius: 4px;
-        padding: 120px 150px;
+        padding: 100px 80px;
     }
 
     .package-header {
@@ -230,7 +229,7 @@ sortedCategories.forEach(cat => {
 
     /* ボックス内のカードタイトルの色指定 */
     .series-package .card-title {
-        color: #1a1a1a !important;
+        color: #333 !important;
     }
     .series-package .category-name {
         color: #333 !important;
@@ -263,18 +262,23 @@ sortedCategories.forEach(cat => {
     .compact-article {
         display: flex;
         align-items: flex-start;
-        padding: 60px 0; /* 線を消す代わりに、広めの余白で品格を担保 */
+        padding: 16px 0;
         text-decoration: none;
         color: inherit;
-        border-bottom: none; /* 線を完全に撤廃 */
+        border-bottom: none;
         transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
     .log-entry:hover,
     .compact-article:hover {
-        transform: translateX(10px);
-        color: #000; /* もっと黒くなる設定を適用 */
+        transform: translateX(15px);
+        color: #000;
         opacity: 1 !important;
+    }
+
+    .log-entry:hover .log-title,
+    .compact-article:hover .article-title {
+        color: #000 !important;
     }
 
     /* 
@@ -302,12 +306,13 @@ sortedCategories.forEach(cat => {
      */
     .log-title,
     .article-title {
-        font-size: clamp(1.8rem, 8vw, 3.8rem); /* 掟：タイトルの極大化 */
+        font-size: clamp(1.8rem, 8vw, 3.8rem);
         font-weight: 900;
         line-height: 1.05;
-        color: #1a1a1a;
+        color: #333;
         letter-spacing: -0.05em;
         margin: 0;
+        transition: color 0.3s ease;
         word-break: break-word;
     }
 
