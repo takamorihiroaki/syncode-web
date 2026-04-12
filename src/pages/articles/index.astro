@@ -11,7 +11,7 @@ const sortedArticles = allArticles.sort(
 );
 
 // 2. 3本柱（Packages / Chronicles / Knowledge Base）への振り分け
-// PILLAR 1: Documentation Packages
+// PILLAR 1: Documentation Packages (連載単位)
 const seriesGroups: Record<string, { name: string; articles: any[] }> = {};
 allArticles.forEach(article => {
     if (article.data.series) {
@@ -26,15 +26,24 @@ Object.values(seriesGroups).forEach(group => {
     group.articles.sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
 });
 
-// PILLAR 2: SYSTEM CHRONICLES
+// PILLAR 2: SYSTEM CHRONICLES (実録・ログの全リスト)
+// 掟：連載の一部であっても、カテゴリーが「開発実録」や「System Log」ならここに表示する
 const chronicles = allArticles
-    .filter(a => a.data.category === "開発実録" || a.id.startsWith("log-"))
+    .filter(a => 
+        a.data.category === "開発実録" || 
+        a.data.category === "System Log" || 
+        a.data.category === "System Chronicles" ||
+        a.id.startsWith("log-")
+    )
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// PILLAR 3: KNOWLEDGE BASE
+// PILLAR 3: KNOWLEDGE BASE (純粋なナレッジのみ)
+// 掟：連載記事およびPillar 2に属する実録記事を除外
 const knowledgeArticles = allArticles.filter(a => 
     !a.data.series && 
     a.data.category !== "開発実録" && 
+    a.data.category !== "System Log" && 
+    a.data.category !== "System Chronicles" &&
     !a.id.startsWith("log-")
 );
 
@@ -45,7 +54,7 @@ knowledgeArticles.forEach(article => {
     categoryGroups[cat].push(article);
 });
 
-// カテゴリーの表示順序を定義
+// カテゴリーの表示順序を定義 (掟に従い固定)
 const categoryOrder = ["マーケティング", "AIツール", "AI戦略", "テクノロジー", "技術検証"];
 const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
     const indexA = categoryOrder.indexOf(a);
@@ -53,6 +62,11 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
     if (indexA === -1) return 1;
     if (indexB === -1) return -1;
     return indexA - indexB;
+});
+
+// 各カテゴリー内の記事を日付順にソート
+sortedCategories.forEach(cat => {
+    categoryGroups[cat].sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 });
 ---
 
@@ -146,8 +160,8 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
         margin-bottom: 120px;
         text-align: center;
         background: #f8f8f8; /* 薄い色を復活 */
-        padding: 100px 0;
-        margin: -100px -80px 120px -80px;
+        padding: 120px 0;
+        margin: -100px -150px 120px -150px; /* 余白を広げてヘッダー幅と一致 */
         border-radius: 4px;
     }
 
@@ -155,7 +169,7 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
         font-size: 3.8rem;
         font-weight: 900;
         letter-spacing: -0.04em;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
         color: #000;
     }
 
@@ -168,10 +182,10 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
 
     .archive-segment {
         margin-bottom: 180px;
-        max-width: 1200px; /* 全体のベースを一律に */
+        max-width: 1100px; /* ヘッダー幅と完全一致 */
         margin-left: auto;
         margin-right: auto;
-        padding: 0 40px;
+        padding: 0; /* 内側のパディングを解除 */
     }
 
     .segment-title {
@@ -179,23 +193,23 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
         text-transform: uppercase;
         letter-spacing: 0.6em;
         color: #0099ff; /* スカイブルー */
-        margin-bottom: 60px;
+        margin-bottom: 80px;
         text-align: left;
-        padding-bottom: 12px;
-        border-bottom: 1px solid #eee; /* 全幅の線 */
+        padding-bottom: 24px;
+        border-bottom: none; /* 線を撤廃 */
     }
 
     /* Package Grid (Documentation) */
     .series-package {
-        margin: 80px -80px 120px -80px; /* 横幅を広げてボックス化 */
+        margin: 80px -150px 150px -150px; /* 横幅を広げてヘッダー幅と一致 */
         background: #f8f8f8; /* 薄い色に修正 */
-        border: 1px solid #eee;
+        border: none; /* 境界線を撤廃しホワイトスペースで表現 */
         border-radius: 4px;
-        padding: 100px 80px;
+        padding: 120px 150px;
     }
 
     .package-header {
-        margin-bottom: 60px;
+        margin-bottom: 80px;
     }
 
     .package-count {
@@ -211,10 +225,10 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
         font-weight: 900;
         margin-top: 10px;
         letter-spacing: -0.02em;
-        color: #1a1a1a; /* ダークカラーに戻す */
+        color: #1a1a1a;
     }
 
-    /* ボックス内のカードタイトルの色指定を標準に戻す */
+    /* ボックス内のカードタイトルの色指定 */
     .series-package .card-title {
         color: #1a1a1a !important;
     }
@@ -231,7 +245,7 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
     .package-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr); /* 3カラム固定 */
-        gap: 60px 40px;
+        gap: 80px 40px;
     }
 
     /* 
@@ -248,11 +262,11 @@ const sortedCategories = Object.keys(categoryGroups).sort((a, b) => {
     .log-entry,
     .compact-article {
         display: flex;
-        align-items: flex-start; /* 極大タイトルに合わせて重心をトップに */
-        padding: 80px 0; /* 掟：極大タイトルに合わせた80pxの余白 */
+        align-items: flex-start;
+        padding: 60px 0; /* 線を消す代わりに、広めの余白で品格を担保 */
         text-decoration: none;
         color: inherit;
-        border-bottom: 1px solid #f5f5f5;
+        border-bottom: none; /* 線を完全に撤廃 */
         transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     }
 
