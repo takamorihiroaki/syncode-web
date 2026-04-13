@@ -205,6 +205,11 @@ const breadcrumbLdJson = {
                     <li><a href="#">RSS</a></li>
                 </ul>
                 <p class="copyright">&copy; 2026 SYNCODE.</p>
+                <p class="footer-pr-disclosure">
+                    本サイトの一部のリンクはアフィリエイト広告（プロモーション）を含んでいます。
+                    これらのリンクを経由して商品・サービスを購入された場合、サイト運営者に報酬が発生することがあります。
+                    掲載内容は実際の使用経験に基づいており、広告報酬による評価への影響はありません。
+                </p>
             </div>
         </footer>
 
@@ -250,6 +255,30 @@ const breadcrumbLdJson = {
                     }
                 }, { passive: true });
             }
+
+            // --- GA4 アフィリエイトリンク クリック計測 ---
+            // 外部リンク（target="_blank"）のクリックをGA4に送信する
+            document.addEventListener('click', (e) => {
+                const target = (e.target as HTMLElement).closest('a');
+                if (!target) return;
+
+                const href = target.getAttribute('href');
+                const isExternal = target.getAttribute('target') === '_blank';
+
+                if (isExternal && href) {
+                    const linkText = target.innerText?.trim().slice(0, 100) || '';
+                    const linkId = target.id || target.className || 'unknown';
+
+                    if (typeof window.gtag === 'function') {
+                        window.gtag('event', 'affiliate_click', {
+                            link_url: href,
+                            link_text: linkText,
+                            link_id: linkId,
+                            page_location: window.location.href
+                        });
+                    }
+                }
+            });
         </script>
 
         <style is:global>

@@ -1,0 +1,155 @@
+---
+interface Props {
+    tag?: string;
+    title: string;
+    description?: string;
+    buttonText?: string;
+    buttonLink: string;
+    prNote?: string;
+}
+
+const {
+    tag = "PR",
+    title,
+    description,
+    buttonText = "詳細・公式サイトを確認する",
+    buttonLink,
+    prNote = "※本リンクはアフィリエイト広告を含みます"
+} = Astro.props;
+---
+
+<div class="cta-affiliate">
+    <div class="cta-affiliate__inner">
+        <div class="cta-affiliate__header">
+            <span class="cta-affiliate__pr-badge">PR</span>
+            <span class="cta-affiliate__tag">{tag}</span>
+        </div>
+        <p class="cta-affiliate__title">{title}</p>
+        {description && <p class="cta-affiliate__desc">{description}</p>}
+        <a
+            href={buttonLink}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            class="cta-affiliate__btn"
+            id={`aff-${buttonLink.replace(/[^a-zA-Z0-9]/g, '-').slice(0, 40)}`}
+        >
+            {buttonText}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </a>
+        <p class="cta-affiliate__pr-note">{prNote}</p>
+    </div>
+</div>
+
+<style>
+    .cta-affiliate {
+        margin: 52px auto;
+        border: 1px solid #e8e0d0;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #fffef9 0%, #fdfbf4 100%);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .cta-affiliate:hover {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+    .cta-affiliate__inner {
+        padding: 32px 36px;
+    }
+
+    .cta-affiliate__header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .cta-affiliate__pr-badge {
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        background: #b8860b;
+        color: #fff;
+        padding: 2px 8px;
+        border-radius: 3px;
+        text-transform: uppercase;
+        flex-shrink: 0;
+    }
+
+    .cta-affiliate__tag {
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        color: #b8860b;
+        text-transform: uppercase;
+    }
+
+    .cta-affiliate__title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        line-height: 1.6;
+        margin: 0 0 10px !important;
+    }
+
+    .cta-affiliate__desc {
+        font-size: 0.88rem;
+        color: #666;
+        line-height: 1.8;
+        margin: 0 0 20px !important;
+    }
+
+    .cta-affiliate__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #1a1a1a;
+        color: #fff !important;
+        padding: 14px 28px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-decoration: none !important;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        margin-top: 4px;
+    }
+
+    .cta-affiliate__btn:hover {
+        background: #333;
+        transform: translateX(3px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+    }
+
+    .cta-affiliate__btn svg {
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+    }
+
+    .cta-affiliate__btn:hover svg {
+        transform: translate(2px, -2px);
+    }
+
+    .cta-affiliate__pr-note {
+        margin: 12px 0 0 !important;
+        font-size: 0.68rem;
+        color: #bbb;
+        line-height: 1.5;
+    }
+
+    /* モバイル対応 */
+    @media (max-width: 640px) {
+        .cta-affiliate__inner {
+            padding: 24px 20px;
+        }
+
+        .cta-affiliate__btn {
+            width: 100%;
+            justify-content: center;
+            padding: 16px;
+        }
+    }
+</style>

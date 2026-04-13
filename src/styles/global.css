@@ -183,6 +183,18 @@ img {
     letter-spacing: 0.05em;
 }
 
+.footer-pr-disclosure {
+    font-size: 0.72rem;
+    color: #bbb;
+    line-height: 1.8;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px 20px;
+    border-top: 1px solid var(--color-border);
+    border-radius: 4px;
+}
+
 /* Single Article Styling */
 
 .article-header {
