@@ -2,10 +2,10 @@
 title: "【2026最新】Antigravity（アンチグラビティ）が「重い・遅い」時の劇的改善ガイド｜思考を止めない爆速設定術"
 image: /assets/premium-antigravity-performance-fix.svg
 excerpt: "Antigravityの『遅延』は、物理的な負荷とコンテキストの使いすぎに起因します。回答待ちの『10秒』を『1秒』へ短縮し、思考を停滞させないための爆速設定プロトコル。"
-date: "2026-04-13T19:20:00.000Z"
+date: '2026-04-13'
 tags:
   - Antigravity
-  - アンチグラビティ
+  - Antigravity
   - パフォーマンス改善
   - AIツール
   - SEO
@@ -35,10 +35,45 @@ AIの回答待ちで10秒待たされるか、それとも1秒でレスポンス
 
 環境を爆速化させることは、単なる自己満足ではありません。作業効率が上がれば、コンテンツの質が上がり、結果として読者に選ばれるサイトになります。
 
-事実、この記事の手法で執筆環境を整えた結果、SYNCODEのSEO記事は<strong>平均エンゲージメント時間「40分」</strong>という驚異的な数値を叩き出しました。
+事実、この記事の手法で執筆環境を整えた結果、SYNCODEのSEO記事は<strong>平均エンゲージメント時間「約40分」</strong>という驚異的な数値を叩き出しました。
 
 ![GA4データ：驚異の平均エンゲージメント時間40分](/assets/ga4-evidence-40min.png)
 *実際のGA4レポート：読者がこれだけ長い時間滞在してくれるのは、AIとの対話速度が上がり、密度の高い推敲が可能になった結果です。*
+
+---
+
+## 30秒でわかる：重さの「原因診断」プロトコル
+
+改善を始める前に、いま起きている遅延の正体を突き止めましょう。原因によって、処方箋が全く異なります。
+
+<div class="comparison-table-wrapper">
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>症状（状況）</th>
+        <th>推定される原因</th>
+        <th>対策の方向性</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="highlight"><strong>文字入力がカクつく / スクロールが重い</strong></td>
+        <td>PC・ブラウザの物理リソース不足</td>
+        <td>ブラウザ・物理環境の改善（対策4へ）</td>
+      </tr>
+      <tr>
+        <td class="highlight"><strong>回答が始まらない / 生成速度が遅い</strong></td>
+        <td>AIの思考負荷（文脈過多）</td>
+        <td>コンテキスト・リセット（対策1〜3へ）</td>
+      </tr>
+      <tr>
+        <td class="highlight"><strong>特定のプロジェクトだけ挙動がおかしい</strong></td>
+        <td>ワークスペースの物理的な混雑</td>
+        <td>物理メンテナンス（別記事ガイドへ）</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 ---
 
@@ -82,6 +117,16 @@ AIの回答待ちで10秒待たされるか、それとも1秒でレスポンス
 
 *   <strong>解決策</strong>: プロジェクト直下に適切な `.gitignore` を配置してください。
 *   Antigravityはこれを見て「どのファイルを無視すべきか」を判断します。`node_modules` や大量のログファイルをAIに解析させないだけで、ファイル読み込みと回答生成は劇的に速くなります。
+
+### 【プロの技】コンテキストを「個別」に削ぎ落とす
+チャット全体をリセットしたくないときは、`Additional Options` → `Context` タブを開いてください。現在AIが覚えているファイルの一覧が表示されます。
+「今はこのファイルは必要ない」と思うものを個別にクリックしてデタッチ（切り離し）することで、チャットの鮮度をピンポイントで保つことが可能です。
+
+<CtaInline 
+  tag="URGENT" 
+  title="ブラウザの設定や運用で解決しない場合は、プロジェクト自体の『大掃除』が必要です。物理メンテナンスガイドはこちら。" 
+  buttonLink="/articles/antigravity-physical-maintenance/"
+/>
 
 <CtaInline 
   tag="INSIGHT" 
@@ -144,4 +189,5 @@ Antigravity（アンチグラビティ）を爆速にするのは、ハイスペ
 👉 <strong>【実録】サチコから読者の不満を読み解き、1時間で記事を強化する技術</strong>
 [サーチコンソール活用ガイド](/articles/search-console-driven-rewriting/)
 
-
+👉 <strong>プロジェクトが「物理的に」重くなった時のレスキュー術</strong>
+[Antigravity 物理メンテナンスガイド](/articles/antigravity-physical-maintenance/)

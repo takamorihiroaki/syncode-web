@@ -1,0 +1,142 @@
+---
+---
+
+<div class="discovery-section">
+    <div class="discovery-header">
+        <span class="discovery-label">Discover More</span>
+        <h2 class="discovery-title">SYNCODEをさらに深く探索する</h2>
+    </div>
+
+    <div class="discovery-grid">
+        <a href="/works/" class="discovery-card">
+            <div class="card-content">
+                <span class="card-category">Portfolio</span>
+                <h3 class="card-title">WORKS</h3>
+                <p class="card-desc">AIとの共創によって具現化されたプロジェクトの実例と成果。</p>
+            </div>
+            <div class="card-footer">実績を見る</div>
+        </a>
+
+        <a href="/tools/" class="discovery-card">
+            <div class="card-content">
+                <span class="card-category">Resources</span>
+                <h3 class="card-title">TOOLS</h3>
+                <p class="card-desc">日々の開発や執筆を支える、厳選されたAIツール・技術スタック。</p>
+            </div>
+            <div class="card-footer">ツール一覧へ</div>
+        </a>
+    </div>
+</div>
+
+<style>
+    .discovery-section {
+        margin: 100px 0 60px;
+        padding-top: 60px;
+        border-top: 1px solid var(--color-border);
+        width: 100%;
+    }
+
+    .discovery-header {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    .discovery-label {
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--color-text-light);
+        display: block;
+        margin-bottom: 16px;
+    }
+
+    .discovery-title {
+        font-size: 1.5rem;
+        font-weight: 300;
+        letter-spacing: 0.1em;
+        margin: 0;
+    }
+
+    .discovery-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .discovery-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 40px;
+        background-color: #fafafa;
+        border: 1px solid var(--color-border);
+        text-decoration: none;
+        color: var(--color-text);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .discovery-card:hover {
+        background-color: #fff;
+        border-color: #333;
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .card-category {
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #888;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        margin: 0 0 16px 0;
+    }
+
+    .card-desc {
+        font-size: 0.85rem;
+        line-height: 1.8;
+        color: var(--color-text-light);
+        margin: 0;
+    }
+
+    .card-footer {
+        margin-top: 40px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+    }
+
+    .card-footer::after {
+        content: "";
+        width: 20px;
+        height: 1px;
+        background-color: var(--color-text);
+        margin-left: 12px;
+        transition: width 0.3s ease;
+    }
+
+    .discovery-card:hover .card-footer::after {
+        width: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .discovery-grid {
+            grid-template-columns: 1fr;
+        }
+        .discovery-card {
+            padding: 30px;
+        }
+    }
+</style>

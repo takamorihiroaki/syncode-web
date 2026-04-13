@@ -1,0 +1,7 @@
+- [x] `src/pages/index.astro` の更新（表示数制限と探索ボタンの追加）
+- [x] `src/components/Hero.astro` の更新（CTA文言の統一）
+- [x] `src/pages/articles/index.astro` の更新
+    - [x] KNOWLEDGE BASE セクションのデザイン刷新（4pxライン、Bold等）
+    - [x] 1カラム構成へのレイアウト変更
+- [x] 動作確認と最終検証
+- [x] Walkthroughの作成

@@ -4,6 +4,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Tag from "../../components/Tag.astro";
 import Category from "../../components/Category.astro";
 import CtaTools from "../../components/CtaTools.astro";
+import CtaWorks from "../../components/CtaWorks.astro";
+import ArticleDiscovery from "../../components/ArticleDiscovery.astro";
 import RelatedPosts from "../../components/RelatedPosts.astro";
 import CtaNextBanner from "../../components/CtaNextBanner.astro";
 import FeaturedSeries from "../../components/FeaturedSeries.astro";
@@ -41,6 +43,26 @@ if (isSeries && !nextEntry && entry.data.series === "AI Collaboration Story" && 
 
 // 最終的な表示用Next
 const displayNext = nextEntry || customNextEntry;
+
+// 導線コンポーネントの選定
+const tags = entry.data.tags || [];
+const category = entry.data.category || "";
+
+let footerCtaType = "discovery"; // default
+
+if (!displayNext) {
+    const worksKeywords = ["SEO", "Search Console", "成果", "デザイン", "Case Study", "実績"];
+    const toolsKeywords = ["Antigravity", "AIツール", "設定", "検証", "技術スタック"];
+
+    const hasWorksTag = tags.some(tag => worksKeywords.includes(tag));
+    const hasToolsTag = tags.some(tag => toolsKeywords.includes(tag));
+
+    if (category === "AI戦略" || hasWorksTag) {
+        footerCtaType = "works";
+    } else if (category === "技術検証" || hasToolsTag) {
+        footerCtaType = "tools";
+    }
+}
 ---
 
 <BaseLayout 
@@ -91,7 +113,11 @@ const displayNext = nextEntry || customNextEntry;
                     order={displayNext.data.seriesOrder}
                 />
             ) : (
-                <CtaTools title={entry.data.ctaTitle} description={entry.data.ctaDesc} />
+                <>
+                    {footerCtaType === "tools" && <CtaTools title={entry.data.ctaTitle} description={entry.data.ctaDesc} />}
+                    {footerCtaType === "works" && <CtaWorks />}
+                    {footerCtaType === "discovery" && <ArticleDiscovery />}
+                </>
             )}
         </div>
         

@@ -4,15 +4,15 @@ import { getCollection } from 'astro:content';
 // シリーズの最初の数記事を取得
 const allArticles = await getCollection('articles');
 const seriesArticles = allArticles
-  .filter(a => a.data.series === "AI Collaboration Story" && a.data.seriesOrder <= 3)
-  .sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
+  .filter(a => a.data.series === "【全12回】AI共創ストーリー" && (a.data.seriesOrder ?? 999) <= 3)
+  .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
 ---
 
 <section class="featured-series">
   <div class="series-header">
     <div class="header-line"></div>
     <span class="series-label">Featured Story</span>
-    <h2 class="series-main-title">AI Collaboration Chronicles</h2>
+    <h2 class="series-main-title">AI共創ストーリー</h2>
     <p class="series-description">
       AIとの対話、物理的な破綻、そして再構築。SYNCODEが辿った深淵なる記録を、第1章から追体験する。
     </p>

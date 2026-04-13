@@ -127,6 +127,20 @@ const breadcrumbLdJson = {
             rel="stylesheet"
         />
         <!-- Google tag (gtag.js) -->
+        <script is:inline>
+            // 管理者・開発者の除外設定
+            const GA_MEASUREMENT_ID = 'G-SE8GNFY6EM';
+            const disableGA = () => {
+                window['ga-disable-' + GA_MEASUREMENT_ID] = true;
+                localStorage.setItem('ga_exclude', 'true');
+                console.log('Analytics disabled for this admin session.');
+            };
+
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('admin') || localStorage.getItem('ga_exclude') === 'true') {
+                disableGA();
+            }
+        </script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-SE8GNFY6EM"></script>
         <script is:inline>
             window.dataLayer = window.dataLayer || [];

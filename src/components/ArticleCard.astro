@@ -19,6 +19,7 @@ const getCategoryColor = (category: string) => {
     case '技術検証': return '#ffdd57';
     case 'テクノロジー': return '#8e44ad';
     case 'マーケティング': return '#ff3860';
+    case '開発実録': return '#6c5ce7';
     default: return '#333';
   }
 };
@@ -239,7 +240,12 @@ const categoryColor = getCategoryColor(article.data.category || '');
   }
 
   /* Hover states */
-  .article-card:hover .card-title {
+  .standard.article-card:hover .card-title {
     color: #000 !important;
   }
+
+  .premium.article-card:hover .card-title {
+    color: #fff !important;
+  }
+
 </style>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f0f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+    <filter id="subtleGlow">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="600" fill="url(#bgGrad)" />
+
+  <!-- Minimal Grid Background for "Organization & Trust" -->
+  <g opacity="0.1">
+    <line x1="100" y1="0" x2="100" y2="600" stroke="#fff" stroke-width="0.5" />
+    <line x1="300" y1="0" x2="300" y2="600" stroke="#fff" stroke-width="0.5" />
+    <line x1="500" y1="0" x2="500" y2="600" stroke="#fff" stroke-width="0.5" />
+    <line x1="0" y1="100" x2="600" y2="100" stroke="#fff" stroke-width="0.5" />
+    <line x1="0" y1="300" x2="600" y2="300" stroke="#fff" stroke-width="0.5" />
+    <line x1="0" y1="500" x2="600" y2="500" stroke="#fff" stroke-width="0.5" />
+  </g>
+
+  <!-- Central Authority Icon (Minimal Seal) -->
+  <circle cx="300" cy="220" r="40" fill="none" stroke="#888" stroke-width="1" />
+  <path d="M285 220 L295 230 L315 210" fill="none" stroke="#888" stroke-width="2" />
+
+  <!-- Main Copy (Short and Strong) -->
+  <text x="300" y="340" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="52" font-weight="900" letter-spacing="4" fill="#ffffff" filter="url(#subtleGlow)">実体験で語る。</text>
+
+  <!-- Divider Line -->
+  <rect x="240" y="380" width="120" height="1" fill="#444" />
+
+  <!-- Sub Copy (Auxiliary) -->
+  <text x="300" y="440" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" font-weight="400" letter-spacing="2" fill="#888">信頼を成約に変えるツール選定の極意</text>
+  <text x="300" y="470" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="300" letter-spacing="8" fill="#555" style="text-transform: uppercase;">Authority Insight</text>
+
+  <!-- Border -->
+  <rect x="30" y="30" width="540" height="540" fill="none" stroke="#222" stroke-width="1" />
+</svg>
