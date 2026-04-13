@@ -6,6 +6,7 @@ interface Props {
     buttonText?: string;
     buttonLink: string;
     prNote?: string;
+    trackingPixel?: string; // A8.net インプレッション計測ピクセルURL
 }
 
 const {
@@ -14,7 +15,8 @@ const {
     description,
     buttonText = "詳細・公式サイトを確認する",
     buttonLink,
-    prNote = "※本リンクはアフィリエイト広告を含みます"
+    prNote = "※本リンクはアフィリエイト広告を含みます",
+    trackingPixel
 } = Astro.props;
 ---
 
@@ -38,6 +40,7 @@ const {
         </a>
         <p class="cta-affiliate__pr-note">{prNote}</p>
     </div>
+    {trackingPixel && <img src={trackingPixel} width="1" height="1" alt="" aria-hidden="true" style="position:absolute;visibility:hidden;" />}
 </div>
 
 <style>
