@@ -404,6 +404,93 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
             margin-bottom: 12px;
         }
 
+        /* レンタルサーバーセクション */
+        .server-card {
+            border-color: #e8ddb8;
+            background: linear-gradient(135deg, #fffef9 0%, #fdfbf4 100%);
+            position: relative;
+        }
+
+        .pr-badge-inline {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            background: #b8860b;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 3px;
+            margin-bottom: 6px;
+        }
+
+        .server-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .server-option {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .server-option__header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .server-rank {
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .server-name {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .server-desc {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 14px !important;
+            line-height: 1.7;
+        }
+
+        .server-link {
+            display: inline-block;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #fff !important;
+            background: #1a1a1a;
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none !important;
+            transition: background 0.2s ease;
+            margin-bottom: 8px;
+        }
+
+        .server-link:hover {
+            background: #333;
+            opacity: 1;
+        }
+
+        .server-note {
+            display: block;
+            font-size: 0.7rem;
+            color: #aaa;
+        }
+
+        @media (max-width: 640px) {
+            .server-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .winner-card { padding: 40px 24px; }
             .tool-card { padding: 28px 24px; }
@@ -456,6 +543,11 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
                 <span class="rank-desc">—— 行動分析・CV計測</span>
             </div>
             <div class="rank-row">
+                <span class="rank-emoji">🏠</span>
+                <span class="rank-name">レンタルサーバー</span>
+                <span class="rank-desc">—— ブログ公開の基盤</span>
+            </div>
+            <div class="rank-row">
                 <span class="rank-emoji">💰</span>
                 <span class="rank-name">ASP（A8.net 等）</span>
                 <span class="rank-desc">—— 収益化の入口</span>
@@ -499,7 +591,7 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
             </ul>
             <a href="https://antigravity.google" target="_blank" class="cta-btn-primary">
                 ▶ Antigravityの実戦性能を確認する
-                <span style="display:block; font-size:0.75rem; font-weight:400; margin-top:6px;">※最新のAIエージェント環境へ</span>
+                <span style="display:block; font-size:0.75rem; font-weight:400; margin-top:6px;">※外部リンク（非アフィリエイト）— 最新のAIエージェント環境へ</span>
             </a>
         </section>
 
@@ -558,14 +650,52 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
             <a href="https://analytics.google.com" target="_blank" class="tool-link">Google Analyticsで真実を視る →</a>
         </div>
 
+        <!-- 🏠 レンタルサーバー（収益化の主軹） -->
+        <div class="tool-card server-card">
+            <span class="pr-badge-inline">PR</span>
+            <span class="role">ブログ公開の基盤（最高収益案件）</span>
+            <h3><span>🏠</span> レンタルサーバー</h3>
+            <p>「ブログを作りたい」と持った読者が必ず検索するテーマ。レンタルサーバーのアフィリエイトは、数あるASP案件の中でも《1成約で数千円～1万円以上》になる最高広告单価を誇ります。このサイトのコンテンツ（AI×ブログ構築）と相性が最も高い収益源です。</p>
+            <div class="deep-insight-box">
+                <div class="deep-insight-content">
+                    <strong>商業的な观点：</strong>
+                    A8.netに登録後、「ルークサーバー（XServer）」または「ConoHa WING」の案件に申請するだけ。ブログを先に開設している読者は追加導線が不要なため、「乗り换えキャンペーン」を狙った記事で導線するのが実路です。
+                </div>
+            </div>
+            <div class="server-options">
+                <div class="server-option">
+                    <div class="server-option__header">
+                        <span class="server-rank">🥇 第1位</span>
+                        <span class="server-name">エックスサーバー</span>
+                    </div>
+                    <p class="server-desc">国内シェアNo.1。安定性・SEO実績の両方で業界標準。ASP案件単価も高く制約のしやすさに定評がある。</p>
+                    <a href="https://www.a8.net/" target="_blank" rel="noopener noreferrer" class="server-link">
+                        A8.netでエックスサーバー案件を確認する ↗
+                    </a>
+                    <span class="server-note">※A8.net登録後、「ルークサーバー」で検索</span>
+                </div>
+                <div class="server-option">
+                    <div class="server-option__header">
+                        <span class="server-rank">🥈 第2位</span>
+                        <span class="server-name">ConoHa WING</span>
+                    </div>
+                    <p class="server-desc">表示速度が特に叄で、初心者でもセットアップしやすい設計。ブログ開設向けコンテンツとの相性なら安定した報酬を期待できる。</p>
+                    <a href="https://www.a8.net/" target="_blank" rel="noopener noreferrer" class="server-link">
+                        A8.netでConoHa WING案件を確認する ↗
+                    </a>
+                    <span class="server-note">※A8.net登録後、「ConoHa WING」で検索</span>
+                </div>
+            </div>
+        </div>
+
         <!-- 💰 ASP -->
         <div class="tool-card">
-            <span class="role">収益化</span>
+            <span class="role">アフィリエイト登録</span>
             <h3><span>💰</span> ASP（アフィリエイトサービス）</h3>
-            <p>収益の源泉となる広告リンクを取得するためのプラットフォームです。まずはこの2つに登録しておけば、ほぼすべてのジャンルをカバーできます。</p>
+            <p>収益の源泉となる広告リンクを取得するためのプラットフォームです。登録・利用は完全無料。まずこの2つに登録するだけで収益化のスタートラインに立てます。</p>
             <ul class="benefit-list">
-                <li><a href="https://www.a8.net/" target="_blank" style="color:inherit; text-decoration:underline;">A8.net</a> ── 国内最大級、審査不要な案件も多数</li>
-                <li><a href="https://af.moshimo.com/" target="_blank" style="color:inherit; text-decoration:underline;">もしもアフィリエイト</a> ── 物販に強く、使いやすい</li>
+                <li><a href="https://www.a8.net/" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:underline;">A8.net</a> ── 国内最大級、レンタルサーバーなど高単価案件丰富</li>
+                <li><a href="https://af.moshimo.com/" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:underline;">もしもアフィリエイト</a> ── Amazon・楽天の物販に強く、伇会カバー用</li>
             </ul>
         </div>
 
