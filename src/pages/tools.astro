@@ -624,44 +624,27 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         <div class="tool-card">
             <span class="role">SEO・検索分析</span>
             <div class="trust-badge">30分でインデックス成功</div>
-            <h3><span>📊</span> Google            <div class="server-options" style="grid-template-columns: repeat(3, 1fr);">
-                <div class="server-option" style="border-color: #e8ddb8; background: #fffef9;">
-                    <div class="server-option__header">
-                        <span class="server-rank">★ 実使用中</span>
-                        <span class="server-name">さくらインターネット</span>
-                    </div>
-                    <p class="server-desc">月額524円〜。1996年創業の国内最古参。静的サイトとの相性が良く、このサイトで実際に使用中。</p>
-                    <a href="https://www.sakura.ne.jp/" target="_blank" rel="noopener noreferrer" class="server-link">
-                        さくら公式サイトへ ↗
-                    </a>
-                    <span class="server-note">※小社が実際に使用中（アフィリエイト審査中）</span>
-                </div>
-                <div class="server-option">
-                    <div class="server-option__header">
-                        <span class="server-rank">🏆 アフィリエイト</span>
-                        <span class="server-name">エックスサーバー</span>
-                    </div>
-                    <p class="server-desc">国内シェアNo.1。安定性・SEO実績の両方で業界標準。ASP案件単価も高く制約のしやすさに定評がある。</p>
-                    <a href="https://px.a8.net/svt/ejp?a8mat=4B1K5S+ATDIEQ+5GDG+601S1" target="_blank" rel="noopener noreferrer nofollow" class="server-link">
-                        エックスサーバー公式サイトへ ↗
-                    </a>
-                    <span class="server-note">※アフィリエイトリンク（PR）</span>
-                    <img src="https://www12.a8.net/0.gif?a8mat=4B1K5S+ATDIEQ+5GDG+601S1" width="1" height="1" alt="" aria-hidden="true" style="position:absolute;visibility:hidden;" />
-                </div>
-                <div class="server-option">
-                    <div class="server-option__header">
-                        <span class="server-rank">🏆 アフィリエイト</span>
-                        <span class="server-name">ConoHa WING</span>
-                    </div>
-                    <p class="server-desc">表示速度が特に速く、初心者でもセットアップしやすい設計。<strong>現在最大55%OFFキャンペーン中</strong>のため、コストを押さえたい方に最適。</p>
-                    <a href="https://px.a8.net/svt/ejp?a8mat=4B1K5S+ALMVJM+50+5SJPS2" target="_blank" rel="noopener noreferrer nofollow" class="server-link">
-                        ConoHa WING公式サイトへ ↗
-                    </a>
-                    <span class="server-note">※アフィリエイトリンク（PR）｜最大55%OFFキャンペーン中</span>
-                    <img src="https://www12.a8.net/0.gif?a8mat=4B1K5S+ALMVJM+50+5SJPS2" width="1" height="1" alt="" aria-hidden="true" style="position:absolute;visibility:hidden;" />
+            <h3><span>📊</span> Google Search Console</h3>
+            <p>記事公開後の「インデックス登録」と「キーワード分析」に必須。Googleが記事をどう見ているかを把握し、改善サイクルを回すための目です。</p>
+            <div class="deep-insight-box">
+                <div class="deep-insight-content">
+                    <strong>データ駆動の知見：</strong>
+                    表示回数は多いがクリック率（CTR）が低い「読者の不満ポイント」を特定し、AIでのリライトへと繋げることで、特定のクエリでCTR 66%超えを記録。分析から実行までのラグをゼロにすることが収益化の鍵です。
                 </div>
             </div>
-        </div>みを抽出可能にしました。
+            <a href="https://search.google.com/search-console" target="_blank" class="tool-link">Search Consoleの解析精度を試す →</a>
+        </div>
+
+        <!-- 📈 Google Analytics -->
+        <div class="tool-card">
+            <span class="role">行動分析・CV計測</span>
+            <div class="trust-badge">ノイズ除去 100% 達成</div>
+            <h3><span>📈</span> Google Analytics（GA4）</h3>
+            <p>Search Consoleが「検索流入の分析」なら、Google Analyticsは「サイト内での行動分析」です。どの記事が読まれているか、収益化の改善サイクルを回すための不可欠な目です。</p>
+            <div class="deep-insight-box">
+                <div class="deep-insight-content">
+                    <strong>精度の知見：</strong>
+                    「平均滞在時間 7分」という驚異的なデータの正体が、管理者自身のアクセス（ノイズ）であったことを特定。LocalStorageを用いた除外ロジックを実装することで、純粋な第三者のデータのみを抽出可能にしました。
                 </div>
             </div>
             <a href="https://analytics.google.com" target="_blank" class="tool-link">Google Analyticsで真実を視る →</a>
