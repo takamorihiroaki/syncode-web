@@ -1,6 +1,6 @@
 ---
-title: Antigravity（Agent Manager）Markdown 執筆ガイド
-image: /assets/premium-markdown-guide.svg
+title: Antigravity（Agent Manager）Markdown 執筆ガイド：表示崩れを防ぐ物理規約と構造化ルール
+image: /assets/premium-hybrid-markdown-guide.svg
 date: '2026-04-01'
 excerpt: Antigravity（Agent Manager）のチャットやブログ出力において、文章の欠落や表示崩れを物理的に回避するための執筆ルールをまとめます。
 tags:
@@ -23,17 +23,17 @@ AIエージェントの処理能力を最大限に活かし、システムの解
 
 Markdownパーサの誤認を防ぐため、要素間には必ず物理的な距離を設けます。
 
-* <strong></strong>
+* <strong>見出しと本文の分断</strong>
 
 見出し（## 等）の直後に文章を連結させず、
 必ず1行以上の空行を挿入してください。
 
-* <strong></strong>
+* <strong>画像の物理的隔離</strong>
 
 画像記法（!\[alt\](url)）の上下には必ず空行を入れ、
 前後のテキストと接触させないようにします。
 
-* <strong></strong>
+* <strong>長文の意図的断片化</strong>
 
 長文のベタ書きは解析エラーやトークン制限による端折りの原因となるため、
 こまめに改行を行います。
@@ -42,11 +42,11 @@ Markdownパーサの誤認を防ぐため、要素間には必ず物理的な距
 
 手順説明など、構造が複雑になりやすい箇所は以下の形式を推奨します。
 
-1. <strong></strong>
+1. <strong>リスト記法の利用</strong>
 箇条書き（* や -）または番号付きリストを使用し、
 文章の中に手順を埋め込まないようにします。
 
-2. <strong></strong>
+2. <strong>HTMLコメントによる境界設定</strong>
 リストが意図せず結合する場合は、
 HTMLコメント（）を挿入して解析を物理的に切り離します。
 
@@ -55,12 +55,12 @@ HTMLコメント（）を挿入して解析を物理的に切り離します。
 記述ルールを適用しても画面に変化がない場合は、
 コードではなく環境側に原因があります。
 
-* <strong></strong>
+* <strong>ハード・リフレッシュ</strong>
 
 キャッシュの影響を排除するため、
 Cmd+Shift+R（Mac）またはCtrl+F5（Win）を実行してください。
 
-* <strong></strong>
+* <strong>サーバーの再起動</strong>
 
 一度サーバープロセスを停止し、再度起動します。
 

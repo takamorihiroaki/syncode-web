@@ -1,0 +1,422 @@
+[
+  {
+    "filename": "ai-agent-introduction.mdx",
+    "title": "【完全ガイド】AIエージェント導入の手順と現実。個人が使える自律型AIを徹底解説",
+    "category": "AI戦略",
+    "excerpt": "「AIエージェント導入」を検討しているが、具体的に何から始めれば良いかわからない——そんな個人・フリーランスのための実践完全ガイド。SYNCODEの運営実録から学ぶ、失敗しない導入プロセス。"
+  },
+  {
+    "filename": "ai-blog-collaboration-story.mdx",
+    "title": "【脱・量産型】SEOテンプレに悩む私が、AIとの「対話」で独自ブランドの確信を得た話",
+    "category": "AIツール",
+    "excerpt": "ブログ収益化やSEO完全一致といった機械的な構成テンプレに縛られていた私が、開発AI「Antigravity」に感情論のまま悩みを打ち明けた結果、最高に人間らしいハイブリッド戦略へと辿り着いた全記録。"
+  },
+  {
+    "filename": "ai-collaboration-ip-filter.mdx",
+    "title": "【共同作業編】エラーさえも「愛嬌」。AIと人間が協力して設定を完結させるまで",
+    "category": "AI戦略",
+    "excerpt": "GA4のIP除外設定をAIに任せようとしたら、予想外のバリデーションエラーが発生。AIの限界を人間がどう補い、二人三脚で設定を完了させたか。その試行錯誤の全記録。"
+  },
+  {
+    "filename": "ai-collaboration-migration-story.mdx",
+    "title": "【大規模移行】AIと同期する28記事のMDX移行。文脈を読み収益導線を自動配置する『賢い』マイグレーション術",
+    "category": "テクノロジー",
+    "excerpt": "ただの変換じゃない。AIエージェントにブログ28記事のMDX化とCTA統合を任せたら、精度とスピードが予想を遥かに超えた話。"
+  },
+  {
+    "filename": "ai-efficiency-guide.mdx",
+    "title": "【2026年版】AI効率化で仕事が変わる。個人ブロガー・フリーランスが今すぐ導入すべき5つの手法",
+    "category": "AI戦略",
+    "excerpt": "「AI効率化」は大企業だけのものではない。個人でブログを運営する私が、AIを活用して制作時間を10分の1に圧縮した具体的な手法を全公開する。"
+  },
+  {
+    "filename": "ai-fullstack-devops.mdx",
+    "title": "会話だけで「全自動デプロイ」が完成した衝撃。AIインフラエンジニアの魔法",
+    "category": "AI戦略",
+    "excerpt": "初心者が最もつまづきやすい「サーバーへのアップロード」。パスワードを使わず安全に、そしてコマンド一発で全自動完了するプロ仕様のインフラ環境を、AIがサクッと構築してしまった最大のカタルシス。"
+  },
+  {
+    "filename": "ai-fullstack-marketer.mdx",
+    "title": "AIにブログを作らせたら「凄腕マーケター」だった話。収益を自動で最大化する設計",
+    "category": "AI戦略",
+    "excerpt": "プログラム処理だけがAIではありません。読者の心理を読み取り、最適なタイミングでCTA（行動喚起）を配置し、コンバージョン率を上げる「Webマーケター」としてのAIの顔を解剖します。"
+  },
+  {
+    "filename": "ai-fullstack-seo.mdx",
+    "title": "AIにブログを作らせたら「SEOの専門家」だった話。サイトマップと即時インデックスの衝撃",
+    "category": "AI戦略",
+    "excerpt": "どんなに美しいブログを作っても、Googleに見つけてもらえなければ意味がありません。裏側のシステムを解析し、検索エンジン対策（SEO）を自律的に構築する「SEO技術者」としてのAIの顔に迫ります。"
+  },
+  {
+    "filename": "ai-lifestyle-transformation.mdx",
+    "title": "「自分を超える、AIという翼。」初心者だからこそ辿り着けた、想像を超えた景色の正体",
+    "category": "AIライフスタイル",
+    "excerpt": "制作の相談中に提案された、想像を遥かに超えた完成品。AI初心者である私が、なぜプロをも凌駕する速度と質でサイトを進化させ続けられるのか？その『驚き』と『ワクワク』の核心に迫ります。"
+  },
+  {
+    "filename": "antigravity-additional-options-guide.mdx",
+    "title": "【完全解説】Antigravity Additional Optionsの使い方｜設定の迷子を卒業する",
+    "category": "AIツール",
+    "excerpt": "Antigravityの設定の中枢「Additional Options」を徹底解説。Export・Customization・MCPの3つをマスターして、トラブルの9割を自分で解決できる状態を目指します。"
+  },
+  {
+    "filename": "antigravity-ai-frontmatter-fix.mdx",
+    "title": "AntigravityでAstroのビルドエラー？AIブログ執筆の記事崩れを直すフロントマター設定術",
+    "category": "AIツール",
+    "excerpt": "Antigravity環境でのAstroブログ開発において、AI生成記事が引き起こすビルドエラーの原因と解決策を解説。YAMLフロントマターの構文エラーを防ぐコピペ用プロンプトと具体的な復旧手順を紹介します。"
+  },
+  {
+    "filename": "antigravity-auto-run-hack.mdx",
+    "title": "【完全自動化】Antigravityの「Runボタン」連打を卒業し、AIを真の相棒に変える術",
+    "category": "技術検証",
+    "excerpt": "AIが提案するコマンド、毎回クリックして承認していませんか？Antigravityの実行設定を1箇所変えるだけで、開発スピードは3倍に跳ね上がります。具体的な切り替え手順と安全な運用術を徹底解説。"
+  },
+  {
+    "filename": "antigravity-browser-control-guide.mdx",
+    "title": "【自動化】Antigravityによるブラウザ操作の極意｜AIに「自分の代わり」をさせる全手順",
+    "category": "AIツール",
+    "excerpt": "Antigravityの真骨頂であるブラウザ自動操作. 画面が映らない・動かないといった障壁を排除し、AIに「目」を授けてサイトを縦横無尽に徘徊・デバッグさせるための技術的解決策."
+  },
+  {
+    "filename": "antigravity-code-not-working-guide.mdx",
+    "title": "【エラーで動かない人へ】Antigravityでコードが動かない原因3つと即解決手順（Astro対応）",
+    "category": "AIツール",
+    "excerpt": "Antigravityで生成したコードが動かない原因は3つだけ。エラー・表示されない・コンポーネントが動かない問題を、初心者でも迷わないクリック操作レベルで解決します。"
+  },
+  {
+    "filename": "antigravity-context-mastery.mdx",
+    "title": "AIに「全部理解」させる。Antigravityのコンテキスト管理とトークン節約の極意",
+    "category": "AIツール",
+    "excerpt": "Antigravityでの開発や執筆を爆速にする、コンテキスト管理の戦術を公開。トークン制限を回避しながら、AIにプロジェクトの全体像を正確に伝えるための具体的なテクニックを解説します。"
+  },
+  {
+    "filename": "antigravity-customization-setup-guide.mdx",
+    "title": "【実験】Antigravity Customizationの正しい設定方法｜精度が上がる書き方と失敗例",
+    "category": "AIツール",
+    "excerpt": "AntigravityのCustomizationはどう書けばいい？実際に試して分かった精度が上がる設定と失敗パターンを再現できる形で解説します。"
+  },
+  {
+    "filename": "antigravity-file-ops-mastery.mdx",
+    "title": "【2026最新】Antigravity（アンチグラビティ）ファイル添付の極意｜大規模コードを1秒で読み込ませるディレクトリ構造",
+    "category": "AIツール",
+    "excerpt": "AIに正しく文脈を伝えるための「フォルダ構成」と「ファイル添付」のテクニックを網羅。大規模プロジェクトを爆速で解析させ、開発効率を極限まで高めるための実践ガイド。"
+  },
+  {
+    "filename": "antigravity-image-attachment-guide.mdx",
+    "title": "【保存版】Antigravityのチャットに画像を添付する手順",
+    "category": "AIツール",
+    "excerpt": ">-"
+  },
+  {
+    "filename": "antigravity-initial-setup-guide.mdx",
+    "title": "【最短3分】Antigravity初期設定ガイド｜迷わずできる3つの手順",
+    "category": "AIツール",
+    "excerpt": "Antigravityの初期設定を「環境→接続→実行」の最短ルートで解説。実際に1時間無駄にした失敗から学んだ、初心者が絶対に外せないポイントをまとめました。"
+  },
+  {
+    "filename": "antigravity-markdown-layout-break-fix-guide.mdx",
+    "title": "Antigravityで記事が崩れる原因は？AIと衝突して気づいた3つの本質【実体験】",
+    "category": "AIツール",
+    "excerpt": ">-"
+  },
+  {
+    "filename": "antigravity-monetization-guide.mdx",
+    "title": "【知らないと差がつく】Antigravityでブログ収益化する「導線設計」の全手順",
+    "category": "AIツール",
+    "excerpt": "記事を書いても収益が出ない人の9割は「導線設計」を知らない。AntigravityとCTAを組み合わせた、0→1を最短で達成する実践手順を公開。"
+  },
+  {
+    "filename": "antigravity-not-working-fix.mdx",
+    "title": "【完全解決】Antigravityが動かない原因と対処法（初心者OK）",
+    "category": "AIツール",
+    "excerpt": "Antigravityが動かない・微動だにしない原因はほぼ3つ. 実際に詰まった状態から復旧した手順を、クリック操作レベルで丁寧に解説します。"
+  },
+  {
+    "filename": "antigravity-performance-fix.mdx",
+    "title": "【2026最新】Antigravity（アンチグラビティ）が「重い・遅い」時の劇的改善ガイド｜思考を止めない爆速設定術",
+    "category": "AIツール",
+    "excerpt": "Antigravityの『遅延』は、物理的な負荷とコンテキストの使いすぎに起因します。回答待ちの『10秒』を『1秒』へ短縮し、思考を停滞させないための爆速設定プロトコル。"
+  },
+  {
+    "filename": "antigravity-physical-maintenance.mdx",
+    "title": "Antigravityの「底力」を取り戻す：重くなったプロジェクトを5分で爆速化する物理メンテナンス術",
+    "category": "AIツール",
+    "excerpt": "AIのレスポンスが重い原因は、スペック不足ではなく『物理的な混雑』かもしれません。ルートディレクトリの整理からnode_modulesの再インストールまで、100%安全に爆速環境を取り戻すメンテナンス術を徹底解説。"
+  },
+  {
+    "filename": "antigravity-start.mdx",
+    "title": "【最速】Antigravity導入・完全スタートガイド｜AIエージェントで開発を10倍速化する全手順",
+    "category": "AIツール",
+    "excerpt": "Gemini搭載の次世代AIエージェント「Antigravity」を使いこなし、開発速度を劇的に向上させる方法を解説。0から1を最速で達成するための、物理的事実ベースの手順書。"
+  },
+  {
+    "filename": "antigravity-troubleshooting-guide.mdx",
+    "title": "【初心者の壁を突破】Antigravity（アンチグラビティ）が「動かない・エラーが出る」時の対処法まとめ",
+    "category": "AIツール",
+    "excerpt": "エラーメッセージを恐れる必要はありません。Antigravityは『自分で自分を直せる』ツールです。トラブルを最速で解決し、共創のリズムを取り戻すためのレスキューガイド。"
+  },
+  {
+    "filename": "astro-mobile-menu-overflow-fix.mdx",
+    "title": "スマホでナビがはみ出る！Astro+CSSでのヘッダーレイアウト崩れを直す方法【実例あり】",
+    "category": "AIツール",
+    "excerpt": "PCでは完璧に見えたのに、iPhone 13 miniなどの狭い画面で見ると「TOOLS」メニューが改行して崩れてしまう…。そんなWeb制作あるあるな「CSS de no レスポンシブ崩れ」を、メディアクエリでサクッと解決した手順とコードを公開します。"
+  },
+  {
+    "filename": "astro-scroll-sticky-header.mdx",
+    "title": "AstroにスクロールでCSSが切り替わる固定ヘッダーを実装した【コードあり】",
+    "category": "AIツール",
+    "excerpt": "記事が増えてきたタイミングでナビの視認性を改善。スクロール前は中央ロゴ＋ナビ、スクロール後はロゴ左＋ナビ右の固定ヘッダーに切り替わる仕組みを、AstroのバニラJSとグローバルスタイルだけで実装した手順を公開します。"
+  },
+  {
+    "filename": "chapter-1.mdx",
+    "title": "第1章：ディレクトリ構成とパスの「1文字」が分ける生死",
+    "category": "技術検証",
+    "excerpt": "プロジェクトの成否は、コードの質以前にディレクトリ構造に宿る。パスの一文字、階層の一段が引き起こす致命的な『同期不全』とその回避プロトコル。"
+  },
+  {
+    "filename": "chapter-2.mdx",
+    "title": "第2章：環境要因の切り分け（3軸デバッグの徹底）",
+    "category": "技術検証",
+    "excerpt": "Astro開発環境における反映不良の原因特定と、物理的な環境リセット（3軸デバッグ）の具体的手順。"
+  },
+  {
+    "filename": "chapter-3.mdx",
+    "title": "第3章：AI共創の深淵｜エージェントと描くSYNCODEの未来",
+    "category": "技術検証",
+    "excerpt": "AIの謝罪や提案が引き起こす認知負荷と、出力制御による情報透明性の確保、および物理的制約の課し方。"
+  },
+  {
+    "filename": "chapter-4.mdx",
+    "title": "第4章：アンチグラビティのアプローチによる再構築",
+    "category": "技術検証",
+    "excerpt": "推論と憶測を排し、AIエージェントを物理的な事実のみで制御する。SYNCODEが到達した、エラーを対話のノイズにさせないための最終解決思考。"
+  },
+  {
+    "filename": "conclusion.mdx",
+    "title": "結論：再スタートへの物理的誓約",
+    "category": "技術検証",
+    "excerpt": "推測を排した事実ベースの制作フローと、環境・構造・コードの優先順位固定によるデバッグ体制の確立。"
+  },
+  {
+    "filename": "data-driven-seo-optimization.mdx",
+    "title": "【改善・結論編】分析で終わらせない。AIの提案をその場でサイトに反映してみた",
+    "category": "AI戦略",
+    "excerpt": "分析したデータをどう「集客」に変えるか。AIエージェントから提案されたSEO戦略を、その場で記事に反映しデプロイ。初心者がAIを最強の味方にするための結論。"
+  },
+  {
+    "filename": "ga4-analysis-discovery.mdx",
+    "title": "【分析編】AIは最高のデータアナリストになれるか？GA4同期で見えた「7分間の真実」",
+    "category": "AI戦略",
+    "excerpt": "AntigravityとGA4を連動させてサイト分析に挑戦。驚異の滞在時間「7分35秒」に喜んだのも束の間、AIエージェントから突きつけられた鋭い指摘とは？"
+  },
+  {
+    "filename": "ga4-internal-filter-logic.mdx",
+    "title": "【実録】Analyticsのノイズを消し、真実を視る。IPフィルタリングと開発者除外の最強構成案",
+    "category": "技術検証",
+    "excerpt": "Google Analytics 4（GA4）の計測データから「自分自身」を除去する決定版。IPアドレスによるフィルタリングに加え、LocalStorageを活用したブラウザ単位の除外ロジックを実装。データの純度を高め、真のユーザー行動を可視化します。"
+  },
+  {
+    "filename": "ga4-sync-technical-guide.mdx",
+    "title": "AIエージェントに実務を丸投げする。私が実際に検証したGA4同期の手順はこちら",
+    "category": "技術検証",
+    "excerpt": "Google Analytics（GA4）の分析をAIエージェントに代行させるための具体的なステップを解説。プロンプトの書き方から、クラウド操作特有のエラー対策までを実録形式でまとめました。"
+  },
+  {
+    "filename": "gemini-error-recap.mdx",
+    "title": "Gemini APIエラー総括：安定稼働への道（47件の失敗から得た物理的解決プロトコル）",
+    "category": "技術検証",
+    "excerpt": "Astroブログ構築においてAIが引き起こした47件の致命的失敗と、その物理的制約による解決プロトコル。"
+  },
+  {
+    "filename": "introduction-physical-breakdown.mdx",
+    "title": "序論：AIとの対話における「物理的破綻」の現実",
+    "category": "技術検証",
+    "excerpt": "2026年4月1日に発生した47件の失敗記録と、推論による脳内補完がもたらす致命的なデバッグコストの分析。"
+  },
+  {
+    "filename": "log-07dc1449.mdx",
+    "title": "SYNCODEポータル化計画",
+    "category": "開発実録",
+    "excerpt": "自社ブログにとどまらない情報のネットワーク化。Zenn等の外部メディア記事をサイト内のライブラリに統合し、知見の回遊性を高める設計の実装。"
+  },
+  {
+    "filename": "log-178074af.mdx",
+    "title": "AI文章研磨：10倍の品質へ",
+    "category": "開発実録",
+    "excerpt": "機械的な変換ではなく、記事の「魂（文脈）」を読み取り、読者の心に響く言葉へと研ぎ澄ませるAIエージェントの活用技術。"
+  },
+  {
+    "filename": "log-45772e74.mdx",
+    "title": "MDX移行：管理をスマートに",
+    "category": "開発実録",
+    "excerpt": "全記事ドキュメントにおけるMDX形式への移行と、リンク切れ・画像パスエラーの一掃。情報を永続化・体系化するための大規模なマイグレーション作業。"
+  },
+  {
+    "filename": "log-5436195c.mdx",
+    "title": "AI共創：新しい執筆体験",
+    "category": "開発実録",
+    "excerpt": "人間（ディレクター）とAI（エージェント）の対話ログから、有用な知見を抽出し、ドキュメントとして体系化するための編集プロトコルの策定。"
+  },
+  {
+    "filename": "log-6da351fc.mdx",
+    "title": "サムネイル自動生成術",
+    "category": "開発実録",
+    "excerpt": "画像生成AIのコストと一貫性の課題を解決すべく、コードだけで高品質なプレミアム・サムネイルを動的生成するシステムのプロトタイプ開発。"
+  },
+  {
+    "filename": "log-718e7c4a.mdx",
+    "title": "デザイン思想：原点回帰",
+    "category": "開発実録",
+    "excerpt": "行き過ぎた実験的デザインをリセットし、ブランドの核である3D Blueprint（設計図）ビジュアルを復元した記録。"
+  },
+  {
+    "filename": "log-815c7164.mdx",
+    "title": "モバイルUI：不満をゼロに",
+    "category": "開発実録",
+    "excerpt": "iPhone等の小型デバイスにおいて発生していた、メニューのはみ出しと横スクロール問題を解消。極限のモバイル・レイアウト・チューニング。"
+  },
+  {
+    "filename": "log-8c983a58.mdx",
+    "title": "Git防衛：データ消失を防ぐ",
+    "category": "開発実録",
+    "excerpt": "AstroプロジェクトにおけるGitリポジトリの初期化と、開発プロセスの透明化・安全性確保の記録。"
+  },
+  {
+    "filename": "log-948f3486.mdx",
+    "title": "視覚を奪うHeroセクション",
+    "category": "開発実録",
+    "excerpt": "読み手の視線を誘導する、精密に設計された黄色いマーカーハイライトのアニメーションとCSS実装の記録。"
+  },
+  {
+    "filename": "log-bbacc58c.mdx",
+    "title": "記事標準化の全記録",
+    "category": "開発実録",
+    "excerpt": "全43記事に及ぶ大掛かりなフロントマター（メタデータ）の再構成と、画像パス・日付・カテゴリの完全な同期化。"
+  },
+  {
+    "filename": "log-cd776ec2.mdx",
+    "title": "開発実録：ドキュメンタリー",
+    "category": "開発実録",
+    "excerpt": "情報をただの「記録」から「物語」へと昇華させるための、第1章の抜本的な書き直しとドキュメント構造の再構築。"
+  },
+  {
+    "filename": "log-daade84c.mdx",
+    "title": "Astroスキーマ：基盤の極致",
+    "category": "開発実録",
+    "excerpt": "強力な型定義とバリデーションにより、コンテンツの肥大化に伴うビルドエラーやリンク切れを未然に防ぐデータ構造の盤石化。"
+  },
+  {
+    "filename": "markdown-guide.mdx",
+    "title": "Antigravity（Agent Manager）Markdown 執筆ガイド：表示崩れを防ぐ物理規約と構造化ルール",
+    "category": "テクノロジー",
+    "excerpt": "Antigravity（Agent Manager）のチャットやブログ出力において、文章の欠落や表示崩れを物理的に回避するための執筆ルールをまとめます。"
+  },
+  {
+    "filename": "post-1.mdx",
+    "title": "AIとの同期、その始まり。",
+    "category": "開発実録",
+    "excerpt": "全ては真っ白な画面から始まった。AIを『ツール』ではなく『思考の鏡』として扱い、SYNCODEというアイデンティティを確立するまでの記録。"
+  },
+  {
+    "filename": "post-2.mdx",
+    "title": "SYNCODE、システムへ昇華。",
+    "category": "開発実録",
+    "excerpt": "静的なHTMLは、いかにして『生きたメディア』へと進化したのか。Astroへの移行と、Content Collectionsによる情報の脈動。"
+  },
+  {
+    "filename": "post-3.mdx",
+    "title": "エラーという、対話の続き。",
+    "category": "開発実録",
+    "excerpt": "『Agent terminated』— 途切れた通信。しかし、それは終わりではなく、より深い理解への扉だった。エラーログを対話の種にするデバッグの作法。"
+  },
+  {
+    "filename": "post-4.mdx",
+    "title": "ABOUT、30年のキャリアを。",
+    "category": "開発実録",
+    "excerpt": "30年の歩みを一ページに凝縮する。『Identity Reconstruction』をコンセプトに、AIの視点を借りて自身のブランドを再定義した記録。"
+  },
+  {
+    "filename": "post-5.mdx",
+    "title": "WORK、審美眼の再構築。",
+    "category": "開発実録",
+    "excerpt": "10.8pt、トラッキング80。コードの中に自身の『美学』を宿らせるための、AIとの熾烈な、そして幸福なすり合わせ。"
+  },
+  {
+    "filename": "post-6.mdx",
+    "title": "AIと、ブログを創るということ。",
+    "category": "開発実録",
+    "excerpt": "構構から全デプロイまで、たった一日。人間とAIが完全に同期（Sync）した、あの奇跡のような開発体験の締めくくり。"
+  },
+  {
+    "filename": "rental-server-comparison.mdx",
+    "title": "【実体験】このサイトが使っているレンタルサーバーを公開｜Antigravity×さくらインターネットの構築記録",
+    "category": "AIツール",
+    "excerpt": "SYNCODEが実際に使用しているレンタルサーバーを公開。さくらインターネット・エックスサーバー・ConoHa WINGをAntigravityでのブログ構築という観点で比較解説。"
+  },
+  {
+    "filename": "search-console-ai-sync-case-study.mdx",
+    "title": "サチコをAIに同期させてみた。30分で解決したインデックス未登録と『成功の予兆』の全記録",
+    "category": "AI戦略",
+    "excerpt": "Google Search Consoleの分析からリライト、インデックス登録の強制申請までをAI（Antigravity）に丸投げ。サイト運営者が『データを見て悩む時間』をゼロにし、4月12日にインデックス成功を勝ち取った実録。"
+  },
+  {
+    "filename": "search-console-driven-rewriting.mdx",
+    "title": "【実録】サーチコンソールを『攻めの羅針盤』に変える技術｜表示回数から読者の“不満”を読み解き、最速で記事化する実況中継",
+    "category": "マーケティング",
+    "excerpt": "データは「過去」ではなく「未来」を示す地図。サーチコンソール（サチコ）から隠れたニーズを掘り起こし、AIとの共創で1時間以内に記事を強化する具体的なワークフロー。"
+  },
+  {
+    "filename": "seo-optimization-with-ai.mdx",
+    "title": "AIとの対話から始まった「最速のSEO最適化」。SYNCODEの現在地",
+    "category": "AI戦略",
+    "excerpt": "自社サイトの評価依頼から始まったAIとの対話。客観的な分析、ボトルネックの発見、そして即座のソースコード修正までの一連のプロセスを記録。"
+  },
+  {
+    "filename": "site-circulation-logic-internal-links.mdx",
+    "title": "【実録】サイト回遊率を自動で上げる技術｜カテゴリーとタグを解析し思考の導線を最適化するロジック",
+    "category": "AI戦略",
+    "excerpt": "読み終えた読者を次にどこへ導くべきか？AIとの共創により、記事の属性を自動解析して「制作実績」や「推奨ツール」への導線を動的に切り替えるインテリジェントな回遊システムを構築しました。"
+  },
+  {
+    "filename": "site-reform-ch1-showcase-library.mdx",
+    "title": "【第1章】情報の重力に抗う——Showcase & Library戦略によるサイト構造の再定義",
+    "category": "開発実録",
+    "excerpt": "なぜ「全記事をトップに載せる」のが罠だったのか？情報の氾濫を整理し、ユーザーが迷わずに深淵へとアクセスできる「デジタルライブラリ」構築の全記録。"
+  },
+  {
+    "filename": "site-reform-ch2-ui-minimalism.mdx",
+    "title": "【第2章】極限のミニマリズム——AIと追求した「0.1mmの違和感」を埋めるUIデザイン",
+    "category": "開発実録",
+    "excerpt": "目に見える「線」ではなく、心理的な「境界」を設計する。4pxの漆黒ラインとホワイトスペースが、いかにしてライブラリの品格を決定づけたのか。"
+  },
+  {
+    "filename": "site-reform-ch3-technical-seo.mdx",
+    "title": "【第3章】沈黙のSEO——「クリックできない演出」を排除した技術リファクタリング",
+    "category": "開発実録",
+    "excerpt": "デザインが良いのにクリックしづらい——そんな「不誠実さ」を技術で一掃する。全域クリック可能なCTAと、SEOを強化するクリーンコードの実像。"
+  },
+  {
+    "filename": "site-reform-ch4-ai-autonomy-recap.mdx",
+    "title": "【第4章】AIは作業者を卒業できるか？——403エラーから始まった真の共創",
+    "category": "開発実録",
+    "excerpt": "一つのエラーは不具合か、それとも「進化」の呼び声か。403 Forbiddenという壁を越えた先に待っていた、人間とAIによる真の共創の全記録。"
+  },
+  {
+    "filename": "site-reform-special-ai-panic-recovery.mdx",
+    "title": "【特別編】AIの暴走と情報の再構築——0.1mmのUI修正が引き起こした「ライブラリ消失」からのリカバリ実録",
+    "category": "開発実録",
+    "excerpt": "一つのUI修正が、サイト全記事の消失という未曾有の危機へ。AIが「パニック」を起こした瞬間の記録と、ログの外部出力によって『情報の静止点』を取り戻した不屈のリカバリ実録。"
+  },
+  {
+    "filename": "syncode-story.mdx",
+    "title": "【総集編】AIと同期した、あの一日のこと。",
+    "category": "開発実録",
+    "excerpt": "構想から全システム構築まで。AIをパートナーに駆け抜けた『奇跡の一日』を凝縮した、12回連載の起点となるグランドストーリー。"
+  },
+  {
+    "filename": "tools-page-authority-evolution.mdx",
+    "title": "【実録】ツール紹介を『権威ある検証記録』へ。読者の信頼を成果に繋げるUI/UX設計の裏側",
+    "category": "AI戦略",
+    "excerpt": "ネット上に溢れる「おすすめツール記事」と、何が違うのか？読者の信頼を勝ち取り、アフィリエイト成約へと導くための『実体験に基づく権威性』の構築プロセスを公開。"
+  }
+]

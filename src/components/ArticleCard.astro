@@ -27,7 +27,11 @@ const getCategoryColor = (category: string) => {
 const categoryColor = getCategoryColor(article.data.category || '');
 ---
 
-<article class={`article-card ${variant}`}>
+<article 
+  class={`article-card ${variant}`}
+  data-category={article.data.category || ''}
+  data-tags={article.data.tags?.join(',') || ''}
+>
   <a href={`/articles/${article.id}/`} class="card-link">
     <div class="thumbnail-wrapper">
       <img

@@ -1,0 +1,176 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  series?: string;
+  id?: string;
+}
+
+const { series: propSeries, id: propId } = Astro.props;
+
+// Fetch all articles
+const allArticles = await getCollection("articles");
+
+// Current article info
+// If used in MDX, we might not have propId, so we try to infer from URL
+const currentPath = Astro.url.pathname;
+const currentArticle = allArticles.find(a => currentPath.includes(a.id));
+const currentSeries = propSeries || currentArticle?.data.series;
+
+if (!currentSeries) {
+  return null;
+}
+
+// Normalize series name (e.g. "【全4回】..." -> "【全6回】...")
+// We'll use the base name without the "【全N回】" prefix for matching if needed,
+// but for now let's just match the core part.
+const getBaseSeriesName = (name: string) => {
+  return name.replace(/【全\d+回】/, "").trim();
+};
+
+const baseSeriesName = getBaseSeriesName(currentSeries);
+
+// Filter and sort articles in this series
+const seriesArticles = allArticles
+  .filter(a => a.data.series && getBaseSeriesName(a.data.series) === baseSeriesName)
+  .sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
+
+// Display name for the series (use the latest count or the most common one)
+// For "AIエージェント共創実録", we want to show "全6回"
+const displaySeriesName = baseSeriesName === "AIエージェント共創実録" 
+  ? "🎯 AIエージェント共創実録：連載の記録（全6回）" 
+  : `🎯 ${currentSeries}：連載の記録`;
+
+---
+
+<div class="series-list-container">
+  <h3 class="series-list-title">{displaySeriesName}</h3>
+  <ul class="series-list">
+    {seriesArticles.map((article) => {
+      const isCurrent = article.id === currentArticle?.id;
+      const stepLabel = `STEP ${article.data.seriesOrder} : `;
+      
+      return (
+        <li class={isCurrent ? "current" : ""}>
+          {isCurrent ? (
+            <span class="step-line">
+              <span class="step-num">{stepLabel}</span>
+              <span class="step-title">{article.data.title.replace(/【.*?】/, "").split("｜")[0]}（本記事）</span>
+            </span>
+          ) : (
+            <a href={`/articles/${article.id}/`} class="step-link">
+              <span class="step-num">{stepLabel}</span>
+              <span class="step-title">{article.data.title.replace(/【.*?】/, "").split("｜")[0]}</span>
+            </a>
+          )}
+        </li>
+      );
+    })}
+  </ul>
+</div>
+
+<style>
+  .series-list-container {
+    margin: 40px 0;
+    padding: 30px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 8px;
+  }
+
+  .series-list-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .series-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .series-list li {
+    margin-bottom: 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border-left: 4px solid transparent; /* 改行変化を防ぐためスペースを固定 */
+    padding-left: 15px; /* 境界線とテキストの間に余白を追加 */
+  }
+
+  .series-list li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ホバーエフェクト（控えめなアクセントライン） */
+  .series-list li:not(.current):hover {
+    background: rgba(0, 0, 0, 0.03);
+    border-left-color: #ddd;
+  }
+
+  .series-list li.current {
+    border-left-color: #333; /* 現在地を視覚的に固定 */
+    background: rgba(0, 0, 0, 0.01);
+  }
+
+  .step-link, .step-line {
+    display: flex;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    align-items: flex-start;
+  }
+
+  .step-link {
+    transition: color 0.2s ease;
+  }
+
+  .step-link:hover {
+    color: #000;
+  }
+
+  .step-num {
+    font-weight: 700;
+    font-family: inherit;
+    min-width: 80px;
+    flex-shrink: 0;
+    color: #888;
+  }
+
+  .step-title {
+    flex-grow: 1;
+  }
+
+  /* 現在の記事の強調 */
+  .series-list li.current {
+    color: #000;
+  }
+
+  .series-list li.current .step-line {
+    font-weight: 800; /* 本記事にあたる一行を少し太めの文字に */
+    color: #000;
+  }
+
+  .series-list li.current .step-num {
+    color: #000;
+  }
+
+  @media (max-width: 640px) {
+    .series-list-container {
+      padding: 20px;
+    }
+    .step-link, .step-line {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .step-num {
+      font-size: 0.75rem;
+    }
+  }
+</style>

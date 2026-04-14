@@ -33,9 +33,9 @@ const essentialArticles = essentialConfig
     })
     .filter(Boolean);
 
+const initialLatestCount = 6;
 const latestArticles = sortedArticles
-    .filter(article => !documentaryIds.includes(article.id) && !essentialConfig.some(c => c.id === article.id))
-    .slice(0, 6);
+    .filter(article => !documentaryIds.includes(article.id) && !essentialConfig.some(c => c.id === article.id));
 ---
 
 <BaseLayout 
@@ -48,32 +48,60 @@ const latestArticles = sortedArticles
     <!-- ドキュメンタリーセクション -->
     <PremiumDocumentary />
 
-    <div class="content-sections">
+    <div class="content-sections" id="main-content-area">
+        <!-- Filter Results Header -->
+        <div id="filter-results-header" class="filter-results-header" style="display: none;">
+            <div id="curation-scan" class="curation-scan">
+                <span class="scan-text">SYNCHRONIZING DATA...</span>
+                <div class="scan-bar"></div>
+            </div>
+            <div class="results-meta">
+                <span class="results-label">AI CURATED DISCOVERY</span>
+                <h2 class="results-title">
+                    <span id="active-filter-name">ALL</span>
+                    <span class="results-count" id="results-count">0</span>
+                </h2>
+            </div>
+            <div class="results-line"></div>
+        </div>
+
         <!-- Essential Guides -->
-        <section class="home-section essential">
+        <section class="home-section essential" id="section-essential">
             <div class="section-title-wrapper">
                 <h2 class="section-title">Essential Guides</h2>
             </div>
-            <div class="essential-grid">
+            <div class="essential-grid grid-container">
                 {essentialArticles.map(item => (
-                    <ArticleCard article={item} variant="standard" topLabel={item.topLabel} />
+                    <div class="filterable-item">
+                        <ArticleCard article={item} variant="standard" topLabel={item.topLabel} />
+                    </div>
                 ))}
             </div>
         </section>
 
         <!-- Latest Articles -->
-        <section class="home-section latest">
-            <div class="section-title-wrapper">
+        <section class="home-section latest" id="section-latest">
+            <div class="section-title-wrapper-latest">
                 <h2 class="section-title">Latest Articles</h2>
                 <a href="/articles/" class="view-all">EXPLORE ARCHIVE →</a>
             </div>
-            <div class="latest-grid">
-                {latestArticles.map(article => (
-                    <ArticleCard article={article} variant="standard" />
+            <div class="latest-grid grid-container" id="all-articles-grid">
+                {latestArticles.map((article, index) => (
+                    <div class={`filterable-item ${index >= initialLatestCount ? 'is-extra' : ''}`}>
+                        <ArticleCard article={article} variant="standard" />
+                    </div>
                 ))}
             </div>
             
-            <div class="explore-archive-wrapper">
+            <!-- View Full Archive Footer (Discovery Mode) -->
+            <div id="discovery-footer" class="discovery-footer" style="display: none;">
+                <a href="#" id="view-archive-link" class="view-archive-btn">
+                    <span class="btn-primary-text">VIEW FULL ARCHIVE FOR <span id="link-target-name">CATEGORY</span></span>
+                    <span class="btn-sub-text">Encyclopedic records on this topic</span>
+                </a>
+            </div>
+
+            <div class="explore-archive-wrapper" id="explore-more-footer">
                 <a href="/articles/" class="explore-btn">
                     <span class="btn-text">EXPLORE ALL RECORDS</span>
                     <span class="btn-arrow">→</span>
@@ -88,19 +116,177 @@ const latestArticles = sortedArticles
         max-width: 1100px;
         margin: 0 auto;
         padding: 0 5%;
+        min-height: 600px;
+    }
+
+    /* Filter Results Header */
+    .filter-results-header {
+        margin-bottom: 80px;
+        text-align: center;
+        padding: 40px 0;
+        position: relative;
+    }
+
+    /* Curation Scan Effect */
+    .curation-scan {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .curation-scan.active {
+        animation: scanFade 1.5s ease;
+    }
+
+    @keyframes scanFade {
+        0% { opacity: 0; transform: translate(-50%, 10px); }
+        20% { opacity: 1; transform: translate(-50%, 0); }
+        80% { opacity: 1; transform: translate(-50%, 0); }
+        100% { opacity: 0; transform: translate(-50%, -10px); }
+    }
+
+    .scan-text {
+        font-size: 0.65rem;
+        font-weight: 800;
+        letter-spacing: 0.6em;
+        color: #0099ff;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .scan-bar {
+        width: 80px;
+        height: 2px;
+        background: #0099ff;
+        margin: 0 auto;
+        animation: scanBar 1.5s ease-in-out infinite;
+    }
+
+    @keyframes scanBar {
+        0% { width: 0; opacity: 0; }
+        50% { width: 80px; opacity: 1; }
+        100% { width: 0; opacity: 0; }
+    }
+
+    .results-meta {
+        margin-bottom: 30px;
+        transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .results-label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #0099ff;
+        letter-spacing: 0.4em;
+        margin-bottom: 16px;
+    }
+
+    .results-title {
+        font-size: 3rem;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        gap: 20px;
+    }
+
+    .results-count {
+        font-size: 1.2rem;
+        color: #ccc;
+        font-weight: 400;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .results-line {
+        width: 100%;
+        height: 4px;
+        background: #000;
+        margin-top: 20px;
     }
 
     .home-section {
         margin-bottom: 120px;
+        transition: opacity 0.4s ease;
     }
 
-    .section-title-wrapper {
+    /* 
+     * 初期状態で一定数以上の記事を隠す 
+     * JSが入る前でもCSSで制御
+     */
+    .filterable-item.is-extra {
+        display: none;
+    }
+
+    .section-title-wrapper, .section-title-wrapper-latest {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 40px;
         padding-bottom: 15px;
         border-bottom: 2px solid #1a1a1a;
+    }
+
+    .discovery-footer {
+        display: flex;
+        justify-content: center;
+        margin-top: 80px;
+        animation: fadeIn 0.8s ease forwards;
+    }
+
+    .view-archive-btn {
+        text-align: center;
+        text-decoration: none;
+        padding: 40px 80px;
+        background: #f8f8f8;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-width: 400px;
+    }
+
+    .view-archive-btn:hover {
+        background: #000;
+        border-color: #000;
+        transform: translateY(-8px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary-text {
+        color: #1a1a1a;
+        font-size: 1rem;
+        font-weight: 900;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        transition: color 0.4s ease;
+    }
+
+    .btn-sub-text {
+        color: #999;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        transition: color 0.4s ease;
+    }
+
+    .view-archive-btn:hover .btn-primary-text {
+        color: #fff;
+    }
+
+    .view-archive-btn:hover .btn-sub-text {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     .section-title {
@@ -188,3 +374,143 @@ const latestArticles = sortedArticles
         transform: translateX(8px);
     }
 </style>
+
+<script is:inline>
+  function initFilters() {
+    console.log('[Filter] Initializing Discovery Mode...');
+    const filterButtons = document.querySelectorAll('.filter-item');
+    const allArticleItems = document.querySelectorAll('.filterable-item');
+    const sectionEssential = document.getElementById('section-essential');
+    const sectionLatest = document.getElementById('section-latest');
+    const resultsHeader = document.getElementById('filter-results-header');
+    const activeFilterName = document.getElementById('active-filter-name');
+    const resultsCount = document.getElementById('results-count');
+    const exploreFooter = document.getElementById('explore-more-footer');
+    const curationScan = document.getElementById('curation-scan');
+    const discoveryFooter = document.getElementById('discovery-footer');
+    const viewArchiveLink = document.getElementById('view-archive-link');
+    const linkTargetName = document.getElementById('link-target-name');
+
+    if (!filterButtons.length || !allArticleItems.length) return;
+
+    // Define Category vs Tag mapping for link routing
+    const categories = ['AI戦略', 'AIツール', '技術検証', 'AIライフスタイル'];
+    const tags = ['自動化', '効率化テクニック'];
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        console.log('[Filter] Discovery Triggered:', filter);
+
+        // UI Reset & Scan Effect
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        if (curationScan) {
+          curationScan.classList.remove('active');
+          void curationScan.offsetWidth; // Trigger reflow
+          curationScan.classList.add('active');
+        }
+
+        if (filter === 'all') {
+          // --- HOME MODE (Elite 6) ---
+          if (resultsHeader) resultsHeader.style.display = 'none';
+          if (discoveryFooter) discoveryFooter.style.display = 'none';
+          if (sectionEssential) sectionEssential.style.display = 'block';
+          if (sectionLatest) sectionLatest.style.display = 'block';
+          if (exploreFooter) exploreFooter.style.display = 'flex';
+
+          allArticleItems.forEach(item => {
+            if (item.classList.contains('is-extra')) {
+              item.style.display = 'none';
+            } else {
+              item.style.display = 'block';
+              item.style.opacity = '1';
+            }
+          });
+        } else {
+          // --- DISCOVERY (FILTERED) MODE (Elite 6 Limit) ---
+          if (sectionEssential) sectionEssential.style.display = 'none';
+          if (exploreFooter) exploreFooter.style.display = 'none';
+          
+          if (resultsHeader) {
+            resultsHeader.style.display = 'block';
+            if (activeFilterName) activeFilterName.textContent = filter;
+          }
+
+          let matchCount = 0;
+          let displayCount = 0;
+          const MAX_DISCOVERY = 6;
+
+          allArticleItems.forEach(item => {
+            const card = item.querySelector('.article-card');
+            if (!card) return;
+
+            const category = card.getAttribute('data-category');
+            const itemTags = (card.getAttribute('data-tags') || '').split(',');
+
+            if (category === filter || itemTags.indexOf(filter) !== -1) {
+              matchCount++;
+              
+              if (displayCount < MAX_DISCOVERY) {
+                item.style.display = 'block';
+                item.style.opacity = '1';
+                displayCount++;
+                
+                // Entrance animation
+                item.style.transition = 'none';
+                item.style.transform = 'translateY(20px)';
+                item.style.opacity = '0';
+                
+                setTimeout(() => {
+                  item.style.transition = 'all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1)';
+                  item.style.transform = 'translateY(0)';
+                  item.style.opacity = '1';
+                }, displayCount * 50);
+              } else {
+                item.style.display = 'none';
+              }
+            } else {
+              item.style.display = 'none';
+            }
+          });
+
+          if (resultsCount) resultsCount.textContent = `${matchCount} Records Found`;
+
+          // Handle Archive Link Button
+          if (discoveryFooter && viewArchiveLink && linkTargetName) {
+            discoveryFooter.style.display = matchCount > MAX_DISCOVERY ? 'flex' : 'none';
+            linkTargetName.textContent = filter;
+            
+            const slug = filter.toLowerCase();
+            if (categories.indexOf(filter) !== -1) {
+              viewArchiveLink.href = `/category/${slug}/`;
+            } else if (tags.indexOf(filter) !== -1) {
+              viewArchiveLink.href = `/tag/${slug}/`;
+            }
+          }
+          
+          if (sectionLatest) {
+            sectionLatest.style.display = matchCount > 0 ? 'block' : 'none';
+            const latestHeader = sectionLatest.querySelector('.section-title-wrapper-latest');
+            if (latestHeader) latestHeader.style.display = 'none';
+          }
+        }
+      });
+    });
+
+    // Reset headers when going back to ALL
+    const allBtn = document.querySelector('[data-filter="all"]');
+    if (allBtn) {
+      allBtn.addEventListener('click', () => {
+          if (sectionLatest) {
+            const latestHeader = sectionLatest.querySelector('.section-title-wrapper-latest');
+            if (latestHeader) latestHeader.style.display = 'flex';
+          }
+      });
+    }
+  }
+
+  window.addEventListener('load', initFilters);
+  document.addEventListener('astro:after-swap', initFilters);
+</script>

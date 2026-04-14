@@ -1,6 +1,6 @@
 ---
 title: "【実録】Analyticsのノイズを消し、真実を視る。IPフィルタリングと開発者除外の最強構成案"
-image: /assets/premium-ga4-internal-filter.svg
+image: /assets/premium-hybrid-ga4-internal-filter-logic.svg
 excerpt: "Google Analytics 4（GA4）の計測データから「自分自身」を除去する決定版。IPアドレスによるフィルタリングに加え、LocalStorageを活用したブラウザ単位の除外ロジックを実装。データの純度を高め、真のユーザー行動を可視化します。"
 date: '2026-04-13'
 tags:
@@ -10,12 +10,13 @@ tags:
   - サイト運用
 category: 技術検証
 label: VOLUME 3
-series: "【全4回】AIエージェント共創実録"
+series: "【全6回】AIエージェント共創実録"
 seriesOrder: 3
 draft: false
 ---
 
 import CtaInline from '../../components/CtaInline.astro';
+import SeriesList from '../../components/SeriesList.astro';
 
 ## データの「純度」が、正しい判断の羅針盤になる。
 
@@ -104,8 +105,4 @@ AIエージェントと共にサイトを運営する今の時代、データの
 
 ---
 
-## 連載のご案内
-*   [STEP 1：【分析編】AIは最高のデータアナリストになれるか？](/articles/ga4-analysis-discovery/)
-*   [STEP 2：AIエージェントに実務を丸投げする手順](/articles/ga4-sync-technical-guide/)
-*   STEP 3：ノイズを消し、真実を視る。（本記事）
-*   [STEP 4：【実録】サチコから読者の不満を読み解き、改善する技術](/articles/search-console-driven-rewriting/)
+<SeriesList />

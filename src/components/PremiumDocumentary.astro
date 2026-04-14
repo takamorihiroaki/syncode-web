@@ -36,15 +36,17 @@ const seriesArticles = seriesIds
 <div class="filter-bar-wrapper">
   <div class="filter-bar">
     <div class="filter-inner">
-      <a href="#" class="filter-item active">ALL</a>
-      <a href="#" class="filter-item">AI戦略</a>
-      <a href="#" class="filter-item">AIツール</a>
-      <a href="#" class="filter-item">技術検証</a>
-      <a href="#" class="filter-item">自動化</a>
-      <a href="#" class="filter-item secondary">効率化テクニック</a>
+      <button class="filter-item active" data-filter="all">ALL</button>
+      <button class="filter-item" data-filter="AI戦略">AI戦略</button>
+      <button class="filter-item" data-filter="AIツール">AIツール</button>
+      <button class="filter-item" data-filter="技術検証">技術検証</button>
+      <button class="filter-item" data-filter="AIライフスタイル">AIライフスタイル</button>
+      <button class="filter-item" data-filter="自動化">自動化</button>
+      <button class="filter-item secondary" data-filter="効率化テクニック">効率化テクニック</button>
     </div>
   </div>
 </div>
+
 
 <style>
   .premium-documentary {
@@ -161,12 +163,16 @@ const seriesArticles = seriesIds
   }
 
   .filter-item {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
     font-size: 0.8rem;
-    color: #555; /* ベースのコントラストを強化 (#888 -> #555) */
+    color: #555;
     text-decoration: none !important;
-    letter-spacing: 0.2em; /* 文字間隔を広げ、高級感を演出 */
+    letter-spacing: 0.2em;
     position: relative;
-    padding-bottom: 12px;
+    padding: 0 0 12px 0;
     transition: color 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     font-weight: 700;
     text-transform: uppercase;

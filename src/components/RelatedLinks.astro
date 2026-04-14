@@ -1,0 +1,82 @@
+---
+interface Link {
+  text: string;
+  href: string;
+}
+
+interface Props {
+  title?: string;
+  links: Link[];
+}
+
+const { title = "🎯 次に読むべき「最速への鍵」", links } = Astro.props;
+---
+
+<div class="related-links-container">
+  <h3 class="related-title">{title}</h3>
+  <div class="links-wrapper">
+    {links.map((link) => (
+      <a href={link.href} class="related-link-item">
+        <span class="link-label">{link.text}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .related-links-container {
+    margin: 48px 0;
+    padding-top: 32px;
+    border-top: 1px solid #eee;
+  }
+
+  .related-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #333;
+    letter-spacing: 0.05em;
+  }
+
+  .links-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .related-link-item {
+    display: block;
+    padding: 14px 18px;
+    text-decoration: none;
+    color: #555;
+    background: transparent;
+    border-left: 2px solid transparent;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* ミニマルなアクセントラインと背景の変化 */
+  .related-link-item:hover {
+    background: rgba(0, 153, 255, 0.03); /* ごく淡いブランドブルー */
+    border-left: 4px solid #0099ff; /* ブランドカラーのライン */
+    color: #000;
+    padding-left: 16px; /* 境界線を太くした分、内側に寄せて改行変化を抑制 */
+  }
+
+  .link-label {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    display: block;
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .related-link-item {
+      padding: 12px 14px;
+    }
+    .link-label {
+      font-size: 0.9rem;
+    }
+  }
+</style>
