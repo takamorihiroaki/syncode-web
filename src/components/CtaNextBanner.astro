@@ -36,15 +36,44 @@ const { title, excerpt, image, link, order } = Astro.props;
     margin: 100px 0;
     width: 100%;
     overflow: hidden;
-    border-radius: 4px; /* ソリッドな角へ */
+    border-radius: 4px;
     background: #0c0c0c;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
   }
 
   .cta-next-banner:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  /* シマーエフェクト */
+  .cta-next-banner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 80%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.03),
+      transparent
+    );
+    transform: skewX(-25deg);
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .cta-next-banner:hover::after {
+    animation: shimmer 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  @keyframes shimmer {
+    0% { left: -150%; }
+    100% { left: 150%; }
   }
 
   .banner-link {
@@ -93,6 +122,11 @@ const { title, excerpt, image, link, order } = Astro.props;
     margin: 0 0 20px 0;
     line-height: 1.4;
     letter-spacing: 0.1em;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .banner-link:hover .banner-title {
+    transform: translateX(10px);
   }
 
   .banner-excerpt {
