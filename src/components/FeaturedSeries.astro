@@ -60,6 +60,15 @@ const seriesArticles = allArticles
     color: #fff;
   }
 
+  @media (max-width: 1100px) {
+    .featured-series {
+      margin: 80px 0; /* モバイルではネガティブマージンを完全解除 */
+      width: 100%;
+      border-radius: 0;
+      padding: 60px 24px;
+    }
+  }
+
   /* 内部コンテンツの配置調整 */
   .series-header,
   .series-grid,
@@ -280,17 +289,7 @@ const seriesArticles = allArticles
   }
 
   /* Media Queries */
-  @media (max-width: 1100px) {
-    .featured-series {
-      margin: 80px 0; /* ネガティブマージンを解除して親コンテナ内に収める */
-      padding: 80px 32px;
-      border-radius: 0; /* モバイルでは端まで背景を広げるため角丸を無効化 */
-      width: 100%;
-    }
-    .series-grid {
-      gap: 32px;
-    }
-  }
+  /* Media Queries は統合・整理済み */
 
   @media (max-width: 900px) {
     .featured-series {
