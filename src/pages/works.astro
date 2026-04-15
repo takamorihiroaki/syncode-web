@@ -8,21 +8,60 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
     <style>
         .works-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 80px 20px 160px;
+            padding: 100px 20px 80px;
             color: var(--color-text);
-            /* 極限の制約: 10.8pt / Tracking 80 */
+            /* 極限の制約: 10.8pt / Tracking 100 */
             font-size: 14.4px; 
-            letter-spacing: 0.08em; 
-            line-height: 2.0;
+            letter-spacing: 0.1em; 
+            line-height: 2.2;
         }
 
-        /* 鉛筆の跡のような導線（Nano-Bridge） */
-        .nano-bridge-wrap {
-            margin-top: 80px;
+        /* Bridge Section (Nano-Minimalist with Copy) */
+        .next-phase {
+            margin-top: 240px;
+            padding: 120px 0;
             border-top: 1px solid #f0f0f0;
-            padding-top: 40px;
+            text-align: left; /* ボックスではないため、左寄せで調和させる */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .next-phase.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .next-phase-label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: #ccc;
+            margin-bottom: 24px;
+        }
+
+        .next-phase-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            letter-spacing: 0.05em;
+            color: #000;
+        }
+
+        .next-phase-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 0 60px;
+        }
+
+        .next-actions {
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -31,26 +70,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         .nano-bridge {
             display: inline-block;
             font-size: 11px;
-            font-weight: 400;
+            font-weight: 800;
             letter-spacing: 0.3em;
             text-transform: uppercase;
             text-decoration: none;
             color: #ccc;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                        color 0.4s ease, 
-                        transform 0.4s ease;
-        }
-
-        .nano-bridge.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .nano-bridge:hover {
             color: #000;
-            transform: translateX(-5px) !important;
+            transform: translateX(-5px); /* 左へ微動 */
         }
 
         /* プロジェクト間の巨大な余白による「静寂」の演出 */
@@ -151,9 +181,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 grid-template-columns: 1fr; 
                 gap: 16px; 
                 margin-bottom: 60px;
-            }
-            .next-actions {
-                grid-template-columns: 1fr;
             }
             .next-phase {
                 margin-top: 160px;
@@ -267,7 +294,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                         <div class="content">
                             <p>
                                 <span>一切の遅延を感じさせない超高速な描画性能と、</span><br>
-                                <span>複雑化を拒むミニマリズムのシステム的具現化。</span><br>
+                                <span>複雑化を拒むミニマリズムのシステム的具現化.</span><br>
                                 <span>デザイン哲学がそのまま息づく、恒久的なメディア基盤の完成。</span>
                             </p>
                         </div>
@@ -329,13 +356,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </div>
         </article>
 
-        <!-- NANO BRIDGE: BRIDGE TO KNOWLEDGE -->
-        <div class="nano-bridge-wrap">
-            <a href="/articles/antigravity-master-guide/" class="nano-bridge">Master Guide &rarr;</a>
-            <a href="/articles/" class="nano-bridge">All Articles &rarr;</a>
-        </div>
-
-        <!-- NEXT PHASE: BRIDGE TO KNOWLEDGE -->
+        <!-- NEXT PHASE: BRIDGE TO KNOWLEDGE (INTEGRATED VERSION) -->
         <section class="next-phase">
             <span class="next-phase-label">Next Phase</span>
             <h2 class="next-phase-title">Beyond the Logic</h2>
@@ -345,16 +366,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </p>
 
             <div class="next-actions">
-                <a href="/articles/antigravity-master-guide/" class="action-card">
-                    <span class="label">EXPLAINER</span>
-                    <span class="title">完全攻略マスターガイド</span>
-                    <span class="arrow">→ Enterprise Records</span>
-                </a>
-                <a href="/articles/" class="action-card">
-                    <span class="label">RESEARCH</span>
-                    <span class="title">最新の実践記事一覧</span>
-                    <span class="arrow">→ Explore All Articles</span>
-                </a>
+                <a href="/articles/antigravity-master-guide/" class="nano-bridge">Master Guide &rarr;</a>
+                <a href="/articles/" class="nano-bridge">All Articles &rarr;</a>
             </div>
         </section>
 
