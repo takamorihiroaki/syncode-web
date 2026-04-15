@@ -48,7 +48,7 @@ function getSize(count: number): 'small' | 'medium' | 'large' {
       return (
         <a
           href={`/tag/${encodeURIComponent(tag.toLowerCase())}/`}
-          class={`cloud-tag cloud-tag--${size}`}
+          class={`cloud-tag cloud-tag--${size} ${tag === "Antigravity" ? "cloud-tag--highlight" : ""}`}
           data-count={count}
         >
           <span class="cloud-tag__hash">#</span>
@@ -151,6 +151,28 @@ function getSize(count: number): 'small' | 'medium' | 'large' {
     padding: 10px 20px;
     font-size: 1rem;
     font-weight: 600;
+  }
+
+  /* 特定タグの強調（Antigravity） */
+  .cloud-tag--highlight {
+    border-color: #000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background: #fcfcfc;
+  }
+
+  .cloud-tag--highlight .cloud-tag__name {
+    font-weight: 800;
+    color: #000;
+  }
+
+  .cloud-tag--highlight::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #000;
   }
 
   .cloud-tag__hash {

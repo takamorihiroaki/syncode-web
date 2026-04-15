@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# 1. .html 拡張子付きURLを末尾スラッシュ付きへリダイレクト (例: about.html -> about/)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} ^(.+)\.html$
+RewriteRule ^(.+)\.html$ %1/ [R=301,L]
+
+# 2. 末尾スラッシュがない場合にスラッシュを付与して正規化 (例: articles -> articles/)
+# ただしファイル実体が存在する場合や、すでにスラッシュがある場合は除外
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !index\.php
+RewriteCond %{REQUEST_URI} !(.*)\.(.*)$
+RewriteCond %{REQUEST_URI} !.*/$
+RewriteRule ^(.*)$ /$1/ [R=301,L]

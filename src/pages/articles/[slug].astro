@@ -81,6 +81,9 @@ if (!displayNext) {
         footerCtaType = "tools";
     }
 }
+
+// Antigravity関連記事の場合、マスターガイドへの特別導線を有効化
+const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antigravity-master-guide";
 ---
 
 <BaseLayout 
@@ -138,6 +141,19 @@ if (!displayNext) {
                 </>
             )}
         </div>
+        
+        {isAntigravityArticle && (
+            <div class="antigravity-hub-banner" style="margin: 60px 0; border: 1px solid #000; padding: 30px; border-radius: 8px; background: #fff;">
+                <span style="font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: #999; display: block; margin-bottom: 12px;">Antigravity Resource Hub</span>
+                <h3 style="font-size: 1.25rem; font-weight: 800; margin: 0 0 16px 0;">Antigravityを使いこなすための全ての知識をここに。</h3>
+                <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin-bottom: 20px;">
+                    導入、設定、パフォーマンス改善から高度な自動化まで。SYNCODEが公開している30以上のAntigravity関連記事を体系化した完全ガイドを公開しています。
+                </p>
+                <a href="/articles/antigravity-master-guide/" style="display: inline-block; padding: 12px 24px; background: #000; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border-radius: 4px; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                    マスターガイドを読む
+                </a>
+            </div>
+        )}
         
         {entry.data.tags && entry.data.tags.length > 0 && (
             <div class="tag-list" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--color-border);">
