@@ -8,14 +8,49 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
     <style>
         .works-container {
-            max-width: 1000px; /* 1100pxではなく、1000pxの凝縮感を採用 */
+            max-width: 900px;
             margin: 0 auto;
-            padding: 100px 20px 80px;
+            padding: 80px 20px 160px;
             color: var(--color-text);
-            /* 極限の制約: 10.8pt / Tracking 100 (少し広げた) */
+            /* 極限の制約: 10.8pt / Tracking 80 */
             font-size: 14.4px; 
-            letter-spacing: 0.1em; 
-            line-height: 2.2;
+            letter-spacing: 0.08em; 
+            line-height: 2.0;
+        }
+
+        /* 鉛筆の跡のような導線（Nano-Bridge） */
+        .nano-bridge-wrap {
+            margin-top: 80px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .nano-bridge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #ccc;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                        color 0.4s ease, 
+                        transform 0.4s ease;
+        }
+
+        .nano-bridge.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nano-bridge:hover {
+            color: #000;
+            transform: translateX(-5px) !important;
         }
 
         /* プロジェクト間の巨大な余白による「静寂」の演出 */
@@ -102,114 +137,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         .spacer { 
             display: block; 
             height: 16px; 
-        }
-
-        /* Next Phase セクション */
-        .next-phase {
-            margin-top: 240px;
-            padding: 120px 0;
-            border-top: 1px solid #f0f0f0;
-            text-align: center;
-            /* 親コンテナでリビールを管理 */
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .next-phase.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .next-phase-label {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            color: #ccc;
-            margin-bottom: 24px;
-        }
-
-        .next-phase-title {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 30px;
-            letter-spacing: 0.05em;
-            color: #000;
-        }
-
-        .next-phase-desc {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.8;
-            max-width: 600px;
-            margin: 0 auto 60px;
-        }
-
-        .next-actions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .action-card {
-            display: block;
-            padding: 40px;
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            text-decoration: none;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            text-align: left;
-            /* カード単体にもディレイ用のベースを用意 */
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .next-phase.is-visible .action-card {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .next-phase.is-visible .action-card:nth-child(1) { transition-delay: 0.2s; }
-        .next-phase.is-visible .action-card:nth-child(2) { transition-delay: 0.4s; }
-
-        .action-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border-color: #000;
-        }
-
-        .action-card .label {
-            font-size: 0.65rem;
-            font-weight: 800;
-            color: #999;
-            letter-spacing: 0.2em;
-            display: block;
-            margin-bottom: 12px;
-        }
-
-        .action-card .title {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #000;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .action-card .arrow {
-            font-size: 1rem;
-            color: #ccc;
-            transition: transform 0.3s ease;
-        }
-
-        .action-card:hover .arrow {
-            transform: translateX(5px);
-            color: #000;
         }
 
         /* スマートフォン向け最適化 */
@@ -401,6 +328,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </div>
             </div>
         </article>
+
+        <!-- NANO BRIDGE: BRIDGE TO KNOWLEDGE -->
+        <div class="nano-bridge-wrap">
+            <a href="/articles/antigravity-master-guide/" class="nano-bridge">Master Guide &rarr;</a>
+            <a href="/articles/" class="nano-bridge">All Articles &rarr;</a>
+        </div>
 
         <!-- NEXT PHASE: BRIDGE TO KNOWLEDGE -->
         <section class="next-phase">

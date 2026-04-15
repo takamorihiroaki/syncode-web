@@ -8,42 +8,40 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
     <style>
         .about-layout {
-            max-width: 1000px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 100px 5% 80px;
+            padding: 100px 6% 160px;
             color: var(--color-text);
             line-height: 2.2;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
         }
 
         .about-section {
-            margin-bottom: 120px;
+            margin-bottom: 140px;
             display: flex;
             flex-direction: column;
-            max-width: 700px; /* テキスト部分は読みやすさのため700px程度に制限 */
         }
 
         .about-section:last-child {
-            margin-bottom: 0px;
+            margin-bottom: 40px;
         }
 
         .about-section h2 { 
-            font-size: 0.8rem;
-            font-weight: 800; 
+            font-size: 1rem;
+            font-weight: 300; 
             text-transform: uppercase; 
-            letter-spacing: 0.4em;
-            color: #ccc; 
-            margin: 0 0 40px 0;
-            border-bottom: 1px solid #f0f0f0;
+            letter-spacing: 0.15em;
+            color: var(--color-text-light); 
+            margin: 0 0 32px 0;
+            border-bottom: 1px solid var(--color-border);
             padding-bottom: 12px;
         }
         
         .about-section p { 
             margin: 0; 
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             word-break: keep-all; 
-            overflow-wrap: break-word;
-            font-weight: 500;
+            overflow-wrap: break-word; 
         }
 
         .about-section p span {
@@ -52,105 +50,49 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
         .spacer {
             display: block;
-            height: 24px;
+            height: 20px;
         }
 
         .about-section strong span {
-            font-weight: 900;
-            font-size: 1.8rem;
-            margin-bottom: 24px;
+            font-weight: 500;
+            font-size: 1.25rem;
+            margin-bottom: 16px;
             display: block;
-            color: #000;
-            letter-spacing: -0.01em;
         }
 
-        /* Proof to Action (Bridge Section) */
-        .bridge-section {
+        /* 鉛筆の跡のような導線（Nano-Bridge） */
+        .nano-bridge {
+            display: inline-block;
             margin-top: 80px;
-            padding: 120px 80px;
-            background: #fdfdfd;
-            border: 1px solid #f0f0f0;
-            text-align: center;
-            /* 初期状態：隠しておく */
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #ccc;
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(10px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                        color 0.4s ease, 
+                        transform 0.4s ease; /* ホバー用 */
         }
 
-        /* 出現時 */
-        .bridge-section.is-visible {
+        .nano-bridge.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .bridge-label {
-            display: block;
-            font-size: 0.7rem;
-            font-weight: 800;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            color: #999;
-            margin-bottom: 24px;
-        }
-
-        .bridge-title {
-            font-size: 2.2rem;
-            font-weight: 900;
-            margin-bottom: 30px;
-            letter-spacing: -0.02em;
+        .nano-bridge:hover {
             color: #000;
-        }
-
-        .bridge-desc {
-            font-size: 1rem;
-            color: #666;
-            line-height: 1.8;
-            max-width: 600px;
-            margin: 0 auto 60px;
-        }
-
-        .btn-works {
-            display: inline-block;
-            padding: 24px 60px;
-            background: #000;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 800;
-            letter-spacing: 0.2em;
-            font-size: 0.9rem;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            border-radius: 4px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .btn-works:hover {
-            background: #333;
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            letter-spacing: 0.25em; /* わずかに広がる演出 */
+            transform: translateX(-5px) !important; /* 左へずれる */
         }
 
         @media (max-width: 768px) {
             .about-layout {
-                padding: 60px 20px 80px;
+                padding: 60px 20px 120px;
             }
             .about-section {
-                margin-bottom: 80px;
-            }
-            .about-section strong span {
-                font-size: 1.4rem;
-            }
-            .bridge-section {
-                padding: 60px 30px;
-                margin-top: 40px;
-            }
-            .bridge-title {
-                font-size: 1.6rem;
-            }
-            .btn-works {
-                width: 100%;
-                padding: 20px;
+                margin-bottom: 100px;
             }
         }
     </style>
@@ -200,16 +142,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             </p>
         </section>
 
-        <!-- BRIDGE TO WORKS -->
-        <div class="bridge-section">
-            <span class="bridge-label">Identity in Action</span>
-            <h2 class="bridge-title">実証：概念を形へ</h2>
-            <p class="bridge-desc">
-                思想を数式のように精緻に積み上げ、確かな実績へと変換する。<br/>
-                SYNCODEが手がけたプロジェクトの実例をご覧ください。
-            </p>
-            <a href="/works/" class="btn-works">VIEW WORKS →</a>
-        </div>
+        <!-- NANO BRIDGE -->
+        <a href="/works/" class="nano-bridge">View Works &rarr;</a>
     </div>
 
     <script>
@@ -227,9 +161,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
             });
         }, observerOptions);
 
-        const bridgeSection = document.querySelector('.bridge-section');
-        if (bridgeSection) {
-            observer.observe(bridgeSection);
+        const nanoBridge = document.querySelector('.nano-bridge');
+        if (nanoBridge) {
+            observer.observe(nanoBridge);
         }
     </script>
 </BaseLayout>
