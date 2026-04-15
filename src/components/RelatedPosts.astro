@@ -6,22 +6,43 @@ interface Props {
   currentId: string;
   tags?: string[];
   category?: string;
+  series?: string;
+  seriesOrder?: number;
 }
 
-const { category: currentCategory, currentId, tags: currentTags = [] } = Astro.props;
+const { category: currentCategory, currentId, tags: currentTags = [], series: currentSeries, seriesOrder: currentSeriesOrder } = Astro.props;
 const allArticles = await getCollection("articles");
 
-// シンプルな関連度計算
+// 高度な関連度計算（連載・カテゴリ・タグ・鮮度）
 const relatedArticles = allArticles
   .filter((article) => article.id !== currentId) // 自分自身を除外
   .map((article) => {
     let score = 0;
+    
+    // 1. 連載（Series）の優先
+    if (article.data.series && article.data.series === currentSeries) {
+      score += 10;
+      // 次の回であれば最大加点
+      if (currentSeriesOrder !== undefined && article.data.seriesOrder === currentSeriesOrder + 1) {
+        score += 20;
+      }
+    }
+
+    // 2. カテゴリの一致
     if (article.data.category === currentCategory) score += 5;
+
+    // 3. 共通タグの数
     const commonTags = article.data.tags?.filter((tag) => currentTags.includes(tag));
     score += (commonTags?.length || 0) * 2;
+
     return { article, score };
   })
-  .sort((a, b) => b.score - a.score)
+  .sort((a, b) => {
+    // 1次ソート: 関連度スコア
+    if (b.score !== a.score) return b.score - a.score;
+    // 2次ソート: 日付（新しい順）
+    return b.article.data.date.getTime() - a.article.data.date.getTime();
+  })
   .slice(0, 3)
   .map((item) => item.article);
 ---

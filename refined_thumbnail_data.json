@@ -68,5 +68,8 @@
   "site-reform-ch4-ai-autonomy-recap.mdx": {"role": "AUTHORITY", "main": "真の共創", "sub": "壁を越えた先にある進化"},
   "site-reform-special-ai-panic-recovery.mdx": {"role": "PROBLEM SOLVING", "main": "消失と不屈", "sub": "情報の静止点を取り戻す"},
   "syncode-story.mdx": {"role": "USAGE", "main": "奇跡の一日", "sub": "全システムを構築した全容"},
-  "tools-page-authority-evolution.mdx": {"role": "REVENUE", "main": "権威ある記録", "sub": "信頼を成果に繋げるUX"}
+  "tools-page-authority-evolution.mdx": {"role": "REVENUE", "main": "権威ある記録", "sub": "信頼を成果に繋げるUX"},
+  "ai-agent-beginner-guide.mdx": {"role": "BEGINNER", "main": "AIエージェント", "sub": "今日から仕事の相棒に"},
+  "antigravity-mcp-guide.mdx": {"role": "AUTHORITY", "main": "Antigravity × MCP", "sub": "知識を拡張する新基準"},
+  "vibe-coding-practice-report.mdx": {"role": "IMPROVEMENT", "main": "バイブコーディング", "sub": "対話だけで爆速構築"}
 }

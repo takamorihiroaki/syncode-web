@@ -42,9 +42,27 @@ if (isSeries && !nextEntry && entry.data.series === "AI Collaboration Story" && 
 }
 
 // 最終的な表示用Next
-const displayNext = nextEntry || customNextEntry;
+let displayNext = nextEntry || customNextEntry;
 
-// 導線コンポーネントの選定
+// 連載の次がない場合、関連記事のスコア1位をレコメンドとして採用する
+if (!displayNext) {
+    const recommendations = allArticles
+        .filter(a => a.id !== entry.id && !a.data.draft)
+        .map(a => {
+            let score = 0;
+            if (a.data.category === entry.data.category) score += 5;
+            const commonTags = a.data.tags?.filter(t => (entry.data.tags || []).includes(t));
+            score += (commonTags?.length || 0) * 2;
+            return { article: a, score };
+        })
+        .sort((a, b) => b.score - a.score);
+
+    if (recommendations.length > 0 && recommendations[0].score > 2) {
+        displayNext = recommendations[0].article;
+    }
+}
+
+// 導線コンポーネントの選定（バナーが出ない場合のフォールバック）
 const tags = entry.data.tags || [];
 const category = entry.data.category || "";
 
