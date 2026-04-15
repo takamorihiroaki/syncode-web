@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
+import Gateway from "../components/Gateway.astro";
 import PremiumDocumentary from "../components/PremiumDocumentary.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 
@@ -19,31 +20,29 @@ const documentaryIds = [
   'data-driven-seo-optimization'
 ];
 
-// Essential Guidesの定義 (PDFのPOPULAR, GUIDE, ADVANCEDに対応)
-const essentialConfig = [
-  { id: 'seo-optimization-with-ai', label: 'POPULAR' },
-  { id: 'antigravity-start', label: 'GUIDE' },
-  { id: 'antigravity-browser-control-guide', label: 'ADVANCED' }
-];
-
-const essentialArticles = essentialConfig
-    .map(config => {
-      const article = allArticles.find(a => a.id === config.id);
-      return article ? { ...article, topLabel: config.label } : null;
-    })
-    .filter(Boolean);
+// Gatewayと重複する記事ID
+const gatewayIds = ['antigravity-start', 'antigravity-master-guide'];
 
 const initialLatestCount = 6;
 const latestArticles = sortedArticles
-    .filter(article => !documentaryIds.includes(article.id) && !essentialConfig.some(c => c.id === article.id));
+    .filter(article => 
+        !documentaryIds.includes(article.id) && 
+        !gatewayIds.includes(article.id) &&
+        !article.data.draft
+    );
 ---
 
 <BaseLayout 
     title="SYNCODE | AI・Antigravityを使いこなすための実践技術ブログ"
     description="AIエージェントAntigravityと共に歩む、ブログ制作と収益化の記録。ディレクトリ構成の最適化からSEO、自動化技術まで、AI共創の最前線を技術ブログとして公開。"
 >
-    <!-- ヒーローセクション (PDF Page 1) -->
+    <!-- ヒーローセクション -->
     <Hero />
+
+    <!-- ゲートウェイ（実践と体系） -->
+    <div id="gateway-entrance">
+        <Gateway />
+    </div>
 
     <!-- ドキュメンタリーセクション -->
     <PremiumDocumentary />
@@ -65,24 +64,10 @@ const latestArticles = sortedArticles
             <div class="results-line"></div>
         </div>
 
-        <!-- Essential Guides -->
-        <section class="home-section essential" id="section-essential">
-            <div class="section-title-wrapper">
-                <h2 class="section-title">Essential Guides</h2>
-            </div>
-            <div class="essential-grid grid-container">
-                {essentialArticles.map(item => (
-                    <div class="filterable-item">
-                        <ArticleCard article={item} variant="standard" topLabel={item.topLabel} />
-                    </div>
-                ))}
-            </div>
-        </section>
-
         <!-- Latest Articles -->
         <section class="home-section latest" id="section-latest">
             <div class="section-title-wrapper-latest">
-                <h2 class="section-title">Latest Articles</h2>
+                <h2 class="section-title">Latest Knowledge</h2>
                 <a href="/articles/" class="view-all">EXPLORE ARCHIVE →</a>
             </div>
             <div class="latest-grid grid-container" id="all-articles-grid">
@@ -113,7 +98,7 @@ const latestArticles = sortedArticles
 
 <style>
     .content-sections {
-        max-width: 1100px;
+        max-width: 1000px;
         margin: 0 auto;
         padding: 0 5%;
         min-height: 600px;
@@ -211,7 +196,7 @@ const latestArticles = sortedArticles
     }
 
     .home-section {
-        margin-bottom: 120px;
+        margin-bottom: 80px;
         transition: opacity 0.4s ease;
     }
 

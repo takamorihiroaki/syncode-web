@@ -1,0 +1,209 @@
+---
+---
+
+<section class="gateway-section">
+  <div class="gateway-container">
+    <div class="gateway-grid">
+      <!-- LEFT: PRACTICAL GATEWAY -->
+      <a href="/articles/antigravity-start/" class="gateway-card gateway-card--practical">
+        <div class="gateway-card__content">
+          <span class="gateway-label">Practical Guide</span>
+          <h3 class="gateway-title">Antigravity<br/>導入・スタートガイド</h3>
+          <p class="gateway-desc">
+            「今すぐAIエージェントを動かしたい」あなたへ。<br/>
+            環境構築から最初の一歩まで、最短で成果を出すための実践プロトコル。
+          </p>
+          <div class="gateway-footer">
+            <span class="gateway-action">START HERE</span>
+            <span class="gateway-arrow">→</span>
+          </div>
+        </div>
+        <div class="gateway-bg-pattern"></div>
+      </a>
+
+      <!-- RIGHT: EXPERTISE GATEWAY -->
+      <a href="/articles/antigravity-master-guide/" class="gateway-card gateway-card--expertise">
+        <div class="gateway-card__content">
+          <span class="gateway-label">Resource Hub</span>
+          <h3 class="gateway-title">Antigravity<br/>完全攻略マスターガイド</h3>
+          <p class="gateway-desc">
+            「AIを真に使いこなしたい」あなたへ。<br/>
+            30以上の関連記事を体系化。設定から自動化まで、全技術を網羅したリソースハブ。
+          </p>
+          <div class="gateway-footer">
+            <span class="gateway-action">ENTER HUB</span>
+            <span class="gateway-arrow">→</span>
+          </div>
+        </div>
+        <div class="gateway-bg-pattern"></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gateway-section {
+    padding: 0 0 80px;
+    background: #fff;
+    position: relative;
+    z-index: 10;
+  }
+
+  .gateway-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .gateway-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .gateway-card {
+    position: relative;
+    display: block;
+    padding: 80px 60px;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  }
+
+  /* アクセントライン（上部） */
+  .gateway-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  /* 共通のホバー効果 */
+  .gateway-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+    border-color: #000;
+  }
+
+  .gateway-card:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* 実践（左）：インディゴ・ブルー */
+  .gateway-card--practical {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .gateway-card--practical::after {
+    background: #2563eb; /* 誠実なブルー */
+  }
+
+  /* 体系（右）：ブロンズ・ブラック */
+  .gateway-card--expertise {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .gateway-card--expertise::after {
+    background: #b8860b; /* 権威性のあるゴールド/ブロンズ */
+  }
+
+  .gateway-card__content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .gateway-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 24px;
+    transition: color 0.3s ease;
+  }
+
+  .gateway-card--practical:hover .gateway-label { color: #2563eb; }
+  .gateway-card--expertise:hover .gateway-label { color: #b8860b; }
+
+  .gateway-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    color: #1a1a1a;
+  }
+
+  .gateway-desc {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: #666;
+    margin-bottom: 40px;
+    max-width: 420px;
+  }
+
+  .gateway-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #f5f5f5;
+  }
+
+  .gateway-action {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #1a1a1a;
+  }
+
+  .gateway-arrow {
+    font-size: 1.1rem;
+    color: #ccc;
+    transition: all 0.3s ease;
+  }
+
+  .gateway-card:hover .gateway-arrow {
+    transform: translateX(8px);
+    color: #000;
+  }
+
+  /* 背景パターン（極めて薄く） */
+  .gateway-bg-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0.02;
+    pointer-events: none;
+    background-image: radial-gradient(#000 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  @media (max-width: 900px) {
+    .gateway-grid {
+      grid-template-columns: 1fr;
+    }
+    .gateway-card {
+      padding: 50px 40px;
+    }
+    .gateway-title {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gateway-card {
+      padding: 40px 30px;
+    }
+  }
+</style>

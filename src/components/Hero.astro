@@ -4,42 +4,36 @@
 <section class="hero-section">
   <div class="hero-inner">
     <div class="hero-content">
+      <div class="hero-badge">Expertise x Autonomy</div>
       <h1 class="hero-title">
-        Antigravityで挫折したから分かった、<br />
-        公式ガイドにはない<span class="marker-highlight">「本当に使いこなす」</span>コツ
+        30年のディレクション経験と、<br />
+        <span class="marker-highlight">AI自律エージェント</span>の融合。
       </h1>
       <p class="hero-lead">
-        AI任せで記事が崩れる、指示が通らない…。<br />
-        そんな「現場のリアルな悩み」を、実体験から導き出した具体的かつ確実な解決策とともに記録しています。
+        Antigravityを単なるツールから、思考を具現化するパートナーへ。<br />
+        現場のプロトコルが生み出す、AI共創の最適解をSYNCODEが解き明かします。
       </p>
 
       <div class="hero-points">
         <ul class="points-list">
           <li class="point-item">
             <span class="point-icon">✦</span>
-            試行錯誤の末に見つけた「正解」だけを凝縮して公開
+            30年のキャリアに基づく「判断」を、AIで10倍速化する技術
           </li>
           <li class="point-item">
             <span class="point-icon">✦</span>
-            なぜ崩れるのか？失敗のプロセスも隠さず共有
+            公式ガイドにはない、実戦投入から得られた独自ノウハウ
           </li>
           <li class="point-item">
             <span class="point-icon">✦</span>
-            初心者でも迷わない、再現性の高いステップバイステップ手順
-          </li>
-          <li class="point-item">
-            <span class="point-icon">✦</span>
-            コピペで即解決！今すぐ使える具体的なノウハウを網羅
+            AIに「全部理解」させ、思考のズレをゼロにするコンテキスト管理術
           </li>
         </ul>
       </div>
 
       <div class="hero-actions">
-        <a href="/articles/antigravity-start" class="btn primary">
-          → まずは解決の第一歩を踏む
-        </a>
-        <a href="/articles/" class="btn secondary">
-          → EXPLORE ALL RECORDS
+        <a href="#gateway-entrance" class="btn primary">
+          → ナレッジを探索する
         </a>
       </div>
     </div>
@@ -52,18 +46,29 @@
     background: #fff;
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid #f0f0f0;
   }
 
   .hero-inner {
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 60px 40px;
+    padding: 80px 60px;
     background: #fdfdfd;
     border: 1px solid #f0f0f0;
     border-radius: 2px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+  }
+
+  .hero-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 4px;
   }
 
   .hero-content {
@@ -73,7 +78,7 @@
   }
 
   .hero-title {
-    font-size: 2.4rem;
+    font-size: 2.6rem;
     font-weight: 900;
     line-height: 1.35;
     margin-bottom: 30px;
@@ -129,75 +134,45 @@
 
   .hero-actions {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    align-items: center;
-    gap: 24px;
   }
 
   .btn {
     display: inline-block;
-    width: auto;
-    min-width: 280px;
-    max-width: 400px;
-    padding: 18px 30px;
-    font-size: 1rem;
+    padding: 18px 40px;
+    font-size: 0.9rem;
     font-weight: 800;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     border-radius: 4px;
-    letter-spacing: 0.05em;
-    text-align: center;
+    letter-spacing: 0.1em;
   }
 
   .btn.primary {
-    background: #f0f0f0;
-    color: #333;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background: #000;
+    color: #fff;
+    border: 1px solid #000;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
 
   .btn.primary:hover {
-    background: #e8e8e8;
-    transform: translateY(-2px);
-  }
-
-  .btn.secondary {
-    background: #fff;
-    color: #666;
-    border: 1px solid #eee;
-  }
-
-  .btn.secondary:hover {
-    background: #fafafa;
-    border-color: #ddd;
-    color: #333;
+    background: #333;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
   }
 
   @media (max-width: 768px) {
     .hero-title {
-      font-size: 1.6rem;
-    }
-    .marker-highlight {
-      padding: 0;
-      margin: 0;
+      font-size: 1.8rem;
     }
     .hero-lead {
       font-size: 1rem;
     }
-    .point-item {
-      font-size: 0.95rem;
-    }
     .hero-inner {
-      padding: 40px 20px;
-    }
-    .hero-actions {
-      flex-direction: column;
-      gap: 16px;
+      padding: 50px 24px;
     }
     .btn {
       width: 100%;
-      max-width: none;
     }
   }
 </style>
