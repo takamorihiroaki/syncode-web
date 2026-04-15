@@ -1,11 +1,61 @@
 ---
 interface Props {
   name: string;
+  size?: 'small' | 'medium' | 'large';
 }
 
-const { name } = Astro.props;
+const { name, size = 'small' } = Astro.props;
 ---
 
-<a href={`/tag/${name.toLowerCase()}/`} class="tag-item">
-  {name}
+<a href={`/tag/${encodeURIComponent(name.toLowerCase())}/`} class={`tag-item tag-${size}`}>
+  <span class="tag-hash">#</span>{name}
 </a>
+
+<style>
+  .tag-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px 12px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    color: #555;
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    white-space: nowrap;
+  }
+
+  .tag-item:hover {
+    background: #0c0c0c;
+    color: #fff;
+    border-color: #0c0c0c;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  .tag-hash {
+    color: #bbb;
+    font-weight: 400;
+    transition: color 0.25s ease;
+  }
+
+  .tag-item:hover .tag-hash {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* サイズバリエーション */
+  .tag-medium {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+
+  .tag-large {
+    padding: 8px 18px;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+</style>

@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FeaturedSeries from "../../components/FeaturedSeries.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
+import TagCloud from "../../components/TagCloud.astro";
 
 // 1. 全61記事を動的に取得
 const allArticles = await getCollection("articles");
@@ -78,6 +79,8 @@ sortedCategories.forEach(cat => {
         </div>
 
         <FeaturedSeries />
+
+        <TagCloud />
 
         {/* --- PILLAR 1: DOCUMENTATION PACKAGES --- */}
         <div class="archive-segment">

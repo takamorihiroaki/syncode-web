@@ -22,6 +22,12 @@ export async function getStaticPaths() {
 }
 
 const { tag, articles } = Astro.props;
+
+// 関連タグの計算（このタグが含まれる記事に含まれる他のタグを抽出）
+const relatedTags = [...new Set(
+    articles.flatMap(article => article.data.tags || [])
+        .filter(t => t && t !== tag)
+)].slice(0, 8);
 ---
 
 <BaseLayout title={`${tag} - タグ一覧`}>
@@ -29,8 +35,20 @@ const { tag, articles } = Astro.props;
         <div class="section-title-wrapper-tag">
             <span class="tag-label-top">Tag</span>
             <h1 class="section-title-tag">{tag}</h1>
+            <p class="tag-count-label">{articles.length}件の記事</p>
         </div>
     </div>
+
+    {relatedTags.length > 0 && (
+        <div class="related-tags-container">
+            <span class="related-tags-label">Related:</span>
+            <div class="related-tags-list">
+                {relatedTags.map(rt => (
+                    <a href={`/tag/${encodeURIComponent(rt.toLowerCase())}/`} class="related-tag-link">#{rt}</a>
+                ))}
+            </div>
+        </div>
+    )}
 
     <div class="article-grid">
         {
@@ -41,19 +59,22 @@ const { tag, articles } = Astro.props;
     </div>
     
     <div class="archive-footer">
-        <a href="/" class="back-link">TOPページに戻る</a>
+        <div class="footer-nav-links">
+            <a href="/articles/#tag-cloud" class="back-link secondary">すべてのタグを見る</a>
+            <a href="/" class="back-link">TOPページに戻る</a>
+        </div>
     </div>
 </BaseLayout>
 
 <style>
     .archive-header {
         text-align: center;
-        margin-bottom: 80px;
+        margin-bottom: 60px;
     }
 
     .section-title-wrapper-tag {
         display: inline-block;
-        padding-bottom: 20px;
+        padding-bottom: 24px;
         border-bottom: 1px solid #eee;
     }
 
@@ -67,10 +88,55 @@ const { tag, articles } = Astro.props;
     }
 
     .section-title-tag {
-        font-size: 2.2rem;
+        font-size: 2.5rem;
         font-weight: 900;
         letter-spacing: -0.02em;
         color: #000;
+        margin: 0 0 8px 0;
+    }
+
+    .tag-count-label {
+        font-size: 0.85rem;
+        color: #888;
+        letter-spacing: 0.05em;
+        margin: 0;
+    }
+
+    .related-tags-container {
+        max-width: 1100px;
+        margin: 0 auto 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 0 20px;
+    }
+
+    .related-tags-label {
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #bbb;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .related-tags-list {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .related-tag-link {
+        font-size: 0.85rem;
+        color: #666;
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .related-tag-link:hover {
+        color: #000;
+        text-decoration: underline;
     }
 
     .article-grid {
@@ -79,6 +145,7 @@ const { tag, articles } = Astro.props;
         gap: 60px 40px;
         max-width: 1100px;
         margin: 0 auto;
+        padding: 0 20px;
     }
 
     @media (max-width: 1024px) {
@@ -96,22 +163,41 @@ const { tag, articles } = Astro.props;
     .archive-footer {
         text-align: center;
         margin-top: 100px;
-        padding-top: 40px;
+        padding-top: 60px;
         border-top: 1px solid #f0f0f0;
+    }
+
+    .footer-nav-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
     }
 
     .back-link {
         display: inline-block;
-        padding: 12px 32px;
+        padding: 14px 32px;
         background: #000;
         color: #fff;
         text-decoration: none;
         font-size: 0.85rem;
         font-weight: 700;
-        transition: background 0.3s ease;
+        transition: all 0.3s ease;
+    }
+
+    .back-link.secondary {
+        background: #fff;
+        color: #000;
+        border: 1px solid #eee;
     }
 
     .back-link:hover {
         background: #333;
+        transform: translateY(-2px);
+    }
+
+    .back-link.secondary:hover {
+        background: #f8f8f8;
+        border-color: #ddd;
     }
 </style>

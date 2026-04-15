@@ -1,0 +1,191 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  maxTags?: number;
+  title?: string;
+}
+
+const { maxTags = 30, title = "タグから記事を探す" } = Astro.props;
+
+const allArticles = await getCollection("articles");
+const tagCounts: Record<string, number> = {};
+
+allArticles
+  .filter(a => !a.data.draft)
+  .forEach(article => {
+    (article.data.tags || []).forEach(tag => {
+      if (tag) tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+    });
+  });
+
+// 頻度順でソートし、上位を取得
+const sortedTags = Object.entries(tagCounts)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, maxTags);
+
+const maxCount = Math.max(...sortedTags.map(([, c]) => c));
+const minCount = Math.min(...sortedTags.map(([, c]) => c));
+
+// 出現頻度を3段階に分類
+function getSize(count: number): 'small' | 'medium' | 'large' {
+  if (maxCount === minCount) return 'medium';
+  const ratio = (count - minCount) / (maxCount - minCount);
+  if (ratio > 0.6) return 'large';
+  if (ratio > 0.2) return 'medium';
+  return 'small';
+}
+---
+
+<div class="tag-cloud-section" id="tag-cloud">
+  <div class="tag-cloud-header">
+    <span class="tag-cloud-label">Tags</span>
+    <h2 class="tag-cloud-title">{title}</h2>
+  </div>
+  <div class="tag-cloud-grid">
+    {sortedTags.map(([tag, count]) => {
+      const size = getSize(count);
+      return (
+        <a
+          href={`/tag/${encodeURIComponent(tag.toLowerCase())}/`}
+          class={`cloud-tag cloud-tag--${size}`}
+          data-count={count}
+        >
+          <span class="cloud-tag__hash">#</span>
+          <span class="cloud-tag__name">{tag}</span>
+          <span class="cloud-tag__count">{count}</span>
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<style>
+  .tag-cloud-section {
+    margin: 0 auto 80px;
+    max-width: 1100px;
+    padding: 0 20px;
+  }
+
+  .tag-cloud-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .tag-cloud-label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 12px;
+  }
+
+  .tag-cloud-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #000;
+    margin: 0;
+  }
+
+  .tag-cloud-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .cloud-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 6px;
+    background: #fff;
+    color: #333;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cloud-tag::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.02), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .cloud-tag:hover::before {
+    left: 100%;
+  }
+
+  .cloud-tag:hover {
+    background: #0c0c0c;
+    color: #fff;
+    border-color: #0c0c0c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* サイズバリエーション */
+  .cloud-tag--small {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 400;
+  }
+
+  .cloud-tag--medium {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .cloud-tag--large {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .cloud-tag__hash {
+    color: #ccc;
+    font-weight: 300;
+    transition: color 0.3s ease;
+  }
+
+  .cloud-tag:hover .cloud-tag__hash {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .cloud-tag__count {
+    font-size: 0.65em;
+    color: #aaa;
+    margin-left: 2px;
+    font-weight: 400;
+    transition: color 0.3s ease;
+  }
+
+  .cloud-tag:hover .cloud-tag__count {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (max-width: 640px) {
+    .tag-cloud-section {
+      margin-bottom: 60px;
+    }
+
+    .tag-cloud-title {
+      font-size: 1.3rem;
+    }
+
+    .tag-cloud-grid {
+      gap: 8px;
+    }
+  }
+</style>

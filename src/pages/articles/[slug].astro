@@ -69,15 +69,15 @@ const category = entry.data.category || "";
 let footerCtaType = "discovery"; // default
 
 if (!displayNext) {
-    const worksKeywords = ["SEO", "Search Console", "成果", "デザイン", "Case Study", "実績"];
-    const toolsKeywords = ["Antigravity", "AIツール", "設定", "検証", "技術スタック"];
+    const worksKeywords = ["SEO", "Search Console", "成果", "デザイン", "Case Study", "実績", "ブランド設計", "構造改革", "UI-UX", "制作実績", "マーケティング"];
+    const toolsKeywords = ["Antigravity", "AIツール", "設定", "検証", "技術スタック", "トラブルシューティング", "初期設定", "パフォーマンス改善", "MCP", "Astro", "Gemini"];
 
     const hasWorksTag = tags.some(tag => worksKeywords.includes(tag));
     const hasToolsTag = tags.some(tag => toolsKeywords.includes(tag));
 
-    if (category === "AI戦略" || hasWorksTag) {
+    if (category === "AI戦略" || category === "マーケティング" || hasWorksTag) {
         footerCtaType = "works";
-    } else if (category === "技術検証" || hasToolsTag) {
+    } else if (category === "技術検証" || category === "AIツール" || category === "テクノロジー" || hasToolsTag) {
         footerCtaType = "tools";
     }
 }
