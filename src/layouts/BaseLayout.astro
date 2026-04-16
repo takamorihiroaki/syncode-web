@@ -304,8 +304,8 @@ const breadcrumbLdJson = {
                     const linkText = target.innerText?.trim().slice(0, 100) || '';
                     const linkId = target.id || target.className || 'unknown';
 
-                    if (typeof window.gtag === 'function') {
-                        window.gtag('event', 'affiliate_click', {
+                    if (typeof (window as any).gtag === 'function') {
+                        (window as any).gtag('event', 'affiliate_click', {
                             link_url: href,
                             link_text: linkText,
                             link_id: linkId,

@@ -10,7 +10,7 @@ const { items, currentTitle, isArticle } = Astro.props;
 // Default items if not provided
 const breadcrumbItems = items || [
   { name: "TOP", href: "/" },
-  ...(isArticle ? [{ name: "ARTICLES", href: "/" }] : []), // Articles page doesn't exist yet, defaulting to home or archive
+  ...(isArticle ? [{ name: "ARTICLES", href: "/articles/" }] : []), 
 ];
 
 ---
@@ -22,14 +22,16 @@ const breadcrumbItems = items || [
         {item.href ? (
           <a href={item.href}>{item.name}</a>
         ) : (
-          <span>{item.name}</span>
+          <span class={!currentTitle && index === breadcrumbItems.length - 1 ? "current" : ""} aria-current={!currentTitle && index === breadcrumbItems.length - 1 ? "page" : undefined}>{item.name}</span>
         )}
-        <span class="separator">/</span>
+        {(index < breadcrumbItems.length - 1 || currentTitle) && (
+          <span class="separator">/</span>
+        )}
       </li>
     ))}
     {currentTitle && (
       <li class="current" aria-current="page">
-        <span>{currentTitle}</span>
+        <span class="truncate-text">{currentTitle}</span>
       </li>
     )}
   </ol>
@@ -79,6 +81,17 @@ const breadcrumbItems = items || [
   .breadcrumbs .current {
     color: #333;
     font-weight: 400;
+    max-width: 180px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .truncate-text {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   @media (max-width: 640px) {
@@ -87,6 +100,9 @@ const breadcrumbItems = items || [
     }
     .breadcrumbs li {
       font-size: 0.65rem;
+    }
+    .breadcrumbs .current {
+      max-width: 100px;
     }
   }
 </style>
