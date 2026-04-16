@@ -2,21 +2,37 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
+import { tagToSlug } from "../../utils/tag";
 
 export async function getStaticPaths() {
     const allArticles = await getCollection("articles");
     
-    // Get unique tags and normalize them (lowercase for URL)
-    const tags = [...new Set(allArticles.flatMap(article => article.data.tags || []).filter(Boolean))];
+    // Tag to Articles Map (Lowercased slug as key)
+    const tagMap = new Map();
     
-    return tags.map(tag => {
-        if (!tag) return null;
-        const filteredArticles = allArticles.filter(article => article.data.tags?.includes(tag))
-            .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+    allArticles.forEach(article => {
+        const tags = article.data.tags || [];
+        tags.forEach(tag => {
+            if (!tag) return;
+            const slug = tagToSlug(tag);
+            if (!slug) return;
             
+            if (!tagMap.has(slug)) {
+                tagMap.set(slug, {
+                    displayName: tag,
+                    articles: []
+                });
+            }
+            tagMap.get(slug).articles.push(article);
+        });
+    });
+    
+    return Array.from(tagMap.entries()).map(([slug, data]) => {
+        const sortedArticles = data.articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+        
         return {
-            params: { tag: tag.toLowerCase() },
-            props: { tag, articles: filteredArticles }
+            params: { tag: slug },
+            props: { tag: data.displayName, articles: sortedArticles }
         };
     });
 }
@@ -44,7 +60,7 @@ const relatedTags = [...new Set(
             <span class="related-tags-label">Related:</span>
             <div class="related-tags-list">
                 {relatedTags.map(rt => (
-                    <a href={`/tag/${encodeURIComponent(rt.toLowerCase())}/`} class="related-tag-link">#{rt}</a>
+                    <a href={`/tag/${tagToSlug(rt)}/`} class="related-tag-link">#{rt}</a>
                 ))}
             </div>
         </div>

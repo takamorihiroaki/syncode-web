@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import BreadcrumbComponent from "../components/Breadcrumbs.astro";
 
 interface Props {
     title: string;
@@ -12,7 +13,7 @@ interface Props {
 
 const {
     title,
-    description = "AntigravityなどのAIエージェントを実践で使いこなすためのノウハウやエラー解決法を記録する技術ブログです。",
+    description = "AIエージェントの導入支援・コンサルティングからエラー解決まで。Antigravity等の自律型AIを実践で使いこなすための知見を記録する、SYNCODEの技術メディアです。",
     image = "/assets/series-vol1-square.png",
     isArticle = false,
     publishDate,
@@ -128,17 +129,30 @@ const breadcrumbLdJson = {
         />
         <!-- Google tag (gtag.js) -->
         <script is:inline>
-            // 管理者・開発者の除外設定
+            // 管理者・開発者の除外設定（ノイズ排除の精緻化）
             const GA_MEASUREMENT_ID = 'G-SE8GNFY6EM';
-            const disableGA = () => {
+            const ADMIN_MARKER = 'ga_exclude_syncode';
+
+            const disableGA = (persistent = true) => {
                 window['ga-disable-' + GA_MEASUREMENT_ID] = true;
-                localStorage.setItem('ga_exclude', 'true');
-                console.log('Analytics disabled for this admin session.');
+                if (persistent) {
+                    localStorage.setItem(ADMIN_MARKER, 'true');
+                }
+                console.log('--- ADMIN MODE: GA4 Tracking Disabled ---');
+            };
+
+            const enableGA = () => {
+                window['ga-disable-' + GA_MEASUREMENT_ID] = false;
+                localStorage.removeItem(ADMIN_MARKER);
+                console.log('--- USER MODE: GA4 Tracking Enabled ---');
+                window.location.reload();
             };
 
             const params = new URLSearchParams(window.location.search);
-            if (params.has('admin') || localStorage.getItem('ga_exclude') === 'true') {
+            if (params.get('admin') === 'on' || localStorage.getItem(ADMIN_MARKER) === 'true') {
                 disableGA();
+            } else if (params.get('admin') === 'off') {
+                enableGA();
             }
         </script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-SE8GNFY6EM"></script>
@@ -146,7 +160,10 @@ const breadcrumbLdJson = {
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-SE8GNFY6EM');
+            gtag('config', 'G-SE8GNFY6EM', {
+                'anonymize_ip': true,
+                'cookie_flags': 'SameSite=None;Secure'
+            });
         </script>
     </head>
     <body id="top">
@@ -193,6 +210,11 @@ const breadcrumbLdJson = {
         <div id="header-spacer" style="height: 0;"></div>
 
         <main class={`site-main ${isArticle ? "article-page" : ""}`}>
+            {pathname !== "/" && (
+                <div class="breadcrumb-container">
+                    <BreadcrumbComponent currentTitle={title} isArticle={isArticle} />
+                </div>
+            )}
             <slot />
         </main>
 
@@ -205,6 +227,10 @@ const breadcrumbLdJson = {
                     <li><a href="#">RSS</a></li>
                 </ul>
                 <p class="copyright">&copy; 2026 SYNCODE.</p>
+                <div id="ga-status-indicator" style="display:none; font-size: 10px; color: #ccc; margin-top: 10px; letter-spacing: 0.1em;">
+                    [ STATUS: <span style="color: #ffcc00;">ADMIN MODE / TRACKING DISABLED</span> ]
+                    <a href="?admin=off" style="color: #999; margin-left: 10px; text-decoration: underline;">Switch to User Mode</a>
+                </div>
                 <p class="footer-pr-disclosure">
                     本サイトの一部のリンクはアフィリエイト広告（プロモーション）を含んでいます。
                     これらのリンクを経由して商品・サービスを購入された場合、サイト運営者に報酬が発生することがあります。
@@ -224,6 +250,15 @@ const breadcrumbLdJson = {
             const header = document.querySelector('.site-header') as HTMLElement | null;
             const spacer = document.getElementById('header-spacer');
             const backToTopBtn = document.getElementById('back-to-top');
+
+            // --- GA Status Indicator (Admin only) ---
+            const statusIndicator = document.getElementById('ga-status-indicator');
+            if (statusIndicator && (localStorage.getItem('ga_exclude_syncode') === 'true' || window.location.search.includes('admin=on'))) {
+                statusIndicator.style.display = 'block';
+                statusIndicator.style.border = '1px solid #ffcc00';
+                statusIndicator.style.padding = '5px';
+                statusIndicator.style.display = 'inline-block';
+            }
 
             // --- Sticky header ---
             const SCROLL_THRESHOLD = 80;

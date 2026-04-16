@@ -1,4 +1,6 @@
 ---
+import { tagToSlug } from "../utils/tag";
+
 interface Props {
   name: string;
   size?: 'small' | 'medium' | 'large';
@@ -7,7 +9,7 @@ interface Props {
 const { name, size = 'small' } = Astro.props;
 ---
 
-<a href={`/tag/${encodeURIComponent(name.toLowerCase())}/`} class={`tag-item tag-${size}`}>
+<a href={`/tag/${tagToSlug(name)}/`} class={`tag-item tag-${size}`}>
   <span class="tag-hash">#</span>{name}
 </a>
 

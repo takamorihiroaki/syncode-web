@@ -45,6 +45,16 @@ const relatedArticles = allArticles
   })
   .slice(0, 3)
   .map((item) => item.article);
+
+// フォールバック: 関連記事が3つ未満なら、最新の記事で補完
+if (relatedArticles.length < 3) {
+  const latestArticles = allArticles
+    .filter(a => a.id !== currentId && !relatedArticles.find(r => r.id === a.id))
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+    .slice(0, 3 - relatedArticles.length);
+  
+  relatedArticles.push(...latestArticles);
+}
 ---
 
 {relatedArticles.length > 0 && (
@@ -83,7 +93,7 @@ const relatedArticles = allArticles
 
   .article-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 30px;
   }
 

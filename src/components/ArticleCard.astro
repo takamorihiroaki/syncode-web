@@ -123,12 +123,6 @@ const categoryColor = getCategoryColor(article.data.category || '');
     transform: scale(1.05);
   }
 
-  /* 
-   * 数学的な美しさ：底辺揃えの定義
-   * 画像下枠（margin-bottom: 24px）からの距離を一定にし、
-   * タイトルの line-height を固定することで、
-   * 4枚並んだ際のベースラインを物理的に一致させます。
-   */
   .card-content {
     padding: 0;
     margin: 0;
@@ -136,12 +130,14 @@ const categoryColor = getCategoryColor(article.data.category || '');
 
   .card-title {
     margin: 0 0 12px 0;
-    line-height: 1.5; /* 高さを一定に保つ */
-    height: 3em; /* 2行分で高さを固定し、底辺を揃える */
+    line-height: 1.5;
+    height: 3em; 
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-size: 1.1rem;
+    font-weight: 700;
   }
 
   /* Premium (Documentary) styles */

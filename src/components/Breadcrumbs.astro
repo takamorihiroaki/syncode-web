@@ -1,0 +1,92 @@
+---
+interface Props {
+  items?: { name: string; href?: string }[];
+  currentTitle?: string;
+  isArticle?: boolean;
+}
+
+const { items, currentTitle, isArticle } = Astro.props;
+
+// Default items if not provided
+const breadcrumbItems = items || [
+  { name: "TOP", href: "/" },
+  ...(isArticle ? [{ name: "ARTICLES", href: "/" }] : []), // Articles page doesn't exist yet, defaulting to home or archive
+];
+
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    {breadcrumbItems.map((item, index) => (
+      <li>
+        {item.href ? (
+          <a href={item.href}>{item.name}</a>
+        ) : (
+          <span>{item.name}</span>
+        )}
+        <span class="separator">/</span>
+      </li>
+    ))}
+    {currentTitle && (
+      <li class="current" aria-current="page">
+        <span>{currentTitle}</span>
+      </li>
+    )}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    margin-bottom: 20px;
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  }
+
+  .breadcrumbs ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .breadcrumbs li {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: #999;
+    text-transform: uppercase;
+  }
+
+  .breadcrumbs a {
+    color: #999;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumbs a:hover {
+    color: #333;
+  }
+
+  .breadcrumbs .separator {
+    margin-left: 8px;
+    font-size: 0.6rem;
+    opacity: 0.5;
+  }
+
+  .breadcrumbs .current {
+    color: #333;
+    font-weight: 400;
+  }
+
+  @media (max-width: 640px) {
+    .breadcrumbs ol {
+      gap: 4px;
+    }
+    .breadcrumbs li {
+      font-size: 0.65rem;
+    }
+  }
+</style>

@@ -121,6 +121,11 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
 
     <article class="article-content">
         <Content />
+
+        <div class="nano-bridge">
+          <span class="nano-line"></span>
+          <a href="/works/" class="nano-link">実績：AIと共働した制作の記録へ →</a>
+        </div>
         
         <!-- 動的導線（CTA）セクション -->
         <div class="article-cta-area" style="margin-top: 40px;">
@@ -176,3 +181,69 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
     />
 
 </BaseLayout>
+
+<style is:global>
+  .nano-bridge {
+    margin: 80px 0 20px;
+    padding-top: 40px;
+    position: relative;
+    text-align: right;
+  }
+  .nano-line {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 1px;
+    background: #eee;
+  }
+  .nano-link {
+    font-size: 0.75rem;
+    color: #999;
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    transition: color 0.3s ease;
+  }
+  .nano-link:hover {
+    color: #333;
+  }
+
+  /* リンクリスト：線が走る演出 */
+  .article-link-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 40px 0 !important;
+    color: #666;
+    font-size: 0.95rem;
+  }
+  
+  .article-link-list a {
+    position: relative !important;
+    color: #333 !important;
+    text-decoration: none !important;
+    display: inline !important;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)) !important;
+    background-position: 0 100% !important;
+    background-repeat: no-repeat !important;
+    background-size: 0 1px !important;
+    transition: background-size 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    padding-bottom: 2px !important;
+    box-decoration-break: clone !important;
+    -webkit-box-decoration-break: clone !important;
+  }
+  
+  .article-link-list a:hover {
+    background-size: 100% 1px !important;
+  }
+
+  .article-link-item {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .article-link-item .emoji {
+    font-size: 1.1rem;
+    opacity: 0.8;
+  }
+</style>
