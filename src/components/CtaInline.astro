@@ -14,7 +14,7 @@ const {
 } = Astro.props;
 ---
 
-<a href={buttonLink} class="cta-inline">
+<a href={buttonLink} class="cta-inline banner-link">
     <div class="cta-inline__content">
         <span class="cta-inline__tag">{tag}</span>
         <p class="cta-inline__text">{title}</p>
@@ -73,15 +73,19 @@ const {
     }
 
     .cta-inline__link-mock {
+        display: inline-block;
         white-space: nowrap;
         background: #1a1a1a;
         color: #fff !important;
-        padding: 12px 28px;
+        text-decoration: none;
+        padding: 14px 28px; 
         border-radius: 50px;
         font-size: 0.9rem;
         font-weight: 600;
+        line-height: normal;
         transition: all 0.3s ease;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
     }
 
     .cta-inline:hover .cta-inline__link-mock {
