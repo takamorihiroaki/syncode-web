@@ -12,18 +12,15 @@ const { series: propSeries, id: propId } = Astro.props;
 const allArticles = await getCollection("articles");
 
 // Current article info
-// If used in MDX, we might not have propId, so we try to infer from URL
 const currentPath = Astro.url.pathname;
-const currentArticle = allArticles.find(a => currentPath.includes(a.id));
+const currentArticle = allArticles.find(a => currentPath.replace(/\/$/, "").split('/').pop() === a.id);
 const currentSeries = propSeries || currentArticle?.data.series;
 
 if (!currentSeries) {
   return null;
 }
 
-// Normalize series name (e.g. "【全4回】..." -> "【全6回】...")
-// We'll use the base name without the "【全N回】" prefix for matching if needed,
-// but for now let's just match the core part.
+// Normalize series name
 const getBaseSeriesName = (name: string) => {
   return name.replace(/【全\d+回】/, "").trim();
 };
@@ -35,142 +32,151 @@ const seriesArticles = allArticles
   .filter(a => a.data.series && getBaseSeriesName(a.data.series) === baseSeriesName)
   .sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
 
-// Display name for the series (use the latest count or the most common one)
-// For "AIエージェント共創実録", we want to show "全6回"
-const displaySeriesName = baseSeriesName === "AIエージェント共創実録" 
-  ? "🎯 AIエージェント共創実録：連載の記録（全6回）" 
-  : `🎯 ${currentSeries}：連載の記録`;
+const n = seriesArticles.length;
 
+// Find next article
+const currentIndex = seriesArticles.findIndex(a => a.id === currentArticle?.id);
+const nextArticle = currentIndex !== -1 && currentIndex < seriesArticles.length - 1 ? seriesArticles[currentIndex + 1] : null;
+
+// Display name
+const displaySeriesName = `連載のご案内（全${n}回）`;
 ---
 
-<div class="series-list-container">
-  <h3 class="series-list-title">{displaySeriesName}</h3>
-  <ul class="series-list">
+<div class="series-nav-container">
+  <h2>{displaySeriesName}</h2>
+  <ul class="series-nav-list">
     {seriesArticles.map((article) => {
       const isCurrent = article.id === currentArticle?.id;
-      const stepLabel = `STEP ${article.data.seriesOrder} : `;
+      const cleanTitle = article.data.title.replace(/【.*?】/, "").split("｜")[0].trim();
       
       return (
-        <li class={isCurrent ? "current" : ""}>
+        <li>
           {isCurrent ? (
-            <span class="step-line">
-              <span class="step-num">{stepLabel}</span>
-              <span class="step-title">{article.data.title.replace(/【.*?】/, "").split("｜")[0]}（本記事）</span>
-            </span>
+            <div class="grid-row">
+              <span class="grid-label">STEP {article.data.seriesOrder}：</span>
+              <span class="grid-title current-article">{cleanTitle}（本記事）</span>
+            </div>
           ) : (
-            <a href={`/articles/${article.id}/`} class="step-link">
-              <span class="step-num">{stepLabel}</span>
-              <span class="step-title">{article.data.title.replace(/【.*?】/, "").split("｜")[0]}</span>
+            <a href={`/articles/${article.id}/`} class="grid-row link-row">
+              <span class="grid-label">STEP {article.data.seriesOrder}：</span>
+              <span class="grid-title animated-title"><span>{cleanTitle}</span></span>
             </a>
           )}
         </li>
       );
     })}
   </ul>
+
+  {nextArticle && (
+    <div class="article-link-list">
+      <div class="grid-row next-link-container">
+        <span class="grid-label next-label-width">👉 <strong>次なるステップ　STEP {nextArticle.data.seriesOrder}：</strong></span>
+        <a href={`/articles/${nextArticle.id}/`} class="grid-title animated-title next-title-link">
+          <span>{nextArticle.data.title.replace(/【.*?】/, "").split("｜")[0].trim()}</span>
+        </a>
+      </div>
+    </div>
+  )}
 </div>
 
 <style>
-  .series-list-container {
-    margin: 40px 0;
-    padding: 30px;
-    background: #fafafa;
-    border: 1px solid #eee;
-    border-radius: 8px;
+  .series-nav-container h2 {
+    font-size: 1.35rem;
+    font-weight: 400;
+    margin: 40px 0 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
   }
 
-  .series-list-title {
-    font-size: 1.1rem;
-    font-weight: 800;
-    margin-bottom: 24px;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .series-list {
-    list-style: none;
-    padding: 0;
+  .series-nav-list {
+    list-style: none !important;
+    padding-left: 0 !important;
     margin: 0;
   }
 
-  .series-list li {
-    margin-bottom: 8px;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-    border-left: 4px solid transparent; /* 改行変化を防ぐためスペースを固定 */
-    padding-left: 15px; /* 境界線とテキストの間に余白を追加 */
+  .series-nav-list li {
+    margin-bottom: 0.8em;
   }
 
-  .series-list li:last-child {
-    margin-bottom: 0;
+  /* 究極の整列：Gridによる2カラム固定 */
+  .grid-row {
+    display: grid;
+    grid-template-columns: min-content 1fr; /* ラベル幅はコンテンツに合わせ、タイトルは残りを埋める */
+    align-items: start;
+    line-height: 1.7;
+    text-decoration: none !important;
+    background-image: none !important;
+    color: inherit;
   }
 
-  /* ホバーエフェクト（控えめなアクセントライン） */
-  .series-list li:not(.current):hover {
-    background: rgba(0, 0, 0, 0.03);
-    border-left-color: #ddd;
+  .grid-label {
+    white-space: nowrap;
+    padding-right: 0.6em; /* ラベルとタイトルの余白 */
   }
 
-  .series-list li.current {
-    border-left-color: #333; /* 現在地を視覚的に固定 */
-    background: rgba(0, 0, 0, 0.01);
+  .next-label-width {
+    /* 「👉 次なるステップ STEP X：」は長いので、しっかり幅を確保 */
+    padding-right: 0.8em;
   }
 
-  .step-link, .step-line {
-    display: flex;
-    padding: 10px 0;
-    text-decoration: none;
-    color: #555;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    align-items: flex-start;
+  /* 行を跨いでも2列目に留まる block コンテナ */
+  .grid-title {
+    display: block; 
+    text-decoration: none !important;
+    background-image: none !important;
   }
 
-  .step-link {
-    transition: color 0.2s ease;
-  }
-
-  .step-link:hover {
-    color: #000;
-  }
-
-  .step-num {
+  .current-article {
     font-weight: 700;
-    font-family: inherit;
-    min-width: 80px;
-    flex-shrink: 0;
-    color: #888;
   }
 
-  .step-title {
-    flex-grow: 1;
+  /* アニメーション：inline要素に適用することで、全行に下線を引く */
+  .animated-title span {
+    display: inline;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    transition: background-size 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    padding-bottom: 2px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 
-  /* 現在の記事の強調 */
-  .series-list li.current {
+  .link-row:hover .animated-title span,
+  .next-title-link:hover span {
+    background-size: 100% 1px;
     color: #000;
   }
 
-  .series-list li.current .step-line {
-    font-weight: 800; /* 本記事にあたる一行を少し太めの文字に */
-    color: #000;
+  .article-link-list {
+    margin: 2em 0;
+    padding: 1.5em;
+    background: #fafafa;
+    border-radius: 4px;
+    font-size: 1rem;
   }
 
-  .series-list li.current .step-num {
-    color: #000;
+  .next-link-container {
+    line-height: 1.6;
   }
 
+  .next-title-link {
+    color: inherit;
+    text-decoration: none !important;
+  }
+
+  /* レスポンシブ対応：狭い画面でもずれない */
   @media (max-width: 640px) {
-    .series-list-container {
-      padding: 20px;
+    .grid-label {
+      padding-right: 0.4em;
     }
-    .step-link, .step-line {
-      flex-direction: column;
-      gap: 4px;
+    .next-link-container {
+      display: block; /* モバイルの極小画面では、ラベルとタイトルを分けることも検討可能だが、一旦Grid維持 */
     }
-    .step-num {
-      font-size: 0.75rem;
+    .next-label-width {
+      display: block;
+      margin-bottom: 4px;
     }
   }
 </style>
