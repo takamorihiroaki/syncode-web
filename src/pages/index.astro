@@ -469,7 +469,7 @@ const latestArticles = sortedArticles
             
             const slug = filter.toLowerCase();
             if (categories.indexOf(filter) !== -1) {
-              viewArchiveLink.href = `/category/${slug}/`;
+              viewArchiveLink.href = `/`;
             } else if (tags.indexOf(filter) !== -1) {
               viewArchiveLink.href = `/tag/${slug}/`;
             }

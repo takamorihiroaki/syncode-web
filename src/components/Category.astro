@@ -6,6 +6,6 @@ interface Props {
 const { name } = Astro.props;
 ---
 
-<a href={`/category/${name.toLowerCase()}/`} class="category-label">
+<span class="category-label">
   {name}
-</a>
+</span>
