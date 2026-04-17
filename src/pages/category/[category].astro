@@ -24,7 +24,7 @@ export async function getStaticPaths() {
 const { category, articles } = Astro.props;
 ---
 
-<BaseLayout title={`${category} - カテゴリー一覧`}>
+<BaseLayout title={`${category} - カテゴリー一覧`} noindex={articles.length < 3}>
     <div class="archive-header">
         <div class="section-title-wrapper-category">
             <span class="category-label-top">Category</span>

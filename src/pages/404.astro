@@ -24,64 +24,83 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     <span class="link-text">RETURN TO HOME</span>
                 </a>
             </div>
+
+            <div class="recommend-section">
+                <h2 class="recommend-title">RECOMMENDED SIGNALS</h2>
+                <div class="recommend-grid">
+                    <a href="/articles/antigravity-start/" class="recommend-item">
+                        <span class="item-tag">START</span>
+                        <span class="item-text">Antigravity 導入ガイド</span>
+                    </a>
+                    <a href="/articles/seo-optimization-with-ai/" class="recommend-item">
+                        <span class="item-tag">STRATEGY</span>
+                        <span class="item-text">AIによるSEO最適化</span>
+                    </a>
+                    <a href="/tools/" class="recommend-item">
+                        <span class="item-tag">TOOLS</span>
+                        <span class="item-text">厳選AIツール一覧</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </BaseLayout>
 
 <style>
     .error-container {
-        min-height: 70vh;
+        min-height: 80vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 40px 20px;
+        padding: 60px 20px;
         text-align: center;
     }
 
     .error-visual {
         position: relative;
-        margin-bottom: 60px;
+        margin-bottom: 40px;
     }
 
     .error-code {
         font-size: 8rem;
         font-weight: 900;
-        letter-spacing: 0.2em;
+        letter-spacing: 0.25em;
         color: transparent;
         -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
         display: block;
         line-height: 1;
+        opacity: 0.5;
     }
 
     .status-label {
         font-size: 0.65rem;
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.3em;
-        color: #b8860b; /* アクセントカラー */
+        letter-spacing: 0.4em;
+        color: #b8860b;
         display: block;
-        margin-bottom: 24px;
+        margin-bottom: 16px;
     }
 
     .error-title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         font-weight: 700;
-        letter-spacing: 0.15em;
-        margin-bottom: 32px;
+        letter-spacing: 0.2em;
+        margin-bottom: 24px;
         color: var(--color-text);
     }
 
     .error-desc {
-        font-size: 14.4px;
+        font-size: 14px;
         line-height: 2.2;
         color: var(--color-text-light);
-        margin-bottom: 60px;
+        margin-bottom: 40px;
         letter-spacing: 0.05em;
     }
 
     .action-wrap {
-        margin-top: 40px;
+        margin-bottom: 80px;
     }
 
     .home-link {
@@ -89,7 +108,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         display: inline-flex;
         flex-direction: column;
         align-items: center;
-        gap: 12px;
+        gap: 8px;
         transition: opacity 0.3s ease;
     }
 
@@ -106,24 +125,81 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     }
 
     .link-text {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: 700;
-        letter-spacing: 0.25em;
+        letter-spacing: 0.2em;
         color: var(--color-text);
-        padding-bottom: 4px;
+        padding-bottom: 2px;
         border-bottom: 1px solid var(--color-text);
+    }
+
+    .recommend-section {
+        max-width: 600px;
+        width: 100%;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        padding-top: 40px;
+    }
+
+    .recommend-title {
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.3em;
+        color: #bbb;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+    }
+
+    .recommend-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .recommend-item {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 20px 10px;
+        background: rgba(0, 0, 0, 0.02);
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+    .recommend-item:hover {
+        background: rgba(0, 0, 0, 0.04);
+        transform: translateY(-2px);
+    }
+
+    .item-tag {
+        font-size: 0.55rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        color: #b8860b;
+        border: 1px solid #b8860b;
+        padding: 1px 6px;
+        border-radius: 2px;
+    }
+
+    .item-text {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--color-text);
     }
 
     /* モバイル対応 */
     @media (max-width: 768px) {
-        .error-code {
-            font-size: 5rem;
+        .error-code { font-size: 5rem; }
+        .error-title { font-size: 1.3rem; }
+        .recommend-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
         }
-        .error-title {
-            font-size: 1.4rem;
-        }
-        .error-desc {
-            font-size: 13px;
+        .recommend-item {
+            flex-direction: row;
+            justify-content: center;
+            padding: 15px;
         }
     }
 </style>

@@ -8,8 +8,7 @@ import ArticleCard from "../components/ArticleCard.astro";
 
 const sortedArticles = (await getCollection("articles"))
     .filter((article) => !article.data.draft)
-    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-    .slice(0, 12);
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 // Documentaryで使用しているIDを除去してLatestを作成
 const documentaryIds = [
@@ -469,8 +468,8 @@ const latestArticles = sortedArticles
             const slug = filter.toLowerCase();
             if (categories.indexOf(filter) !== -1) {
               viewArchiveLink.href = `/`;
-            } else if (tags.indexOf(filter) !== -1) {
-              viewArchiveLink.href = `/tag/${slug}/`;
+            } else {
+              viewArchiveLink.href = `/articles/`;
             }
           }
           

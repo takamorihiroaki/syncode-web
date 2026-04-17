@@ -32,60 +32,57 @@ const categoryColor = getCategoryColor(article.data.category || '');
   data-category={article.data.category || ''}
   data-tags={article.data.tags?.join(',') || ''}
 >
-  <div class="thumbnail-wrapper">
-    <a href={`/articles/${article.id}/`} class="image-link" aria-label={`${article.data.title}を読む`}>
+  <a href={`/articles/${article.id}/`} class="card-link">
+    <div class="thumbnail-wrapper">
       <img
         src={article.data.image}
         alt={`${article.data.title}のサムネイル`}
         loading="lazy"
       />
-    </a>
-    
-    {variant === 'premium' && step && (
-      <div class="step-badge">
-        <span class="step-num">{String(step).padStart(2, '0')}</span>
-      </div>
-    )}
-  </div>
-
-  <div class="card-content">
-    {variant === 'premium' ? (
-      <div class="premium-meta">
-        <div class="story-chronicle">PROJECT STORY CHRONICLES</div>
-        <h3 class="card-title">
-          <a href={`/articles/${article.id}/`}>{article.data.title}</a>
-        </h3>
-        <p class="card-excerpt">{article.data.excerpt}</p>
-      </div>
-    ) : (
-      <div class="standard-meta">
-        {topLabel && <div class="top-label">{topLabel}</div>}
-        <div class="category-wrapper">
-          <span class="category-name">{article.data.category}</span>
-          <div class="category-line" style={`background-color: ${categoryColor};`}></div>
+      
+      {variant === 'premium' && step && (
+        <div class="step-badge">
+          <span class="step-num">{String(step).padStart(2, '0')}</span>
         </div>
-        <time class="post-date">
-          {article.data.date
-            .toLocaleDateString("ja-JP", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })
-            .replace(/\//g, ".")}
-        </time>
-        <h3 class="card-title">
-          <a href={`/articles/${article.id}/`}>{article.data.title}</a>
-        </h3>
-        <p class="card-excerpt">{article.data.excerpt}</p>
-        
-        {article.data.tags && article.data.tags.length > 0 && (
-          <div class="tag-list">
-            {article.data.tags.slice(0, 3).map((tag: string) => <Tag name={tag} />)}
+      )}
+      
+    </div>
+
+    <div class="card-content">
+      {variant === 'premium' ? (
+        <div class="premium-meta">
+          <div class="story-chronicle">PROJECT STORY CHRONICLES</div>
+          <h3 class="card-title">{article.data.title}</h3>
+          <p class="card-excerpt">{article.data.excerpt}</p>
+        </div>
+      ) : (
+        <div class="standard-meta">
+          {topLabel && <div class="top-label">{topLabel}</div>}
+          <div class="category-wrapper">
+            <span class="category-name">{article.data.category}</span>
+            <div class="category-line" style={`background-color: ${categoryColor};`}></div>
           </div>
-        )}
-      </div>
-    )}
-  </div>
+          <time class="post-date">
+            {article.data.date
+              .toLocaleDateString("ja-JP", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })
+              .replace(/\//g, ".")}
+          </time>
+          <h3 class="card-title">{article.data.title}</h3>
+          <p class="card-excerpt">{article.data.excerpt}</p>
+          
+          {article.data.tags && article.data.tags.length > 0 && (
+            <div class="tag-list">
+              {article.data.tags.slice(0, 3).map((tag: string) => <Tag name={tag} />)}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  </a>
 </article>
 
 <style>
@@ -95,11 +92,10 @@ const categoryColor = getCategoryColor(article.data.category || '');
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
-  .image-link {
+  .card-link {
     text-decoration: none;
     color: inherit;
     display: block;
-    height: 100%;
   }
 
   .thumbnail-wrapper {
@@ -144,16 +140,6 @@ const categoryColor = getCategoryColor(article.data.category || '');
     font-weight: 700;
   }
 
-  .card-title a {
-    text-decoration: none;
-    color: inherit;
-    transition: color 0.3s ease;
-  }
-
-  .article-card:hover .card-title a {
-    color: #000;
-  }
-
   /* Premium (Documentary) styles */
   .premium .story-chronicle {
     font-size: 0.65rem;
@@ -169,7 +155,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
   }
 
   .premium .card-excerpt {
-    color: rgba(255, 255, 255, 0.85); /* 視認性向上のために不透明度アップ */
+    color: rgba(255, 255, 255, 0.5);
     font-size: 0.85rem;
     margin-top: 12px;
   }
@@ -191,6 +177,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
     letter-spacing: 0.1em;
   }
 
+  /* 3. カラーラインの伸張エフェクト */
   .category-line {
     height: 2px;
     margin-top: 4px;
@@ -200,7 +187,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
   .post-date {
     display: block;
     font-size: 0.75rem;
-    color: #444; /* コントラスト強化: #999から修正 */
+    color: #999;
     margin-bottom: 10px;
     letter-spacing: 0.05em;
   }
@@ -222,7 +209,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
 
   .standard .card-excerpt {
     font-size: 0.9rem;
-    color: #222; /* コントラスト強化: #777から修正 */
+    color: #777;
     margin-top: 12px;
   }
 

@@ -46,7 +46,7 @@ const relatedTags = [...new Set(
 )].slice(0, 8);
 ---
 
-<BaseLayout title={`${tag} - タグ一覧`}>
+<BaseLayout title={`${tag} - タグ一覧`} noindex={articles.length < 3}>
     <div class="archive-header">
         <div class="section-title-wrapper-tag">
             <span class="tag-label-top">Tag</span>
