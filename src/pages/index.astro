@@ -6,11 +6,10 @@ import Gateway from "../components/Gateway.astro";
 import PremiumDocumentary from "../components/PremiumDocumentary.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 
-const allArticles = await getCollection("articles");
-// Sort by date descending
-const sortedArticles = allArticles.sort(
-    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const sortedArticles = (await getCollection("articles"))
+    .filter((article) => !article.data.draft)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    .slice(0, 12);
 
 // Documentaryで使用しているIDを除去してLatestを作成
 const documentaryIds = [

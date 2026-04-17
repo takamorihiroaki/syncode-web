@@ -1,14 +1,29 @@
+# ------------------------------------------------------------------------------
+# Minimal and Safe .htaccess for Sakura Internet
+# ------------------------------------------------------------------------------
+
+# Gzip Compression (Safe method)
+<IfModule mod_deflate.c>
+    SetOutputFilter DEFLATE
+    
+    # Do not compress images and other binary files
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|webp|woff2?)$ no-gzip dont-vary
+</IfModule>
+
+# Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    ExpiresByType text/html "access plus 0 seconds"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>
+
+# Trailing Slash Redirect
 RewriteEngine On
-
-# 1. .html 拡張子付きURLを末尾スラッシュ付きへリダイレクト (例: about.html -> about/)
+RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_URI} ^(.+)\.html$
-RewriteRule ^(.+)\.html$ %1/ [R=301,L]
-
-# 2. 末尾スラッシュがない場合にスラッシュを付与して正規化 (例: articles -> articles/)
-# ただしファイル実体が存在する場合や、すでにスラッシュがある場合は除外
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_URI} !index\.php
-RewriteCond %{REQUEST_URI} !(.*)\.(.*)$
-RewriteCond %{REQUEST_URI} !.*/$
-RewriteRule ^(.*)$ /$1/ [R=301,L]
+RewriteCond %{REQUEST_URI} !(.*)\/$
+RewriteRule ^(.*)$ $1/ [L,R=301]

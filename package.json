@@ -6,8 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "dev": "node scripts/optimize-images.js && node scripts/fix-content.js && astro dev",
-    "build": "node scripts/optimize-images.js && node scripts/fix-content.js && astro build",
+    "dev": "node scripts/fix-content.js && astro dev",
+    "build": "node scripts/fix-content.js && astro build",
     "deploy": "bash scripts/deploy.sh",
     "optimize": "node scripts/optimize-images.js",
     "preview": "astro preview",
