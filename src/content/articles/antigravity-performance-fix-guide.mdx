@@ -14,6 +14,12 @@ draft: false
 import CtaInline from '../../components/CtaInline.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 
+> [!IMPORTANT]
+> **【最短10秒】今すぐ動作を軽くするための3大チェック**
+> 1. **New Chatで作り直す**: 履歴の肥大化が原因の9割です。
+> 2. **不要なファイルを閉じる**: 右側のContextパネルから不要なファイルを外してください。
+> 3. **ブラウザを再起動する**: Chromeのメモリ消費をリセットするだけで劇的に速くなります。
+
 ## 思考を停滞させない、1秒に懸けるパフォーマンス。
 
 AIの回答待ちで10秒待たされるか、それとも1秒でレスポンスが返ってくるか。この差は、開発や執筆の熱量を決定づけます。
@@ -82,7 +88,26 @@ AIの回答待ちで10秒待たされるか、それとも1秒でレスポンス
 
 ---
 
-## Antigravityが重い原因は「二種類」ある
+## 5秒で解決！トラブル診断フローチャート
+
+現在の「重さ」がどこに起因しているか、以下のチャートで診断してください。
+
+```mermaid
+graph TD
+    Start[動作が重い・遅い] --> Q1{文字入力がカクつく?}
+    Q1 -- YES --> A1[ブラウザのメモリ不足 <br/> Chrome再起動 / メモリセーバーON]
+    Q1 -- NO --> Q2{生成開始までが遅い?}
+    Q2 -- YES --> A2[チャット履歴の肥大化 <br/> New Chatで再開]
+    Q2 -- NO --> Q3{特定のファイルで止まる?}
+    Q3 -- YES --> A3[.gitignore設定漏れ <br/> 大容量ファイルを無視設定へ]
+    Q3 -- NO --> A4[サーバー混雑 / その他]
+
+    style A1 fill:#f9f,stroke:#333,stroke-width:2px
+    style A2 fill:#bbf,stroke:#333,stroke-width:2px
+    style A3 fill:#bfb,stroke:#333,stroke-width:2px
+```
+
+---
 
 アンチグラビティが重くなる原因は、大きく分けて二つの「負荷」に分類されます。
 

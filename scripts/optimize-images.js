@@ -4,9 +4,9 @@ import path from 'path';
 
 // 設定
 const TARGET_DIRS = ['public/assets', 'dist/assets'];
-const MAX_WIDTH = 400;  // サムネイル解像度を最小化
-const QUALITY = 30;     // 通信量最優先の圧縮設定
-const SVG_QUALITY = 15; // 背景を徹底的に軽量化
+const MAX_WIDTH = 1600;  // 高解像度ディスプレイに対応
+const QUALITY = 85;     // 視覚的品質とファイルサイズのバランスを最適化
+const SVG_QUALITY = 80; // 背景画像のクオリティを維持
 
 async function optimizeImages() {
   console.log('🚀 Starting deep image optimization...');

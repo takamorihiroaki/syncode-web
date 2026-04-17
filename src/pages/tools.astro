@@ -423,74 +423,6 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
             margin-bottom: 6px;
         }
 
-        .server-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 24px;
-        }
-
-        .server-option {
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 20px;
-        }
-
-        .server-option__header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .server-rank {
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .server-name {
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .server-desc {
-            font-size: 0.85rem;
-            color: #555;
-            margin-bottom: 14px !important;
-            line-height: 1.7;
-        }
-
-        .server-link {
-            display: inline-block;
-            font-size: 0.82rem;
-            font-weight: 700;
-            color: #fff !important;
-            background: #1a1a1a;
-            padding: 10px 16px;
-            border-radius: 6px;
-            text-decoration: none !important;
-            transition: background 0.2s ease;
-            margin-bottom: 8px;
-        }
-
-        .server-link:hover {
-            background: #333;
-            opacity: 1;
-        }
-
-        .server-note {
-            display: block;
-            font-size: 0.7rem;
-            color: #aaa;
-        }
-
-        @media (max-width: 640px) {
-            .server-options {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 768px) {
             .winner-card { padding: 40px 24px; }
             .tool-card { padding: 28px 24px; }
@@ -565,12 +497,12 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
             </p>
             <div class="result-strip">
                 <div class="result-pill">
-                    <span class="num">30分</span>
-                    <span class="label">サチコ同期・改善完了</span>
+                    <span class="num">20倍増</span>
+                    <span class="label">ユーザー数(11→240名)</span>
                 </div>
                 <div class="result-pill">
-                    <span class="num">0→1</span>
-                    <span class="label">実際に達成した収益化</span>
+                    <span class="num">1時間36分</span>
+                    <span class="label">平均滞在時間の極大化</span>
                 </div>
                 <div class="result-pill">
                     <span class="num">100%</span>
@@ -579,8 +511,8 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
             </div>
             <div class="deep-insight-box">
                 <div class="deep-insight-content">
-                    <strong>検証済みの事実：</strong>
-                    Browser Control機能を用いてGoogle Search Consoleと直接同期させ、わずか30分でインデックス未登録の問題を特定し、解決・再申請まで自律実行できることを確認しました。手作業では数日かかるプロセスが、会話レベルの指示で完了します。
+                    <strong>実証済みの爆速成長：</strong>
+                    4月10日の公開からわずか1週間でアクティブユーザーが11名から240名へと急増。Antigravityによる「正確なSEO分析」と「画像添付を含む実戦的な検証プロセス」の自動化が、読者の圧倒的な信頼（平均滞在時間 96分超え）を勝ち取った結果です。
                 </div>
             </div>
             <ul class="benefit-list">
@@ -623,13 +555,13 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         <!-- 📊 Search Console -->
         <div class="tool-card">
             <span class="role">SEO・検索分析</span>
-            <div class="trust-badge">30分でインデックス成功</div>
+            <div class="trust-badge">平均CTR 22.5% 記録</div>
             <h3><span>📊</span> Google Search Console</h3>
             <p>記事公開後の「インデックス登録」と「キーワード分析」に必須。Googleが記事をどう見ているかを把握し、改善サイクルを回すための目です。</p>
             <div class="deep-insight-box">
                 <div class="deep-insight-content">
                     <strong>データ駆動の知見：</strong>
-                    表示回数は多いがクリック率（CTR）が低い「読者の不満ポイント」を特定し、AIでのリライトへと繋げることで、特定のクエリでCTR 66%超えを記録。分析から実行までのラグをゼロにすることが収益化の鍵です。
+                    4月12日のインデックス登録成功を機に、市場の切実な悩み（「Antigravity 遅い」等）を特定。AIでのリライトと解決策の提示を即座に実行することで、平均CTR 22.5%、特定クエリでは66%超えという圧倒的な反応率を獲得しました。
                 </div>
             </div>
             <a href="https://search.google.com/search-console" target="_blank" class="tool-link">Search Consoleの解析精度を試す →</a>
@@ -638,13 +570,13 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         <!-- 📈 Google Analytics -->
         <div class="tool-card">
             <span class="role">行動分析・CV計測</span>
-            <div class="trust-badge">ノイズ除去 100% 達成</div>
+            <div class="trust-badge">平均滞在時間 1時間36分</div>
             <h3><span>📈</span> Google Analytics（GA4）</h3>
             <p>Search Consoleが「検索流入の分析」なら、Google Analyticsは「サイト内での行動分析」です。どの記事が読まれているか、収益化の改善サイクルを回すための不可欠な目です。</p>
             <div class="deep-insight-box">
                 <div class="deep-insight-content">
                     <strong>精度の知見：</strong>
-                    「平均滞在時間 7分」という驚異的なデータの正体が、管理者自身のアクセス（ノイズ）であったことを特定。LocalStorageを用いた除外ロジックを実装することで、純粋な第三者のデータのみを抽出可能にしました。
+                    「平均滞在時間 1時間36分（96分）」という驚異的なデータの背景には、読者がページを「読む」だけでなく、Antigravityを操作しながら何度も見返す「実戦的な活用」があることを特定。ノイズを排除した真のエンゲージメントが次の一手を決めます。
                 </div>
             </div>
             <a href="https://analytics.google.com" target="_blank" class="tool-link">Google Analyticsで真実を視る →</a>
@@ -658,48 +590,37 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
             <p>このサイトは<strong>さくらインターネット</strong>で稼働しています。実際に使っているサーバーを正直に公開します。エックスサーバー・ConoHa WINGも含め、目的別に選べる3つを紹介します。</p>
             <div class="deep-insight-box">
                 <div class="deep-insight-content">
-                    <strong>実体験から：</strong>
-                    このサイト自体がさくらインターネットで稼働しています。静的サイト（Astro）との相性が良く、月額524円〜と低コストで安定運用できています。信頼と実績の国内最古参サーバーです。
+                    <strong>実体験からの推奨：</strong>
+                    このサイト自体がさくらインターネットで稼働しています。静的サイト（Astro）との相性が良く、月額524円〜という低コストながら、急激なアクセス増（1週間で20倍）にも耐えうる高い安定性能を実証済みです。
                 </div>
             </div>
-            <div class="server-options">
-                <div class="server-option">
-                    <div class="server-option__header">
-                        <span class="server-rank">🥇 第1位</span>
-                        <span class="server-name">さくらのレンタルサーバ</span>
-                    </div>
-                    <p class="server-desc">当サイトの実戦環境。月額524円〜。静的サイトとの相性が抜群で、低コスト・高安定を両立したい方に最適。</p>
-                    <a href="https://px.a8.net/svt/ejp?a8mat=4B1K5S+FAPZCI+D8Y+6LWTE" target="_blank" rel="noopener noreferrer nofollow" class="server-link">
-                        さくら公式ページへ ↗
-                    </a>
-                    <span class="server-note">※アフィリエイトリンク（PR）</span>
-                    <img src="https://www15.a8.net/0.gif?a8mat=4B1K5S+FAPZCI+D8Y+6LWTE" width="1" height="1" alt="" aria-hidden="true" style="position:absolute;visibility:hidden;" />
-                </div>
-                <div class="server-option">
-                    <div class="server-option__header">
-                        <span class="server-rank">🥈 第2位</span>
-                        <span class="server-name">エックスサーバー</span>
-                    </div>
-                    <p class="server-desc">国内シェアNo.1。安定性・SEO実績の両方で業界標準。WordPressも併用したいならまず間違いのない選択。</p>
-                    <a href="https://px.a8.net/svt/ejp?a8mat=4B1K5S+ATDIEQ+5GDG+601S1" target="_blank" rel="noopener noreferrer nofollow" class="server-link">
-                        エックスサーバー公式へ ↗
-                    </a>
-                    <span class="server-note">※アフィリエイトリンク（PR）</span>
-                    <img src="https://www12.a8.net/0.gif?a8mat=4B1K5S+ATDIEQ+5GDG+601S1" width="1" height="1" alt="" aria-hidden="true" style="position:absolute;visibility:hidden;" />
-                </div>
-                <div class="server-option">
-                    <div class="server-option__header">
-                        <span class="server-rank">🥉 第3位</span>
-                        <span class="server-name">ConoHa WING</span>
-                    </div>
-                    <p class="server-desc">表示速度が特に速く、初心者でも直感的な操作が可能。<strong>現在最大55%OFFキャンペーン中</strong>で開始コストも格安。</p>
-                    <a href="https://px.a8.net/svt/ejp?a8mat=4B1K5S+ALMVJM+50+5SJPS2" target="_blank" rel="noopener noreferrer nofollow" class="server-link">
-                        ConoHa WING公式へ ↗
-                    </a>
-                    <span class="server-note">※アフィリエイトリンク（PR）</span>
-                    <img src="https://www12.a8.net/0.gif?a8mat=4B1K5S+ALMVJM+50+5SJPS2" width="1" height="1" alt="" aria-hidden="true" style="position:absolute;visibility:hidden;" />
-                </div>
-            </div>
+
+            <CtaAffiliate 
+                tag="BEST CHOICE"
+                title="さくらのレンタルサーバ"
+                description="当サイトの実戦環境。月額524円〜。個人ブログから商用サイトまで幅広く対応し、Astro等の静的サイト運用とも相性抜群。"
+                buttonText="さくらインターネット公式へ ↗"
+                buttonLink="https://px.a8.net/svt/ejp?a8mat=4B1K5S+FAPZCI+D8Y+6LWTE"
+                trackingPixel="https://www15.a8.net/0.gif?a8mat=4B1K5S+FAPZCI+D8Y+6LWTE"
+            />
+
+            <CtaAffiliate 
+                tag="POPULAR"
+                title="エックスサーバー"
+                description="国内シェアNo.1。圧倒的な安定性とSEO実績で知られる業界標準のサーバー。WordPressの高速運用にも最適。"
+                buttonText="エックスサーバー公式へ ↗"
+                buttonLink="https://px.a8.net/svt/ejp?a8mat=4B1K5S+ATDIEQ+5GDG+601S1"
+                trackingPixel="https://www12.a8.net/0.gif?a8mat=4B1K5S+ATDIEQ+5GDG+601S1"
+            />
+
+            <CtaAffiliate 
+                tag="HIGH SPEED"
+                title="ConoHa WING"
+                description="独自の高速化技術により国内最速クラスの表示速度を実現。現在最大55%OFFキャンペーン中で、開始コストを抑えたい方にも最適。"
+                buttonText="ConoHa WING公式へ ↗"
+                buttonLink="https://px.a8.net/svt/ejp?a8mat=4B1K5S+ALMVJM+50+5SJPS2"
+                trackingPixel="https://www12.a8.net/0.gif?a8mat=4B1K5S+ALMVJM+50+5SJPS2"
+            />
         </div>
 
         <!-- 💰 ASP -->
