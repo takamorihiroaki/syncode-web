@@ -131,7 +131,9 @@ const breadcrumbLdJson = {
         <script is:inline>
             // 管理者・開発者の除外設定（ノイズ排除の精緻化）
             const GA_MEASUREMENT_ID = 'G-SE8GNFY6EM';
-            const ADMIN_MARKER = 'ga_exclude_syncode';
+            const ADMIN_MARKER = 'ga_exclude_syncode_sh_7v2'; // シークレットキーに変更
+            const SECRET_PARAM = 'auth_gate'; // パラメータ名も推測しにくいものに変更
+            const SECRET_VALUE = 'sy-admin-99x'; // パラメータ値
 
             const disableGA = (persistent = true) => {
                 window['ga-disable-' + GA_MEASUREMENT_ID] = true;
@@ -149,7 +151,8 @@ const breadcrumbLdJson = {
             };
 
             const params = new URLSearchParams(window.location.search);
-            if (params.get('admin') === 'on' || localStorage.getItem(ADMIN_MARKER) === 'true') {
+            // シークレットな組み合わせの場合のみ除外を発動
+            if (params.get(SECRET_PARAM) === SECRET_VALUE || localStorage.getItem(ADMIN_MARKER) === 'true') {
                 disableGA();
             } else if (params.get('admin') === 'off') {
                 enableGA();
@@ -253,7 +256,7 @@ const breadcrumbLdJson = {
 
             // --- GA Status Indicator (Admin only) ---
             const statusIndicator = document.getElementById('ga-status-indicator');
-            if (statusIndicator && (localStorage.getItem('ga_exclude_syncode') === 'true' || window.location.search.includes('admin=on'))) {
+            if (statusIndicator && (localStorage.getItem('ga_exclude_syncode_sh_7v2') === 'true' || window.location.search.includes('auth_gate=sy-admin-99x'))) {
                 statusIndicator.style.display = 'block';
                 statusIndicator.style.border = '1px solid #ffcc00';
                 statusIndicator.style.padding = '5px';

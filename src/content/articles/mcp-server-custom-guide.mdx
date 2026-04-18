@@ -1,0 +1,132 @@
+---
+title: "MCPサーバー自作ガイド：Antigravityに独自の能力を追加する方法"
+date: '2026-04-18'
+image: /assets/mcp-server-custom-thumbnail.png
+excerpt: "既製のツールだけでは満足できないあなたへ。Model Context Protocol（MCP）を使って、独自のAPIやローカルデータベースをAntigravityと連携させるための開発手順をステップバイステップで解説します。"
+tags:
+  - MCP
+  - Antigravity
+  - TypeScript
+  - AI開発
+category: 技術検証
+label: TECH
+draft: false
+description: "Model Context Protocol (MCP) の自作ガイド。TypeScriptを使用して、Antigravity（AIエージェント）に独自の機能やデータソースを接続する方法を初心者にも分かりやすく解説します。"
+---
+
+import CtaInline from '../../components/CtaInline.astro';
+
+## AIエージェントを、自分専用の「万能ツール」へ
+
+Antigravityが強力な理由の一つは、<strong>MCP（Model Context Protocol）</strong>を介して外部ツールと無限に繋がれる拡張性にあります。
+
+しかし、既存のMCPサーバーだけでは、社内の独自システムや、自分だけが使っているツールとの連携は不可能です。そこで本記事では、TypeScriptを使用して、<strong>自分専用のMCPサーバーを自作する最短ルート</strong>を解説します。
+
+---
+
+## 1. MCPサーバーの基本構造
+
+MCPサーバーは、主に以下の3つの要素をAIに提供します。
+
+1.  <strong>Resources</strong>: 文書ファイルやDBのデータなど、AIが読み取れる「静的な情報」。
+2.  <strong>Tools</strong>: 関数の実行やAPIへのリクエストなど、AIが能動的に行える「アクション」。
+3.  <strong>Prompts</strong>: 特定のタスクを遂行するための「指示済みテンプレート」。
+
+今回は、もっとも実用的な <strong>「Tool（道具）」</strong> を作成する流れを見ていきます。
+
+---
+
+## 2. 開発環境のセットアップ
+
+Node.js環境を用意し、公式のSDKをインストールすることから始まります。
+
+```bash
+# プロジェクトの初期化
+mkdir my-mcp-server && cd my-mcp-server
+npm init -y
+npm install @modelcontextprotocol/sdk
+```
+
+---
+
+## 3. 独自のToolを実装する
+
+例えば、「ローカルのメモ帳の内容を検索する」ツールを作成する場合、以下のようなコードを記述します。
+
+```typescript
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+
+const server = new Server({
+  name: "my-custom-memo-tool",
+  version: "1.0.0",
+}, {
+  capabilities: { markers: {}, tools: {} },
+});
+
+// ツールの定義
+server.setRequestHandler(ListToolsRequestSchema, async () => ({
+  tools: [{
+    name: "search_memo",
+    description: "ローカルのメモを検索します",
+    inputSchema: {
+      type: "object",
+      properties: {
+        query: { type: "string" },
+      },
+    },
+  }],
+}));
+
+// ツールの実行ロジック
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  // ここに検索ロジックを記述
+  return { content: [{ type: "text", text: "検索結果..." }] };
+});
+```
+
+---
+
+## 4. Antigravityへの接続
+
+作成したサーバーをビルドし、Antigravityの設定ファイル（または管理画面）に実行コマンドを追加すれば完了です。
+
+```json
+{
+  "mcpServers": {
+    "my-memo": {
+      "command": "node",
+      "args": ["/path/to/your/server.js"]
+    }
+  }
+}
+```
+
+これで、Antigravityはあなたのローカルメモを自由に検索し、それを元にした回答ができるようになります。
+
+---
+
+## ターゲット層へのメリット：無限の可能性
+
+独自のMCPサーバーを持つことは、AIエージェントに<strong>「あなたの脳の拡張」</strong>を与えることに等しいです。
+
+- 会計ソフトのAPIを叩いて収支報告書を自動生成させる
+- 自社開発OSの内部ログをAIに監視させる
+- スマートホーム家電をAIから操作する
+
+<CtaInline 
+  tag="INNOVATION" 
+  title="MCPを使いこなし、AIと共に次世代のシステムを構築するための『AI共創ロードマップ』はこちら。" 
+  buttonLink="/articles/syncode-roadmap-2026/"
+/>
+
+---
+
+## 結論：創ることで、AIはさらに賢くなる
+
+MCPサーバーの自作は、技術的なハードル以上に「何をやらせるか」という想像力が試される領域です。まずは簡単なツールから自作して、Antigravityをあなただけの最強のエージェントへと育て上げてみてください。
+
+---
+<p style="text-align: center; color: #888; font-size: 0.9rem;">
+  開発の詳細は、<a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener noreferrer" style="color: #2c2c2c; border-bottom: 1px dotted #ccc;">MCP公式ドキュメント</a> および <a href="https://github.com/modelcontextprotocol" target="_blank" rel="noopener noreferrer" style="color: #2c2c2c; border-bottom: 1px dotted #ccc;">GitHubリポジトリ</a> も併せてご参照ください。
+</p>

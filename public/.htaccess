@@ -24,6 +24,33 @@
 # Trailing Slash Redirect
 RewriteEngine On
 RewriteBase /
+
+# Custom 301 Redirects
+RewriteRule ^about\.html$ /about/ [L,R=301]
+
+# Categories to Home
+RewriteRule ^category/テクノロジー/?$ / [L,R=301]
+RewriteRule ^category/aiツール/?$ / [L,R=301]
+RewriteRule ^category/ai戦略/?$ / [L,R=301]
+RewriteRule ^category/技術検証/?$ / [L,R=301]
+RewriteRule ^category/aiライフスタイル/?$ / [L,R=301]
+RewriteRule ^category/開発実録/?$ / [L,R=301]
+
+# Tags to Articles
+RewriteRule ^tag/ライティング/?$ /articles/ [L,R=301]
+RewriteRule ^tag/ディレクトリ構造/?$ /articles/ [L,R=301]
+RewriteRule ^tag/データ移行/?$ /articles/ [L,R=301]
+RewriteRule ^tag/タイポグラフィ/?$ /articles/ [L,R=301]
+RewriteRule ^tag/ドキュメンタリー/?$ /articles/ [L,R=301]
+RewriteRule ^tag/開発ログ/?$ /articles/ [L,R=301]
+RewriteRule ^tag/フロントエンド/?$ /articles/ [L,R=301]
+RewriteRule ^tag/ブランディング/?$ /articles/ [L,R=301]
+RewriteRule ^tag/自動化/?$ /articles/ [L,R=301]
+RewriteRule ^tag/効率化テクニック/?$ /articles/ [L,R=301]
+RewriteRule ^tag/AI開発/?$ /articles/ [L,R=301]
+RewriteRule ^tag/Antigravity/?$ /articles/ [L,R=301]
+
+# Normal Trailing Slash Rule
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !(.*)\/$
 RewriteRule ^(.*)$ $1/ [L,R=301]

@@ -66,20 +66,19 @@ if (!displayNext) {
 const tags = entry.data.tags || [];
 const category = entry.data.category || "";
 
-let footerCtaType = "discovery"; // default
+// 導線コンポーネントの選定
+const worksKeywords = ["SEO", "Search Console", "成果", "デザイン", "Case Study", "実績", "ブランド設計", "構造改革", "UI-UX", "制作実績", "マーケティング"];
+const toolsKeywords = ["Antigravity", "AIツール", "設定", "検証", "技術スタック", "トラブルシューティング", "初期設定", "パフォーマンス改善", "MCP", "Astro", "Gemini", "ワークスタイル", "自動化"];
 
-if (!displayNext) {
-    const worksKeywords = ["SEO", "Search Console", "成果", "デザイン", "Case Study", "実績", "ブランド設計", "構造改革", "UI-UX", "制作実績", "マーケティング"];
-    const toolsKeywords = ["Antigravity", "AIツール", "設定", "検証", "技術スタック", "トラブルシューティング", "初期設定", "パフォーマンス改善", "MCP", "Astro", "Gemini"];
+const hasWorksTag = tags.some(tag => worksKeywords.includes(tag));
+const hasToolsTag = tags.some(tag => toolsKeywords.includes(tag));
 
-    const hasWorksTag = tags.some(tag => worksKeywords.includes(tag));
-    const hasToolsTag = tags.some(tag => toolsKeywords.includes(tag));
+let footerCtaType = "tools"; // デフォルトをToolsに変更して一貫性を確保
 
-    if (category === "AI戦略" || category === "マーケティング" || hasWorksTag) {
-        footerCtaType = "works";
-    } else if (category === "技術検証" || category === "AIツール" || category === "テクノロジー" || hasToolsTag) {
-        footerCtaType = "tools";
-    }
+if (category === "AI戦略" || category === "マーケティング" || hasWorksTag) {
+    footerCtaType = "works";
+} else {
+    footerCtaType = "tools";
 }
 
 // Antigravity関連記事の場合、マスターガイドへの特別導線を有効化
@@ -136,21 +135,20 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
         
         <!-- 動的導線（CTA）セクション -->
         <div class="article-cta-area" style="margin-top: 40px;">
-            {displayNext ? (
-                /* 次の記事（シリーズの次、またはロジックで判定された重要記事）を表示 */
-                <CtaNextBanner 
-                    title={displayNext.data.title}
-                    excerpt={displayNext.data.excerpt}
-                    image={displayNext.data.image || ""}
-                    link={`/articles/${displayNext.id}/`}
-                    order={displayNext.data.seriesOrder}
-                />
-            ) : (
-                <>
-                    {footerCtaType === "tools" && <CtaTools title={entry.data.ctaTitle} description={entry.data.ctaDesc} />}
-                    {footerCtaType === "works" && <CtaWorks />}
-                    {footerCtaType === "discovery" && <ArticleDiscovery />}
-                </>
+            {/* ツール誘導は常に最優先で表示（回遊性と収益化の要） */}
+            <CtaTools title={entry.data.ctaTitle} description={entry.data.ctaDesc} />
+
+            {displayNext && (
+                /* 次の記事がある場合は、ツールバナーの後に表示 */
+                <div style="margin-top: 40px;">
+                    <CtaNextBanner 
+                        title={displayNext.data.title}
+                        excerpt={displayNext.data.excerpt}
+                        image={displayNext.data.image || ""}
+                        link={`/articles/${displayNext.id}/`}
+                        order={displayNext.data.seriesOrder}
+                    />
+                </div>
             )}
         </div>
         
