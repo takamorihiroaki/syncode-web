@@ -9,6 +9,7 @@ import ArticleDiscovery from "../../components/ArticleDiscovery.astro";
 import RelatedPosts from "../../components/RelatedPosts.astro";
 import CtaNextBanner from "../../components/CtaNextBanner.astro";
 import FeaturedSeries from "../../components/FeaturedSeries.astro";
+import SeriesList from "../../components/SeriesList.astro";
 
 export async function getStaticPaths() {
     const articleEntries = await getCollection("articles");
@@ -127,6 +128,8 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
 
     <article class="article-content">
         <Content />
+        
+        {isSeries && <div style="margin-top: 60px;"><SeriesList /></div>}
 
         <div class="nano-bridge">
           <span class="nano-line"></span>
