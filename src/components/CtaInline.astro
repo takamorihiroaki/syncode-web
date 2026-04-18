@@ -17,7 +17,7 @@ const {
 <a href={buttonLink} class="cta-inline banner-link">
     <div class="cta-inline__content">
         <span class="cta-inline__tag">{tag}</span>
-        <p class="cta-inline__text">{title}</p>
+        <p class="cta-inline__text"><span>{title}</span></p>
     </div>
     <span class="cta-inline__link-mock">{buttonText}</span>
 </a>
@@ -25,25 +25,26 @@ const {
 <style>
     .cta-inline {
         margin: 48px auto;
-        padding: 24px 32px;
-        background: #ffffff;
-        border: 1px solid #f0f0f0;
+        padding: 32px 40px;
+        background: #fafafa;
+        border: 1px solid var(--color-border, #eee);
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 24px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+        gap: 32px;
         transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         max-width: 100%;
         width: 100%;
         text-decoration: none !important;
         color: inherit !important;
+        position: relative;
     }
 
     .cta-inline:hover {
-        border-color: #e5e5e5;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        background: #fdfdfd;
+        border-color: #000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
         transform: translateY(-2px);
     }
 
@@ -51,25 +52,38 @@ const {
         flex: 1;
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 8px;
         text-align: left;
     }
 
     .cta-inline__tag {
         font-size: 0.65rem;
-        font-weight: bold;
-        color: #b8860b;
+        font-weight: 800;
+        color: #999;
         text-transform: uppercase;
         letter-spacing: 0.15em;
         display: inline-block;
+        transition: color 0.3s ease;
+    }
+
+    .cta-inline:hover .cta-inline__tag {
+        color: #000;
     }
 
     .cta-inline__text {
         margin: 0 !important;
-        font-size: 1rem;
-        font-weight: 600;
+        font-size: 1.15rem;
+        font-weight: 800;
         color: #333;
         line-height: 1.5;
+    }
+
+    /* アンダーラインアニメーションを削除し、それ以外の全スタイルを固定 */
+    .cta-inline__text span {
+        display: inline;
+        padding-bottom: 4px;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
     }
 
     .cta-inline__link-mock {
@@ -78,34 +92,38 @@ const {
         background: #1a1a1a;
         color: #fff !important;
         text-decoration: none;
-        padding: 14px 28px; 
+        padding: 16px 36px; 
         border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 600;
+        font-size: 0.95rem;
+        font-weight: 700;
         line-height: normal;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         text-align: center;
     }
 
     .cta-inline:hover .cta-inline__link-mock {
         background: #333;
         transform: scale(1.04);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     }
 
     @media (max-width: 640px) {
         .cta-inline {
             flex-direction: column;
             align-items: flex-start;
-            padding: 24px;
-            gap: 20px;
+            padding: 32px;
+            gap: 24px;
         }
         
+        .cta-inline__text {
+            font-size: 1.05rem;
+        }
+
         .cta-inline__link-mock {
             width: 100%;
             text-align: center;
-            padding: 14px;
+            padding: 16px;
         }
     }
 </style>

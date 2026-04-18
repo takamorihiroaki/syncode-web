@@ -26,8 +26,7 @@ const { title = "🎯 次に読むべき「最速への鍵」", links } = Astro.
 <style>
   .related-links-container {
     margin: 48px 0;
-    padding-top: 32px;
-    border-top: 1px solid #eee;
+    padding: 0;
   }
 
   .related-title {
@@ -46,21 +45,17 @@ const { title = "🎯 次に読むべき「最速への鍵」", links } = Astro.
 
   .related-link-item {
     display: block;
-    padding: 14px 18px;
+    padding: 8px 0;
     text-decoration: none;
     color: #555;
     background: transparent;
-    border-left: 2px solid transparent;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: color 0.3s ease;
     position: relative;
-    border-radius: 0 4px 4px 0;
+    width: fit-content;
   }
 
   .related-link-item:hover {
-    background: rgba(0, 153, 255, 0.03);
-    border-left: 4px solid #0099ff;
     color: #000;
-    padding-left: 16px;
   }
 
   .link-label {
@@ -73,9 +68,6 @@ const { title = "🎯 次に読むべき「最速への鍵」", links } = Astro.
   @media (max-width: 640px) {
     .related-links-container {
       margin: 40px 0;
-    }
-    .related-link-item {
-      padding: 12px 14px;
     }
     .link-label {
       font-size: 0.9rem;
