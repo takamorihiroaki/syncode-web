@@ -14,6 +14,31 @@ draft: false
 import CtaInline from '../../components/CtaInline.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 
+> [!IMPORTANT]
+> <strong>【最短10秒】エラーが出たときの3大初期対応</strong>
+> 1. <strong>エラー内容をコピーする</strong>: ターミナルや画面の赤い文字をそのままコピー。
+> 2. <strong>AIに貼り付けて「直して」と指示</strong>: 原因調査と修正をAntigravityに丸投げします。
+> 3. <strong>APIキーと残高を確認</strong>: 会話すら始まらない時は、設定画面のProvider設定と残高をチェック。
+
+## 5秒で解決！トラブル診断フローチャート
+
+現在の「動かない」状況に合わせて、以下のチャートで診断してください。
+
+```mermaid
+graph TD
+    Start["エラー発生 / 動かない"] --> Q1{"AIと会話できる?"}
+    Q1 -- "YES" --> A1["エラー文をそのままコピーして<br/>「これ直して」と指示"]
+    Q1 -- "NO" --> Q2{"エラーに「API Key」等の文字がある?"}
+    Q2 -- "YES" --> A2["Provider設定・残高確認"]
+    Q2 -- "NO" --> Q3{"ブラウザの挙動がおかしい?"}
+    Q3 -- "YES" --> A3["ブラウザ・PCの再起動"]
+    Q3 -- "NO" --> A4["少し時間をおいて再度実行<br/>(一時的な通信エラー等)"]
+
+    style A1 fill:#bfb,stroke:#333,stroke-width:2px
+    style A2 fill:#f9f,stroke:#333,stroke-width:2px
+    style A3 fill:#bbf,stroke:#333,stroke-width:2px
+```
+
 ## エラーが出たら、それは「対話」の始まりです。
 
 エンジニアではない方にとって、画面に流れる無機質な赤い文字（エラーメッセージ）は、心拍数を上げる「壁」に見えるかもしれません。

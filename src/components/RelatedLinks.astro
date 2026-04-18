@@ -56,12 +56,11 @@ const { title = "🎯 次に読むべき「最速への鍵」", links } = Astro.
     border-radius: 0 4px 4px 0;
   }
 
-  /* ミニマルなアクセントラインと背景の変化 */
   .related-link-item:hover {
-    background: rgba(0, 153, 255, 0.03); /* ごく淡いブランドブルー */
-    border-left: 4px solid #0099ff; /* ブランドカラーのライン */
+    background: rgba(0, 153, 255, 0.03);
+    border-left: 4px solid #0099ff;
     color: #000;
-    padding-left: 16px; /* 境界線を太くした分、内側に寄せて改行変化を抑制 */
+    padding-left: 16px;
   }
 
   .link-label {
@@ -72,6 +71,9 @@ const { title = "🎯 次に読むべき「最速への鍵」", links } = Astro.
   }
 
   @media (max-width: 640px) {
+    .related-links-container {
+      margin: 40px 0;
+    }
     .related-link-item {
       padding: 12px 14px;
     }
