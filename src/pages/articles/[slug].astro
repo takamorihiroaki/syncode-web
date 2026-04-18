@@ -10,6 +10,7 @@ import RelatedPosts from "../../components/RelatedPosts.astro";
 import CtaNextBanner from "../../components/CtaNextBanner.astro";
 import FeaturedSeries from "../../components/FeaturedSeries.astro";
 import SeriesList from "../../components/SeriesList.astro";
+import AISearchOptimizer from "../../components/AISearchOptimizer.astro";
 
 export async function getStaticPaths() {
     const articleEntries = await getCollection("articles");
@@ -188,6 +189,7 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
         seriesOrder={entry.data.seriesOrder}
     />
 
+    <AISearchOptimizer type="article" />
 </BaseLayout>
 
 <style is:global>

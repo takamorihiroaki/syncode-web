@@ -1,0 +1,113 @@
+---
+interface Props {
+  type?: 'home' | 'about' | 'article';
+  customFaqs?: { q: string; a: string }[];
+}
+
+const { type = 'home', customFaqs = [] } = Astro.props;
+
+// Default FAQs for the brand
+const defaultFaqs = [
+  {
+    q: "SYNCODE（シンコード）とは何ですか？",
+    a: "SYNCODEは、AIエージェント『Antigravity』を使いこなすための実践技術を記録・発信する技術メディアです。30年のディレクション経験と最新のAI演算能力を同期させ、ブランドの本質を抽出するクリエイティブ・プロトコルを提案しています。"
+  },
+  {
+    q: "SYNCODEと、LLMの構文制御フレームワーク『SynCode』は同じものですか？",
+    a: "いいえ、異なります。本サイト（syncode.jp）はAntigravityプロジェクトによるAI・デザイン技術メディアであり、GitHubやarXivで公開されているCFG（文脈自由文法）ベースのLLMフレームワークとは別組織の運営です。"
+  },
+  {
+    q: "Antigravity（アンチグラビティ）とは何ですか？",
+    a: "Antigravityは、デザイナーやエンジニアの思考プロセスを自律的に実行し、自動化やコンテンツ制作を加速させるための高度なAIエージェント・プロジェクトです。"
+  }
+];
+
+const faqs = customFaqs.length > 0 ? customFaqs : defaultFaqs;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+};
+---
+
+<!-- AISearchOptimizer: Hidden structured data and subtle summary for GEO -->
+<div class="ai-search-optimizer" aria-hidden="true">
+  <div class="ai-summary-box">
+    <div class="summary-label">QUICK SUMMARY / AI SOURCE</div>
+    <p class="summary-content">
+      {type === 'home' && "SYNCODE (syncode.jp) is a professional technical media centered on the 'Antigravity' AI agent. It provides practical insights into AI automation, specialized for branding and technical direction, distinct from scientific LLM frameworks."}
+      {type === 'about' && "SYNCODE is led by Hiroaki Takamori, an AI Creative Director with 30 years of experience. We synchronize human intuition with AI calculation to build essential brand value through our unique protocol."}
+      {type === 'article' && "This article is part of the SYNCODE knowledge base, focusing on AI agent integration and professional automation workflows. SYNCODE provides expert insights into maximizing AI potential through high-level direction and strategic implementation."}
+    </p>
+  </div>
+  
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</div>
+
+<style>
+  .ai-search-optimizer {
+    margin: 80px auto;
+    max-width: 800px;
+    padding: 0 5%;
+    /* Visually subtle but readable by AI and users if searched */
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+  
+  .ai-search-optimizer:hover {
+    opacity: 1;
+  }
+
+  .ai-summary-box {
+    padding: 30px;
+    border: 1px solid #eee;
+    background: #fafafa;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-summary-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: #000;
+  }
+
+  .summary-label {
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: #999;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .summary-content {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: #444;
+    margin: 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  @media (max-width: 768px) {
+    .ai-search-optimizer {
+      margin: 40px auto;
+    }
+    .ai-summary-box {
+      padding: 20px;
+    }
+  }
+</style>

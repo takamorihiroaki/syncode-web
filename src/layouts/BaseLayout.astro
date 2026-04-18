@@ -30,6 +30,21 @@ const ldJson: any = {
     "@context": "https://schema.org",
 };
 
+const organizationData = {
+    "@type": "Organization",
+    "name": "SYNCODE",
+    "url": siteUrl,
+    "logo": {
+        "@type": "ImageObject",
+        "url": new URL("/assets/series-vol1-square.png", siteUrl).toString()
+    },
+    "sameAs": [
+        "https://x.com/syncode_jp",
+        "https://www.instagram.com/syncode_jp" // 将来用
+    ],
+    "description": "AIエージェントAntigravityの活用や、自動化技術を専門とする実践技術メディア。30年のディレクション経験と最新のAI技術を同期させた革新的な知見を提供します。"
+};
+
 if (isArticle) {
     ldJson["@type"] = "BlogPosting";
     ldJson["headline"] = title;
@@ -37,32 +52,14 @@ if (isArticle) {
     ldJson["image"] = [ogImageURL.toString()];
     ldJson["datePublished"] = publishDate ? publishDate.toISOString() : undefined;
     ldJson["dateModified"] = updatedDate ? updatedDate.toISOString() : (publishDate ? publishDate.toISOString() : undefined);
-    ldJson["author"] = {
-        "@type": "Organization",
-        "name": "SYNCODE",
-        "url": siteUrl
-    };
-    ldJson["publisher"] = {
-        "@type": "Organization",
-        "name": "SYNCODE",
-        "logo": {
-            "@type": "ImageObject",
-            "url": new URL("/assets/series-vol1-square.png", siteUrl).toString()
-        }
-    };
+    ldJson["author"] = organizationData;
+    ldJson["publisher"] = organizationData;
 } else {
     ldJson["@type"] = "WebSite";
     ldJson["name"] = "SYNCODE";
     ldJson["url"] = siteUrl;
     ldJson["description"] = description;
-    ldJson["publisher"] = {
-        "@type": "Organization",
-        "name": "SYNCODE",
-        "logo": {
-            "@type": "ImageObject",
-            "url": new URL("/assets/series-vol1-square.png", siteUrl).toString()
-        }
-    };
+    ldJson["publisher"] = organizationData;
 }
 
 // Breadcrumb List

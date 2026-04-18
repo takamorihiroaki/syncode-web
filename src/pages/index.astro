@@ -5,6 +5,7 @@ import Hero from "../components/Hero.astro";
 import Gateway from "../components/Gateway.astro";
 import PremiumDocumentary from "../components/PremiumDocumentary.astro";
 import ArticleCard from "../components/ArticleCard.astro";
+import AISearchOptimizer from "../components/AISearchOptimizer.astro";
 
 const sortedArticles = (await getCollection("articles"))
     .filter((article) => !article.data.draft)
@@ -92,6 +93,9 @@ const latestArticles = sortedArticles
             </div>
         </section>
     </div>
+
+    <!-- AI Search Optimization Section (GEO) -->
+    <AISearchOptimizer type="home" />
 </BaseLayout>
 
 <style>
