@@ -189,7 +189,7 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
         seriesOrder={entry.data.seriesOrder}
     />
 
-    <AISearchOptimizer type="article" />
+    <AISearchOptimizer type="article" description={entry.data.excerpt} />
 </BaseLayout>
 
 <style is:global>
@@ -247,13 +247,18 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
   }
 
   .article-link-item {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
   }
   .article-link-item .emoji {
     font-size: 1.1rem;
+    line-height: 1.7;
     opacity: 0.8;
+    flex-shrink: 0;
+  }
+  .article-link-item .content {
+    line-height: 1.7;
   }
 </style>

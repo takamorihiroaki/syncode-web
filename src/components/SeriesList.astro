@@ -52,14 +52,16 @@ const displaySeriesName = `連載のご案内（全${n}回）`;
       return (
         <li>
           {isCurrent ? (
-            <div class="grid-row">
-              <span class="grid-label">STEP {article.data.seriesOrder}：</span>
-              <span class="grid-title current-article">{cleanTitle}（本記事）</span>
+            <div class="series-nav-row series-current-item">
+              <span class="series-label-col">STEP {article.data.seriesOrder}：</span>
+              <span class="series-title-col">{cleanTitle}（本記事）</span>
             </div>
           ) : (
-            <a href={`/articles/${article.id}/`} class="grid-row link-row">
-              <span class="grid-label">STEP {article.data.seriesOrder}：</span>
-              <span class="grid-title animated-title"><span>{cleanTitle}</span></span>
+            <a href={`/articles/${article.id}/`} class="series-nav-row series-link-row">
+              <div class="series-label-col">STEP {article.data.seriesOrder}：</div>
+              <div class="series-title-col">
+                <span class="series-animated-underline">{cleanTitle}</span>
+              </div>
             </a>
           )}
         </li>
@@ -68,13 +70,20 @@ const displaySeriesName = `連載のご案内（全${n}回）`;
   </ul>
 
   {nextArticle && (
-    <div class="article-link-list">
-      <div class="grid-row next-link-container">
-        <span class="grid-label next-label-width">👉 <strong>次なるステップ　STEP {nextArticle.data.seriesOrder}：</strong></span>
-        <a href={`/articles/${nextArticle.id}/`} class="grid-title animated-title next-title-link">
-          <span>{nextArticle.data.title.replace(/【.*?】/, "").split("｜")[0].trim()}</span>
-        </a>
-      </div>
+    <div class="series-next-banner-box">
+      <a href={`/articles/${nextArticle.id}/`} class="series-next-anchor">
+        <div class="series-next-grid">
+          <div class="series-next-label-group">
+            <span class="series-next-emoji">👉</span>
+            <span class="series-next-label-text">次なるステップ　STEP {nextArticle.data.seriesOrder}：</span>
+          </div>
+          <div class="series-next-title-wrapper">
+             <span class="series-animated-underline">
+               {nextArticle.data.title.replace(/【.*?】/, "").split("｜")[0].trim()}
+             </span>
+          </div>
+        </div>
+      </a>
     </div>
   )}
 </div>
@@ -83,7 +92,7 @@ const displaySeriesName = `連載のご案内（全${n}回）`;
   .series-nav-container h2 {
     font-size: 1.35rem;
     font-weight: 400;
-    margin: 40px 0 24px;
+    margin: 60px 0 24px;
     padding-bottom: 12px;
     border-bottom: 1px solid #f0f0f0;
   }
@@ -95,43 +104,50 @@ const displaySeriesName = `連載のご案内（全${n}回）`;
   }
 
   .series-nav-list li {
-    margin-bottom: 0.8em;
+    margin-bottom: 1.25em;
   }
 
-  /* 究極の整列：Gridによる2カラム固定 */
-  .grid-row {
-    display: grid;
-    grid-template-columns: min-content 1fr; /* ラベル幅はコンテンツに合わせ、タイトルは残りを埋める */
-    align-items: start;
+  /* グリッドレイアウトによる「ぶら下げインデント」の実現 */
+  .series-nav-row {
+    display: grid !important;
+    /* ラベルの幅を固定することで、複数行にわたるタイトルの開始位置を垂直に揃える */
+    grid-template-columns: 5.8em 1fr !important;
+    gap: 0 !important;
     line-height: 1.7;
     text-decoration: none !important;
+    /* グローバルなホバー下線を無効化 */
     background-image: none !important;
     color: inherit;
+    align-items: start;
+    text-align: left !important;
   }
 
-  .grid-label {
+  .series-label-col {
     white-space: nowrap;
-    padding-right: 0.6em; /* ラベルとタイトルの余白 */
+    color: #444;
+    display: block !important;
+    font-weight: 400;
   }
 
-  .next-label-width {
-    /* 「👉 次なるステップ STEP X：」は長いので、しっかり幅を確保 */
-    padding-right: 0.8em;
+  .series-title-col {
+    word-break: normal;
+    overflow-wrap: anywhere;
+    display: block !important;
+    text-align: left !important;
   }
 
-  /* 行を跨いでも2列目に留まる block コンテナ */
-  .grid-title {
-    display: block; 
-    text-decoration: none !important;
-    background-image: none !important;
-  }
-
-  .current-article {
+  .series-current-item {
     font-weight: 700;
+    color: #000;
   }
 
-  /* アニメーション：inline要素に適用することで、全行に下線を引く */
-  .animated-title span {
+  .series-current-item .series-label-col {
+    font-weight: 700;
+    color: #000;
+  }
+
+  /* アンダーラインアニメーション */
+  .series-animated-underline {
     display: inline;
     background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
     background-position: 0 100%;
@@ -143,40 +159,69 @@ const displaySeriesName = `連載のご案内（全${n}回）`;
     -webkit-box-decoration-break: clone;
   }
 
-  .link-row:hover .animated-title span,
-  .next-title-link:hover span {
+  .series-link-row:hover .series-animated-underline,
+  .series-next-anchor:hover .series-animated-underline {
     background-size: 100% 1px;
     color: #000;
   }
 
-  .article-link-list {
-    margin: 2em 0;
+  /* Next Step Banner */
+  .series-next-banner-box {
+    margin: 3.5em 0;
     padding: 1.5em;
     background: #fafafa;
     border-radius: 4px;
-    font-size: 1rem;
+    text-align: left !important;
   }
 
-  .next-link-container {
-    line-height: 1.6;
-  }
-
-  .next-title-link {
-    color: inherit;
+  .series-next-anchor {
+    color: #333;
     text-decoration: none !important;
+    /* グローバルなホバー下線を無効化 */
+    background-image: none !important;
+    display: block !important;
   }
 
-  /* レスポンシブ対応：狭い画面でもずれない */
+  .series-next-grid {
+    display: grid !important;
+    /* 次のステップ用のラベル幅を固定 */
+    grid-template-columns: auto 1fr !important; 
+    gap: 0 !important;
+    align-items: start;
+    line-height: 1.7;
+  }
+
+  .series-next-label-group {
+    display: flex !important;
+    align-items: center;
+    white-space: nowrap;
+    padding-right: 0.5em;
+  }
+
+  .series-next-emoji {
+    font-size: 1.1rem;
+    margin-right: 0.6em;
+  }
+
+  .series-next-label-text {
+    font-weight: 400;
+  }
+
+  .series-next-title-wrapper {
+    word-break: normal;
+    overflow-wrap: anywhere;
+    text-align: left !important;
+  }
+
   @media (max-width: 640px) {
-    .grid-label {
-      padding-right: 0.4em;
+    .series-nav-row,
+    .series-next-grid {
+      grid-template-columns: 1fr !important;
     }
-    .next-link-container {
-      display: block; /* モバイルの極小画面では、ラベルとタイトルを分けることも検討可能だが、一旦Grid維持 */
-    }
-    .next-label-width {
-      display: block;
-      margin-bottom: 4px;
+    
+    .series-label-col,
+    .series-next-label-group {
+      margin-bottom: 0.2em;
     }
   }
 </style>

@@ -1,10 +1,11 @@
 ---
 interface Props {
   type?: 'home' | 'about' | 'article';
+  description?: string;
   customFaqs?: { q: string; a: string }[];
 }
 
-const { type = 'home', customFaqs = [] } = Astro.props;
+const { type = 'home', description, customFaqs = [] } = Astro.props;
 
 // Default FAQs for the brand
 const defaultFaqs = [
@@ -36,17 +37,23 @@ const faqSchema = {
     }
   }))
 };
+
+const displayDescription = description || (
+  type === 'home' ? "SYNCODE (syncode.jp) は AI エージェント 'Antigravity' を軸とした技術メディアです。ブランディングと技術ディレクションに特化した AI 自動化の実践知を提供します。" :
+  type === 'about' ? "SYNCODE は 30 年の経験を持つ AI クリエイティブディレクター、高森博彰が主宰するプロジェクトです。人間の直感と AI の演算を同期させ、本質的な価値を構築します。" :
+  "この記事は SYNCODE 知識ベースの一部であり、AI エージェントの統合とプロフェッショナルな自動化ワークフローに焦点を当てています。"
+);
 ---
 
-<!-- AISearchOptimizer: Hidden structured data and subtle summary for GEO -->
-<div class="ai-search-optimizer" aria-hidden="true">
+<div class="ai-search-optimizer">
   <div class="ai-summary-box">
     <div class="summary-label">QUICK SUMMARY / AI SOURCE</div>
-    <p class="summary-content">
-      {type === 'home' && "SYNCODE (syncode.jp) is a professional technical media centered on the 'Antigravity' AI agent. It provides practical insights into AI automation, specialized for branding and technical direction, distinct from scientific LLM frameworks."}
-      {type === 'about' && "SYNCODE is led by Hiroaki Takamori, an AI Creative Director with 30 years of experience. We synchronize human intuition with AI calculation to build essential brand value through our unique protocol."}
-      {type === 'article' && "This article is part of the SYNCODE knowledge base, focusing on AI agent integration and professional automation workflows. SYNCODE provides expert insights into maximizing AI potential through high-level direction and strategic implementation."}
-    </p>
+    <div class="summary-content">
+      <p class="jp-text">{displayDescription}</p>
+      <p class="en-text" aria-hidden="true">
+        {type === 'article' ? "This content is part of the SYNCODE knowledge base. It provides expert insights for maximizing AI potential through high-level direction and strategic implementation." : "SYNCODE is a professional technical media centered on the 'Antigravity' AI agent."}
+      </p>
+    </div>
   </div>
   
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -54,11 +61,10 @@ const faqSchema = {
 
 <style>
   .ai-search-optimizer {
-    margin: 80px auto;
+    margin: 100px auto 60px;
     max-width: 800px;
     padding: 0 5%;
-    /* Visually subtle but readable by AI and users if searched */
-    opacity: 0.6;
+    opacity: 0.8;
     transition: opacity 0.3s ease;
   }
   
@@ -67,10 +73,10 @@ const faqSchema = {
   }
 
   .ai-summary-box {
-    padding: 30px;
+    padding: 40px;
     border: 1px solid #eee;
     background: #fafafa;
-    border-radius: 4px;
+    border-radius: 8px;
     position: relative;
     overflow: hidden;
   }
@@ -80,34 +86,47 @@ const faqSchema = {
     position: absolute;
     top: 0;
     left: 0;
-    width: 2px;
+    width: 3px;
     height: 100%;
     background: #000;
   }
 
   .summary-label {
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     font-weight: 900;
     letter-spacing: 0.3em;
-    color: #999;
-    margin-bottom: 12px;
+    color: #333;
+    margin-bottom: 20px;
     text-transform: uppercase;
   }
 
   .summary-content {
-    font-size: 0.9rem;
-    line-height: 1.8;
-    color: #444;
     margin: 0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  .jp-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .en-text {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: #999;
+    margin: 0;
+    font-style: italic;
   }
 
   @media (max-width: 768px) {
     .ai-search-optimizer {
-      margin: 40px auto;
+      margin: 60px auto 40px;
     }
     .ai-summary-box {
-      padding: 20px;
+      padding: 24px;
     }
   }
 </style>
+
