@@ -703,3 +703,46 @@ img {
     }
 }
 
+
+/* ===== 記事内：手動関連記事用の高度なグリッドレイアウト（ぶら下がりインデント） ===== */
+.custom-hanging-link {
+    display: grid !important;
+    grid-template-columns: auto 1fr !important;
+    gap: 0 !important;
+    align-items: start;
+    line-height: 1.8;
+    margin-bottom: 1.25em;
+    text-decoration: none !important;
+    background-image: none !important; /* グローバルなホバー下線を無効化 */
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.custom-hanging-link .label-box {
+    white-space: nowrap;
+    padding-right: 0.6em; /* ラベルとタイトルの間の余白を固定 */
+    font-weight: 500;
+}
+
+.custom-hanging-link .title-box {
+    word-break: normal;
+    overflow-wrap: anywhere;
+}
+
+/* SeriesListと同様のアニメーションアンダーライン */
+.animated-underline-endpoint {
+    display: inline;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    transition: background-size 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    padding-bottom: 2px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+.custom-hanging-link:hover .animated-underline-endpoint {
+    background-size: 100% 1px;
+    color: #000;
+}
