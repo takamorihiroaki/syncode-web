@@ -22,7 +22,12 @@ const {
 
 const { pathname } = Astro.url;
 const siteUrl = Astro.site?.toString() || "https://syncode.jp";
-const canonicalURL = new URL(pathname, siteUrl);
+
+// URLの正規化: 末尾のスラッシュを強制し、クエリパラメータを排除した形にする
+const normalizedPathname = pathname.endsWith('/') || pathname.includes('.') 
+    ? pathname 
+    : `${pathname}/`;
+const canonicalURL = new URL(normalizedPathname, siteUrl);
 const ogImageURL = new URL(image, siteUrl);
 
 // JSON-LD (Structured Data)
@@ -155,15 +160,17 @@ const breadcrumbLdJson = {
                 enableGA();
             }
         </script>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-SE8GNFY6EM"></script>
-        <script is:inline>
+        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-SE8GNFY6EM"></script>
+        <script is:inline set:html={`
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-SE8GNFY6EM', {
                 'anonymize_ip': true,
-                'cookie_flags': 'SameSite=None;Secure'
+                'cookie_flags': 'SameSite=None;Secure',
+                'page_location': '${canonicalURL.toString()}'
             });
+        `}>
         </script>
     </head>
     <body id="top">
