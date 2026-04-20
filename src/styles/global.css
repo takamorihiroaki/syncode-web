@@ -136,7 +136,7 @@ img {
 
 @media (min-width: 1024px) {
     .article-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 140px 60px;
         /* Massively increased gap for breathing room with two rows */
     }
