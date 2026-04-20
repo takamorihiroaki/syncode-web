@@ -17,7 +17,7 @@ const {
 <a href={buttonLink} class="cta-inline banner-link">
     <div class="cta-inline__content">
         <span class="cta-inline__tag">{tag}</span>
-        <p class="cta-inline__text"><span>{title}</span></p>
+        <p class="cta-inline__text"><span set:html={title} /></p>
     </div>
     <span class="cta-inline__link-mock">{buttonText}</span>
 </a>

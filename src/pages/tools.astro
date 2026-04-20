@@ -65,36 +65,134 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
             margin: 0;
         }
 
-        /* ランキング早見表 */
+        /* ランキング早見表（プレミアム・アップデート） */
         .ranking-overview {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            background: #fafafa;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 28px 32px;
-            margin-bottom: 70px;
+            background: #ffffff;
+            border: 1px solid #f0f0f0;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 0 0 80px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ranking-overview::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #1a1a1a, #666, #999);
         }
 
         .ranking-overview h2 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.25em;
             color: var(--color-text-light);
-            margin-bottom: 8px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .ranking-overview h2::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #f0f0f0;
+        }
+
+        .rank-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .rank-row {
             display: flex;
             align-items: center;
-            gap: 14px;
-            font-size: 0.95rem;
+            gap: 20px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            text-decoration: none !important;
+            border: 1px solid transparent;
         }
 
-        .rank-emoji { font-size: 1.3rem; flex-shrink: 0; }
-        .rank-name { font-weight: 700; }
-        .rank-desc { color: var(--color-text-light); font-size: 0.85rem; }
+        .rank-row:hover {
+            background: #fafafa;
+            border-color: #eee;
+            transform: translateX(10px);
+        }
+
+        .rank-emoji-box {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f8f8;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .rank-row:hover .rank-emoji-box {
+            background: #1a1a1a;
+            transform: scale(1.1) rotate(-8deg);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .rank-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+        }
+
+        .rank-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rank-desc {
+            font-size: 0.82rem;
+            color: var(--color-text-light);
+            letter-spacing: 0.02em;
+        }
+
+        .rank-arrow {
+            color: #eee;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .rank-row:hover .rank-arrow {
+            opacity: 1;
+            transform: translateX(0);
+            color: #ccc;
+        }
+
+        @media (max-width: 600px) {
+            .ranking-overview { padding: 30px 20px; }
+            .rank-row { gap: 14px; padding: 12px; }
+            .rank-emoji-box { width: 40px; height: 40px; font-size: 1.2rem; }
+            .rank-name { font-size: 0.95rem; }
+            .rank-desc { font-size: 0.75rem; }
+            .rank-row:hover { transform: translateX(5px); }
+        }
 
         /* 1位 LP section */
         .winner-card {
@@ -449,45 +547,68 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         <!-- ランキング早見表 -->
         <div class="ranking-overview">
             <h2>ランキング一覧</h2>
-            <div class="rank-row">
-                <span class="rank-emoji">🥇</span>
-                <span class="rank-name">Antigravity</span>
-                <span class="rank-desc">—— AI記事作成・開発の核心</span>
-            </div>
-            <div class="rank-row">
-                <span class="rank-emoji">🥈</span>
-                <span class="rank-name">Astro</span>
-                <span class="rank-desc">—— 爆速ブログ構築</span>
-            </div>
-            <div class="rank-row">
-                <span class="rank-emoji">🥉</span>
-                <span class="rank-name">Cloudflare</span>
-                <span class="rank-desc">—— 表示速度・セキュリティ</span>
-            </div>
-            <div class="rank-row">
-                <span class="rank-emoji">📊</span>
-                <span class="rank-name">Search Console</span>
-                <span class="rank-desc">—— SEO分析・検索流入</span>
-            </div>
-            <div class="rank-row">
-                <span class="rank-emoji">📈</span>
-                <span class="rank-name">Google Analytics</span>
-                <span class="rank-desc">—— 行動分析・CV計測</span>
-            </div>
-            <div class="rank-row">
-                <span class="rank-emoji">🏠</span>
-                <span class="rank-name">レンタルサーバー</span>
-                <span class="rank-desc">—— ブログ公開の基盤</span>
-            </div>
-            <div class="rank-row">
-                <span class="rank-emoji">💰</span>
-                <span class="rank-name">ASP（A8.net 等）</span>
-                <span class="rank-desc">—— 収益化の入口</span>
+            <div class="rank-list">
+                <a href="#rank-1" class="rank-row">
+                    <div class="rank-emoji-box">🥇</div>
+                    <div class="rank-content">
+                        <span class="rank-name">Antigravity</span>
+                        <span class="rank-desc">AI記事作成・開発の核心</span>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                </a>
+                <a href="#rank-2" class="rank-row">
+                    <div class="rank-emoji-box">🥈</div>
+                    <div class="rank-content">
+                        <span class="rank-name">Astro</span>
+                        <span class="rank-desc">爆速ブログ構築</span>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                </a>
+                <a href="#rank-3" class="rank-row">
+                    <div class="rank-emoji-box">🥉</div>
+                    <div class="rank-content">
+                        <span class="rank-name">Cloudflare</span>
+                        <span class="rank-desc">表示速度・セキュリティ</span>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                </a>
+                <a href="#rank-4" class="rank-row">
+                    <div class="rank-emoji-box">📊</div>
+                    <div class="rank-content">
+                        <span class="rank-name">Search Console</span>
+                        <span class="rank-desc">SEO分析・検索流入</span>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                </a>
+                <a href="#rank-5" class="rank-row">
+                    <div class="rank-emoji-box">📈</div>
+                    <div class="rank-content">
+                        <span class="rank-name">Google Analytics</span>
+                        <span class="rank-desc">行動分析・CV計測</span>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                </a>
+                <a href="#rank-6" class="rank-row">
+                    <div class="rank-emoji-box">🏠</div>
+                    <div class="rank-content">
+                        <span class="rank-name">レンタルサーバー</span>
+                        <span class="rank-desc">ブログ公開の基盤</span>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                </a>
+                <a href="#rank-7" class="rank-row">
+                    <div class="rank-emoji-box">💰</div>
+                    <div class="rank-content">
+                        <span class="rank-name">ASP（A8.net 等）</span>
+                        <span class="rank-desc">収益化の入口</span>
+                    </div>
+                    <div class="rank-arrow">→</div>
+                </a>
             </div>
         </div>
 
         <!-- 🥇 1位 LP -->
-        <section class="winner-card">
+        <section class="winner-card" id="rank-1">
             <div class="winner-label">🥇 第1位 / 断然おすすめ</div>
             <p class="subtitle">AI記事作成</p>
             <h2>Antigravity</h2>
@@ -530,7 +651,7 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         <hr class="section-sep" data-label="その他の必須ツール">
 
         <!-- 🥈 2位 -->
-        <div class="tool-card">
+        <div class="tool-card" id="rank-2">
             <span class="role">サイト構築</span>
             <div class="trust-badge">LCP 0.8s 達成環境</div>
             <h3><span>🥈</span> Astro</h3>
@@ -545,7 +666,7 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         </div>
 
         <!-- 🥉 3位 -->
-        <div class="tool-card">
+        <div class="tool-card" id="rank-3">
             <span class="role">表示速度・セキュリティ</span>
             <h3><span>🥉</span> Cloudflare</h3>
             <p>世界最強レベルのCDNとセキュリティを無料で提供。「表示速度 ＝ 離脱率」に直結するため、サイトを立ち上げたら即座に導入するのがおすすめです。</p>
@@ -553,7 +674,7 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         </div>
 
         <!-- 📊 Search Console -->
-        <div class="tool-card">
+        <div class="tool-card" id="rank-4">
             <span class="role">SEO・検索分析</span>
             <div class="trust-badge">平均CTR 22.5% 記録</div>
             <h3><span>📊</span> Google Search Console</h3>
@@ -568,7 +689,7 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         </div>
 
         <!-- 📈 Google Analytics -->
-        <div class="tool-card">
+        <div class="tool-card" id="rank-5">
             <span class="role">行動分析・CV計測</span>
             <div class="trust-badge">平均滞在時間 1時間36分</div>
             <h3><span>📈</span> Google Analytics（GA4）</h3>
@@ -583,7 +704,7 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         </div>
 
         <!-- 🏠 レンタルサーバー（収益化の主軸） -->
-        <div class="tool-card server-card">
+        <div class="tool-card server-card" id="rank-6">
             <span class="pr-badge-inline">PR</span>
             <span class="role">ブログ公開の基盤｜このサイトが実際に使っているサーバー</span>
             <h3><span>🏠</span> レンタルサーバー</h3>
@@ -624,7 +745,7 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         </div>
 
         <!-- 💰 ASP -->
-        <div class="tool-card">
+        <div class="tool-card" id="rank-7">
             <span class="role">アフィリエイト登録</span>
             <h3><span>💰</span> ASP（アフィリエイトサービス）</h3>
             <p>収益の源泉となる広告リンクを取得するためのプラットフォームです。登録・利用は完全無料。まずこの2つに登録するだけで収益化のスタートラインに立てます。</p>
