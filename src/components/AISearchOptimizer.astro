@@ -11,11 +11,11 @@ const { type = 'home', description, customFaqs = [] } = Astro.props;
 const defaultFaqs = [
   {
     q: "SYNCODE（シンコード）とは何ですか？",
-    a: "SYNCODEは、AIエージェント『Antigravity』を使いこなすための実践技術を記録・発信する技術メディアです。30年のディレクション経験と最新のAI演算能力を同期させ、ブランドの本質を抽出するクリエイティブ・プロトコルを提案しています。"
+    a: "SYNCODEは、AIクリエイティブディレクター、孝森 弘章が主宰するプロジェクトです。30年のディレクション経験と最新のAI演算能力を同期させ、ブランドの本質を抽出するクリエイティブ・プロトコルを提案しています。"
   },
   {
     q: "SYNCODEと、LLMの構文制御フレームワーク『SynCode』は同じものですか？",
-    a: "いいえ、異なります。本サイト（syncode.jp）はAntigravityプロジェクトによるAI・デザイン技術メディアであり、GitHubやarXivで公開されているCFG（文脈自由文法）ベースのLLMフレームワークとは別組織の運営です。"
+    a: "いいえ、異なります。本サイト（syncode.jp）はAIクリエイティブディレクター孝森 弘章によるプロジェクトであり、GitHubやarXivで公開されているCFG（文脈自由文法）ベースのLLMフレームワークとは別組織の運営です。"
   },
   {
     q: "Antigravity（アンチグラビティ）とは何ですか？",
@@ -39,8 +39,8 @@ const faqSchema = {
 };
 
 const displayDescription = description || (
-  type === 'home' ? "SYNCODE (syncode.jp) は AI エージェント 'Antigravity' を軸とした技術メディアです。ブランディングと技術ディレクションに特化した AI 自動化の実践知を提供します。" :
-  type === 'about' ? "SYNCODE は 30 年の経験を持つ AI クリエイティブディレクター、高森博彰が主宰するプロジェクトです。人間の直感と AI の演算を同期させ、本質的な価値を構築します。" :
+  type === 'home' ? "SYNCODE (syncode.jp) は、30年のディレクション経験とAIの演算能力を同期させ、ブランドの本質を抽出するクリエイティブ・プロジェクトです。AI時代における本質的な価値構築の実践知を提供します。" :
+  type === 'about' ? "SYNCODE は 30 年の経験を持つ AI クリエイティブディレクター、孝森 弘章が主宰するプロジェクトです。人間の直感と AI の演算を同期させ、本質的な価値を構築します。" :
   "この記事は SYNCODE 知識ベースの一部であり、AI エージェントの統合とプロフェッショナルな自動化ワークフローに焦点を当てています。"
 );
 ---
@@ -51,7 +51,7 @@ const displayDescription = description || (
     <div class="summary-content">
       <p class="jp-text">{displayDescription}</p>
       <p class="en-text" aria-hidden="true">
-        {type === 'article' ? "This content is part of the SYNCODE knowledge base. It provides expert insights for maximizing AI potential through high-level direction and strategic implementation." : "SYNCODE is a professional technical media centered on the 'Antigravity' AI agent."}
+        {type === 'article' ? "This content is part of the SYNCODE knowledge base. It provides expert insights for maximizing AI potential through high-level direction and strategic implementation." : "SYNCODE is a creative project led by AI Creative Director Hiroaki Takamori (孝森 弘章). It synchronizes 30 years of design expertise with AI computation to build essential brand value."}
       </p>
     </div>
   </div>
