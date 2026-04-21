@@ -10,9 +10,11 @@ interface Props {
 }
 
 const { article, variant = 'standard', step, topLabel } = Astro.props;
+const isSalon = article.data.category === 'INSIGHT';
 
 // カテゴリに応じたアクセントカラー
 const getCategoryColor = (category: string) => {
+  if (category === 'INSIGHT') return '#FACC15'; // Salon Gold
   switch (category) {
     case 'AI戦略': return '#0099ff';
     case 'AIツール': return '#00d1b2';
@@ -28,7 +30,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
 ---
 
 <article 
-  class={`article-card ${variant}`}
+  class={`article-card ${variant} ${isSalon ? 'is-salon' : ''}`}
   data-category={article.data.category || ''}
   data-tags={article.data.tags?.join(',') || ''}
 >
@@ -40,6 +42,12 @@ const categoryColor = getCategoryColor(article.data.category || '');
         loading="lazy"
       />
       
+      {isSalon && (
+        <div class="salon-seal">
+          <span class="seal-text">THOUGHT PARTNERSHIP</span>
+        </div>
+      )}
+
       {variant === 'premium' && step && (
         <div class="step-badge">
           <span class="step-num">{String(step).padStart(2, '0')}</span>
@@ -49,7 +57,24 @@ const categoryColor = getCategoryColor(article.data.category || '');
     </div>
 
     <div class="card-content">
-      {variant === 'premium' ? (
+      {isSalon ? (
+        <div class="salon-meta">
+          <div class="salon-label">
+            <span class="dot"></span>
+            INSIGHT SALON
+          </div>
+          <h3 class="card-title salon-title">{article.data.title}</h3>
+          <time class="post-date salon-date">
+            {article.data.date
+              .toLocaleDateString("ja-JP", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })
+              .replace(/\//g, ".")}
+          </time>
+        </div>
+      ) : variant === 'premium' ? (
         <div class="premium-meta">
           <div class="story-chronicle">PROJECT STORY CHRONICLES</div>
           <h3 class="card-title">{article.data.title}</h3>
@@ -255,6 +280,91 @@ const categoryColor = getCategoryColor(article.data.category || '');
 
   .premium.article-card:hover .card-title {
     color: #fff !important;
+  }
+
+  /* INSIGHT (SALON) Premium Card Styles */
+  .is-salon {
+    background: #05080c !important;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid rgba(250, 204, 21, 0.05);
+  }
+
+  .is-salon:hover {
+    border-color: rgba(250, 204, 21, 0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  .is-salon .thumbnail-wrapper {
+    margin-bottom: 20px;
+    border: none;
+    background: #000;
+  }
+
+  .salon-seal {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 10;
+    background: rgba(250, 204, 21, 0.9);
+    padding: 4px 8px;
+    border-radius: 2px;
+    backdrop-filter: blur(4px);
+  }
+
+  .seal-text {
+    font-size: 0.5rem;
+    font-weight: 900;
+    color: #000;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+    display: block;
+  }
+
+  .salon-meta {
+    padding: 0 4px 12px;
+  }
+
+  .salon-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #FACC15;
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .salon-label .dot {
+    width: 6px;
+    height: 6px;
+    background: #FACC15;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 10px #FACC15;
+    animation: salon-pulse 3s infinite ease-in-out;
+  }
+
+  @keyframes salon-pulse {
+    0%, 100% { opacity: 0.4; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .salon-title {
+    color: #fff !important;
+    font-size: 1.1rem !important;
+    font-weight: 800 !important;
+    line-height: 1.6 !important;
+    margin-bottom: 24px !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .salon-date {
+    color: rgba(255, 255, 255, 0.3) !important;
+    font-size: 0.7rem !important;
+    font-weight: 500 !important;
   }
 
 </style>
