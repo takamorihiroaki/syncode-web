@@ -1,0 +1,144 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import RoadmapHub from "../../components/RoadmapHub.astro";
+import AISearchOptimizer from "../../components/AISearchOptimizer.astro";
+
+const title = "Antigravity 完全攻略ハブ | 導入から高度な自動化まで";
+const description = "Antigravityを体系的に学ぶためのロードマップ型ハブページ。導入、基本操作、トラブルシューティング、高度な自動活用までを4つのフェーズでステップバイステップに解説します。";
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="hub-page-container">
+    <div class="hub-bg-decoration">
+       <div class="glow-sphere"></div>
+    </div>
+    
+    <RoadmapHub />
+
+    <!-- Related Articles Section / CTA -->
+    <section class="hub-footer">
+      <div class="hub-footer-inner">
+        <h3 class="footer-title">CONTINUE YOUR JOURNEY</h3>
+        <p class="footer-text">
+          技術は日々進化します。SYNCODEでは最新モデルの挙動や、<br/>
+          新たな自動化の可能性を常に検証し、記録を更新し続けています。
+        </p>
+        <div class="action-grid">
+          <a href="/articles/" class="action-card">
+            <span class="card-label">ARCHIVE</span>
+            <span class="card-name">全ての記録を見る</span>
+          </a>
+          <a href="/about/" class="action-card">
+            <span class="card-label">IDENTITY</span>
+            <span class="card-name">プロジェクトについて</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <AISearchOptimizer type="standard" />
+  </div>
+</BaseLayout>
+
+<style>
+  .hub-page-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hub-bg-decoration {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .glow-sphere {
+    position: absolute;
+    top: -20vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(0, 153, 255, 0.03) 0%, transparent 70%);
+    filter: blur(100px);
+  }
+
+  .hub-footer {
+    padding: 100px 5%;
+    background: #fafafa;
+    border-top: 1px solid #eee;
+    text-align: center;
+  }
+
+  .hub-footer-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .footer-title {
+    font-size: 0.8rem;
+    font-weight: 900;
+    letter-spacing: 0.4em;
+    color: #999;
+    margin-bottom: 24px;
+  }
+
+  .footer-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 60px;
+  }
+
+  .action-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .action-card {
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .action-card:hover {
+    border-color: #000;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+  }
+
+  .card-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    color: #0099ff;
+  }
+
+  .card-name {
+    font-size: 1rem;
+    font-weight: 900;
+    color: #111;
+  }
+
+  @media (max-width: 600px) {
+    .action-grid {
+      grid-template-columns: 1fr;
+    }
+    .footer-text {
+      font-size: 1rem;
+    }
+  }
+</style>

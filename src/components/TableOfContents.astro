@@ -1,0 +1,142 @@
+---
+/*
+  TableOfContents.astro
+  Astroのheadingsを受け取り、目次を生成するコンポーネント
+*/
+interface Props {
+  headings: {
+    depth: number;
+    slug: string;
+    text: string;
+  }[];
+}
+
+const { headings } = Astro.props;
+
+// h2 と h3 のみを抽出
+const filteredHeadings = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
+
+if (filteredHeadings.length < 2) return null; // 見出しが少ない場合は表示しない
+---
+
+<nav class="toc-container">
+  <div class="toc-header">
+    <span class="toc-icon">📁</span>
+    <span class="toc-title">INDEX</span>
+  </div>
+  <ul class="toc-list">
+    {
+      filteredHeadings.map((heading) => (
+        <li class={`toc-item depth-${heading.depth}`}>
+          <a href={`#${heading.slug}`}>
+            <span class="toc-number"></span>
+            <span class="toc-text">{heading.text}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .toc-container {
+    margin: 40px 0;
+    padding: 32px;
+    background: #fcfcfc;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    max-width: 100%;
+  }
+
+  .toc-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .toc-icon {
+    font-size: 1rem;
+    opacity: 0.6;
+  }
+
+  .toc-title {
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: #999;
+    text-transform: uppercase;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc-item {
+    margin-bottom: 12px;
+  }
+
+  .toc-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .toc-item a {
+    text-decoration: none;
+    color: #444;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .toc-item a:hover {
+    color: #000;
+    transform: translateX(4px);
+  }
+
+  .toc-item.depth-2 {
+    font-weight: 800;
+  }
+
+  .toc-item.depth-3 {
+    padding-left: 20px;
+    font-size: 0.85rem;
+    color: #777;
+    font-weight: 400;
+  }
+
+  .toc-item.depth-3::before {
+    content: "∟";
+    color: #eee;
+    font-weight: 300;
+    margin-right: 4px;
+  }
+
+  /* カウンター（任意） */
+  .toc-list {
+    counter-reset: toc-h2;
+  }
+  .toc-item.depth-2 {
+    counter-increment: toc-h2;
+    counter-reset: toc-h3;
+  }
+  .toc-item.depth-2 .toc-number::before {
+    content: counter(toc-h2) ". ";
+    font-family: 'Inter', sans-serif;
+    color: #ccc;
+    font-weight: 400;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 600px) {
+    .toc-container {
+      padding: 24px;
+    }
+  }
+</style>

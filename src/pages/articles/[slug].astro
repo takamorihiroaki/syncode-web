@@ -10,7 +10,30 @@ import RelatedPosts from "../../components/RelatedPosts.astro";
 import CtaNextBanner from "../../components/CtaNextBanner.astro";
 import FeaturedSeries from "../../components/FeaturedSeries.astro";
 import SeriesList from "../../components/SeriesList.astro";
+import RoadmapHub from "../../components/RoadmapHub.astro";
+import TableOfContents from "../../components/TableOfContents.astro";
 import AISearchOptimizer from "../../components/AISearchOptimizer.astro";
+
+// Antigravityのフェーズマッピング
+const antigravityPhases: Record<string, string> = {
+  "antigravity-start": "01",
+  "antigravity-initial-setup-guide": "01",
+  "antigravity-customization-setup-guide": "01",
+  "mcp-basics-guide": "01",
+  "antigravity-file-attachment-guide": "02",
+  "antigravity-image-attachment-guide": "02",
+  "antigravity-browser-control-guide": "02",
+  "antigravity-file-ops-mastery": "02",
+  "cursor-antigravity-workflow": "02",
+  "antigravity-not-working-fix": "03",
+  "antigravity-performance-optimization-guide": "03",
+  "antigravity-speed-optimization-prompt-cache": "03",
+  "antigravity-code-not-working-guide": "03",
+  "antigravity-performance-fix-guide": "03",
+  "mcp-server-custom-guide": "04",
+  "vibe-coding-practice-report": "04",
+  "ai-fullstack-devops": "04"
+};
 
 export async function getStaticPaths() {
     const articleEntries = await getCollection("articles");
@@ -21,7 +44,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const activePhase = antigravityPhases[entry.id];
+const { Content, headings } = await render(entry);
 
 // 次の記事（シリーズ内）を検索
 const allArticles = await getCollection("articles");
@@ -132,6 +156,7 @@ const isSalon = entry.data.category === "INSIGHT";
     }
 
     <article class={isSalon ? "article-content is-salon" : "article-content"}>
+        <TableOfContents headings={headings} />
         <Content />
         
         {isSeries && <div style="margin-top: 60px;"><SeriesList /></div>}
@@ -161,15 +186,16 @@ const isSalon = entry.data.category === "INSIGHT";
         </div>
         
         {isAntigravityArticle && (
-            <div class="antigravity-hub-banner" style="margin: 60px 0; border: 1px solid #000; padding: 30px; border-radius: 8px; background: #fff;">
-                <span style="font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: #999; display: block; margin-bottom: 12px;">Antigravity Resource Hub</span>
-                <h3 style="font-size: 1.25rem; font-weight: 800; margin: 0 0 16px 0;">Antigravityを使いこなすための全ての知識をここに。</h3>
-                <p style="font-size: 0.95rem; line-height: 1.6; color: #444; margin-bottom: 20px;">
-                    導入、設定、パフォーマンス改善から高度な自動化まで。SYNCODEが公開している30以上のAntigravity関連記事を体系化した完全ガイドを公開しています。
-                </p>
-                <a href="/articles/antigravity-master-guide/" style="display: inline-block; padding: 12px 24px; background: #000; color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: bold; border-radius: 4px; transition: opacity 0.3s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-                    マスターガイドを読む
-                </a>
+            <div class="antigravity-roadmap-section" style="margin: 80px 0 40px; padding-top: 60px; border-top: 2px solid #eee;">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <span style="font-size: 0.7rem; letter-spacing: 0.3em; color: #0099ff; font-weight: 900; text-transform: uppercase;">Progression Hub</span>
+                    <h3 style="font-size: 1.5rem; font-weight: 900; margin: 10px 0;">Antigravity 習熟ロードマップ</h3>
+                    <p style="font-size: 0.9rem; color: #666;">今の立ち位置を把握し、次のステップへ進みましょう。</p>
+                </div>
+                <RoadmapHub activePhase={activePhase} showHeader={false} />
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="/antigravity/hub/" style="font-size: 0.8rem; font-weight: 800; color: #333; text-decoration: none; border-bottom: 1px solid #000; padding-bottom: 4px;">完全攻略ハブの全体像を見る →</a>
+                </div>
             </div>
         )}
         
