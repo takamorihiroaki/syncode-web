@@ -1,31 +1,35 @@
-<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+<svg width="1200" height="1200" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1200" fill="#020617"/>
+  
   <defs>
-    <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#020617;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
-    </linearGradient>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(100,100,255,0.05)" stroke-width="1"/>
-    </pattern>
-    <filter id="strongGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="2.5" result="blur" />
-      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    <filter id="accent_glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="25" />
     </filter>
   </defs>
-  
-  <rect width="800" height="800" fill="url(#mainGrad)"/>
-  <rect width="800" height="800" fill="url(#grid)"/>
-  
-  <text x="400" y="240" font-family="sans-serif" font-size="32" font-weight="700" fill="#06b6d4" letter-spacing="0.5em" text-anchor="middle">GUIDE / TOOL</text>
-  
-  <text x="400" y="420" font-family="sans-serif" font-size="84" font-weight="900" fill="white" text-anchor="middle" filter="url(#strongGlow)">ファイル操作</text>
-  
-  <text x="400" y="520" font-family="sans-serif" font-size="40" font-weight="300" fill="rgba(255,255,255,0.8)" text-anchor="middle">指示を通すマスターガイド</text>
-  
-  <rect x="340" y="580" width="120" height="6" rx="3" fill="#22d3ee" />
-  
-  <path d="M 60 60 L 140 60 M 60 60 L 60 140" stroke="#06b6d4" stroke-width="4" />
-  <path d="M 740 740 L 660 740 M 740 740 L 740 660" stroke="#06b6d4" stroke-width="4" />
-  
-  <text x="400" y="740" font-family="sans-serif" font-size="16" fill="rgba(255,255,255,0.4)" text-anchor="middle" letter-spacing="0.2em">SYNCODE // PROTOCOL: ACTIVATED</text>
+
+  <!-- 構造を象徴する垂直・水平ライン -->
+  <g opacity="0.1" stroke="white" stroke-width="0.5">
+    <path d="M600 0V1200M0 600H1200"/>
+    <circle cx="600" cy="600" r="400" />
+  </g>
+
+  <!-- 整理されたファイルディレクトリの象徴 -->
+  <g transform="translate(600, 600)">
+    <!-- 1段目（ルート） -->
+    <rect x="-40" y="-300" width="80" height="80" fill="#FACC15" opacity="0.1" filter="url(#accent_glow)"/>
+    <rect x="-40" y="-300" width="80" height="80" stroke="#FACC15" stroke-width="2"/>
+    
+    <!-- 接続線 -->
+    <path d="M0 -220V-100M-200 -100H200M-200 -100V-20M0 -100V-20M200 -100V-20" stroke="white" stroke-width="1" opacity="0.3"/>
+    
+    <!-- 2段目（モジュール） -->
+    <rect x="-240" y="-20" width="80" height="80" stroke="white" stroke-width="0.5" opacity="0.5"/>
+    <rect x="-40" y="-20" width="80" height="80" stroke="white" stroke-width="2" opacity="0.8"/>
+    <rect x="160" y="-20" width="80" height="80" stroke="white" stroke-width="0.5" opacity="0.5"/>
+    
+    <!-- 3段目への展開 -->
+    <path d="M0 60V140M-40 140H40M-40 140V220M40 140V220" stroke="white" stroke-width="1" opacity="0.2"/>
+    <rect x="-65" y="220" width="50" height="50" stroke="white" stroke-width="0.5" opacity="0.3"/>
+    <rect x="15" y="220" width="50" height="50" stroke="white" stroke-width="0.5" opacity="0.3"/>
+  </g>
 </svg>

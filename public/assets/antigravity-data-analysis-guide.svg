@@ -1,41 +1,32 @@
-<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 背景：静謐なダークネイビー -->
-  <rect width="1200" height="675" fill="#020617"/>
+<svg width="1200" height="1200" viewBox="0 0 1200 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景：正方形キャンバス -->
+  <rect width="1200" height="1200" fill="#020617"/>
   
   <defs>
-    <filter id="soft_glow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="30" />
     </filter>
   </defs>
 
-  <!-- 巨大なデータの塊（無秩序な点群） -->
-  <g opacity="0.2">
-    <circle cx="200" cy="200" r="1" fill="white"/>
-    <circle cx="250" cy="180" r="1" fill="white"/>
-    <circle cx="300" cy="220" r="1" fill="white"/>
-    <circle cx="280" cy="150" r="1" fill="white"/>
-    <!-- 中略：無数の点 -->
-    <path d="M150 150Q300 100 450 150T750 150" stroke="white" stroke-width="0.5" opacity="0.3"/>
+  <!-- 背後のグリッド：データの海 -->
+  <g opacity="0.05" stroke="white" stroke-width="0.5">
+    <path d="M0 200H1200M0 400H1200M0 600H1200M0 800H1200M0 1000H1200"/>
+    <path d="M200 0V1200M400 0V1200M600 0V1200M800 0V1200M1000 0V1200"/>
   </g>
 
-  <!-- 整然と分割されたデータレイヤー（グリッドの断層） -->
-  <g transform="translate(400, 250) rotate(-15)">
-    <!-- レイヤー1 -->
-    <rect x="0" y="0" width="400" height="150" fill="white" opacity="0.05" stroke="white" stroke-width="0.5"/>
-    <line x1="0" y1="30" x2="400" y2="30" stroke="white" stroke-width="0.2" opacity="0.2"/>
-    <line x1="0" y1="60" x2="400" y2="60" stroke="white" stroke-width="0.2" opacity="0.4"/>
-    <line x1="0" y1="90" x2="400" y2="90" stroke="white" stroke-width="0.2" opacity="0.2"/>
+  <!-- 中心：分割と軽量化の象徴 -->
+  <g transform="translate(600, 600)">
+    <!-- 巨大な塊が分割されるイメージ -->
+    <rect x="-250" y="-250" width="150" height="150" stroke="white" stroke-width="1" opacity="0.1"/>
+    <rect x="-50" y="-250" width="150" height="150" stroke="white" stroke-width="1" opacity="0.2"/>
+    <rect x="150" y="-250" width="150" height="150" stroke="white" stroke-width="1" opacity="0.1"/>
     
-    <!-- レイヤー2（黄金のハイライト：抽出された知見） -->
-    <rect x="40" y="-40" width="400" height="150" fill="#FACC15" opacity="0.05" stroke="#FACC15" stroke-width="1"/>
-    <path d="M40 10L440 10M40 40L440 40M40 70L440 70" stroke="#FACC15" stroke-width="0.5" opacity="0.6"/>
-    <circle cx="100" cy="10" r="3" fill="#FACC15" filter="url(#soft_glow)"/>
-    <circle cx="250" cy="40" r="3" fill="#FACC15" filter="url(#soft_glow)"/>
+    <!-- 黄金のコア（軽量化されたデータ） -->
+    <rect x="-50" y="-50" width="150" height="150" fill="#FACC15" opacity="0.1" filter="url(#glow)"/>
+    <rect x="-50" y="-50" width="150" height="150" stroke="#FACC15" stroke-width="2"/>
+    <path d="M-50 -20H100M-50 10H100M-50 40H100" stroke="#FACC15" stroke-width="1" opacity="0.5"/>
     
-    <!-- レイヤー3 -->
-    <rect x="80" y="-80" width="400" height="150" fill="white" opacity="0.03" stroke="white" stroke-width="0.5"/>
+    <rect x="-250" y="150" width="150" height="150" stroke="white" stroke-width="1" opacity="0.2"/>
+    <rect x="-50" y="150" width="150" height="150" stroke="white" stroke-width="1" opacity="0.1"/>
   </g>
-
-  <!-- 収束する光のライン -->
-  <path d="M100 675C300 500 500 400 600 337.5" stroke="white" stroke-width="0.2" opacity="0.5"/>
 </svg>
