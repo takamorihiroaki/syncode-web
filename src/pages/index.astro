@@ -6,6 +6,7 @@ import Gateway from "../components/Gateway.astro";
 import PremiumDocumentary from "../components/PremiumDocumentary.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 import AISearchOptimizer from "../components/AISearchOptimizer.astro";
+import TroubleshootingMap from "../components/TroubleshootingMap.astro";
 
 const sortedArticles = (await getCollection("articles"))
     .filter((article) => !article.data.draft)
@@ -38,9 +39,12 @@ const latestArticles = sortedArticles
     <!-- ヒーローセクション -->
     <Hero />
 
-    <!-- ゲートウェイ（実践と体系） -->
     <div id="gateway-entrance">
         <Gateway />
+    </div>
+
+    <div class="content-sections">
+        <TroubleshootingMap />
     </div>
 
     <!-- ドキュメンタリーセクション -->

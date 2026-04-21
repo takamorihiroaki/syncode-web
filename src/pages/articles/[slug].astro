@@ -85,6 +85,9 @@ if (category === "AI戦略" || category === "マーケティング" || hasWorksT
 
 // Antigravity関連記事の場合、マスターガイドへの特別導線を有効化
 const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antigravity-master-guide";
+
+// INSIGHT（サロン）カテゴリー判定
+const isSalon = entry.data.category === "INSIGHT";
 ---
 
 <BaseLayout 
@@ -93,9 +96,10 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
     image={entry.data.image} 
     isArticle={true}
     publishDate={entry.data.date}
+    bodyClass={isSalon ? "body-salon" : ""}
 >
 
-    <div class="article-header">
+    <div class={isSalon ? "article-header article-header-salon" : "article-header"}>
         {entry.data.category && <Category name={entry.data.category} />}
         <h1 class="article-title">{entry.data.title}</h1>
         <time class="article-date" datetime={entry.data.date.toISOString()}>
@@ -109,16 +113,16 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
         </time>
     </div>
 
-    <div class="ai-collaboration-badge" style="margin-bottom: 40px; display: flex; align-items: flex-start; gap: 12px; padding: 16px; background: #fdfdfd; border-left: 2px solid #000;">
-        <div style="font-size: 1.1rem; line-height: 1;">🤖</div>
-        <p style="font-size: 0.8rem; color: #666; line-height: 1.6; margin: 0; letter-spacing: 0.02em;">
-            <strong>AI Collaboration Active:</strong> この記事は AI エージェント（Antigravity）が自律的にコンテキストを解析し、構成の提案から執筆までを人間と共同で行っています。データに基づいた客観性と、AI による次世代の制作プロセスを反映しています。
+    <div class="ai-collaboration-badge" style={`margin-bottom: 40px; display: flex; align-items: flex-start; gap: 12px; padding: 20px; background: ${isSalon ? "#fcfcfc" : "#fdfdfd"}; border-left: 2px solid #000; border-top: ${isSalon ? "1px solid #f0f0f0" : "none"}; border-right: ${isSalon ? "1px solid #f0f0f0" : "none"}; border-bottom: ${isSalon ? "1px solid #f0f0f0" : "none"};`}>
+        <div style="font-size: 1.1rem; line-height: 1;">{isSalon ? "🖋️" : "🤖"}</div>
+        <p style="font-size: 0.8rem; color: #666; line-height: 1.6; margin: 0; letter-spacing: 0.04em;">
+            <strong>{isSalon ? "Thought Partnership Active:" : "AI Collaboration Active:"}</strong> {isSalon ? "この記事は、AI（Antigravity）との対話を通じて得られた洞察を、人間が「思考の記録」として編纂したものです。技術の表面的な解説を超え、AI共生時代の本質的な生存戦略を探求しています。" : "この記事は AI エージェント（Antigravity）が自律的にコンテキストを解析し、構成の提案から執筆までを人間と共同で行っています。データに基づいた客観性と、AI による次世代の制作プロセスを反映しています。"}
         </p>
     </div>
 
     {
         entry.data.image && (
-            <div class="article-eyecatch">
+            <div class={isSalon ? "article-eyecatch article-eyecatch-salon" : "article-eyecatch"}>
                 <img
                     src={entry.data.image}
                     alt={`${entry.data.title}のアイキャッチ画像 - SYNCODE`}
@@ -127,7 +131,7 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
         )
     }
 
-    <article class="article-content">
+    <article class={isSalon ? "article-content is-salon" : "article-content"}>
         <Content />
         
         {isSeries && <div style="margin-top: 60px;"><SeriesList /></div>}
@@ -193,6 +197,100 @@ const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antig
 </BaseLayout>
 
 <style is:global>
+  /* INSIGHT (SALON) 全体デザイン */
+  body.body-salon {
+    background-color: #fcfcfc !important; /* 極めて柔らかいオフホワイト */
+    color: #1a1a1a !important;
+  }
+
+  body.body-salon .site-header {
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    padding-top: 80px !important;
+  }
+
+  body.body-salon .site-main {
+    padding-top: 40px !important;
+  }
+
+  .is-salon {
+    max-width: 720px !important; /* さらに絞って可読性を向上 */
+    margin: 0 auto !important;
+    font-size: 1.1rem !important; /* 少し大きめでゆったり */
+    line-height: 2.2 !important; /* 行間を最大限に確保 */
+    letter-spacing: 0.03em !important;
+    font-family: 'Inter', 'Noto Sans JP', serif !important; /* 可能ならセリフ体を意識した並びに */
+  }
+  
+  .is-salon h2 {
+    font-size: 1.8rem !important;
+    margin-top: 100px !important;
+    margin-bottom: 40px !important;
+    text-align: center !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.05em !important;
+    position: relative !important;
+    padding-bottom: 20px !important;
+  }
+  
+  .is-salon h2::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 30px !important;
+    height: 1px !important;
+    background: #000 !important;
+  }
+  
+  .is-salon h3 {
+    font-size: 1.4rem !important;
+    margin-top: 60px !important;
+    margin-bottom: 24px !important;
+    font-weight: 700 !important;
+  }
+  
+  .article-header-salon {
+    text-align: center !important;
+    margin-bottom: 80px !important;
+    padding-top: 40px !important;
+  }
+  
+  .article-header-salon .article-title {
+    font-size: 2.4rem !important;
+    line-height: 1.4 !important;
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+    font-weight: 900 !important;
+  }
+  
+  .article-eyecatch-salon {
+    margin-bottom: 100px !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05) !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+  }
+
+  .is-salon blockquote {
+    margin: 60px 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    text-align: center !important;
+    font-style: italic !important;
+    font-size: 1.25rem !important;
+    color: #444 !important;
+  }
+  
+  .is-salon hr {
+    margin: 80px auto !important;
+    width: 100px !important;
+    border: none !important;
+    border-top: 1px solid #eee !important;
+  }
+
+  /* 共通パーツ */
   .nano-bridge {
     margin: 80px 0 20px;
     padding-top: 40px;

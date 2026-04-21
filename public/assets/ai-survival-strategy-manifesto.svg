@@ -1,0 +1,49 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="675" fill="url(#paint0_radial)"/>
+  <defs>
+    <radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(600 337.5) rotate(90) scale(450 800)">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#020617"/>
+    </radialGradient>
+    <filter id="blur1" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="40" />
+    </filter>
+  </defs>
+  
+  <!-- 背景のノイズ粒子 -->
+  <g opacity="0.3">
+    <circle cx="200" cy="200" r="1" fill="white"/>
+    <circle cx="800" cy="100" r="1" fill="white"/>
+    <circle cx="1000" cy="500" r="1" fill="white"/>
+    <circle cx="150" cy="550" r="1" fill="white"/>
+    <circle cx="600" cy="600" r="1" fill="white"/>
+  </g>
+  
+  <!-- 中央の光（思考の核） -->
+  <circle cx="600" cy="337.5" r="80" fill="white" opacity="0.1" filter="url(#blur1)"/>
+  <circle cx="600" cy="337.5" r="40" fill="#FACC15" opacity="0.4" filter="url(#blur1)"/>
+  <circle cx="600" cy="337.5" r="2" fill="#FACC15"/>
+  
+  <!-- 秩序のライン（生存戦略） -->
+  <path d="M600 337.5L1200 100" stroke="url(#paint1_linear)" stroke-width="0.5" opacity="0.5"/>
+  <path d="M600 337.5L0 575" stroke="url(#paint1_linear)" stroke-width="0.5" opacity="0.5"/>
+  <path d="M600 337.5L400 0" stroke="url(#paint1_linear)" stroke-width="0.5" opacity="0.3"/>
+  <path d="M600 337.5L1000 675" stroke="url(#paint1_linear)" stroke-width="0.5" opacity="0.3"/>
+  
+  <linearGradient id="paint1_linear" x1="600" y1="337.5" x2="1200" y2="100" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#FACC15"/>
+    <stop offset="1" stop-color="#FACC15" stop-opacity="0"/>
+  </linearGradient>
+  
+  <!-- 抽象的な層 -->
+  <path d="M400 200C500 150 700 250 800 200" stroke="white" stroke-width="0.5" opacity="0.1"/>
+  <path d="M300 400C500 450 700 350 900 400" stroke="white" stroke-width="0.5" opacity="0.1"/>
+  
+  <!-- テキストの一部としての直線（信頼の旗） -->
+  <rect x="599.5" y="100" width="1" height="475" fill="url(#paint2_linear)" opacity="0.6"/>
+  <linearGradient id="paint2_linear" x1="600" y1="100" x2="600" y2="575" gradientUnits="userSpaceOnUse">
+    <stop stop-color="white" stop-opacity="0"/>
+    <stop offset="0.5" stop-color="#FACC15"/>
+    <stop offset="1" stop-color="white" stop-opacity="0"/>
+  </linearGradient>
+</svg>

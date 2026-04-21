@@ -1,0 +1,179 @@
+---
+/* 読者の症状に合わせて最適な記事へ誘導する診断型コンポーネント（5項目版） */
+---
+
+<div class="troubleshoot-container">
+  <div class="troubleshoot-header">
+    <span class="status-badge">DIAGNOSIS HUB</span>
+    <h3 class="troubleshoot-title">あなたの「悩み」を解決する最短ルート</h3>
+    <p class="troubleshoot-subtitle">今の状況に最も近い「症状」を選択してください</p>
+  </div>
+
+  <div class="troubleshoot-grid">
+    <!-- 症状1: 文脈の迷子 -->
+    <a href="/articles/antigravity-file-ops-mastery/" class="troubleshoot-card">
+      <div class="card-icon">🧠</div>
+      <div class="card-content">
+        <span class="symptom-label">症状：AIがコードを壊す・文脈が通じない</span>
+        <h4 class="card-target">ディレクトリ構成の基本と極意</h4>
+        <p class="card-desc">情報の「粒度」を整え、AIがプロジェクト全体を正確に把握できる環境を作ります。</p>
+      </div>
+    </a>
+
+    <!-- 症状2: リソースエラー -->
+    <a href="/articles/antigravity-performance-fix-guide/" class="troubleshoot-card">
+      <div class="card-icon">⚡</div>
+      <div class="card-content">
+        <span class="symptom-label">症状：動作が重い・利用枠がすぐ切れる</span>
+        <h4 class="card-target">「重い・遅い」時の劇的改善ガイド</h4>
+        <p class="card-desc">無駄なファイル添付を削ぎ落とし、トークン消費を抑えつつ回答速度を最大化します。</p>
+      </div>
+    </a>
+
+    <!-- 症状3: セキュリティ不安 -->
+    <a href="/articles/antigravity-security-defense-guide/" class="troubleshoot-card highlight">
+      <div class="card-icon">🛡️</div>
+      <div class="card-content">
+        <span class="symptom-label">症状：APIキーや機密の漏洩が不安</span>
+        <h4 class="card-target">機密情報を隠す「完全防御術」</h4>
+        <p class="card-desc">.gitignoreを駆使して、AIに見せてはいけない領域を物理的に遮断する最新設定。</p>
+      </div>
+    </a>
+
+    <!-- 症状4: 大容量データの解析失敗 -->
+    <a href="/articles/antigravity-troubleshooting-guide/" class="troubleshoot-card">
+      <div class="card-icon">📊</div>
+      <div class="card-content">
+        <span class="symptom-label">症状：CSVや大容量データの解析が止まる</span>
+        <h4 class="card-target">データ解析トラブル解決のコツ</h4>
+        <p class="card-desc">巨大なデータを分割・軽量化し、AIがフリーズせずに解析を完遂させるテクニック。</p>
+      </div>
+    </a>
+
+    <!-- 症状5: 操作・仕様の戸惑い -->
+    <a href="/articles/antigravity-file-attachment-guide/" class="troubleshoot-card">
+      <div class="card-icon">🖱️</div>
+      <div class="card-content">
+        <span class="symptom-label">症状：手動添付と自律参照の差が不明</span>
+        <h4 class="card-target">ファイル管理ガイド（基本と運用）</h4>
+        <p class="card-desc">「クリップ添付」と「MCP自律アクセス」の挙動の違いを理解し、正しく使い分ける方法。</p>
+      </div>
+    </a>
+  </div>
+</div>
+
+<style>
+  .troubleshoot-container {
+    margin: 40px 0 60px;
+    padding: 32px;
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    position: relative;
+  }
+
+  .troubleshoot-header {
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .status-badge {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    color: #999;
+    background: #fff;
+    padding: 4px 12px;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 16px;
+  }
+
+  .troubleshoot-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+    color: #111;
+    letter-spacing: 0.05em;
+  }
+
+  .troubleshoot-subtitle {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+  }
+
+  .troubleshoot-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .troubleshoot-card {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    width: 100%; /* スマホでは全幅 */
+  }
+
+  @media (min-width: 768px) {
+    .troubleshoot-card {
+      width: calc(33.333% - 12px); /* 3枚並び */
+      min-width: 220px;
+    }
+  }
+
+  .troubleshoot-card.highlight {
+    border-left: 2px solid #FACC15;
+  }
+
+  .troubleshoot-card:hover {
+    transform: translateY(-4px);
+    border-color: #000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  }
+
+  .card-icon {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+  }
+
+  .symptom-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: #E63946;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .card-target {
+    font-size: 0.95rem;
+    font-weight: 800;
+    line-height: 1.4;
+    margin: 0 0 10px 0;
+    color: #111;
+    text-decoration: underline;
+    text-decoration-color: #eee;
+    text-underline-offset: 4px;
+  }
+
+  .troubleshoot-card:hover .card-target {
+    text-decoration-color: #000;
+  }
+
+  .card-desc {
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: #777;
+    margin: 0;
+  }
+</style>

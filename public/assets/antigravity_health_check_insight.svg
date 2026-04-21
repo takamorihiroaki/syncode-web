@@ -1,0 +1,44 @@
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景：知的な深みを感じさせる濃紺 -->
+  <rect width="1200" height="675" fill="url(#bg_grad)"/>
+  
+  <defs>
+    <linearGradient id="bg_grad" x1="600" y1="0" x2="600" y2="675" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#050A18"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    
+    <filter id="soft_glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="15" />
+    </filter>
+  </defs>
+
+  <!-- 5つのプリズムを象徴する抽象的な光の束 -->
+  <g opacity="0.6">
+    <!-- 1. 文脈（青） -->
+    <path d="M400 675L600 337.5L800 675" fill="#3B82F6" opacity="0.1" filter="url(#soft_glow)"/>
+    <!-- 2. パフォーマンス（黄/金） -->
+    <path d="M500 675L600 337.5L700 675" fill="#FACC15" opacity="0.15" filter="url(#soft_glow)"/>
+    <!-- 3. セキュリティ（赤/警告） -->
+    <path d="M550 500L600 337.5L650 500" fill="#EF4444" opacity="0.1" filter="url(#soft_glow)"/>
+    <!-- 4. データ（緑） -->
+    <path d="M300 675L600 337.5L900 675" fill="#10B981" opacity="0.05" filter="url(#soft_glow)"/>
+    <!-- 5. 操作（紫） -->
+    <path d="M200 675L600 337.5L1000 675" fill="#A855F7" opacity="0.05" filter="url(#soft_glow)"/>
+  </g>
+
+  <!-- 中央の収束点（洞察） -->
+  <circle cx="600" cy="337.5" r="2" fill="white" opacity="0.8"/>
+  <circle cx="600" cy="337.5" r="40" stroke="white" stroke-width="0.3" opacity="0.3"/>
+  <circle cx="600" cy="337.5" r="80" stroke="white" stroke-width="0.1" opacity="0.1"/>
+
+  <!-- 精緻なグリッドライン（分析の正確性） -->
+  <g opacity="0.1" stroke="white" stroke-width="0.5">
+    <line x1="600" y1="0" x2="600" y2="675" />
+    <line x1="300" y1="0" x2="900" y2="675" />
+    <line x1="900" y1="0" x2="300" y2="675" />
+  </g>
+
+  <!-- 5角形のコアパーツ -->
+  <path d="M600 280L660 320L640 390L560 390L540 320L600 280Z" stroke="#FACC15" stroke-width="1" opacity="0.5"/>
+</svg>
