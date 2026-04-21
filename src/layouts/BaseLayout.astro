@@ -334,8 +334,8 @@ const breadcrumbLdJson = {
             .site-header {
                 padding: 60px 0 40px !important;
                 text-align: center !important;
-                background: #fff !important;
-                transition: box-shadow 0.3s ease;
+                background: var(--color-bg) !important;
+                transition: box-shadow 0.3s ease, background 0.3s ease;
                 position: relative;
                 z-index: 100;
                 display: block !important; /* flexによる横並びを阻止 */
@@ -367,10 +367,11 @@ const breadcrumbLdJson = {
                 left: 0 !important;
                 right: 0 !important;
                 padding: 0 !important;
-                background: rgba(255, 255, 255, 0.98) !important;
+                background: var(--color-bg) !important;
+                opacity: 0.98;
                 backdrop-filter: blur(10px);
                 -webkit-backdrop-filter: blur(10px);
-                border-bottom: 1px solid #f0f0f0;
+                border-bottom: 1px solid var(--color-border);
                 box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
             }
 
@@ -404,7 +405,7 @@ const breadcrumbLdJson = {
                 font-size: 0.75rem !important;
                 text-transform: uppercase;
                 letter-spacing: 0.15em !important;
-                color: #999 !important;
+                color: var(--color-text-light) !important;
                 display: inline-block;
                 padding: 6px 14px;
                 border-radius: 4px;
@@ -414,13 +415,13 @@ const breadcrumbLdJson = {
             }
 
             .main-nav a:hover {
-                color: #333 !important;
-                background-color: #fafafa;
+                color: var(--color-text) !important;
+                background-color: var(--color-bg-alt);
             }
 
             .main-nav a.active {
-                background-color: #f7f7f7;
-                color: #2c2c2c !important;
+                background-color: var(--color-bg-alt);
+                color: var(--color-text) !important;
                 font-weight: bold;
             }
 

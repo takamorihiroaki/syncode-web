@@ -203,8 +203,8 @@ const phases: Phase[] = [
   .phase-icon-orbit {
     width: 50px;
     height: 50px;
-    background: #fff;
-    border: 1px solid #eee;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -215,20 +215,20 @@ const phases: Phase[] = [
   }
 
   .phase-card:hover .phase-icon-orbit {
-    border-color: #000;
+    border-color: var(--color-text);
     transform: scale(1.1);
     box-shadow: 0 10px 20px rgba(0,0,0,0.08);
   }
 
   .phase-card.is-active .phase-icon-orbit {
-    border-color: #0099ff;
-    background: #f0f9ff;
+    border-color: var(--color-primary);
+    background: var(--color-bg-alt);
     box-shadow: 0 0 15px rgba(0, 153, 255, 0.2);
     transform: scale(1.1);
   }
 
   .phase-card.is-active .phase-subtitle {
-    color: #0099ff;
+    color: var(--color-primary);
   }
 
   .phase-card.is-active::before {
@@ -238,10 +238,10 @@ const phases: Phase[] = [
     right: 0;
     font-size: 0.6rem;
     font-weight: 900;
-    color: #0099ff;
+    color: var(--color-primary);
     letter-spacing: 0.2em;
     padding: 4px 10px;
-    background: #f0f9ff;
+    background: var(--color-bg-alt);
     border-radius: 4px;
     border: 1px solid rgba(0, 153, 255, 0.2);
   }
@@ -312,24 +312,24 @@ const phases: Phase[] = [
     display: flex;
     align-items: center;
     padding: 16px 20px;
-    background: #fafafa;
-    border: 1px solid #f0f0f0;
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
     border-radius: 4px;
     text-decoration: none;
     transition: all 0.3s ease;
   }
 
   .phase-article-list li a:hover {
-    background: #fff;
-    border-color: #000;
+    background: var(--color-bg);
+    border-color: var(--color-text);
     transform: translateX(5px);
-    box-shadow: 4px 4px 0px #000;
+    box-shadow: 4px 4px 0px var(--color-text);
   }
 
   .art-title {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #333;
+    color: var(--color-text);
     flex-grow: 1;
   }
 
