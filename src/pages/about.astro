@@ -127,13 +127,40 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         @media (max-width: 768px) {
             .about-layout {
                 padding: 60px 20px 80px;
+                overflow-x: hidden; /* コンテンツのはみ出しによる揺れを防止 */
             }
             .about-section {
                 margin-bottom: 80px;
             }
+            .about-section p {
+                font-size: 1rem;
+                word-break: normal; /* 日本語の自然な改行を許可 */
+            }
+            .about-section p span {
+                display: block; /* スマホでは各句を独立した行として扱い、意図しない箇所での断片化を防ぐ */
+                max-width: 100%;
+            }
+            .about-section p br {
+                display: none; /* spanのブロック化に伴う二重改行を防止 */
+            }
+            .about-section strong span {
+                display: block;
+                font-size: 1.4rem; /* 1.8remから縮小 */
+                line-height: 1.4;
+            }
+            .phi-item {
+                display: block;
+                margin-bottom: 2.2em; /* スマホ版のみ項目間に一行分の空白を入れる */
+            }
+            .phi-item:last-child {
+                margin-bottom: 0;
+            }
             .bridge-section {
                 padding: 60px 0;
                 margin-top: 40px;
+            }
+            .bridge-title {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -144,7 +171,7 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
             <p>
                 <span>孝森 弘章 / Hiroaki Takamori</span>
                 <span class="spacer"></span>
-                <span>AI Creative Director / Brand Director</span>
+                <span>AI Creative Director /</span> <span>Brand Director</span>
             </p>
         </section>
 
@@ -153,33 +180,33 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
             <p>
                 <span>Logic & Intuition</span>
                 <span class="spacer"></span>
-                <span>Experience & AI Acceleration</span>
+                <span>Experience &</span> <span>AI Acceleration</span>
             </p>
         </section>
 
         <section class="about-section">
             <h2>History</h2>
             <p>
-                <strong><span>30 Years of Insight. Synchronized with AI.</span></strong>
-                <span>デザイン黎明期から現在に至るまで、</span><br>
-                <span>30年にわたりブランドの核心を射抜く</span><br>
-                <span>ディレクションを積み重ねてきました。</span>
+                <strong><span>30 Years of Insight.</span> <span>Synchronized with AI.</span></strong>
+                <span>デザイン黎明期から</span><span>現在に至るまで、</span><br>
+                <span>30年にわたり</span><span>ブランドの核心を射抜く</span><br>
+                <span>ディレクションを</span><span>積み重ねてきました。</span>
                 <span class="spacer"></span>
-                <span>蓄積された審美眼とAIの演算能力を同期させ、</span><br>
-                <span>時代に流されない本質的な価値を構築します。</span>
+                <span>蓄積された審美眼と</span><span>AIの演算能力を</span><span>同期させ、</span><br>
+                <span>時代に流されない</span><span>本質的な価値を</span><span>構築します。</span>
             </p>
         </section>
 
         <section class="about-section">
             <h2>Strategy</h2>
             <p>
-                <strong><span>Minimalist Logic. Maximum Impact.</span></strong>
-                <span>不要な要素を削ぎ落とし、ブランドが持つ</span><br>
-                <span>「真の記号（SYNCODE）」を抽出すること。</span>
+                <strong><span>Minimalist Logic.</span> <span>Maximum Impact.</span></strong>
+                <span>不要な要素を削ぎ落とし、</span><span>ブランドが持つ</span><br>
+                <span>「真の記号（SYNCODE）」を</span><span>抽出すること。</span>
                 <span class="spacer"></span>
-                <span>熟練の直感による「判断」と、AIによる</span><br>
-                <span>「具現化」を高度に同期させ、ビジネスに</span><br>
-                <span>静かな、しかし確かな熱量をもたらします。</span>
+                <span>熟練の直感による</span><span>「判断」と、</span><span>AIによる</span><br>
+                <span>「具現化」を高度に同期させ、</span><span>ビジネスに</span><br>
+                <span>静かな、しかし確かな熱量を</span><span>もたらします。</span>
             </p>
         </section>
         <section class="about-section">
@@ -188,10 +215,10 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
                 <strong><span>DTPの職人性、AIの演算。その交差点。</span></strong>
                 <span>30年の経験に裏打ちされた「DTPの定石」を、AIへのプロトコルへと変換します。</span>
                 <span class="spacer"></span>
-                <span>1. <strong>言語化の深度</strong>: 専門用語による、AIへの高解像度なディレクション。<br>
-                2. <strong>審美眼の論理</strong>: AI出力をプロの視点で評価し、デザインとしての完成度へ。 <br>
-                3. <strong>プロダクトの品質</strong>: 画面の中だけで完結しない、印刷・制作に耐えうる実数値。<br>
-                4. <strong>タイポグラフィの矜持</strong>: AIが到達できない、1/1000単位の「間」の設計。</span>
+                <span class="phi-item"><span>1. <strong>言語化の深度</strong>: </span><span>専門用語による、</span><span>AIへの高解像度なディレクション。</span></span><br>
+                <span class="phi-item"><span>2. <strong>審美眼の論理</strong>: </span><span>AI出力をプロの視点で評価し、</span><span>デザインとしての完成度へ。</span></span> <br>
+                <span class="phi-item"><span>3. <strong>プロダクトの品質</strong>: </span><span>画面の中だけで完結しない、</span><span>印刷・制作に耐えうる実数値。</span></span><br>
+                <span class="phi-item"><span>4. <strong>タイポグラフィの矜持</strong>: </span><span>AIが到達できない、</span><span>1/1000単位の「間」の設計。</span></span>
             </p>
         </section>
 
