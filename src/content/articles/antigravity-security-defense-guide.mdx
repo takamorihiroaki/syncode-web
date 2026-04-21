@@ -8,17 +8,15 @@ tags:
   - セキュリティ
   - .gitignore
   - 情報漏洩対策
-category: AIツール
-series: "AIエージェント情報伝達術"
-seriesOrder: 2
-draft: false
+11: category: AIツール
+12: series: "AIエージェント情報伝達術"
+13: seriesOrder: 2
+14: draft: false
 ---
 
 import CtaInline from '../../components/CtaInline.astro';
 import RelatedLinks from '../../components/RelatedLinks.astro';
 import TroubleshootingMap from '../../components/TroubleshootingMap.astro';
-
-<TroubleshootingMap />
 
 ## AIは、あなたの指示を「忠実に」守りすぎてしまう。
 
@@ -101,6 +99,10 @@ build/
 
 答えは、**「実データの代わりに、構造だけが記された空のファイルや、ダミーデータを渡す」**ことです。
 SQLであれば、データ部分（INSERT文）を全削除し、テーブル作成文（CREATE TABLE文）だけを記したファイルを渡すことで、AIはセキュリティを損なうことなく正確なアドバイスを返してくれます。
+
+---
+
+<TroubleshootingMap />
 
 ---
 
