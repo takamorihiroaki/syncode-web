@@ -10,6 +10,8 @@ interface Props {
     publishDate?: Date;
     updatedDate?: Date;
     bodyClass?: string;
+    faq?: { question: string; answer: string }[];
+    howTo?: { name: string; steps: string[] };
 }
 
 const {
@@ -20,6 +22,8 @@ const {
     publishDate,
     updatedDate,
     bodyClass = "",
+    faq,
+    howTo,
 } = Astro.props;
 
 const { pathname } = Astro.url;
@@ -66,6 +70,38 @@ if (isArticle) {
     ldJson["url"] = siteUrl;
     ldJson["description"] = description;
     ldJson["publisher"] = organizationData;
+}
+
+// Additional Structured Data (FAQ, How-to)
+const additionalLdJson = [];
+
+if (faq && faq.length > 0) {
+    additionalLdJson.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faq.map(item => ({
+            "@type": "Question",
+            "name": item.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer
+            }
+        }))
+    });
+}
+
+if (howTo) {
+    additionalLdJson.push({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": howTo.name,
+        "description": description,
+        "step": howTo.steps.map((step, index) => ({
+            "@type": "HowToStep",
+            "position": index + 1,
+            "text": step
+        }))
+    });
 }
 
 // Breadcrumb List
@@ -119,6 +155,9 @@ const breadcrumbLdJson = {
         <!-- Structured Data -->
         <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
         <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLdJson)} />
+        {additionalLdJson.map(json => (
+            <script type="application/ld+json" set:html={JSON.stringify(json)} />
+        ))}
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />

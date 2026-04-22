@@ -13,7 +13,10 @@
     --ease-out-expo: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Reset basics */
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;

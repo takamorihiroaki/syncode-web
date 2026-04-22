@@ -88,9 +88,43 @@ const phases: Phase[] = [
     </div>
   )}
 
+  <!-- Objective Navigation -->
+  <div class="objective-nav">
+    <div class="nav-grid">
+      <a href="#phase-01" class="nav-card">
+        <div class="nav-icon">🚀</div>
+        <div class="nav-content">
+          <span class="nav-label">START</span>
+          <span class="nav-title">導入・セットアップ</span>
+        </div>
+      </a>
+      <a href="#phase-02" class="nav-card">
+        <div class="nav-icon">📡</div>
+        <div class="nav-content">
+          <span class="nav-label">USE</span>
+          <span class="nav-title">基本的な使い方</span>
+        </div>
+      </a>
+      <a href="#phase-03" class="nav-card">
+        <div class="nav-icon">🛠️</div>
+        <div class="nav-content">
+          <span class="nav-label">FIX</span>
+          <span class="nav-title">エラー・速度改善</span>
+        </div>
+      </a>
+      <a href="#phase-04" class="nav-card">
+        <div class="nav-icon">🌌</div>
+        <div class="nav-content">
+          <span class="nav-label">MASTER</span>
+          <span class="nav-title">高度な自動化</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
   <div class="roadmap-path">
     {phases.map((phase) => (
-      <div class={`phase-card ${phase.id === activePhase ? 'is-active' : ''}`}>
+      <div id={`phase-${phase.id}`} class={`phase-card ${phase.id === activePhase ? 'is-active' : ''}`}>
         <div class="phase-visual">
           <div class="phase-number">{phase.id}</div>
           <div class="phase-icon-orbit">
@@ -168,6 +202,78 @@ const phases: Phase[] = [
     font-size: 1rem;
     color: #666;
     line-height: 1.8;
+  }
+
+  /* Objective Navigation */
+  .objective-nav {
+    margin-bottom: 100px;
+    padding: 0 5%;
+  }
+
+  .nav-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .nav-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+  }
+
+  .nav-card:hover {
+    border-color: #000;
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  }
+
+  .nav-icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    color: #0099ff;
+    text-transform: uppercase;
+  }
+
+  .nav-title {
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: #111;
+  }
+
+  @media (max-width: 900px) {
+    .nav-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .nav-grid {
+      grid-template-columns: 1fr;
+    }
+    .objective-nav {
+      margin-bottom: 60px;
+    }
   }
 
   /* Roadmap Path */

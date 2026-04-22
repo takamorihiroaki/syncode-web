@@ -28,8 +28,16 @@
           <h3 class="gateway-title">Antigravity<br/>完全攻略ハブ</h3>
           <p class="gateway-desc">
             「AIを真に習熟したい」あなたへ。<br/>
-            散在する知見を、導入から高度な自動化まで4フェーズで体系化。最短ルートでプロへと導くナビゲーション。
+            散在する知見を4フェーズで体系化。最短ルートでプロへと導くナビゲーション。
           </p>
+          
+          <div class="gateway-quick-nav">
+            <object><a href="/antigravity/hub/#phase-start" class="quick-link-item">START</a></object>
+            <object><a href="/antigravity/hub/#phase-use" class="quick-link-item">USE</a></object>
+            <object><a href="/antigravity/hub/#phase-fix" class="quick-link-item">FIX</a></object>
+            <object><a href="/antigravity/hub/#phase-master" class="quick-link-item">MASTER</a></object>
+          </div>
+
           <div class="gateway-footer">
             <span class="gateway-action">ENTER HUB</span>
             <span class="gateway-arrow">→</span>
@@ -156,6 +164,38 @@
     gap: 12px;
     padding-top: 20px;
     border-top: 1px solid #f5f5f5;
+  }
+
+  .gateway-quick-nav {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+
+  .quick-link-item {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #666;
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .quick-link-item:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+    transform: translateY(-2px);
+  }
+
+  .gateway-card--expertise .quick-link-item:hover {
+    background: #b8860b;
+    border-color: #b8860b;
   }
 
   .gateway-action {

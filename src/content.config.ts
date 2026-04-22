@@ -16,6 +16,14 @@ const articles = defineCollection({
     ctaDesc: z.string().optional(),
     series: z.string().optional(), // 例: "AI Collaboration Story"
     seriesOrder: z.number().optional(), // 1, 2, 3...
+    faq: z.array(z.object({
+      question: z.string(),
+      answer: z.string(),
+    })).optional(),
+    howTo: z.object({
+      name: z.string(),
+      steps: z.array(z.string()),
+    }).optional(),
   }),
 });
 

@@ -43,25 +43,29 @@ const displaySeriesName = `連載のご案内（全${n}回）`;
 ---
 
 <div class="series-nav-container">
-  <h2>{displaySeriesName}</h2>
+  <div class="series-header">
+    <span class="series-badge">SERIES ARCHIVE</span>
+    <h2 class="series-main-title">{baseSeriesName}</h2>
+    <p class="series-count">全 {n} 回の連載ロードマップ</p>
+  </div>
+
   <ul class="series-nav-list">
     {seriesArticles.map((article) => {
       const isCurrent = article.id === currentArticle?.id;
       const cleanTitle = article.data.title.replace(/【.*?】/, "").split("｜")[0].trim();
       
       return (
-        <li>
+        <li class={isCurrent ? 'is-active' : ''}>
           {isCurrent ? (
-            <div class="series-nav-row series-current-item">
-              <span class="series-label-col">STEP {article.data.seriesOrder}：</span>
-              <span class="series-title-col">{cleanTitle}（本記事）</span>
+            <div class="series-item current">
+              <span class="item-number">{String(article.data.seriesOrder).padStart(2, '0')}</span>
+              <span class="item-title">{cleanTitle}（本記事）</span>
             </div>
           ) : (
-            <a href={`/articles/${article.id}/`} class="series-nav-row series-link-row">
-              <div class="series-label-col">STEP {article.data.seriesOrder}：</div>
-              <div class="series-title-col">
-                <span class="series-animated-underline">{cleanTitle}</span>
-              </div>
+            <a href={`/articles/${article.id}/`} class="series-item link">
+              <span class="item-number">{String(article.data.seriesOrder).padStart(2, '0')}</span>
+              <span class="item-title">{cleanTitle}</span>
+              <span class="item-arrow">→</span>
             </a>
           )}
         </li>
@@ -70,158 +74,186 @@ const displaySeriesName = `連載のご案内（全${n}回）`;
   </ul>
 
   {nextArticle && (
-    <div class="series-next-banner-box">
-      <a href={`/articles/${nextArticle.id}/`} class="series-next-anchor">
-        <div class="series-next-grid">
-          <div class="series-next-label-group">
-            <span class="series-next-emoji">👉</span>
-            <span class="series-next-label-text">次なるステップ　STEP {nextArticle.data.seriesOrder}：</span>
-          </div>
-          <div class="series-next-title-wrapper">
-             <span class="series-animated-underline">
-               {nextArticle.data.title.replace(/【.*?】/, "").split("｜")[0].trim()}
-             </span>
-          </div>
+    <div class="series-next-cta">
+      <a href={`/articles/${nextArticle.id}/`} class="next-cta-anchor">
+        <div class="next-cta-content">
+          <span class="next-cta-label">NEXT STEP</span>
+          <h4 class="next-cta-title">{nextArticle.data.title.replace(/【.*?】/, "").split("｜")[0].trim()}</h4>
         </div>
+        <div class="next-cta-icon">→</div>
       </a>
     </div>
   )}
 </div>
 
 <style>
-  .series-nav-container h2 {
-    font-size: 1.35rem;
-    font-weight: 400;
-    margin: 60px 0 24px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid #f0f0f0;
+  .series-nav-container {
+    margin: 100px 0;
+    padding: 60px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 12px;
+  }
+
+  .series-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .series-badge {
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.3em;
+    color: #0099ff;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+
+  .series-main-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin: 0 0 12px 0;
+    color: #1a1a1a;
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  .series-count {
+    font-size: 0.9rem;
+    color: #888;
   }
 
   .series-nav-list {
     list-style: none !important;
-    padding-left: 0 !important;
+    padding: 0 !important;
+    margin: 0 0 60px 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .series-item {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 24px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+    background-image: none !important;
+  }
+
+  .series-item.link:hover {
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transform: translateX(8px);
+  }
+
+  .series-item.current {
+    background: #000;
+    color: #fff;
+  }
+
+  .item-number {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    opacity: 0.5;
+  }
+
+  .series-item.current .item-number {
+    opacity: 0.8;
+    color: #0099ff;
+  }
+
+  .item-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    flex-grow: 1;
+  }
+
+  .item-arrow {
+    font-size: 1rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .series-item.link:hover .item-arrow {
+    opacity: 1;
+    transform: translateX(4px);
+  }
+
+  /* Next CTA */
+  .series-next-cta {
+    border-top: 1px solid #eee;
+    padding-top: 40px;
+  }
+
+  .next-cta-anchor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    text-decoration: none !important;
+    background-image: none !important;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .next-cta-anchor:hover {
+    border-color: #000;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+  }
+
+  .next-cta-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .next-cta-label {
+    font-size: 0.65rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: #0099ff;
+  }
+
+  .next-cta-title {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #1a1a1a;
     margin: 0;
   }
 
-  .series-nav-list li {
-    margin-bottom: 1.25em;
+  .next-cta-icon {
+    font-size: 1.4rem;
+    color: #ccc;
+    transition: all 0.3s ease;
   }
 
-  /* グリッドレイアウトによる「ぶら下げインデント」の実現 */
-  .series-nav-row {
-    display: grid !important;
-    /* ラベルの幅を固定することで、複数行にわたるタイトルの開始位置を垂直に揃える */
-    grid-template-columns: 5.8em 1fr !important;
-    gap: 0 !important;
-    line-height: 1.7;
-    text-decoration: none !important;
-    /* グローバルなホバー下線を無効化 */
-    background-image: none !important;
-    color: inherit;
-    align-items: start;
-    text-align: left !important;
-  }
-
-  .series-label-col {
-    white-space: nowrap;
-    color: #444;
-    display: block !important;
-    font-weight: 400;
-  }
-
-  .series-title-col {
-    word-break: normal;
-    overflow-wrap: anywhere;
-    display: block !important;
-    text-align: left !important;
-  }
-
-  .series-current-item {
-    font-weight: 700;
+  .next-cta-anchor:hover .next-cta-icon {
     color: #000;
-  }
-
-  .series-current-item .series-label-col {
-    font-weight: 700;
-    color: #000;
-  }
-
-  /* アンダーラインアニメーション */
-  .series-animated-underline {
-    display: inline;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0 1px;
-    transition: background-size 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-    padding-bottom: 2px;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-  }
-
-  .series-link-row:hover .series-animated-underline,
-  .series-next-anchor:hover .series-animated-underline {
-    background-size: 100% 1px;
-    color: #000;
-  }
-
-  /* Next Step Banner */
-  .series-next-banner-box {
-    margin: 3.5em 0;
-    padding: 1.5em;
-    background: #fafafa;
-    border-radius: 4px;
-    text-align: left !important;
-  }
-
-  .series-next-anchor {
-    color: #333;
-    text-decoration: none !important;
-    /* グローバルなホバー下線を無効化 */
-    background-image: none !important;
-    display: block !important;
-  }
-
-  .series-next-grid {
-    display: grid !important;
-    /* 次のステップ用のラベル幅を固定 */
-    grid-template-columns: auto 1fr !important; 
-    gap: 0 !important;
-    align-items: start;
-    line-height: 1.7;
-  }
-
-  .series-next-label-group {
-    display: flex !important;
-    align-items: center;
-    white-space: nowrap;
-    padding-right: 0.5em;
-  }
-
-  .series-next-emoji {
-    font-size: 1.1rem;
-    margin-right: 0.6em;
-  }
-
-  .series-next-label-text {
-    font-weight: 400;
-  }
-
-  .series-next-title-wrapper {
-    word-break: normal;
-    overflow-wrap: anywhere;
-    text-align: left !important;
+    transform: translateX(8px);
   }
 
   @media (max-width: 640px) {
-    .series-nav-row,
-    .series-next-grid {
-      grid-template-columns: 1fr !important;
+    .series-nav-container {
+      padding: 30px 20px;
     }
-    
-    .series-label-col,
-    .series-next-label-group {
-      margin-bottom: 0.2em;
+    .series-main-title {
+      font-size: 1.4rem;
+    }
+    .series-item {
+      gap: 16px;
+      padding: 12px 16px;
+    }
+    .item-title {
+      font-size: 0.85rem;
     }
   }
+</style>
+
 </style>

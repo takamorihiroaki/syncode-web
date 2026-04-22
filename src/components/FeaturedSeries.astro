@@ -1,20 +1,20 @@
 ---
 import { getCollection } from 'astro:content';
 
-// シリーズの最初の数記事を取得
+// INSIGHT SALONシリーズを取得
 const allArticles = await getCollection('articles');
 const seriesArticles = allArticles
-  .filter(a => a.data.series === "【全12回】AI共創ストーリー" && (a.data.seriesOrder ?? 999) <= 3)
+  .filter(a => a.data.series === "INSIGHT SALON")
   .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
 ---
 
 <section class="featured-series">
   <div class="series-header">
     <div class="header-line"></div>
-    <span class="series-label">Featured Story</span>
-    <h2 class="series-main-title">AI共創ストーリー</h2>
+    <span class="series-label">Premium Series</span>
+    <h2 class="series-main-title">INSIGHT SALON</h2>
     <p class="series-description">
-      AIとの対話、物理的な破綻、そして再構築。SYNCODEが辿った深淵なる記録を、第1章から追体験する。
+      人間とAIの「共鳴」が、ビジネスとクリエイティブを再定義する。SYNCODEの核となる、深淵なる対話の全記録。
     </p>
   </div>
 
@@ -38,8 +38,8 @@ const seriesArticles = allArticles
   
   <div class="series-footer">
     <div class="footer-divider"></div>
-    <a href="/articles/post-1/" class="series-start-btn">
-      <span>連載を最初から読む</span>
+    <a href="/articles/ai-blog-collaboration-story/" class="series-start-btn">
+      <span>Vol.1から対話を追体験する</span>
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>

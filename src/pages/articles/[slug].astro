@@ -11,6 +11,7 @@ import CtaNextBanner from "../../components/CtaNextBanner.astro";
 import FeaturedSeries from "../../components/FeaturedSeries.astro";
 import SeriesList from "../../components/SeriesList.astro";
 import RoadmapHub from "../../components/RoadmapHub.astro";
+import CtaPlate from "../../components/CtaPlate.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
 import ReadingProgressBar from "../../components/ReadingProgressBar.astro";
 import AISearchOptimizer from "../../components/AISearchOptimizer.astro";
@@ -26,12 +27,14 @@ const antigravityPhases: Record<string, string> = {
   "antigravity-browser-control-guide": "02",
   "antigravity-file-ops-mastery": "02",
   "cursor-antigravity-workflow": "02",
+  "antigravity-vs-cursor-vs-gemini-comparison": "02",
   "antigravity-not-working-fix": "03",
   "antigravity-performance-optimization-guide": "03",
   "antigravity-speed-optimization-prompt-cache": "03",
   "antigravity-code-not-working-guide": "03",
   "antigravity-performance-fix-guide": "03",
   "mcp-server-custom-guide": "04",
+  "mcp-autonomous-agent-workflow-2026": "04",
   "vibe-coding-practice-report": "04",
   "ai-fullstack-devops": "04"
 };
@@ -122,6 +125,8 @@ const isSalon = entry.data.category === "INSIGHT";
     isArticle={true}
     publishDate={entry.data.date}
     bodyClass={isSalon ? "body-salon" : ""}
+    faq={entry.data.faq}
+    howTo={entry.data.howTo}
 >
     <ReadingProgressBar />
 
@@ -161,7 +166,7 @@ const isSalon = entry.data.category === "INSIGHT";
         <TableOfContents headings={headings} />
         <Content />
         
-        {isSeries && <div style="margin-top: 60px;"><SeriesList /></div>}
+        {isSeries && <SeriesList />}
 
         <div class="nano-bridge">
           <span class="nano-line"></span>
@@ -175,15 +180,14 @@ const isSalon = entry.data.category === "INSIGHT";
 
             {displayNext && (
                 /* 次の記事がある場合は、ツールバナーの後に表示 */
-                <div style="margin-top: 40px;">
-                    <CtaNextBanner 
-                        title={displayNext.data.title}
-                        excerpt={displayNext.data.excerpt}
-                        image={displayNext.data.image || ""}
-                        link={`/articles/${displayNext.id}/`}
-                        order={displayNext.data.seriesOrder}
-                    />
-                </div>
+                <CtaPlate 
+                    title={displayNext.data.title}
+                    excerpt={displayNext.data.excerpt}
+                    image={displayNext.data.image || ""}
+                    link={`/articles/${displayNext.id}/`}
+                    label={nextEntry ? "NEXT STEP" : "RECOMMENDED"}
+                    category={displayNext.data.category}
+                />
             )}
         </div>
         
