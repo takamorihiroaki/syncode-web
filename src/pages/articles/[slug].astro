@@ -12,6 +12,7 @@ import FeaturedSeries from "../../components/FeaturedSeries.astro";
 import SeriesList from "../../components/SeriesList.astro";
 import RoadmapHub from "../../components/RoadmapHub.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
+import ReadingProgressBar from "../../components/ReadingProgressBar.astro";
 import AISearchOptimizer from "../../components/AISearchOptimizer.astro";
 
 // Antigravityのフェーズマッピング
@@ -122,6 +123,7 @@ const isSalon = entry.data.category === "INSIGHT";
     publishDate={entry.data.date}
     bodyClass={isSalon ? "body-salon" : ""}
 >
+    <ReadingProgressBar />
 
     <div class={isSalon ? "article-header article-header-salon" : "article-header"}>
         {entry.data.category && <Category name={entry.data.category} />}

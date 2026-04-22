@@ -436,6 +436,28 @@ img {
     background-size: 100% 1px;
 }
 
+/* 本文内（p, li）のテキストリンク末尾にのみアイコンを追加（目次項目は除外） */
+.article-content p a:not(.banner-link)::after,
+.article-content li:not(.toc-item) a:not(.banner-link)::after {
+    content: "";
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    margin-left: 4px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+}
+
+.article-content p a:not(.banner-link):hover::after,
+.article-content li:not(.toc-item) a:not(.banner-link):hover::after {
+    opacity: 1;
+    transform: translate(1px, -1px);
+}
+
 /* ===== 連載ナビゲーション：静かな地図リンク ===== */
 /* CTAが「推奨ルート」であるのに対し、こちらは「地図」としての静的なナビゲーション */
 .series-nav-list {
@@ -655,54 +677,62 @@ img {
 .cta-box.middle { border-top: 4px solid #666; }
 .cta-box.bottom { border-top: 4px solid #b8860b; }
 
-/* ===== 比較表（Comparison Table）スタイル ===== */
-.comparison-table-wrapper {
-    overflow-x: auto;
-    margin: 40px 0;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border: 1px solid #f0f0f0;
-}
-
-.comparison-table {
+/* ===== 記事内：標準テーブル（比較表など）のプレミアム・スタイル ===== */
+.article-content table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
-    min-width: 500px;
-}
-
-.comparison-table th, 
-.comparison-table td {
-    padding: 20px 15px;
-    border: 1px solid #f0f0f0;
-    text-align: center;
+    margin: 48px 0;
     font-size: 0.95rem;
+    line-height: 1.6;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden; /* 角丸を適用 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
-.comparison-table th {
-    background-color: #fafafa;
-    font-weight: 600;
-    color: #333;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+.article-content th {
+    background-color: #f8f9fa;
+    color: var(--color-text);
+    font-weight: 700;
+    text-align: left;
+    padding: 16px 20px;
+    border-bottom: 2px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    white-space: nowrap;
 }
 
-.comparison-table .highlight {
-    background-color: #fffdf5;
+.article-content td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+    color: var(--color-text-light);
+    vertical-align: middle;
+}
+
+.article-content th:last-child,
+.article-content td:last-child {
+    border-right: none;
+}
+
+.article-content tr:nth-child(even) {
+    background-color: #fafafa; /* 縞模様で視認性向上 */
+}
+
+.article-content tr:hover {
+    background-color: #f5faff; /* ホバーで対象行を強調 */
+    transition: background-color 0.2s ease;
+}
+
+.article-content td strong {
+    color: var(--color-text);
     font-weight: 700;
 }
 
-.comparison-table .check { color: #b8860b; font-weight: bold; }
-
-@media (max-width: 768px) {
-    .cta-box {
-        padding: 30px 20px;
-        margin: 40px 0;
-    }
-    .cta-box a {
-        padding: 14px 30px;
-        font-size: 1rem;
-        width: 100%;
+@media (max-width: 640px) {
+    .article-content table {
+        display: block;
+        overflow-x: auto; /* モバイルでは横スクロール可能に */
+        -webkit-overflow-scrolling: touch;
     }
 }
 
