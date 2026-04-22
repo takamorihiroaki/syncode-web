@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/articles/antigravity-performance-fix-guide/",
+      "destination": "/articles/antigravity-performance-fix/",
+      "permanent": true
+    }
+  ]
+}
