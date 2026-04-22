@@ -37,8 +37,13 @@ async function preparePost() {
     const content = fs.readFileSync(filePath, 'utf-8');
     const { data } = matter(content);
 
+    // 日付を文字列として正規化（Dateオブジェクトの場合があるため）
+    const articleDateStr = data.date instanceof Date 
+      ? data.date.toISOString().split('T')[0] 
+      : String(data.date);
+
     // 日付指定がある場合はその日付、'all'の場合は全記事、指定なしは今日
-    const isTargetDate = dateToFilter ? data.date === dateToFilter : true;
+    const isTargetDate = dateToFilter ? articleDateStr === dateToFilter : true;
 
     if (isTargetDate && data.draft !== true) {
       const slug = file.replace('.mdx', '');
@@ -46,7 +51,7 @@ async function preparePost() {
         title: data.title,
         url: `${SITE_URL}/articles/${slug}/`,
         tags: data.tags || [],
-        date: data.date
+        date: articleDateStr
       });
     }
   }
