@@ -25,19 +25,6 @@ const defaultFaqs = [
 
 const faqs = customFaqs.length > 0 ? customFaqs : defaultFaqs;
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.q,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.a
-    }
-  }))
-};
-
 const displayDescription = description || (
   type === 'home' ? "SYNCODE (syncode.jp) は、30年のディレクション経験とAIの演算能力を同期させ、ブランドの本質を抽出するクリエイティブ・プロジェクトです。AI時代における本質的な価値構築の実践知を提供します。" :
   type === 'about' ? "SYNCODE は 30 年の経験を持つ AI クリエイティブディレクター、孝森 弘章が主宰するプロジェクトです。人間の直感と AI の演算を同期させ、本質的な価値を構築します。" :
@@ -55,8 +42,6 @@ const displayDescription = description || (
       </p>
     </div>
   </div>
-  
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </div>
 
 <style>

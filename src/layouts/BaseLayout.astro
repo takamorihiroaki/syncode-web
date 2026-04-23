@@ -79,15 +79,15 @@ const breadcrumbJson = {
             "name": "TOP",
             "item": `${siteUrlClean}/`
         },
-        ...(isArticle && category ? [{
+        ...(isArticle ? [{
             "@type": "ListItem",
             "position": 2,
-            "name": category,
-            "item": `${siteUrlClean}/category/${encodeURIComponent(category)}/`
+            "name": "ARTICLES",
+            "item": `${siteUrlClean}/articles/`
         }] : []),
         ...(isArticle ? [{
             "@type": "ListItem",
-            "position": category ? 3 : 2,
+            "position": 3,
             "name": title,
             "item": canonicalHref
         }] : [])
