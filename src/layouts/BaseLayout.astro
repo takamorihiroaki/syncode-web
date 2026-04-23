@@ -37,13 +37,9 @@ const canonicalURL = new URL(normalizedPath, siteUrl);
 const canonicalHref = canonicalURL.href; // 事前に文字列化しておく
 const ogImageURL = new URL(image, siteUrl);
 
-// JSON-LD (Structured Data)
-const ldJson: any = {
-    "@context": "https://schema.org",
-};
-
 const organizationData = {
     "@type": "Organization",
+    "@id": `${siteUrl}#organization`,
     "name": "SYNCODE",
     "url": siteUrl,
     "logo": {
@@ -52,80 +48,62 @@ const organizationData = {
     },
     "sameAs": [
         "https://x.com/syncode_jp",
-        "https://www.instagram.com/syncode_jp" // 将来用
+        "https://www.instagram.com/syncode_jp"
     ],
     "description": "AIエージェントAntigravityの活用や、自動化技術を専門とする実践技術メディア。30年のディレクション経験と最新のAI技術を同期させた革新的な知見を提供します。"
 };
 
+// --- Structured Data Generation (Unified @graph) ---
+const graph = [];
+
+// 1. Organization
+graph.push(organizationData);
+
+// 2. Main Entity (WebSite or BlogPosting)
 if (isArticle) {
-    ldJson["@type"] = "BlogPosting";
-    ldJson["headline"] = title;
-    ldJson["description"] = description;
-    ldJson["image"] = [ogImageURL.toString()];
-    ldJson["datePublished"] = publishDate ? publishDate.toISOString() : undefined;
-    ldJson["dateModified"] = updatedDate ? updatedDate.toISOString() : (publishDate ? publishDate.toISOString() : undefined);
-    ldJson["author"] = organizationData;
-    ldJson["publisher"] = organizationData;
-    ldJson["mainEntityOfPage"] = {
-        "@type": "WebPage",
-        "@id": canonicalHref
-    };
-} else {
-    ldJson["@type"] = "WebSite";
-    ldJson["name"] = "SYNCODE";
-    ldJson["url"] = siteUrl;
-    ldJson["description"] = description;
-    ldJson["publisher"] = organizationData;
-}
-
-// Additional Structured Data (FAQ, How-to)
-const additionalLdJson = [];
-
-if (faq && faq.length > 0) {
-    additionalLdJson.push({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": faq.map(item => ({
-            "@type": "Question",
-            "name": item.question,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": item.answer
-            }
-        }))
-    });
-}
-
-if (howTo) {
-    additionalLdJson.push({
-        "@context": "https://schema.org",
-        "@type": "HowTo",
-        "name": howTo.name,
+    graph.push({
+        "@type": "BlogPosting",
+        "@id": `${canonicalHref}#article`,
+        "headline": title,
         "description": description,
-        "step": howTo.steps.map((step, index) => ({
-            "@type": "HowToStep",
-            "position": index + 1,
-            "text": step
-        }))
+        "image": [ogImageURL.toString()],
+        "datePublished": publishDate ? publishDate.toISOString() : undefined,
+        "dateModified": updatedDate ? updatedDate.toISOString() : (publishDate ? publishDate.toISOString() : undefined),
+        "author": { "@id": `${siteUrl}#organization` },
+        "publisher": { "@id": `${siteUrl}#organization` },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonicalHref
+        }
+    });
+} else {
+    graph.push({
+        "@type": "WebSite",
+        "@id": `${siteUrl}#website`,
+        "name": "SYNCODE",
+        "url": siteUrl,
+        "description": description,
+        "publisher": { "@id": `${siteUrl}#organization` }
     });
 }
 
-// Breadcrumb List
-const breadcrumbLdJson = {
+// 3. BreadcrumbList
+graph.push({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${canonicalHref}#breadcrumb`,
     "itemListElement": [
         {
             "@type": "ListItem",
             "position": 1,
             "name": "TOP",
-            "item": siteUrl
+            "item": siteUrl.endsWith('/') ? siteUrl : `${siteUrl}/`
         },
         ...(isArticle && category ? [{
             "@type": "ListItem",
             "position": 2,
             "name": category,
-            "item": new URL(`/category/${encodeURIComponent(category)}/`, siteUrl).toString()
+            "item": new URL(`/category/${encodeURIComponent(category)}/`, siteUrl).href
         }] : []),
         ...(isArticle ? [{
             "@type": "ListItem",
@@ -134,6 +112,44 @@ const breadcrumbLdJson = {
             "item": canonicalHref
         }] : [])
     ]
+});
+
+// 4. FAQPage
+if (faq && faq.length > 0) {
+    graph.push({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "@id": `${canonicalHref}#faq`,
+        "mainEntity": faq.map((item, index) => ({
+            "@type": "Question",
+            "name": item.question.trim(),
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": item.answer.trim()
+            }
+        }))
+    });
+}
+
+// 5. HowTo
+if (howTo) {
+    graph.push({
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "@id": `${canonicalHref}#howto`,
+        "name": howTo.name,
+        "description": description,
+        "step": howTo.steps.map((step, index) => ({
+            "@type": "HowToStep",
+            "position": index + 1,
+            "text": step.trim()
+        }))
+    });
+}
+
+const combinedLdJson = {
+    "@context": "https://schema.org",
+    "@graph": graph
 };
 ---
 
@@ -169,11 +185,7 @@ const breadcrumbLdJson = {
         <meta name="twitter:image" content={ogImageURL.toString()} />
 
         <!-- Structured Data -->
-        <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
-        <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLdJson)} />
-        {additionalLdJson.map(json => (
-            <script type="application/ld+json" set:html={JSON.stringify(json)} />
-        ))}
+        <script type="application/ld+json" set:html={JSON.stringify(combinedLdJson)} />
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
