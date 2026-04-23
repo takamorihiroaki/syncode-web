@@ -166,7 +166,6 @@ const breadcrumbLdJson = {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap"
             rel="stylesheet"
         />
-        <!-- Google tag (gtag.js) -->
         <script is:inline>
             // 管理者・開発者の除外設定（ノイズ排除の精緻化）
             const GA_MEASUREMENT_ID = 'G-SE8GNFY6EM';
@@ -205,9 +204,104 @@ const breadcrumbLdJson = {
             gtag('config', 'G-SE8GNFY6EM', {
                 'anonymize_ip': true,
                 'cookie_flags': 'SameSite=None;Secure',
-                'page_location': '${canonicalHref}'
+                'page_location': '${canonicalHref}',
+                'send_page_view': true
+            });
+
+            // ユーザー行動の自動計測
+            document.addEventListener('DOMContentLoaded', () => {
+                if (window['ga-disable-G-SE8GNFY6EM']) return;
+
+                // 1. クリック計測（アフィリエイト・内部重要導線・CTA）
+                document.addEventListener('click', (e) => {
+                    const target = e.target.closest('a');
+                    if (!target) return;
+
+                    const href = target.getAttribute('href');
+                    const isExternal = target.getAttribute('target') === '_blank' || (href && href.startsWith('http') && !href.includes(window.location.hostname));
+                    const linkText = target.innerText?.trim().slice(0, 50) || '';
+
+                    // CTA（バナー類）の計測
+                    const ctaBanner = target.closest('.cta-inline, .cta-plate, .cta-tools, .cta-works, .cta-next-banner');
+                    if (ctaBanner) {
+                        const ctaTag = ctaBanner.querySelector('.cta-inline__tag, .cta-label')?.innerText || 'CTA';
+                        gtag('event', 'cta_interaction', {
+                            cta_label: ctaTag + ': ' + linkText,
+                            cta_destination: href,
+                            page_location: window.location.href
+                        });
+                        return; // CTAとして計測した場合は重複を避けるためここで終了
+                    }
+
+                    // アフィリエイト/外部リンク計測
+                    if (isExternal && href) {
+                        gtag('event', 'affiliate_click', {
+                            link_url: href,
+                            link_text: linkText,
+                            page_location: window.location.href
+                        });
+                    }
+
+                    // トラブルシューティング診断カード計測
+                    if (target.classList.contains('troubleshoot-card')) {
+                        const symptom = target.querySelector('.symptom-label')?.innerText || 'unknown';
+                        gtag('event', 'diagnosis_click', {
+                            symptom_name: symptom,
+                            target_url: href
+                        });
+                    }
+
+                    // ハブ/ロードマップ操作計測
+                    if (target.classList.contains('nav-card') || target.classList.contains('action-card')) {
+                        gtag('event', 'hub_navigation', {
+                            nav_label: target.querySelector('.nav-label, .card-label')?.innerText || 'unknown',
+                            nav_title: target.querySelector('.nav-title, .card-name')?.innerText || linkText
+                        });
+                    }
+                });
+
+                // 2. カテゴリフィルター計測
+                document.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.filter-item');
+                    if (!btn) return;
+                    
+                    const filterName = btn.getAttribute('data-filter');
+                    gtag('event', 'discovery_filter', {
+                        filter_name: filterName
+                    });
+                });
+
+                // 3. 読了率（スクロール深度）計測
+                let scrollMarkers = [25, 50, 75, 90];
+                let sentMarkers = new Set();
+                
+                window.addEventListener('scroll', () => {
+                    const h = document.documentElement, 
+                          b = document.body,
+                          st = 'scrollTop',
+                          sh = 'scrollHeight';
+                    const percent = (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+                    
+                    scrollMarkers.forEach(m => {
+                        if (percent >= m && !sentMarkers.has(m)) {
+                            sentMarkers.add(m);
+                            gtag('event', 'scroll_depth', {
+                                depth_percent: m,
+                                page_location: window.location.href
+                            });
+                        }
+                    });
+                }, { passive: true });
             });
         `}>
+        </script>
+        <!-- Microsoft Clarity -->
+        <script type="text/javascript" is:inline>
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "wfzy04mrpp");
         </script>
     </head>
     <body id="top" class={bodyClass}>
@@ -343,29 +437,8 @@ const breadcrumbLdJson = {
                 }, { passive: true });
             }
 
-            // --- GA4 アフィリエイトリンク クリック計測 ---
-            // 外部リンク（target="_blank"）のクリックをGA4に送信する
-            document.addEventListener('click', (e) => {
-                const target = (e.target as HTMLElement).closest('a');
-                if (!target) return;
-
-                const href = target.getAttribute('href');
-                const isExternal = target.getAttribute('target') === '_blank';
-
-                if (isExternal && href) {
-                    const linkText = target.innerText?.trim().slice(0, 100) || '';
-                    const linkId = target.id || target.className || 'unknown';
-
-                    if (typeof (window as any).gtag === 'function') {
-                        (window as any).gtag('event', 'affiliate_click', {
-                            link_url: href,
-                            link_text: linkText,
-                            link_id: linkId,
-                            page_location: window.location.href
-                        });
-                    }
-                }
-            });
+            // --- GA4 外部リンク クリック計測 ---
+            // ※ headセクションのグローバルリスナーに統合・移行したため、ここでの処理は削除しました。
         </script>
 
         <style is:global>

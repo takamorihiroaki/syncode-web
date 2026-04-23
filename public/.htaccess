@@ -27,6 +27,7 @@ RewriteBase /
 
 # Custom 301 Redirects
 RewriteRule ^about\.html$ /about/ [L,R=301]
+RewriteRule ^articles/antigravity-performance-fix-guide/?$ /articles/antigravity-performance-fix/ [L,R=301]
 
 # Categories to Home
 RewriteRule ^category/テクノロジー/?$ / [L,R=301]

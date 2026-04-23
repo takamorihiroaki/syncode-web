@@ -15,6 +15,7 @@ import CtaPlate from "../../components/CtaPlate.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
 import ReadingProgressBar from "../../components/ReadingProgressBar.astro";
 import AISearchOptimizer from "../../components/AISearchOptimizer.astro";
+import ArticleFeedback from "../../components/ArticleFeedback.astro";
 
 // Antigravityのフェーズマッピング
 const antigravityPhases: Record<string, string> = {
@@ -167,6 +168,8 @@ const isSalon = entry.data.category === "INSIGHT";
         <Content />
         
         {isSeries && <SeriesList />}
+
+        <ArticleFeedback title={entry.data.title} />
 
         <div class="nano-bridge">
           <span class="nano-line"></span>

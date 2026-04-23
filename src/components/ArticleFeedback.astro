@@ -1,0 +1,136 @@
+---
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<div class="article-feedback" id="article-feedback-container">
+    <div class="article-feedback__inner">
+        <h4 class="article-feedback__title">この記事は役に立ちましたか？</h4>
+        <div class="article-feedback__actions">
+            <button class="feedback-btn feedback-btn--positive" data-feedback="positive" data-title={title}>
+                <span class="emoji">👍</span> 役に立った
+            </button>
+            <button class="feedback-btn feedback-btn--needs-improvement" data-feedback="needs_improvement" data-title={title}>
+                <span class="emoji">🤔</span> もっと詳しく知りたい
+            </button>
+        </div>
+        <p class="article-feedback__thanks" id="feedback-thanks-msg" style="display: none;">
+            フィードバックありがとうございます。今後のコンテンツ改善の参考にさせていただきます。
+        </p>
+    </div>
+</div>
+
+<style>
+    .article-feedback {
+        margin: 80px 0 40px;
+        padding: 40px;
+        background: #fcfcfc;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        text-align: center;
+    }
+
+    .article-feedback__title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        margin-bottom: 24px;
+        color: #333;
+    }
+
+    .article-feedback__actions {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .feedback-btn {
+        padding: 12px 24px;
+        border-radius: 50px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid #ddd;
+        background: #fff;
+        color: #555;
+    }
+
+    .feedback-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        border-color: #000;
+        color: #000;
+    }
+
+    .feedback-btn .emoji {
+        font-size: 1.2rem;
+    }
+
+    .feedback-btn.active {
+        background: #000;
+        color: #fff;
+        border-color: #000;
+    }
+
+    .article-feedback__thanks {
+        margin-top: 20px;
+        font-size: 0.85rem;
+        color: #666;
+        animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+        .article-feedback {
+            padding: 30px 20px;
+        }
+        .feedback-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.feedback-btn');
+        const thanksMsg = document.getElementById('feedback-thanks-msg');
+        const container = document.getElementById('article-feedback-container');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const type = btn.getAttribute('data-feedback');
+                const title = btn.getAttribute('data-title');
+
+                // GA4 Event Dispatch
+                if (typeof (window as any).gtag === 'function') {
+                    (window as any).gtag('event', 'article_feedback', {
+                        'feedback_type': type,
+                        'page_title': title,
+                        'page_location': window.location.href
+                    });
+                }
+
+                // UI Update
+                buttons.forEach(b => (b as HTMLElement).style.display = 'none');
+                const titleElem = container?.querySelector('.article-feedback__title') as HTMLElement;
+                if (titleElem) titleElem.style.display = 'none';
+                
+                if (thanksMsg) {
+                    thanksMsg.style.display = 'block';
+                }
+            });
+        });
+    });
+</script>
