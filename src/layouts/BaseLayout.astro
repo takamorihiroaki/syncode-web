@@ -12,6 +12,7 @@ interface Props {
     bodyClass?: string;
     faq?: { question: string; answer: string }[];
     howTo?: { name: string; steps: string[] };
+    category?: string;
 }
 
 const {
@@ -24,6 +25,7 @@ const {
     bodyClass = "",
     faq,
     howTo,
+    category,
 } = Astro.props;
 
 const { pathname } = Astro.url;
@@ -64,6 +66,10 @@ if (isArticle) {
     ldJson["dateModified"] = updatedDate ? updatedDate.toISOString() : (publishDate ? publishDate.toISOString() : undefined);
     ldJson["author"] = organizationData;
     ldJson["publisher"] = organizationData;
+    ldJson["mainEntityOfPage"] = {
+        "@type": "WebPage",
+        "@id": canonicalHref
+    };
 } else {
     ldJson["@type"] = "WebSite";
     ldJson["name"] = "SYNCODE";
@@ -115,9 +121,15 @@ const breadcrumbLdJson = {
             "name": "TOP",
             "item": siteUrl
         },
-        ...(isArticle ? [{
+        ...(isArticle && category ? [{
             "@type": "ListItem",
             "position": 2,
+            "name": category,
+            "item": new URL(`/category/${encodeURIComponent(category)}/`, siteUrl).toString()
+        }] : []),
+        ...(isArticle ? [{
+            "@type": "ListItem",
+            "position": category ? 3 : 2,
             "name": title,
             "item": canonicalHref
         }] : [])
@@ -134,23 +146,25 @@ const breadcrumbLdJson = {
         <link rel="canonical" href={canonicalHref} />
         <title>{title}</title>
         <meta name="description" content={description} />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
 
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content={isArticle ? "article" : "website"} />
         <meta property="og:url" content={canonicalHref} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={ogImageURL} />
+        <meta property="og:image" content={ogImageURL.toString()} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:locale" content="ja_JP" />
+        <meta property="og:site_name" content="SYNCODE" />
 
         <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={canonicalHref} />
-        <meta property="twitter:title" content={title} />
-        <meta property="twitter:description" content={description} />
-        <meta property="twitter:image" content={ogImageURL} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={canonicalHref} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImageURL.toString()} />
 
         <!-- Structured Data -->
         <script type="application/ld+json" set:html={JSON.stringify(ldJson)} />
@@ -307,7 +321,7 @@ const breadcrumbLdJson = {
     <body id="top" class={bodyClass}>
         <header class="site-header">
             <div class="header-inner">
-                <h1 class="logo"><a href="/">SYNCODE</a></h1>
+                <div class="logo"><a href="/">SYNCODE</a></div>
                 <nav class="main-nav">
                     <ul>
                         <li>
@@ -369,8 +383,7 @@ const breadcrumbLdJson = {
                 <div class="footer-logo">SYNCODE</div>
                 <ul class="footer-links">
                     <li><a href="https://x.com/syncode_jp" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">RSS</a></li>
+
                 </ul>
                 <p class="copyright">&copy; 2026 SYNCODE.</p>
                 <div id="ga-status-indicator" style="display:none; font-size: 10px; color: #ccc; margin-top: 10px; letter-spacing: 0.1em;">

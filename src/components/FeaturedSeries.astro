@@ -23,7 +23,7 @@ const seriesArticles = allArticles
       <a href={`/articles/${article.id}/`} class="series-card">
         <div class="card-image-wrapper">
           <div class="card-image">
-            <img src={article.data.image} alt="" loading="lazy" />
+            <img src={article.data.image} alt={`${article.data.title} - INSIGHT SALON`} loading="lazy" />
             <div class="card-order">Vol.{String(article.data.seriesOrder).padStart(2, '0')}</div>
           </div>
         </div>

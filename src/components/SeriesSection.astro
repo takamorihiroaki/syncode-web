@@ -29,7 +29,7 @@ const seriesArticles = seriesIds
     {seriesArticles.map((article, index) => (
       <a href={`/articles/${article.id}/`} class="series-item">
         <div class="item-visual">
-          <img src={article.data.image} alt={article.data.title} />
+          <img src={article.data.image} alt={article.data.title} loading="lazy" />
         </div>
         <div class="item-content">
           <h3 class="item-title">{article.data.title}</h3>

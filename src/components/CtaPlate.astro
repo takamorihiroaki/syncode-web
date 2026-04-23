@@ -14,7 +14,7 @@ const { title, excerpt, image, link, label = "RECOMMENDED", category } = Astro.p
 <div class="cta-plate">
   <a href={link} class="plate-anchor">
     <div class="plate-visual">
-      <img src={image} alt="" />
+      <img src={image} alt={`${title}のサムネイル`} loading="lazy" />
       <div class="plate-overlay"></div>
     </div>
     <div class="plate-content">
