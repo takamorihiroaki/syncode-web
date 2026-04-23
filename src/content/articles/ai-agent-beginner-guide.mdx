@@ -9,12 +9,16 @@ tags:
   - 開発効率化
   - Antigravity
 category: AIツール
+faq:
+  - question: プログラミングが全くできませんが、使えますか？
+    answer: はい、全く問題ありません。Antigravityは日本語の指示を理解し、裏側の複雑なコード処理をすべて代行してくれます。あなたは「何を実現したいか」を言葉にするだけで十分です。
+  - question: AIエージェントを使うのにお金はかかりますか？
+    answer: 基本的な機能は無料から試すことが可能です。より高度なモデルや、大量のタスクを高速にこなしたい場合には、API利用料などのコストが発生することがありますが、削減できる「時間」を考えれば非常に高い投資対効果（ROI）が得られます。
 draft: false
-ctaTitle: "【入門】あなたの隣に、24時間働く優秀な部下を。"
-ctaDesc: "難しい設定は不要。やりたいことを伝えるだけで、AIがあなたの代わりに手を動かす。新しい働き方のスタンダードを今すぐ始めましょう。"
 ---
 
 import CtaInline from '../../components/CtaInline.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
 
 # 「AIに任せる」のは、もう特別なことではありません
 
@@ -115,21 +119,14 @@ AIエージェントを使いこなすようになると、仕事の感覚が変
   buttonLink="/articles/antigravity-start/"
 />
 
-## 関連記事
-
-<a href="/articles/cursor-vs-windsurf-2026-comparison/" class="custom-hanging-link">
-  <span class="label-box">👉 <strong>さらなる高みへ：</strong></span>
-  <span class="title-box">
-    <span class="animated-underline-endpoint">【実践】Cursor vs Windsurf 完全比較。2026年最強のエディタ選び</span>
-  </span>
-</a>
-
-<a href="/articles/ai-lifestyle-transformation/" class="custom-hanging-link">
-  <span class="label-box">👉 <strong>未来の視点：</strong></span>
-  <span class="title-box">
-    <span class="animated-underline-endpoint">「自分を超える、AIという翼。」初心者が見たAI共創の景色</span>
-  </span>
-</a>
+<RelatedLinks 
+  links={[
+    { text: "ここから全てが始まる：Antigravity 導入・スタートガイド", href: "/articles/antigravity-start/" },
+    { text: "自分を超える、AIという翼。初心者が見たAI共創の景色", href: "/articles/ai-lifestyle-transformation/" },
+    { text: "【実践】Cursor vs Windsurf 完全比較。2026年最強のエディタ選び", href: "/articles/cursor-vs-windsurf-2026-comparison/" },
+    { text: "動かない時のレスキューガイド：トラブルシューティング完全ガイド", href: "/articles/antigravity-troubleshooting-guide/" }
+  ]} 
+/>
 
 
 ---

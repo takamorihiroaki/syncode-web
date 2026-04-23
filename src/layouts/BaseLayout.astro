@@ -161,6 +161,8 @@ const breadcrumbLdJson = {
 
         <!-- Twitter -->
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@syncode_jp" />
+        <meta name="twitter:creator" content="@syncode_jp" />
         <meta name="twitter:url" content={canonicalHref} />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
@@ -177,9 +179,22 @@ const breadcrumbLdJson = {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
+            rel="preload"
+            as="style"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap"
+        />
+        <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap"
             rel="stylesheet"
+            media="print"
+            onload="this.media='all'"
         />
+        <noscript>
+            <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap"
+                rel="stylesheet"
+            />
+        </noscript>
         <script is:inline>
             // 管理者・開発者の除外設定（ノイズ排除の精緻化）
             const GA_MEASUREMENT_ID = 'G-SE8GNFY6EM';

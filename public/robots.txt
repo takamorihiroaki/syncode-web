@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://syncode.jp/sitemap-index.xml

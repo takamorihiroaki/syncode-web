@@ -159,6 +159,8 @@ const isSalon = entry.data.category === "INSIGHT";
                 <img
                     src={entry.data.image}
                     alt={`${entry.data.title}のアイキャッチ画像 - SYNCODE`}
+                    loading="eager"
+                    fetchpriority="high"
                 />
             </div>
         )

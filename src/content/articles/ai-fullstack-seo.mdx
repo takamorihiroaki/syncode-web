@@ -11,9 +11,17 @@ category: AI戦略
 draft: false
 ctaTitle: "【SEO】サイト成長を支える最強のツール構成"
 ctaDesc: "Googleに見つけてもらうための設定から、インデックス速度の向上まで。私が実際に使っている環境を公開しています。"
+faq:
+  - question: サイトマップを自動生成するメリットは何ですか？
+    answer: 記事を新しく追加したり更新したりするたびに、Googleなどの検索エンジンに「どのURLが存在するか」を正確に伝える地図（sitemap.xml）が自動で更新されます。これにより、手動で登録する手間が省け、インデックス漏れを防ぐことができます。
+  - question: Indexing APIとは何ですか？導入すべきでしょうか？
+    answer: Googleにページの追加や更新を直接通知する仕組みです。通常のサイトマップよりも圧倒的に早くクロールされるため、最新ニュースやトレンド記事など「速報性」が重要なサイトには非常に有効です。ただし、導入にはGoogle Cloud Consoleでの専門的な設定が必要となります。
+  - question: robots.txtとは何ですか？
+    answer: 検索エンジンのクローラー（巡回ロボット）に対して、サイト内のどのページを読み込んで良いか、または読み込んではいけないかを指示するファイルです。正しく設定することで、重要なページに優先的にクロールを誘導し、サイトの評価を効率的に高めることができます。
 ---
 
 import CtaInline from '../../components/CtaInline.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
 
 ## サイトを創るだけでは、誰にも読まれない。
 
@@ -57,12 +65,12 @@ AIは私にこう提案しました。
 
 ---
 
-## 関連記事（AI連載シリーズ）
-
-<div class="article-link-list">
-[👉 <strong>第1回：</strong> AIにブログを作らせたら「凄腕マーケター」だった話。収益を自動で最大化する設計](/articles/ai-fullstack-marketer/)
-</div>
-<div class="article-link-list">
-[👉 <strong>第3回：</strong> 会話だけで「全自動デプロイ」が完成した衝撃。AIインフラエンジニアの魔法](/articles/ai-fullstack-devops/)
-</div>
+<RelatedLinks 
+  links={[
+    { text: "【連載：第1回】AIにブログを作らせたら「凄腕マーケター」だった話", href: "/articles/ai-fullstack-marketer/" },
+    { text: "【連載：第3回】会話だけで「全自動デプロイ」が完成した衝撃", href: "/articles/ai-fullstack-devops/" },
+    { text: "データ解析で見えた「真の課題」。ブログを資産化するリライトの全手順", href: "/articles/data-driven-seo-optimization/" },
+    { text: "GA4とSearch ConsoleをAIに「記憶」させ、アクセス分析を自動化する", href: "/articles/ga4-sync-technical-guide/" }
+  ]} 
+/>
 
