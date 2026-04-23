@@ -37,27 +37,25 @@ const canonicalURL = new URL(normalizedPath, siteUrl);
 const canonicalHref = canonicalURL.href; // 事前に文字列化しておく
 const ogImageURL = new URL(image, siteUrl);
 
-const organizationData = {
+// --- Structured Data Generation (Unified @graph) ---
+const graph: any[] = [];
+
+// 1. Organization
+graph.push({
     "@type": "Organization",
     "@id": `${siteUrl}#organization`,
     "name": "SYNCODE",
     "url": siteUrl,
     "logo": {
         "@type": "ImageObject",
-        "url": new URL("/assets/series-vol1-square.png", siteUrl).toString()
+        "url": `${siteUrl}/assets/series-vol1-square.png`
     },
     "sameAs": [
         "https://x.com/syncode_jp",
         "https://www.instagram.com/syncode_jp"
     ],
     "description": "AIエージェントAntigravityの活用や、自動化技術を専門とする実践技術メディア。30年のディレクション経験と最新のAI技術を同期させた革新的な知見を提供します。"
-};
-
-// --- Structured Data Generation (Unified @graph) ---
-const graph = [];
-
-// 1. Organization
-graph.push(organizationData);
+});
 
 // 2. Main Entity (WebSite or BlogPosting)
 if (isArticle) {
@@ -89,7 +87,6 @@ if (isArticle) {
 
 // 3. BreadcrumbList
 graph.push({
-    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "@id": `${canonicalHref}#breadcrumb`,
     "itemListElement": [
@@ -103,7 +100,7 @@ graph.push({
             "@type": "ListItem",
             "position": 2,
             "name": category,
-            "item": new URL(`/category/${encodeURIComponent(category)}/`, siteUrl).href
+            "item": `${siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl}/category/${encodeURIComponent(category)}/`
         }] : []),
         ...(isArticle ? [{
             "@type": "ListItem",
@@ -117,10 +114,9 @@ graph.push({
 // 4. FAQPage
 if (faq && faq.length > 0) {
     graph.push({
-        "@context": "https://schema.org",
         "@type": "FAQPage",
         "@id": `${canonicalHref}#faq`,
-        "mainEntity": faq.map((item, index) => ({
+        "mainEntity": faq.map((item) => ({
             "@type": "Question",
             "name": item.question.trim(),
             "acceptedAnswer": {
@@ -134,7 +130,6 @@ if (faq && faq.length > 0) {
 // 5. HowTo
 if (howTo) {
     graph.push({
-        "@context": "https://schema.org",
         "@type": "HowTo",
         "@id": `${canonicalHref}#howto`,
         "name": howTo.name,
