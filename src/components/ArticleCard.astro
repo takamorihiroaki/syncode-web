@@ -34,27 +34,27 @@ const categoryColor = getCategoryColor(article.data.category || '');
   data-category={article.data.category || ''}
   data-tags={article.data.tags?.join(',') || ''}
 >
-  <a href={`/articles/${article.id}/`} class="card-link">
-    <div class="thumbnail-wrapper">
-      <img
-        src={article.data.image}
-        alt={`${article.data.title}のサムネイル`}
-        loading="lazy"
-      />
-      
-      {isSalon && (
-        <div class="salon-seal">
-          <span class="seal-text">THOUGHT PARTNERSHIP</span>
-        </div>
-      )}
+  <div class="card-link-wrapper">
+    <a href={`/articles/${article.id}/`} class="thumbnail-link">
+      <div class="thumbnail-wrapper"><img
+          src={article.data.image}
+          alt={`${article.data.title}のサムネイル`}
+          loading="lazy"
+        />
+        
+        {isSalon && (
+          <div class="salon-seal">
+            <span class="seal-text">THOUGHT PARTNERSHIP</span>
+          </div>
+        )}
 
-      {variant === 'premium' && step && (
-        <div class="step-badge">
-          <span class="step-num">{String(step).padStart(2, '0')}</span>
-        </div>
-      )}
-      
-    </div>
+        {variant === 'premium' && step && (
+          <div class="step-badge">
+            <span class="step-num">{String(step).padStart(2, '0')}</span>
+          </div>
+        )}
+      </div>
+    </a>
 
     <div class="card-content">
       {isSalon ? (
@@ -63,7 +63,9 @@ const categoryColor = getCategoryColor(article.data.category || '');
             <span class="dot"></span>
             INSIGHT SALON
           </div>
-          <h3 class="card-title salon-title">{article.data.title}</h3>
+          <a href={`/articles/${article.id}/`} class="title-link">
+            <h3 class="card-title salon-title">{article.data.title}</h3>
+          </a>
           <time class="post-date salon-date">
             {article.data.date
               .toLocaleDateString("ja-JP", {
@@ -77,7 +79,9 @@ const categoryColor = getCategoryColor(article.data.category || '');
       ) : variant === 'premium' ? (
         <div class="premium-meta">
           <div class="story-chronicle">PROJECT STORY CHRONICLES</div>
-          <h3 class="card-title">{article.data.title}</h3>
+          <a href={`/articles/${article.id}/`} class="title-link">
+            <h3 class="card-title">{article.data.title}</h3>
+          </a>
           <p class="card-excerpt">{article.data.excerpt}</p>
         </div>
       ) : (
@@ -96,7 +100,9 @@ const categoryColor = getCategoryColor(article.data.category || '');
               })
               .replace(/\//g, ".")}
           </time>
-          <h3 class="card-title">{article.data.title}</h3>
+          <a href={`/articles/${article.id}/`} class="title-link">
+            <h3 class="card-title">{article.data.title}</h3>
+          </a>
           <p class="card-excerpt">{article.data.excerpt}</p>
           
           {article.data.tags && article.data.tags.length > 0 && (
@@ -107,7 +113,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
         </div>
       )}
     </div>
-  </a>
+  </div>
 </article>
 
 <style>
@@ -118,23 +124,28 @@ const categoryColor = getCategoryColor(article.data.category || '');
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
 
-  .card-link {
-    text-decoration: none;
-    color: inherit;
+  .thumbnail-link {
     display: block;
+    text-decoration: none;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .thumbnail-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    margin-bottom: 24px;
-    background: #f0f0f0;
-    border: 1px solid #f0f0f0;
-    /* flexで画像を正確にコンテナいっぱいに配置 */
-    display: flex;
-    align-items: stretch;
+    position: relative !important;
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    overflow: hidden !important;
+    margin: 0 0 24px 0 !important;
+    padding: 0 !important;
+    background: #f0f0f0 !important;
+    border: 1px solid #f0f0f0 !important;
+  }
+
+  .title-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
   }
 
   .premium .thumbnail-wrapper {
@@ -143,13 +154,17 @@ const categoryColor = getCategoryColor(article.data.category || '');
   }
 
   .thumbnail-wrapper img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 100% !important;
     height: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
     object-fit: cover !important;
-    object-position: center center !important;
+    object-position: center !important;
     display: block !important;
-    flex-shrink: 0;
-    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
   }
 
   .article-card:hover .thumbnail-wrapper img {
