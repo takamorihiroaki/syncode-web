@@ -7,6 +7,7 @@ import PremiumDocumentary from "../components/PremiumDocumentary.astro";
 import ArticleCard from "../components/ArticleCard.astro";
 import AISearchOptimizer from "../components/AISearchOptimizer.astro";
 import TroubleshootingMap from "../components/TroubleshootingMap.astro";
+import RoadmapHub from "../components/RoadmapHub.astro";
 
 const sortedArticles = (await getCollection("articles"))
     .filter((article) => !article.data.draft)
@@ -45,6 +46,7 @@ const latestArticles = sortedArticles
 
     <div class="content-sections">
         <TroubleshootingMap />
+        <RoadmapHub />
     </div>
 
     <!-- ドキュメンタリーセクション -->

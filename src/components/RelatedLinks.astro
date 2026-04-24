@@ -1,6 +1,9 @@
 ---
+import { getCollection } from 'astro:content';
+import ArticleCard from './ArticleCard.astro';
+
 interface Link {
-  text: string;
+  text?: string;
   href: string;
 }
 
@@ -10,78 +13,67 @@ interface Props {
 }
 
 const { title = "🎯 次に読むべき「最速への鍵」", links } = Astro.props;
+
+// URLから記事のID（slug）を抽出する関数
+const getSlugFromHref = (href: string) => {
+  const match = href.match(/\/articles\/([^\/]+)\/?/);
+  return match ? match[1] : null;
+};
+
+// 全記事を取得して、指定されたリンクに一致する記事を探す
+const allArticles = await getCollection('articles');
+const relatedArticles = links.map(link => {
+  const slug = getSlugFromHref(link.href);
+  const article = allArticles.find(a => a.id === slug);
+  return article ? { ...article, customTitle: link.text } : null;
+}).filter(Boolean);
+
 ---
 
 <div class="related-links-container">
   <h3 class="related-title">{title}</h3>
-  <div class="links-wrapper">
-    {links.map((link) => (
-      <a href={link.href} class="related-link-item">
-        <span class="link-label">{link.text}</span>
-      </a>
+  <div class="links-grid">
+    {relatedArticles.map((article) => (
+      <div class="related-card-wrapper">
+        <ArticleCard article={article} variant="standard" />
+      </div>
     ))}
   </div>
 </div>
 
 <style>
   .related-links-container {
-    margin: 48px 0;
-    padding: 0;
+    margin: 64px 0;
+    padding: 32px 0;
+    border-top: 1px solid #f0f0f0;
   }
 
   .related-title {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 24px;
-    color: #333;
-    letter-spacing: 0.05em;
-  }
-
-  .links-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .related-link-item {
-    display: block;
-    padding: 8px 0;
-    text-decoration: none !important;
-    color: #555;
-    background: transparent;
-    transition: color 0.3s ease;
-    position: relative;
-    width: fit-content;
-  }
-
-  .related-link-item:hover {
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 32px;
     color: #000;
+    letter-spacing: 0.05em;
+    text-align: center;
   }
 
-  .link-label {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    display: inline-block;
-    font-weight: 500;
-    padding-bottom: 2px;
-    text-decoration: none !important;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    background-size: 0 1px;
-    transition: background-size 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
   }
 
-  .related-link-item:hover .link-label {
-    background-size: 100% 1px;
+  .related-card-wrapper {
+    min-width: 0;
   }
 
-  @media (max-width: 640px) {
-    .related-links-container {
-      margin: 40px 0;
+  @media (max-width: 768px) {
+    .links-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
     }
-    .link-label {
-      font-size: 0.9rem;
+    .related-links-container {
+      margin: 48px 0;
     }
   }
 </style>

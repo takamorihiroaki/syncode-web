@@ -21,12 +21,12 @@
     </a>
 
     <!-- 症状2: リソースエラー -->
-    <a href="/articles/antigravity-performance-fix/" class="troubleshoot-card">
+    <a href="/articles/antigravity-performance-fix/" class="troubleshoot-card highlight-blue">
       <div class="card-icon">⚡</div>
       <div class="card-content">
-        <span class="symptom-label">症状：動作が重い・利用枠がすぐ切れる</span>
-        <h4 class="card-target">「重い・遅い」時の劇的改善ガイド</h4>
-        <p class="card-desc">無駄なファイル添付を削ぎ落とし、トークン消費を抑えつつ回答速度を最大化します。</p>
+        <span class="symptom-label pulse">最重要：動作が重い・遅い・止まる</span>
+        <h4 class="card-target">「重い・遅い」劇的改善ガイド</h4>
+        <p class="card-desc">無駄なファイル添付を削ぎ落とし、トークン消費を抑えつつ回答速度を最大化する決定版。</p>
       </div>
     </a>
 
@@ -132,6 +132,21 @@
 
   .troubleshoot-card.highlight {
     border-left: 2px solid #FACC15;
+  }
+  
+  .troubleshoot-card.highlight-blue {
+    border-left: 2px solid #0099ff;
+    background: linear-gradient(to right, #f0f7ff, #fff);
+  }
+
+  .symptom-label.pulse {
+    animation: text-pulse 2s infinite;
+  }
+
+  @keyframes text-pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
   }
 
   .troubleshoot-card:hover {
