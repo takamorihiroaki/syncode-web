@@ -1,0 +1,465 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AISearchOptimizer from '../components/AISearchOptimizer.astro';
+---
+
+<BaseLayout 
+    title="SYNC | AIと感性を同期させるオーケストレーション支援"
+    description="SYNCODEが提供するコンサルティング・共創支援。AIを効率化ツールとして消費するのではなく、あなたのビジネスの『体温』と『感性』を実装するパートナーとして迎えるための実践プログラム。"
+>
+    <style>
+        .sync-layout {
+            max-width: 100% !important;
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .section-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 120px 5%;
+        }
+
+        /* 1. Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            position: relative;
+            padding: 100px 5%;
+        }
+
+        /* Subtle Gold Glow & Grid */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(184, 134, 11, 0.12) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.5em;
+            color: #b8860b;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            display: block;
+        }
+
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: 0.05em;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+
+        .hero-title strong {
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #b8860b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-lead {
+            font-size: 1rem;
+            line-height: 2.2;
+            color: #a0a0a0;
+            letter-spacing: 0.08em;
+            text-align: left;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+
+        /* 2. Story Section */
+        .story-section {
+            /* 背景とボーダーを削除し、完全にシームレスな空間へ */
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+        }
+
+        .section-num {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: #b8860b;
+            letter-spacing: 0.2em;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .text-block {
+            font-size: 1.05rem;
+            line-height: 2.2;
+            color: #ccc;
+            letter-spacing: 0.08em;
+            margin-bottom: 30px;
+        }
+
+        .text-block strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* 3. Orchestration Section */
+        .orchestration-section {
+            background: #000;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .method-card {
+            background: linear-gradient(145deg, #0a0a0a, #050505);
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            padding: 50px 40px;
+            border-radius: 4px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: block;
+            text-decoration: none;
+        }
+
+        .method-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top right, rgba(184, 134, 11, 0.1), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .method-card:hover {
+            border-color: rgba(184, 134, 11, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .method-card:hover::before {
+            opacity: 1;
+        }
+
+        .method-icon {
+            margin-bottom: 30px;
+            display: inline-block;
+            background: rgba(184, 134, 11, 0.05);
+            padding: 16px;
+            border-radius: 50%;
+            border: 1px solid rgba(184, 134, 11, 0.1);
+            transition: transform 0.5s ease, background 0.5s ease;
+        }
+
+        .method-card:hover .method-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(184, 134, 11, 0.1);
+        }
+
+        .method-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 16px;
+            letter-spacing: 0.1em;
+        }
+
+        .method-desc {
+            font-size: 0.9rem;
+            line-height: 2;
+            color: #aaa;
+        }
+
+        /* 4. Proof Section */
+        .proof-section {
+            /* 背景とボーダーを削除し、完全にシームレスな空間へ */
+        }
+
+        .proof-box {
+            border-left: 2px solid #b8860b;
+            padding-left: 30px;
+            margin-top: 40px;
+        }
+
+        /* 5. CTA Section */
+        .cta-section {
+            background: #000;
+            text-align: center;
+            padding: 160px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #b8860b, transparent);
+            opacity: 0.3;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 300;
+            color: #fff;
+            letter-spacing: 0.1em;
+            margin-bottom: 60px;
+            line-height: 1.5;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            padding: 24px 60px;
+            background: transparent;
+            color: #b8860b;
+            border: 1px solid #b8860b;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-decoration: none;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #b8860b;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 0;
+        }
+
+        .cta-button:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            color: #000;
+        }
+
+        .btn-arrow {
+            font-family: 'Inter', sans-serif;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover .btn-arrow {
+            transform: translateX(8px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll Animations */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 1.6rem; }
+            .section-title { font-size: 1.4rem; }
+            .method-grid { grid-template-columns: 1fr; }
+            .cta-title { font-size: 1.4rem; }
+            .cta-button { padding: 20px 40px; width: 100%; justify-content: center; }
+            .hero-lead { text-align: left; font-size: 0.95rem; }
+        }
+    </style>
+
+    <div class="sync-layout">
+        
+        <!-- 1. Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <span class="hero-badge">Orchestration & Co-creation</span>
+                <h1 class="hero-title">AIは手に入れた。では、あなたのビジネスの<br/><strong>「体温」と「感性」</strong>は誰が実装するのか？</h1>
+                <p class="hero-lead">
+                    AIを使えばコードは書ける。文章も一瞬で生成できる。しかし、自社のブランド価値や、なんとなくプレミアムな「Vibe（雰囲気）」はどうすれば反映できるのでしょうか。<br/><br/>
+                    今日学んだノウハウが明日には「過去の遺物」になる時代において、AIを単なる効率化ツールとして消費し続けるのは危険です。SYNCODEは、AIを「パートナー」として迎え入れ、あなたの思考を拡張する新しい次元の戦い方を提示します。
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. Story Section -->
+        <section class="story-section fade-in-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-num">PHASE 01</span>
+                    <h2 class="section-title">明日には消える技術を追うのをやめ、<br/>「積層する信頼」を築く。</h2>
+                </div>
+                <div class="text-block">
+                    情報の希少価値が失われた現在、真に価値を持つのは「誰が、どんな葛藤を経て発信し、解決したか」というプロセスそのものです。
+                </div>
+                <div class="text-block">
+                    SYNCODEは、30年のディレクション経験で培われた「人間の感性・戦略」と「最新AIの演算能力」を高度に同期（Sync）させます。綺麗事ではない泥臭い検証の連続の中で、<strong>知識は風化しても、共に解決のプロセスを歩んだという信頼は確実に積層していきます。</strong>私たちは、その信頼を基盤とした共創を提供します。
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Orchestration Section -->
+        <section class="orchestration-section fade-in-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-num">PHASE 02</span>
+                    <h2 class="section-title">重力を振り切り、<br/>AIを指揮する「オーケストレーター」へ。</h2>
+                </div>
+                <div class="text-block">
+                    私たちが提供するのは「作業の代行」ではありません。あなたがAIを完全に指揮し、一人でチームを超える成果を出すための「オーケストレーター」へと変容する体験です。
+                </div>
+
+                <div class="method-grid">
+                    <a href="/articles/vibe-coding-mastery-2026/" class="method-card">
+                        <span class="method-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                        </span>
+                        <h3 class="method-title">Vibe Coding（感性の翻訳）</h3>
+                        <p class="method-desc">
+                            「なんとなくプレミアムな感じで」という人間の曖昧な感性を、AIが「1pxの余白」や「最適なメタデータ」へと翻訳するプロセス。AIが人間の美学を先回りして具現化するホスピタリティを実装します。
+                        </p>
+                    </a>
+                    <a href="/antigravity/hub/" class="method-card">
+                        <span class="method-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b8860b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        </span>
+                        <h3 class="method-title">三位一体の知能の統合</h3>
+                        <p class="method-desc">
+                            Gemini（脳）で俯瞰し、Antigravity（手足）が自律思考し、Cursor（指先）で実装する。これらのAIエージェントを束ね、目的へ向けて一糸乱れぬ演奏をさせるための戦略設計を伴走支援します。
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Proof Section -->
+        <section class="proof-section fade-in-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-num">PHASE 03</span>
+                    <h2 class="section-title">真っ白な画面から1日で構築された世界。<br/>その「血の通った実践録」</h2>
+                </div>
+                <div class="text-block">
+                    SYNCODEのサイト自体が、構想からシステム構築、デザインまで「1日」で駆け抜けた圧倒的な熱量で生み出されています。
+                </div>
+                <div class="proof-box">
+                    <div class="text-block" style="margin-bottom:0;">
+                        物理ドライブの遅延を自律的にデバッグした記録。ユーザーの「沈黙の苦悩」を読み解いて構造化データを実装し、クリック率を改善したデータ駆動型リライト。<br/>
+                        すべては、自ら泥臭く実践した<strong>「一階の技術的証拠」</strong>の上に成り立っています。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">論理と感性が、<br/>1文字の狂いもなく重なり合う瞬間へ。</h2>
+            <a href="https://x.com/syncode_jp" target="_blank" rel="noopener noreferrer" class="cta-button">
+                <span>共創の対話を開始する (X DMへ)</span>
+                <span class="btn-arrow">→</span>
+            </a>
+        </section>
+
+    </div>
+
+    <!-- AI Search Optimization -->
+    <AISearchOptimizer type="service" />
+
+    <!-- Scroll Animation Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in-section').forEach((section) => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</BaseLayout>

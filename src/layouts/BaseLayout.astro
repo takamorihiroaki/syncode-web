@@ -332,6 +332,14 @@ const faqJson = (faq && faq.length > 0) ? {
                         </li>
                         <li>
                             <a
+                                href="/service/"
+                                class={pathname.startsWith("/service")
+                                    ? "active"
+                                    : ""}>SERVICE</a
+                            >
+                        </li>
+                        <li>
+                            <a
                                 href="/works/"
                                 class={pathname.startsWith("/works")
                                     ? "active"

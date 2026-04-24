@@ -9,10 +9,15 @@ interface Link {
 
 interface Props {
   title?: string;
+  subtitle?: string;
   links: Link[];
 }
 
-const { title = "🎯 次に読むべき「最速への鍵」", links } = Astro.props;
+const { 
+  title = "NEXT STEP", 
+  subtitle = "この記事の内容を実践するために次にやるべきこと",
+  links 
+} = Astro.props;
 
 // URLから記事のID（slug）を抽出する関数
 const getSlugFromHref = (href: string) => {
@@ -30,8 +35,11 @@ const relatedArticles = links.map(link => {
 
 ---
 
-<div class="related-links-container">
-  <h3 class="related-title">{title}</h3>
+<div class="next-step-navigator">
+  <div class="navigator-header">
+    <span class="navigator-badge">{title}</span>
+    <p class="navigator-subtitle">{subtitle}</p>
+  </div>
   <div class="links-grid">
     {relatedArticles.map((article) => (
       <div class="related-card-wrapper">
@@ -42,19 +50,38 @@ const relatedArticles = links.map(link => {
 </div>
 
 <style>
-  .related-links-container {
-    margin: 64px 0;
-    padding: 32px 0;
-    border-top: 1px solid #f0f0f0;
+  .next-step-navigator {
+    margin: 80px 0;
+    padding: 40px;
+    background: #fdfdfd;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
   }
 
-  .related-title {
-    font-size: 1.1rem;
-    font-weight: 800;
-    margin-bottom: 32px;
-    color: #000;
-    letter-spacing: 0.05em;
+  .navigator-header {
     text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .navigator-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    color: #2563eb;
+    background: #eff6ff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  .navigator-subtitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    letter-spacing: 0.05em;
   }
 
   .links-grid {
@@ -69,12 +96,16 @@ const relatedArticles = links.map(link => {
   }
 
   @media (max-width: 768px) {
+    .next-step-navigator {
+      padding: 24px;
+      margin: 60px 0;
+    }
+    .navigator-subtitle {
+      font-size: 0.95rem;
+    }
     .links-grid {
       grid-template-columns: 1fr;
       gap: 24px;
-    }
-    .related-links-container {
-      margin: 48px 0;
     }
   }
 </style>

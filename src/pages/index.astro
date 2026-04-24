@@ -8,6 +8,7 @@ import ArticleCard from "../components/ArticleCard.astro";
 import AISearchOptimizer from "../components/AISearchOptimizer.astro";
 import TroubleshootingMap from "../components/TroubleshootingMap.astro";
 import RoadmapHub from "../components/RoadmapHub.astro";
+import OnboardingPanel from "../components/OnboardingPanel.astro";
 
 const sortedArticles = (await getCollection("articles"))
     .filter((article) => !article.data.draft)
@@ -40,12 +41,35 @@ const latestArticles = sortedArticles
     <!-- ヒーローセクション -->
     <Hero />
 
+    <!-- オンボーディング（初見ユーザー向け入口分岐） -->
+    <OnboardingPanel />
+
     <div id="gateway-entrance">
         <Gateway />
     </div>
 
+    <!-- コンサルティング・キラーページへの導線 -->
+    <section class="service-cta-wrapper">
+        <div class="service-cta-container">
+            <a href="/service/" class="service-cta-banner">
+                <div class="service-cta-bg"></div>
+                <div class="service-cta-content">
+                    <span class="service-cta-label">CONSULTING & CO-CREATION</span>
+                    <h2 class="service-cta-title">重力を振り切り、AIを指揮するオーケストレーターへ。</h2>
+                    <p class="service-cta-desc">30年のディレクション経験とAIを同期させ、あなたのビジネスの「体温」と「感性」を実装する実践プログラム。</p>
+                    <div class="service-cta-action">
+                        <span>共創の対話を開始する</span>
+                        <span class="action-arrow">→</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
     <div class="content-sections">
-        <TroubleshootingMap />
+        <div id="diagnosis-hub">
+            <TroubleshootingMap />
+        </div>
         <RoadmapHub />
     </div>
 
@@ -93,7 +117,7 @@ const latestArticles = sortedArticles
 
             <div class="explore-archive-wrapper" id="explore-more-footer">
                 <a href="/articles/" class="explore-btn">
-                    <span class="btn-text">EXPLORE ALL RECORDS</span>
+                    <span class="btn-text">自分に合う記事を見つける</span>
                     <span class="btn-arrow">→</span>
                 </a>
             </div>
@@ -110,6 +134,103 @@ const latestArticles = sortedArticles
         margin: 0 auto;
         padding: 0 5%;
         min-height: 600px;
+    }
+
+    /* Service CTA Banner */
+    .service-cta-wrapper {
+        padding: 0 5% 80px;
+        background: #fff;
+    }
+
+    .service-cta-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .service-cta-banner {
+        display: block;
+        position: relative;
+        background: #000;
+        color: #fff;
+        text-decoration: none;
+        padding: 60px 80px;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+    }
+
+    .service-cta-bg {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: radial-gradient(circle at right center, rgba(184, 134, 11, 0.15) 0%, transparent 60%);
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+    }
+
+    .service-cta-banner:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px rgba(184, 134, 11, 0.15);
+    }
+
+    .service-cta-banner:hover .service-cta-bg {
+        opacity: 0.8;
+    }
+
+    .service-cta-content {
+        position: relative;
+        z-index: 2;
+        max-width: 700px;
+    }
+
+    .service-cta-label {
+        font-size: 0.65rem;
+        font-weight: 800;
+        letter-spacing: 0.4em;
+        color: #b8860b;
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .service-cta-title {
+        font-size: 1.8rem;
+        font-weight: 300;
+        letter-spacing: 0.05em;
+        margin-bottom: 24px;
+        line-height: 1.4;
+    }
+
+    .service-cta-desc {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #aaa;
+        margin-bottom: 40px;
+    }
+
+    .service-cta-action {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: #fff;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(255,255,255,0.3);
+        transition: border-color 0.3s ease;
+    }
+
+    .service-cta-banner:hover .service-cta-action {
+        border-color: #b8860b;
+    }
+
+    .service-cta-banner:hover .action-arrow {
+        transform: translateX(8px);
+        color: #b8860b;
+    }
+
+    @media (max-width: 768px) {
+        .service-cta-banner { padding: 40px 30px; }
+        .service-cta-title { font-size: 1.4rem; }
     }
 
     /* Filter Results Header */
