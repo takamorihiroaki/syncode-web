@@ -21,9 +21,22 @@ function openUrl(url) {
   exec(`${start} "${url.replace(/"/g, '\\"')}"`);
 }
 
+/**
+ * ファイルをFinder等で選択状態で開く
+ */
+function revealFile(filePath) {
+  if (process.platform === 'darwin') {
+    // Mac: Finderでファイルを選択した状態で開く
+    exec(`open -R "${filePath}"`);
+  } else if (process.platform === 'win32') {
+    // Windows: エクスプローラーで選択状態で開く
+    exec(`explorer.exe /select,"${filePath}"`);
+  }
+}
+
 async function preparePost() {
   const args = process.argv.slice(2);
-  const targetDate = args[0]; // 引数があればその日付、なければ今日
+  const targetDate = args[0];
   const today = new Date().toISOString().split('T')[0];
   const dateToFilter = targetDate === 'all' ? null : (targetDate || today);
 
@@ -37,12 +50,10 @@ async function preparePost() {
     const content = fs.readFileSync(filePath, 'utf-8');
     const { data } = matter(content);
 
-    // 日付を文字列として正規化（Dateオブジェクトの場合があるため）
     const articleDateStr = data.date instanceof Date 
       ? data.date.toISOString().split('T')[0] 
       : String(data.date);
 
-    // 日付指定がある場合はその日付、'all'の場合は全記事、指定なしは今日
     const isTargetDate = dateToFilter ? articleDateStr === dateToFilter : true;
 
     if (isTargetDate && data.draft !== true) {
@@ -51,12 +62,12 @@ async function preparePost() {
         title: data.title,
         url: `${SITE_URL}/articles/${slug}/`,
         tags: data.tags || [],
-        date: articleDateStr
+        date: articleDateStr,
+        image: data.image // 画像パスを保持
       });
     }
   }
 
-  // 日付順（降順）にソート
   matchedArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   if (matchedArticles.length === 0) {
@@ -83,7 +94,7 @@ async function preparePost() {
     console.log(`記事: ${article.title}`);
     console.log(`URL: ${article.url}`);
     
-    const answer = await question('投稿画面を開きますか？ [Enter:開く / s:スキップ / q:終了]: ');
+    const answer = await question('投稿準備をしますか？ [Enter:開く / s:スキップ / q:終了]: ');
     
     if (answer.toLowerCase() === 'q') {
       console.log('終了します。');
@@ -92,8 +103,21 @@ async function preparePost() {
       console.log('スキップしました。');
       continue;
     } else {
-      console.log('ブラウザを開いています...');
+      console.log('ブラウザとFinderを開いています...');
+      
+      // ブラウザで投稿画面を開く
       openUrl(intentUrl);
+      
+      // ローカルの画像ファイルをFinderで表示
+      if (article.image) {
+        // 画像パスを解決 (例: /assets/foo.png -> public/assets/foo.png)
+        const localImagePath = path.join(process.cwd(), 'public', article.image);
+        if (fs.existsSync(localImagePath)) {
+          revealFile(localImagePath);
+        } else {
+          console.log(`警告: 画像ファイルが見つかりません: ${localImagePath}`);
+        }
+      }
     }
   }
   
