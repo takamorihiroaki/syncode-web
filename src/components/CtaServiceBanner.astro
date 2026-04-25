@@ -1,0 +1,162 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  ctaText?: string;
+}
+
+const { 
+  title = "AIエージェント構築を、次のステージへ。",
+  subtitle = "SYNCODE PREMIUM SERVICE",
+  description = "「使いこなす」から「自律させる」へ。あなたのビジネスに最適化されたAIエージェント環境を、SYNCODEが設計・構築します。",
+  ctaText = "無料相談を予約する"
+} = Astro.props;
+---
+
+<div class="cta-service-banner">
+  <div class="banner-inner">
+    <div class="content">
+      <span class="subtitle">{subtitle}</span>
+      <h2 class="title">{title}</h2>
+      <p class="description">{description}</p>
+      <a href="/service/" class="cta-button">
+        <span class="cta-text">{ctaText}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+    <div class="visual">
+      <img src="/assets/cta-service-premium.png" alt="SYNCODE Premium Service Visual" loading="lazy" />
+      <div class="overlay"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cta-service-banner {
+    margin: 80px 0;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #050505;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  }
+
+  .banner-inner {
+    display: flex;
+    min-height: 450px;
+  }
+
+  .content {
+    flex: 1.2;
+    padding: 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .subtitle {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.4em;
+    color: #888;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+
+  .title {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #fff;
+    margin: 0 0 24px 0;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+  }
+
+  .description {
+    font-size: 1rem;
+    color: #999;
+    line-height: 1.8;
+    margin: 0 0 40px 0;
+    max-width: 90%;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    height: 56px;
+    padding: 0 40px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 4px;
+    width: fit-content;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .cta-text {
+    transform: translateY(1.5px);
+    line-height: 1;
+  }
+
+  .cta-button svg {
+    display: block;
+    transform: translateY(0.5px);
+  }
+
+  .cta-button:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+  }
+
+  .visual {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: transform 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .cta-service-banner:hover .visual img {
+    transform: scale(1.05);
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, #050505 0%, transparent 100%);
+  }
+
+  @media (max-width: 1024px) {
+    .banner-inner {
+      flex-direction: column;
+    }
+    .content {
+      padding: 48px;
+      order: 2;
+    }
+    .visual {
+      height: 300px;
+      order: 1;
+    }
+    .overlay {
+      background: linear-gradient(to top, #050505 0%, transparent 100%);
+    }
+    .title {
+      font-size: 1.75rem;
+    }
+  }
+</style>

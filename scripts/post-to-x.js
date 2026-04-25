@@ -80,14 +80,8 @@ async function preparePost() {
 
   for (let i = 0; i < matchedArticles.length; i++) {
     const article = matchedArticles[i];
-    const hashtags = article.tags.map(tag => `${tag.replace(/\s+/g, '')}`).join(',');
-    
-    const text = `【NEW POST】\n${article.title}\n\n`;
-    const encodedText = encodeURIComponent(text);
-    const encodedUrl = encodeURIComponent(article.url);
-    const encodedHashtags = encodeURIComponent(hashtags);
-    
-    const intentUrl = `https://x.com/intent/tweet?text=${encodedText}&url=${encodedUrl}&hashtags=${encodedHashtags}`;
+    const hashtags = article.tags.map(tag => `#${tag.replace(/\s+/g, '')}`).join(' ');
+    const text = `【NEW POST】\n${article.title}\n\n${article.url}?ref=x\n\n${hashtags}`;
     
     console.log(`[${i + 1}/${matchedArticles.length}] --------------------------------`);
     console.log(`日付: ${article.date}`);
@@ -103,10 +97,16 @@ async function preparePost() {
       console.log('スキップしました。');
       continue;
     } else {
+      console.log('投稿テキストをクリップボードにコピーしました！');
       console.log('ブラウザとFinderを開いています...');
       
-      // ブラウザで投稿画面を開く
-      openUrl(intentUrl);
+      // Macのpbcopyを使用してクリップボードにコピー
+      if (process.platform === 'darwin') {
+        exec(`echo "${text.replace(/"/g, '\\"')}" | pbcopy`);
+      }
+      
+      // 通常の投稿画面（画像添付が確実に機能する画面）を開く
+      openUrl('https://x.com/compose/tweet');
       
       // ローカルの画像ファイルをFinderで表示
       if (article.image) {
