@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SubPageHero from '../components/SubPageHero.astro';
 import CtaAffiliate from '../components/CtaAffiliate.astro';
 ---
 
@@ -9,56 +10,39 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
 >
     <style>
         .tools-layout {
-            max-width: 760px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 60px 6% 120px;
+            padding: 40px 5% 120px;
             color: var(--color-text);
-            line-height: 1.9;
-            letter-spacing: 0.04em;
-        }
-
-        .tools-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .tools-header h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            line-height: 1.5;
-        }
-
-        .tools-header .lead {
-            color: var(--color-text-light);
-            font-size: 0.95rem;
+            line-height: 2;
+            letter-spacing: 0.05em;
         }
 
         /* PR開示バナー */
         .pr-disclosure-banner {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
+            align-items: center;
+            gap: 12px;
             background: #fffdf5;
             border: 1px solid #e8ddb8;
-            border-radius: 8px;
-            padding: 12px 16px;
-            margin-bottom: 40px;
-            font-size: 0.78rem;
+            padding: 16px 24px;
+            margin-bottom: 60px;
+            font-size: 0.8rem;
             color: #888;
-            line-height: 1.7;
+            line-height: 1.6;
+            position: relative;
         }
 
         .pr-disclosure-banner__badge {
             flex-shrink: 0;
+            font-family: var(--font-heading);
             font-size: 0.6rem;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 0.1em;
             background: #b8860b;
             color: #fff;
-            padding: 2px 7px;
-            border-radius: 3px;
-            margin-top: 2px;
+            padding: 3px 8px;
+            text-transform: uppercase;
         }
 
         .pr-disclosure-banner p {
@@ -69,192 +53,198 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         .ranking-overview {
             display: flex;
             flex-direction: column;
-            background: #ffffff;
+            background: #fafafa;
             border: 1px solid #f0f0f0;
-            border-radius: 20px;
-            padding: 40px;
-            margin: 0 0 80px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.04);
+            padding: 60px 50px;
+            margin: 0 0 100px;
             position: relative;
-            overflow: hidden;
-        }
-
-        .ranking-overview::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, #1a1a1a, #666, #999);
         }
 
         .ranking-overview h2 {
-            font-size: 0.8rem;
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: var(--color-text-light);
-            margin-bottom: 24px;
+            letter-spacing: 0.4em;
+            color: #ccc;
+            margin-bottom: 40px;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
         }
 
         .ranking-overview h2::after {
             content: "";
             flex: 1;
             height: 1px;
-            background: #f0f0f0;
+            background: #eee;
         }
 
         .rank-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 12px;
         }
 
         .rank-row {
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 14px 18px;
-            border-radius: 12px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            gap: 24px;
+            padding: 20px 24px;
+            border-bottom: 1px solid #eee;
+            transition: all 0.4s var(--ease-out-expo);
             text-decoration: none !important;
-            border: 1px solid transparent;
         }
 
         .rank-row:hover {
-            background: #fafafa;
-            border-color: #eee;
-            transform: translateX(10px);
+            background: #fff;
+            transform: translateX(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .rank-emoji-box {
-            width: 48px;
-            height: 48px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #f8f8f8;
-            border-radius: 12px;
-            font-size: 1.4rem;
-            transition: all 0.3s ease;
+            font-size: 1.2rem;
             flex-shrink: 0;
-        }
-
-        .rank-row:hover .rank-emoji-box {
-            background: #1a1a1a;
-            transform: scale(1.1) rotate(-8deg);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         .rank-content {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 4px;
             flex: 1;
         }
 
         .rank-name {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--color-text);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #000;
+            letter-spacing: -0.01em;
         }
 
         .rank-desc {
-            font-size: 0.82rem;
-            color: var(--color-text-light);
-            letter-spacing: 0.02em;
-        }
-
-        .rank-arrow {
-            color: #eee;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateX(-10px);
-        }
-
-        .rank-row:hover .rank-arrow {
-            opacity: 1;
-            transform: translateX(0);
-            color: #ccc;
+            font-size: 0.85rem;
+            color: #888;
         }
 
         @media (max-width: 600px) {
-            .ranking-overview { padding: 30px 20px; }
-            .rank-row { gap: 14px; padding: 12px; }
-            .rank-emoji-box { width: 40px; height: 40px; font-size: 1.2rem; }
-            .rank-name { font-size: 0.95rem; }
-            .rank-desc { font-size: 0.75rem; }
-            .rank-row:hover { transform: translateX(5px); }
+            .ranking-overview { padding: 40px 24px; }
+            .rank-row { gap: 16px; padding: 16px; }
+            .rank-row:hover { transform: translateX(8px); }
         }
 
         /* 1位 LP section */
         .winner-card {
-            border: 2px solid #1a1a1a;
-            border-radius: 16px;
-            padding: 50px 44px;
-            margin-bottom: 50px;
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 80px 60px;
+            margin-bottom: 80px;
             position: relative;
             background: #ffffff;
+            transition: transform 0.6s var(--ease-out-expo);
+        }
+
+        /* シグネチャー：L字ボーダー（Winner Card用） */
+        .winner-card::before, .winner-card::after {
+            content: '';
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border: 1px solid rgba(184, 134, 11, 0.4);
+            opacity: 0;
+            transition: all 0.4s var(--ease-out-expo);
+            pointer-events: none;
+            z-index: 10;
+        }
+        .winner-card::before { top: -16px; left: -16px; border-right: none; border-bottom: none; }
+        .winner-card::after { bottom: -16px; right: -16px; border-left: none; border-top: none; }
+
+        .winner-card:hover {
+            transform: translateY(-8px);
+            border-color: #000;
+        }
+
+        .winner-card:hover::before, .winner-card:hover::after {
+            opacity: 1;
+            width: 40px;
+            height: 40px;
         }
 
         .winner-label {
             position: absolute;
-            top: -16px;
-            left: 32px;
-            background: #1a1a1a;
+            top: -12px;
+            left: 40px;
+            background: #b8860b;
             color: #fff;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
+            font-family: var(--font-heading);
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
             padding: 6px 20px;
-            border-radius: 50px;
+            text-transform: uppercase;
         }
 
         .winner-card h2 {
-            font-size: 1.8rem;
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
         }
 
         .winner-card .subtitle {
-            color: var(--color-text-light);
-            font-size: 0.95rem;
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #ccc;
             margin-bottom: 30px;
+            display: block;
         }
 
         /* 実績バー */
         .result-strip {
-            display: flex;
-            gap: 16px;
-            margin: 30px 0;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 40px 0;
         }
 
         .result-pill {
-            background: #f5f5f5;
-            border-radius: 8px;
-            padding: 14px 20px;
-            flex: 1;
-            min-width: 140px;
+            background: #fafafa;
+            border: 1px solid #f0f0f0;
+            padding: 24px 20px;
             text-align: center;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .winner-card:hover .result-pill {
+            background: #fff;
+            border-color: #000;
         }
 
         .result-pill .num {
-            font-size: 1.3rem;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
             font-weight: 800;
             display: block;
+            color: #000;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
         }
 
         .result-pill .label {
-            font-size: 0.75rem;
-            color: var(--color-text-light);
+            font-family: var(--font-heading);
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         .benefit-list {
@@ -531,6 +521,13 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
         }
     </style>
 
+    <SubPageHero 
+        badge="Standard Tools"
+        title="【2026年版】ブログ収益化で<br>実際に使っているおすすめツールランキング"
+        description="私が0→1を達成するまでに使用した、厳選ツールだけをランキング形式で紹介します。<br/>収益化と効率を最大化する、実戦仕様の環境を構築しましょう。"
+        accent="gold"
+    />
+
     <div class="tools-layout">
 
         <!-- PR開示バナー -->
@@ -538,11 +535,6 @@ import CtaAffiliate from '../components/CtaAffiliate.astro';
             <span class="pr-disclosure-banner__badge">PR / AD</span>
             <p>このページはアフィリエイト広告（プロモーション）を含みます。リンク経由での購入・登録により、サイト運営者に報酬が発生する場合があります。</p>
         </div>
-
-        <header class="tools-header">
-            <h1>【2026年版】ブログ収益化で<br>実際に使っているおすすめツールランキング</h1>
-            <p class="lead">私が0→1を達成するまでに使用した、厳選ツールだけをランキング形式で紹介します。</p>
-        </header>
 
         <!-- ランキング早見表 -->
         <div class="ranking-overview">

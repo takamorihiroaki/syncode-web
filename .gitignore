@@ -32,3 +32,4 @@ pnpm-debug.log*
 /debug_articles.ts
 /logs/
 knowledge
+credentials.json

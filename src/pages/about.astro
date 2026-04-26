@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SubPageHero from '../components/SubPageHero.astro';
 import AISearchOptimizer from '../components/AISearchOptimizer.astro';
 ---
 
@@ -9,30 +10,19 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
 >
     <style>
         .about-layout {
-            max-width: 1000px; /* 刷新後の1000px基準を復元 */
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 100px 5% 80px;
+            padding: 80px 5% 80px;
             color: var(--color-text);
             line-height: 2.2;
-            letter-spacing: 0.1em;
-        }
-
-        .about-page-title {
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5em;
-            color: #999;
-            margin: 0 0 100px 0;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #1a1a1a;
+            letter-spacing: 0.05em;
         }
 
         .about-section {
             margin-bottom: 120px;
             display: flex;
             flex-direction: column;
-            max-width: 850px; /* 700pxから850pxへ拡張 */
+            max-width: 850px;
         }
 
         .about-section:last-child {
@@ -40,7 +30,8 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         }
 
         .about-section h2 { 
-            font-size: 0.8rem;
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
             font-weight: 800; 
             text-transform: uppercase; 
             letter-spacing: 0.4em;
@@ -53,27 +44,17 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         .about-section p { 
             margin: 0; 
             font-size: 1.1rem;
-            word-break: keep-all; 
-            overflow-wrap: break-word;
             font-weight: 500;
         }
 
-        .about-section p span {
-            display: inline-block;
-        }
-
-        .spacer {
-            display: block;
-            height: 24px;
-        }
-
         .about-section strong span {
+            font-family: var(--font-heading);
             font-weight: 900;
-            font-size: 1.8rem; /* 1.1remから、最もインパクトのあった1.8remへ復元 */
+            font-size: 1.8rem;
             margin-bottom: 24px;
             display: block;
             color: #000;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
         }
 
         /* Bridge Section (Nano-Minimalist with Copy) */
@@ -176,8 +157,14 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         }
     </style>
 
+    <SubPageHero 
+        badge="Identity"
+        title="Sync with Insight"
+        description="30年のディレクション経験とAIの演算能力を同期させ、ブランドの本質を抽出する。<br/>SYNCODEの背景にある、職人的なこだわりと思想について。"
+        accent="gold"
+    />
+
     <div class="about-layout">
-        <h1 class="about-page-title">ABOUT</h1>
         <section class="about-section">
             <h2>Identity</h2>
             <p>

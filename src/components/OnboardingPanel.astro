@@ -1,66 +1,56 @@
----
-/* 
-  OnboardingPanel.astro
-  初見ユーザーの習熟度に応じて最適な入口へ誘導するオンボーディングコンポーネント
-  ChatGPT・Gemini評価フィードバックに基づく導線改善施策
-*/
----
-
 <section class="onboarding-section" id="onboarding-panel">
   <div class="onboarding-container">
     <div class="onboarding-header">
-      <span class="onboarding-badge">QUICK NAVIGATION</span>
-      <h2 class="onboarding-title">あなたの目的に合わせて、最短ルートをご案内します</h2>
+      <span class="onboarding-badge">DISCOVERY GATEWAY</span>
+      <h2 class="onboarding-title">AIとの共創を、次の次元へ。</h2>
+      <p class="onboarding-subtitle">あなたの現在地に合わせた、最適な知見への入口をご案内します。</p>
     </div>
 
     <div class="onboarding-grid">
       <!-- 初めての方 -->
       <a href="/articles/antigravity-start/" class="onboarding-card card-start">
-        <div class="card-accent"></div>
         <div class="card-body">
-          <div class="card-icon-wrapper">
-            <span class="card-icon">🚀</span>
+          <div class="card-meta">
+            <span class="card-number">01</span>
+            <span class="card-phase">BEGINNER</span>
           </div>
-          <span class="card-phase">BEGINNER</span>
-          <h3 class="card-heading">AIエージェントを<br/>初めて使う方</h3>
-          <p class="card-desc">環境構築から最初の成功体験まで。5分で読めるスタートガイドから始めましょう。</p>
+          <h3 class="card-heading">AIエージェントの<br/>基礎を構築する</h3>
+          <p class="card-desc">環境構築から最初の成功体験まで。30年の現場知見を凝縮した、5分で読めるスタートガイド。</p>
           <div class="card-action">
-            <span class="action-label">スタートガイドを読む</span>
-            <span class="action-time">所要時間：約5分</span>
+            <span class="action-label">VIEW START GUIDE</span>
+            <span class="action-arrow">→</span>
           </div>
         </div>
       </a>
 
       <!-- 使い始めた方 -->
       <a href="/antigravity/hub/" class="onboarding-card card-intermediate">
-        <div class="card-accent"></div>
         <div class="card-body">
-          <div class="card-icon-wrapper">
-            <span class="card-icon">📡</span>
+          <div class="card-meta">
+            <span class="card-number">02</span>
+            <span class="card-phase">SKILL UP</span>
           </div>
-          <span class="card-phase">SKILL UP</span>
-          <h3 class="card-heading">もっと使いこなしたい方</h3>
-          <p class="card-desc">散在するノウハウを4フェーズで体系化。START → USE → FIX → MASTERの最短ルートへ。</p>
+          <h3 class="card-heading">実践知を体系化し<br/>指揮能力を高める</h3>
+          <p class="card-desc">START → USE → FIX → MASTER。AIとの対話を4フェーズで深化させる学習ロードマップ。</p>
           <div class="card-action">
-            <span class="action-label">学習ロードマップへ</span>
-            <span class="action-time">4フェーズ / 全12記事</span>
+            <span class="action-label">EXPLORE ROADMAP</span>
+            <span class="action-arrow">→</span>
           </div>
         </div>
       </a>
 
       <!-- 壁にぶつかっている方 -->
       <a href="#diagnosis-hub" class="onboarding-card card-troubleshoot">
-        <div class="card-accent"></div>
         <div class="card-body">
-          <div class="card-icon-wrapper">
-            <span class="card-icon">🛡️</span>
+          <div class="card-meta">
+            <span class="card-number">03</span>
+            <span class="card-phase">FIX NOW</span>
           </div>
-          <span class="card-phase">FIX NOW</span>
-          <h3 class="card-heading">今すぐ問題を<br/>解決したい方</h3>
-          <p class="card-desc">「重い」「コードが壊れる」「情報漏洩が不安」—症状から最適な解決策を即座に提示します。</p>
+          <h3 class="card-heading">発生している問題を<br/>即座に解決する</h3>
+          <p class="card-desc">「重い」「コードが破壊される」「文脈を忘れる」。症状から最適な解決プロトコルを提示します。</p>
           <div class="card-action">
-            <span class="action-label">症状から診断する</span>
-            <span class="action-time">最短30秒で解決策へ</span>
+            <span class="action-label">START DIAGNOSIS</span>
+            <span class="action-arrow">→</span>
           </div>
         </div>
       </a>
@@ -70,47 +60,51 @@
 
 <style>
   .onboarding-section {
-    padding: 0 0 60px;
+    padding: 100px 0 120px;
     background: #fff;
   }
 
   .onboarding-container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 5%;
   }
 
   .onboarding-header {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 80px;
   }
 
   .onboarding-badge {
     display: inline-block;
-    font-size: 0.6rem;
+    font-size: 0.65rem;
     font-weight: 800;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.5em;
     text-transform: uppercase;
-    color: #22c55e;
-    padding: 5px 14px;
-    border: 1px solid rgba(34, 197, 94, 0.2);
-    border-radius: 4px;
-    margin-bottom: 20px;
+    color: #666;
+    margin-bottom: 24px;
   }
 
   .onboarding-title {
-    font-size: 1.3rem;
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
     font-weight: 800;
-    color: #1a1a1a;
-    letter-spacing: 0.02em;
-    line-height: 1.6;
-    margin: 0;
+    color: #000;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+  }
+
+  .onboarding-subtitle {
+    font-size: 1rem;
+    color: #888;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   .onboarding-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 40px;
   }
 
   .onboarding-card {
@@ -118,153 +112,142 @@
     display: flex;
     flex-direction: column;
     background: #fff;
-    border: 1px solid #eee;
-    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.06);
     text-decoration: none;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+    transition: all 0.6s var(--ease-out-expo);
   }
+
+  /* シグネチャー：L字ボーダー */
+  .onboarding-card::before, .onboarding-card::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(0,0,0,0.15);
+    opacity: 0;
+    transition: all 0.4s var(--ease-out-expo);
+    pointer-events: none;
+    z-index: 10;
+  }
+  .onboarding-card::before { top: -12px; left: -12px; border-right: none; border-bottom: none; }
+  .onboarding-card::after { bottom: -12px; right: -12px; border-left: none; border-top: none; }
 
   .onboarding-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
-    border-color: transparent;
+    transform: translateY(-10px);
+    border-color: #000;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.08);
   }
 
-  /* カード上部のアクセントライン */
-  .card-accent {
-    height: 3px;
-    width: 100%;
-    transition: height 0.4s ease;
-  }
-
-  .card-start .card-accent { background: linear-gradient(90deg, #2563eb, #60a5fa); }
-  .card-intermediate .card-accent { background: linear-gradient(90deg, #b8860b, #d4a843); }
-  .card-troubleshoot .card-accent { background: linear-gradient(90deg, #ef4444, #f87171); }
-
-  .onboarding-card:hover .card-accent {
-    height: 4px;
+  .onboarding-card:hover::before, .onboarding-card:hover::after {
+    opacity: 1;
+    width: 30px;
+    height: 30px;
   }
 
   .card-body {
-    padding: 36px 30px 32px;
+    padding: 60px 40px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
   }
 
-  .card-icon-wrapper {
-    margin-bottom: 20px;
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
   }
 
-  .card-icon {
-    font-size: 2rem;
-    display: block;
+  .card-number {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #ddd;
+    letter-spacing: 0.1em;
+    transition: color 0.4s ease;
+  }
+
+  .onboarding-card:hover .card-number {
+    color: #000;
   }
 
   .card-phase {
     font-size: 0.6rem;
-    font-weight: 900;
+    font-weight: 800;
     letter-spacing: 0.3em;
     text-transform: uppercase;
-    margin-bottom: 12px;
-    display: block;
+    color: #999;
   }
 
-  .card-start .card-phase { color: #2563eb; }
-  .card-intermediate .card-phase { color: #b8860b; }
-  .card-troubleshoot .card-phase { color: #ef4444; }
-
   .card-heading {
-    font-size: 1.2rem;
-    font-weight: 800;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
     line-height: 1.5;
-    color: #1a1a1a;
-    margin: 0 0 14px 0;
+    color: #000;
+    margin: 0 0 24px 0;
     letter-spacing: 0.01em;
   }
 
   .card-desc {
-    font-size: 0.85rem;
-    line-height: 1.8;
+    font-size: 0.9rem;
+    line-height: 2;
     color: #666;
     margin: 0;
     flex-grow: 1;
+    font-weight: 400;
   }
 
   .card-action {
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid #f0f0f0;
+    margin-top: 48px;
     display: flex;
-    flex-direction: column;
-    gap: 6px;
+    align-items: center;
+    gap: 12px;
   }
 
   .action-label {
-    font-size: 0.8rem;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
     font-weight: 800;
-    color: #1a1a1a;
-    letter-spacing: 0.05em;
-    transition: transform 0.3s ease;
+    color: #000;
+    letter-spacing: 0.2em;
   }
 
-  .onboarding-card:hover .action-label {
-    transform: translateX(4px);
+  .action-arrow {
+    font-size: 1.1rem;
+    transition: transform 0.4s var(--ease-out-expo);
   }
 
-  .action-time {
-    font-size: 0.65rem;
-    color: #999;
-    letter-spacing: 0.05em;
+  .onboarding-card:hover .action-arrow {
+    transform: translateX(8px);
   }
 
-  /* ホバー時のカードボーダー色 */
-  .card-start:hover { border-color: #2563eb; }
-  .card-intermediate:hover { border-color: #b8860b; }
-  .card-troubleshoot:hover { border-color: #ef4444; }
+  @media (max-width: 1024px) {
+    .onboarding-grid {
+      gap: 20px;
+    }
+    .card-body {
+        padding: 40px 30px;
+    }
+  }
 
   @media (max-width: 900px) {
     .onboarding-grid {
       grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    .onboarding-card {
-      flex-direction: row;
-    }
-    .card-accent {
-      width: 3px;
-      height: auto;
-      min-height: 100%;
-    }
-    .onboarding-card:hover .card-accent {
-      width: 4px;
-      height: auto;
+      gap: 24px;
     }
     .card-body {
-      padding: 24px 24px;
-    }
-    .card-heading {
-      font-size: 1.05rem;
-    }
-    .card-heading br {
-      display: none;
-    }
-    .card-icon-wrapper {
-      margin-bottom: 12px;
-    }
-    .card-icon {
-      font-size: 1.6rem;
+      padding: 40px;
     }
   }
 
   @media (max-width: 480px) {
     .onboarding-title {
-      font-size: 1.1rem;
+      font-size: 1.6rem;
     }
     .card-body {
-      padding: 20px;
+      padding: 30px;
     }
   }
 </style>
+

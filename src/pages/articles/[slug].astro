@@ -42,14 +42,20 @@ const antigravityPhases: Record<string, string> = {
 
 export async function getStaticPaths() {
     const articleEntries = await getCollection("articles");
-    return articleEntries.map((entry) => ({
-        params: { slug: entry.id },
-        props: { entry },
-    }));
+    return articleEntries.map((entry) => {
+        // IDからディレクトリ部分を削除し、さらに拡張子（.md / .mdx）を除去してSlugを作成
+        const slug = entry.id.split('/').pop()?.replace(/\.(md|mdx)$/, '') || entry.id;
+        return {
+            params: { slug },
+            props: { entry },
+        };
+    });
 }
 
 const { entry } = Astro.props;
-const activePhase = antigravityPhases[entry.id];
+// IDからベース名を取得してフェーズ判定（ディレクトリが変わっても機能するように）
+const entryBaseId = entry.id.split('/').pop()?.replace(/\.(md|mdx)$/, '') || entry.id;
+const activePhase = antigravityPhases[entryBaseId];
 const { Content, headings } = await render(entry);
 
 // 次の記事（シリーズ内）を検索
@@ -113,10 +119,10 @@ if (category === "AI戦略" || category === "マーケティング" || hasWorksT
 }
 
 // Antigravity関連記事の場合、マスターガイドへの特別導線を有効化
-const isAntigravityArticle = tags.includes("Antigravity") && entry.id !== "antigravity-master-guide";
+const isAntigravityArticle = tags.includes("Antigravity") && entryBaseId !== "antigravity-master-guide";
 
 // INSIGHT（サロン）カテゴリー判定
-const isSalon = entry.data.category === "INSIGHT";
+const isSalon = entry.data.category?.includes("INSIGHT");
 ---
 
 <BaseLayout 
@@ -213,7 +219,7 @@ const isSalon = entry.data.category === "INSIGHT";
                     title={displayNext.data.title}
                     excerpt={displayNext.data.excerpt}
                     image={displayNext.data.image || ""}
-                    link={`/articles/${displayNext.id}/`}
+                    link={`/articles/${displayNext.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`}
                     label={nextEntry ? "NEXT STEP" : "RECOMMENDED"}
                     category={displayNext.data.category}
                 />

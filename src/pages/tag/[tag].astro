@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
+import SubPageHero from "../../components/SubPageHero.astro";
 import AISearchOptimizer from "../../components/AISearchOptimizer.astro";
 import { tagToSlug } from "../../utils/tag";
 
@@ -48,122 +49,100 @@ const relatedTags = [...new Set(
 ---
 
 <BaseLayout title={`${tag} - タグ一覧`} noindex={articles.length < 3}>
-    <div class="archive-header">
-        <div class="section-title-wrapper-tag">
-            <span class="tag-label-top">Tag</span>
-            <h1 class="section-title-tag">{tag}</h1>
-            <p class="tag-count-label">{articles.length}件の記事</p>
-        </div>
-    </div>
+    <SubPageHero 
+        badge="Tag"
+        title={`#${tag}`}
+        description={`「${tag}」に関する知見と情報のアーカイブ。<br/>全 ${articles.length} 件の記事を公開しています。`}
+        accent="blue"
+    />
 
-    {relatedTags.length > 0 && (
-        <div class="related-tags-container">
-            <span class="related-tags-label">Related:</span>
-            <div class="related-tags-list">
-                {relatedTags.map(rt => (
-                    <a href={`/tag/${tagToSlug(rt)}/`} class="related-tag-link">#{rt}</a>
-                ))}
+    <div class="tag-container">
+        {relatedTags.length > 0 && (
+            <div class="related-tags-container">
+                <span class="related-tags-label">Related Signals:</span>
+                <div class="related-tags-list">
+                    {relatedTags.map(rt => (
+                        <a href={`/tag/${tagToSlug(rt)}/`} class="related-tag-link">#{rt}</a>
+                    ))}
+                </div>
             </div>
-        </div>
-    )}
+        )}
 
-    <div class="article-grid">
-        {
-            articles.map((article) => (
-                <ArticleCard article={article} variant="standard" />
-            ))
-        }
-    </div>
-    
-    <div class="archive-footer">
-        <div class="footer-nav-links">
-            <a href="/articles/#tag-cloud" class="back-link secondary">すべてのタグを見る</a>
-            <a href="/" class="back-link">TOPページに戻る</a>
+        <div class="article-grid">
+            {
+                articles.map((article) => (
+                    <ArticleCard article={article} variant="standard" />
+                ))
+            }
+        </div>
+        
+        <div class="archive-footer">
+            <div class="footer-nav-links">
+                <a href="/articles/#tag-cloud" class="back-link">
+                    <span class="link-label">System Library</span>
+                    <span class="link-text">すべてのタグを見る</span>
+                </a>
+                <a href="/articles/" class="back-link">
+                    <span class="link-label">Back to Library</span>
+                    <span class="link-text">記事一覧に戻る</span>
+                </a>
+            </div>
         </div>
     </div>
     <AISearchOptimizer type="standard" />
 </BaseLayout>
 
 <style>
-    .archive-header {
-        text-align: center;
-        margin-bottom: 60px;
-    }
-
-    .section-title-wrapper-tag {
-        display: inline-block;
-        padding-bottom: 24px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .tag-label-top {
-        display: block;
-        font-size: 0.75rem;
-        color: #999;
-        text-transform: uppercase;
-        letter-spacing: 0.3em;
-        margin-bottom: 12px;
-    }
-
-    .section-title-tag {
-        font-size: 2.5rem;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-        color: #000;
-        margin: 0 0 8px 0;
-    }
-
-    .tag-count-label {
-        font-size: 0.85rem;
-        color: #888;
-        letter-spacing: 0.05em;
-        margin: 0;
+    .tag-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 60px 20px 140px;
     }
 
     .related-tags-container {
-        max-width: 1100px;
-        margin: 0 auto 60px;
+        margin-bottom: 80px;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 12px;
-        flex-wrap: wrap;
-        padding: 0 20px;
+        gap: 20px;
+        padding: 40px;
+        background: #fafafa;
+        border: 1px solid #f0f0f0;
     }
 
     .related-tags-label {
-        font-size: 0.7rem;
-        font-weight: 700;
-        color: #bbb;
+        font-family: var(--font-heading);
+        font-size: 0.65rem;
+        font-weight: 800;
+        color: #ccc;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.3em;
     }
 
     .related-tags-list {
         display: flex;
-        gap: 12px;
+        gap: 20px;
         flex-wrap: wrap;
+        justify-content: center;
     }
 
     .related-tag-link {
+        font-family: var(--font-heading);
         font-size: 0.85rem;
-        color: #666;
+        font-weight: 800;
+        color: #888;
         text-decoration: none;
-        transition: color 0.2s ease;
+        transition: color 0.3s ease;
     }
 
     .related-tag-link:hover {
         color: #000;
-        text-decoration: underline;
     }
 
     .article-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 60px 40px;
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 0 20px;
+        gap: 80px 40px;
     }
 
     @media (max-width: 1024px) {
@@ -180,7 +159,7 @@ const relatedTags = [...new Set(
 
     .archive-footer {
         text-align: center;
-        margin-top: 100px;
+        margin-top: 120px;
         padding-top: 60px;
         border-top: 1px solid #f0f0f0;
     }
@@ -188,34 +167,39 @@ const relatedTags = [...new Set(
     .footer-nav-links {
         display: flex;
         justify-content: center;
-        gap: 20px;
+        gap: 60px;
         flex-wrap: wrap;
     }
 
     .back-link {
-        display: inline-block;
-        padding: 14px 32px;
-        background: #000;
-        color: #fff;
         text-decoration: none;
-        font-size: 0.85rem;
-        font-weight: 700;
-        transition: all 0.3s ease;
-    }
-
-    .back-link.secondary {
-        background: #fff;
-        color: #000;
-        border: 1px solid #eee;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.4s var(--ease-out-expo);
     }
 
     .back-link:hover {
-        background: #333;
-        transform: translateY(-2px);
+        transform: translateY(-4px);
     }
 
-    .back-link.secondary:hover {
-        background: #f8f8f8;
-        border-color: #ddd;
+    .link-label {
+        font-family: var(--font-heading);
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.3em;
+        color: #ccc;
+    }
+
+    .link-text {
+        font-family: var(--font-heading);
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        color: #000;
+        padding-bottom: 4px;
+        border-bottom: 2px solid #000;
     }
 </style>

@@ -47,159 +47,188 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 </BaseLayout>
 
 <style>
-    .error-container {
-        min-height: 80vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 60px 20px;
-        text-align: center;
-    }
-
-    .error-visual {
-        position: relative;
-        margin-bottom: 40px;
-    }
-
-    .error-code {
-        font-size: 8rem;
-        font-weight: 900;
-        letter-spacing: 0.25em;
-        color: transparent;
-        -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
-        display: block;
-        line-height: 1;
-        opacity: 0.5;
-    }
-
-    .status-label {
-        font-size: 0.65rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.4em;
-        color: #b8860b;
-        display: block;
-        margin-bottom: 16px;
-    }
-
-    .error-title {
-        font-size: 1.6rem;
-        font-weight: 700;
-        letter-spacing: 0.2em;
-        margin-bottom: 24px;
-        color: var(--color-text);
-    }
-
-    .error-desc {
-        font-size: 14px;
-        line-height: 2.2;
-        color: var(--color-text-light);
-        margin-bottom: 40px;
-        letter-spacing: 0.05em;
-    }
-
-    .action-wrap {
-        margin-bottom: 80px;
-    }
-
-    .home-link {
-        text-decoration: none;
-        display: inline-flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        transition: opacity 0.3s ease;
-    }
-
-    .home-link:hover {
-        opacity: 0.6;
-    }
-
-    .link-label {
-        font-size: 0.6rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: #999;
-    }
-
-    .link-text {
-        font-size: 0.85rem;
-        font-weight: 700;
-        letter-spacing: 0.2em;
-        color: var(--color-text);
-        padding-bottom: 2px;
-        border-bottom: 1px solid var(--color-text);
-    }
-
-    .recommend-section {
-        max-width: 600px;
-        width: 100%;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
-        padding-top: 40px;
-    }
-
-    .recommend-title {
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.3em;
-        color: #bbb;
-        margin-bottom: 30px;
-        text-transform: uppercase;
-    }
-
-    .recommend-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
-
-    .recommend-item {
-        text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        padding: 20px 10px;
-        background: rgba(0, 0, 0, 0.02);
-        border-radius: 4px;
-        transition: all 0.3s ease;
-    }
-
-    .recommend-item:hover {
-        background: rgba(0, 0, 0, 0.04);
-        transform: translateY(-2px);
-    }
-
-    .item-tag {
-        font-size: 0.55rem;
-        font-weight: 800;
-        letter-spacing: 0.1em;
-        color: #b8860b;
-        border: 1px solid #b8860b;
-        padding: 1px 6px;
-        border-radius: 2px;
-    }
-
-    .item-text {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--color-text);
-    }
-
-    /* モバイル対応 */
-    @media (max-width: 768px) {
-        .error-code { font-size: 5rem; }
-        .error-title { font-size: 1.3rem; }
-        .recommend-grid {
-            grid-template-columns: 1fr;
-            gap: 12px;
-        }
-        .recommend-item {
-            flex-direction: row;
+        .error-container {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            padding: 15px;
+            padding: 80px 20px;
+            text-align: center;
         }
-    }
-</style>
+
+        .error-visual {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        .error-code {
+            font-family: var(--font-heading);
+            font-size: clamp(6rem, 15vw, 10rem);
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0, 0, 0, 0.1);
+            display: block;
+            line-height: 1;
+            opacity: 0.4;
+        }
+
+        .status-label {
+            font-family: var(--font-heading);
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: #b8860b;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .error-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+            color: #000;
+        }
+
+        .error-desc {
+            font-size: 1rem;
+            line-height: 2.2;
+            color: #888;
+            margin-bottom: 60px;
+            letter-spacing: 0.05em;
+        }
+
+        .action-wrap {
+            margin-bottom: 100px;
+        }
+
+        .home-link {
+            text-decoration: none;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .home-link:hover {
+            transform: translateY(-4px);
+        }
+
+        .link-label {
+            font-family: var(--font-heading);
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: #ccc;
+        }
+
+        .link-text {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            color: #000;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #000;
+        }
+
+        .recommend-section {
+            max-width: 800px;
+            width: 100%;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 60px;
+        }
+
+        .recommend-title {
+            font-family: var(--font-heading);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.4em;
+            color: #ccc;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .recommend-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .recommend-item {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 32px 20px;
+            background: #fafafa;
+            position: relative;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        /* シグネチャー：L字ボーダー（Recommend Item用） */
+        .recommend-item::before, .recommend-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: all 0.4s var(--ease-out-expo);
+            pointer-events: none;
+        }
+        .recommend-item::before { top: -8px; left: -8px; border-right: none; border-bottom: none; }
+        .recommend-item::after { bottom: -8px; right: -8px; border-left: none; border-top: none; }
+
+        .recommend-item:hover {
+            background: #fff;
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .recommend-item:hover::before, .recommend-item:hover::after {
+            opacity: 1;
+            width: 24px;
+            height: 24px;
+            border-color: #000;
+        }
+
+        .item-tag {
+            font-family: var(--font-heading);
+            font-size: 0.55rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: #b8860b;
+            border: 1px solid rgba(184, 134, 11, 0.3);
+            padding: 2px 8px;
+            text-transform: uppercase;
+        }
+
+        .item-text {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #000;
+            letter-spacing: -0.01em;
+        }
+
+        /* モバイル対応 */
+        @media (max-width: 768px) {
+            .recommend-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .recommend-item {
+                flex-direction: row;
+                justify-content: center;
+                padding: 20px;
+            }
+        }
+    </style>

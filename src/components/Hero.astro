@@ -4,36 +4,39 @@
 <section class="hero-section">
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="hero-badge">Expertise x Autonomy</div>
+      <div class="hero-badge-container">
+        <span class="hero-badge">EXPERTISE × AUTONOMY</span>
+      </div>
       <h1 class="hero-title">
         30年のディレクション経験と、<br />
-        <span class="marker-highlight">AI自律エージェント</span>の融合。
+        自律型AIエージェントの同期。
       </h1>
       <p class="hero-lead">
-        AIエージェントの「速度低下」「コード破壊」「文脈忘れ」を解決する。<br />
-        公式ガイドにはない、30年の現場知見に基づく実戦プロトコルがここにあります。
+        AIの速度低下・コード破壊・文脈喪失を克服する。<br />
+        公式ガイドにはない、実戦知能の体系。
       </p>
 
       <div class="hero-points">
         <ul class="points-list">
           <li class="point-item">
-            <span class="point-icon">✦</span>
-            30年のキャリアに基づく「判断」を、AIで10倍速化する技術
+            <span class="point-icon"></span>
+            30年のキャリアに基づく「判断」を、AIで加速させる技術
           </li>
           <li class="point-item">
-            <span class="point-icon">✦</span>
-            公式ガイドにはない、実戦投入から得られた独自ノウハウ
+            <span class="point-icon"></span>
+            実戦投入から抽出された、エラー解決と品質担保のプロトコル
           </li>
           <li class="point-item">
-            <span class="point-icon">✦</span>
-            AIに「全部理解」させ、思考のズレをゼロにするコンテキスト管理術
+            <span class="point-icon"></span>
+            AIに「文脈」を完全に同期させ、思考のズレを排除する管理術
           </li>
         </ul>
       </div>
 
       <div class="hero-actions">
-        <a href="#onboarding-panel" class="btn primary">
-          → 今すぐ始める（読了5分）
+        <a href="#onboarding-panel" class="btn-primary-vibe">
+          <span class="btn-text">EXPLORE KNOWLEDGE</span>
+          <span class="btn-arrow">→</span>
         </a>
       </div>
     </div>
@@ -42,7 +45,7 @@
 
 <style>
   .hero-section {
-    padding: 100px 0 80px;
+    padding: 140px 0 100px;
     background: #fff;
     display: flex;
     justify-content: center;
@@ -50,63 +53,73 @@
 
   .hero-inner {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto;
-    padding: 80px 60px;
-    background: #fdfdfd;
-    border: 1px solid #f0f0f0;
-    border-radius: 2px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+    padding: 100px 60px;
+    background: #fff;
+    position: relative;
+  }
+
+  /* 1pxの緊張感：四隅の極細ボーダー */
+  .hero-inner::before, .hero-inner::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(0,0,0,0.1);
+    pointer-events: none;
+  }
+  .hero-inner::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+  .hero-inner::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+
+  .hero-badge-container {
+    margin-bottom: 40px;
   }
 
   .hero-badge {
     display: inline-block;
     font-size: 0.65rem;
-    font-weight: 800;
-    letter-spacing: 0.4em;
+    font-weight: 700;
+    letter-spacing: 0.5em;
     text-transform: uppercase;
-    color: #999;
-    margin-bottom: 24px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 4px;
+    color: #000;
+    border: 1px solid rgba(0,0,0,0.08);
+    padding: 8px 24px;
+    border-radius: 2px;
   }
 
   .hero-content {
     text-align: center;
-    max-width: 700px;
+    max-width: 850px;
     margin: 0 auto;
   }
 
   .hero-title {
-    font-size: 2.6rem;
-    font-weight: 900;
-    line-height: 1.35;
-    margin-bottom: 30px;
-    letter-spacing: -0.01em;
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 40px;
+    letter-spacing: -0.02em;
     color: #000;
   }
 
-  .marker-highlight {
-    background: linear-gradient(transparent 50%, #fff100 50%);
-    padding: 0;
-    margin: 0;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    display: inline;
-  }
-
   .hero-lead {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     color: #666;
-    line-height: 1.8;
-    margin-bottom: 50px;
-    font-weight: 500;
+    line-height: 2;
+    margin-bottom: 60px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
   }
 
   .hero-points {
     text-align: left;
     display: inline-block;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
+    padding: 40px;
+    background: #fafafa;
+    border: 1px solid rgba(0,0,0,0.03);
   }
 
   .points-list {
@@ -116,20 +129,21 @@
   }
 
   .point-item {
-    font-size: 1.05rem;
-    color: #444;
-    margin-bottom: 16px;
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 20px;
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-weight: 600;
+    align-items: center;
+    gap: 16px;
+    font-weight: 500;
   }
+  .point-item:last-child { margin-bottom: 0; }
 
   .point-icon {
-    color: #b8860b;
-    font-size: 1.2rem;
-    line-height: 1;
-    margin-top: 2px;
+    width: 6px;
+    height: 6px;
+    background: #000;
+    flex-shrink: 0;
   }
 
   .hero-actions {
@@ -137,42 +151,54 @@
     justify-content: center;
   }
 
-  .btn {
-    display: inline-block;
-    padding: 18px 40px;
-    font-size: 0.9rem;
-    font-weight: 800;
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    border-radius: 4px;
-    letter-spacing: 0.1em;
-  }
-
-  .btn.primary {
+  .btn-primary-vibe {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 60px;
     background: #000;
     color: #fff;
-    border: 1px solid #000;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    transition: all 0.5s var(--ease-out-expo);
+    position: relative;
+    overflow: hidden;
   }
 
-  .btn.primary:hover {
-    background: #333;
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  .btn-primary-vibe:hover {
+    background: #222;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .btn-arrow {
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+
+  .btn-primary-vibe:hover .btn-arrow {
+    transform: translateX(10px);
   }
 
   @media (max-width: 768px) {
     .hero-title {
-      font-size: 1.8rem;
+      font-size: 2rem;
     }
     .hero-lead {
       font-size: 1rem;
     }
     .hero-inner {
-      padding: 50px 24px;
+      padding: 60px 24px;
     }
-    .btn {
-      width: 100%;
+    .hero-points {
+        padding: 30px 20px;
+    }
+    .btn-primary-vibe {
+        width: 100%;
+        justify-content: center;
     }
   }
 </style>
+

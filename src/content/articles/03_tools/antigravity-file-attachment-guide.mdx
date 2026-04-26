@@ -1,0 +1,136 @@
+---
+title: "Antigravityでのファイル添付・管理術｜CSV、JSONから大量ログまでAIに効率よく読み込ませる方法"
+image: /assets/antigravity-file-ops-mastery.svg
+excerpt: "Antigravity（アンチグラビティ）は画像だけではありません。CSVやJSON、システムのログファイルを適切に添付し、.gitignoreで制御することで、AIの解析精度は飛躍的に向上します。初心者向けに徹底解説。"
+date: '2026-04-17'
+tags:
+  - Antigravity
+  - ファイル添付
+  - 効率化
+category: AIツール
+draft: false
+---
+
+import CtaInline from '../../../components/CtaInline.astro';
+import CtaServiceBanner from '../../../components/CtaServiceBanner.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+## Antigravityのファイル添付：AIに「何を見せるか」で成果の8割が決まる
+
+多くのユーザーが「大量のファイルを読み込ませるとAIが混乱する」「動作が重くなる」という壁に突き当たります。
+
+Antigravity（アンチグラビティ）を使いこなす上で重要なのは、画像以外のファイル（テキスト、データ、ログなど）を<strong>戦略的に共有</strong>し、不要なファイルは <strong>.gitignore</strong> で徹底的にブロックすることです。
+
+> [!TIP]
+> <strong>本記事で解決できる悩み</strong>
+> - CSVやJSONなどのデータファイルをどうやって読み込ませるべきか？
+> - 動作が重くならない「ファイル管理」のコツは？
+> - `.gitignore` を使ったAIエージェントの制御方法は？
+
+---
+
+## 1. Antigravityでのファイル添付・送り方の基本と対応形式
+
+AntigravityはマルチモーダルなAIエージェントであり、画像以外の多くのテキストベースの形式に対応しています。
+
+### 対応している主なファイル形式
+- <strong>データ形式</strong>: `.json`, `.csv`, `.xml`, `.yaml`, `.yml`
+- <strong>ドキュメント</strong>: `.md`, `.txt`, `.pdf`
+- <strong>コーディング・ログ</strong>: `.js`, `.py`, `.ts`, `.log`, `.sql`
+
+### データファイルを読み込ませる手順
+1. <strong>ドラッグ＆ドロップ</strong>: 記事管理や設定用のJSONファイルを直接チャット欄に放り込みます。
+2. <strong>「読み込み」の指示</strong>: 「このJSONの内容を元に、新しい記事の構造を提案して」のように、添付ファイルに対して何をしてほしいかを明記します。
+
+---
+
+## 2. .gitignoreを活用したAntigravityの動作改善・AIの視界制御
+
+Antigravityはプロジェクト全体の構成を把握しようとしますが、全てのファイルを読み込ませるとコンテキストがパンクし、動作が極端に遅くなります。
+
+### AIに読み込ませないファイルの設定（.gitignore）
+
+プロジェクトのルート（一番上の階層）にある `.gitignore` ファイルに記述することで、AIエージェントの探索対象から外すことができます。
+
+```text: .gitignore
+# AIの回答に関係ない大容量ファイルを無視させる
+node_modules/
+dist/
+build/
+*.log
+large-dataset.csv
+```
+
+<strong>なぜこれが必要か？</strong>
+AIは「見えているもの全て」を重要視しようとします。不要なログや大規模なライブラリ（node_modulesなど）を隠すことで、AIは<strong>「あなたが今書いているコード」だけに集中</strong>できるようになり、回答速度と精度が劇的に向上します。
+
+---
+
+## 3. コンテキストを「ピンポイント」で削ぎ落とす
+
+もし「.gitignoreに書くほどではないが、このチャット中だけは特定のファイルを無視してほしい」という場合は、画面右側の <strong>Contextパネル</strong> を活用しましょう。
+
+1. 右側のサイドバーにある `Context` タブをクリック。
+2. 現在AIが認識しているファイル名が一覧表示されます。
+3. 今後の回答で不要なファイルの右側にある `×` やデタッチボタンを押す。
+
+これだけで、会話の途中でAIの頭脳を整理（リエンジニアリング）することができます。
+
+---
+
+## まとめ：ファイルを制する者がAIを制す
+
+Antigravityでのファイル管理は、以下の3ステップが基本です。
+
+1. <strong>データ形式（CSV/JSON等）は怖がらずに添付する。</strong>
+2. <strong>不要なファイルは `.gitignore` で一括除外する。</strong>
+3. <strong>会話が重くなったらContextパネルで個別解除する。</strong>
+
+物理的な負荷を減らすことで、AIとの共創はよりクリエイティブで、ストレスのないものに変化します。
+
+## 4. 【2026年最新】Opus 4.7がもたらした「コンテキストの革命」
+
+2026年4月のアップデートにより、Antigravityは **Opus 4.7** との完全同期を果たしました。これにより、ファイル添付の作法がさらに進化しています。
+
+- **超長大コンテキスト**: 以前は数ファイルで重くなっていた環境でも、Opus 4.7ならプロジェクト全体のソースコードを丸ごと「脳内」に保持したまま、高速なレスポンスを維持できます。
+- **自動依存関係分析**: ファイルを1つ添付するだけで、AIが自律的に「関連する他のファイル」をプロジェクト内から探し出し、補完してくれます。
+
+もはや、私たちが細かくファイルを管理する時代は終わり、**「AIにプロジェクトの全てを預ける」** ことが正解となりました。
+
+<CtaInline 
+  tag="HOT" 
+  title="ファイル管理の苦労から解放される。Opus 4.7による『思考の重力』の振り切り方はこちら。" 
+  buttonLink="/articles/antigravity-opus-4-7-definitive-guide/"
+/>
+
+<CtaInline 
+  tag="STRATEGY" 
+  title="AIに「何を見せるべきか」の判断すらも、プロにお任せ。SYNCODEがプロジェクトの最適構造を設計します。" 
+  buttonText="導入相談はこちら"
+  buttonLink="/service/"
+/>
+
+---
+
+## まとめ：ファイルを制する者がAIを制す
+
+Antigravityでのファイル管理は、以下の3ステップが基本です。
+
+1. <strong>データ形式（CSV/JSON等）は怖がらずに添付する。</strong>
+2. <strong>不要なファイルは `.gitignore` で一括除外する。</strong>
+3. <strong>会話が重くなったらContextパネルで個別解除する。</strong>
+
+物理的な負荷を減らすことで、AIとの共創はよりクリエイティブで、ストレスのないものに変化します。
+
+---
+
+<CtaServiceBanner />
+
+<RelatedLinks 
+  links={[
+    { text: "全技術記事を体系化した、AI使いへの地図：Antigravity 攻略マスターガイド", href: "/articles/antigravity-master-guide/" },
+    { text: "回答待ちを『10秒』から『1秒』へ：動作が重い・遅い時の劇的改善プロトコル", href: "/articles/antigravity-performance-fix/" },
+    { text: "ここから全てが始まる。10倍速の原点：Antigravity 導入・スタートガイド", href: "/articles/antigravity-start/" },
+    { text: "画像添付についても知りたい方はこちら：AIの視覚を同期させる最強テクニック", href: "/articles/antigravity-image-attachment-guide/" }
+  ]} 
+/>

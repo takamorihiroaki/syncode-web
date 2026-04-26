@@ -1,16 +1,17 @@
 /* Custom properties for consistency and premium feel */
 :root {
-    --color-text: #2c2c2c;
-    --color-text-light: #888888;
-    --color-text-dim: #999999;
+    --color-text: #1a1a1a;
+    --color-text-light: #666666;
+    --color-text-dim: #a0a0a0;
     --color-bg: #ffffff;
-    --color-bg-alt: #fafafa;
-    --color-border: #f0f0f0;
-    --color-accent: #333333;
+    --color-bg-alt: #fcfcfc;
+    --color-border: rgba(0, 0, 0, 0.06);
+    --color-accent: #000000;
     --color-primary: #0099ff;
-    --font-primary: 'Inter', 'Helvetica Neue', Helvetica, Arial, 'Noto Sans JP', sans-serif;
-    --transition-speed: 0.4s;
-    --ease-out-expo: cubic-bezier(0.165, 0.84, 0.44, 1);
+    --font-primary: 'Inter', 'Noto Sans JP', sans-serif;
+    --font-heading: 'Outfit', 'Inter', 'Noto Sans JP', sans-serif;
+    --transition-speed: 0.5s;
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {

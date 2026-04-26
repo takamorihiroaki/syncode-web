@@ -14,7 +14,7 @@ const isSalon = article.data.category === 'INSIGHT';
 
 // カテゴリに応じたアクセントカラー
 const getCategoryColor = (category: string) => {
-  if (category === 'INSIGHT') return '#FACC15'; // Salon Gold
+  if (category?.includes('INSIGHT')) return '#FACC15'; // Salon Gold
   switch (category) {
     case 'AI戦略': return '#0099ff';
     case 'AIツール': return '#00d1b2';
@@ -35,11 +35,13 @@ const categoryColor = getCategoryColor(article.data.category || '');
   data-tags={article.data.tags?.join(',') || ''}
 >
   <div class="card-link-wrapper">
-    <a href={`/articles/${article.id}/`} class="thumbnail-link">
-      <div class="thumbnail-wrapper"><img
+    <a href={`/articles/${article.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="thumbnail-link">
+      <div class="thumbnail-wrapper">
+        <img
           src={article.data.image}
           alt={`${article.data.title}のサムネイル`}
           loading="lazy"
+          class="thumbnail-image"
         />
         
         {isSalon && (
@@ -63,7 +65,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
             <span class="dot"></span>
             INSIGHT SALON
           </div>
-          <a href={`/articles/${article.id}/`} class="title-link">
+          <a href={`/articles/${article.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="title-link">
             <h3 class="card-title salon-title">{article.data.title}</h3>
           </a>
           <time class="post-date salon-date">
@@ -79,7 +81,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
       ) : variant === 'premium' ? (
         <div class="premium-meta">
           <div class="story-chronicle">PROJECT STORY CHRONICLES</div>
-          <a href={`/articles/${article.id}/`} class="title-link">
+          <a href={`/articles/${article.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="title-link">
             <h3 class="card-title">{article.data.title}</h3>
           </a>
           <p class="card-excerpt">{article.data.excerpt}</p>
@@ -100,7 +102,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
               })
               .replace(/\//g, ".")}
           </time>
-          <a href={`/articles/${article.id}/`} class="title-link">
+          <a href={`/articles/${article.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="title-link">
             <h3 class="card-title">{article.data.title}</h3>
           </a>
           <p class="card-excerpt">{article.data.excerpt}</p>
@@ -122,6 +124,37 @@ const categoryColor = getCategoryColor(article.data.category || '');
     flex-direction: column;
     min-width: 0; /* Important for grid consistency */
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative; /* L-border用 */
+  }
+
+  /* シグネチャー：L字ボーダー（全カード共通） */
+  .article-card::before, .article-card::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 1px solid rgba(0,0,0,0.15);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 10;
+  }
+  .article-card::before { top: -10px; left: -10px; border-right: none; border-bottom: none; }
+  .article-card::after { bottom: -10px; right: -10px; border-left: none; border-top: none; }
+
+  .article-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .article-card:hover::before, .article-card:hover::after {
+    opacity: 1;
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Salon専用L字（ゴールド） */
+  .is-salon::before, .is-salon::after {
+    border-color: rgba(250, 204, 21, 0.4);
   }
 
   .thumbnail-link {
@@ -134,12 +167,12 @@ const categoryColor = getCategoryColor(article.data.category || '');
   .thumbnail-wrapper {
     position: relative !important;
     width: 100% !important;
-    aspect-ratio: 1 / 1 !important;
+    aspect-ratio: 16 / 9 !important; /* NotebookLM推奨のアスペクト比に変更 */
     overflow: hidden !important;
-    margin: 0 0 24px 0 !important;
+    margin: 0 0 16px 0 !important; /* 余白を最適化 */
     padding: 0 !important;
-    background: #f0f0f0 !important;
-    border: 1px solid #f0f0f0 !important;
+    background: #1a1a1a !important; /* 背景色をダークに統一 */
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
   }
 
   .title-link {
@@ -153,7 +186,7 @@ const categoryColor = getCategoryColor(article.data.category || '');
     border-color: #222;
   }
 
-  .thumbnail-wrapper img {
+  .thumbnail-image {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
@@ -161,10 +194,10 @@ const categoryColor = getCategoryColor(article.data.category || '');
     height: 100% !important;
     margin: 0 !important;
     border-radius: 0 !important;
-    object-fit: cover !important;
+    object-fit: cover !important; /* 画像の歪みを防止 */
     object-position: center !important;
     display: block !important;
-    transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
   }
 
   .article-card:hover .thumbnail-wrapper img {

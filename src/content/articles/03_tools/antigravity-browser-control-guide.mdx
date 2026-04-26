@@ -1,0 +1,182 @@
+---
+title: "【自動化】Antigravityによるブラウザ操作の極意｜AIに「自分の代わり」をさせる全手順"
+image: /assets/antigravity-browser-control-guide.svg
+excerpt: "Antigravityの真骨頂であるブラウザ自動操作. 画面が映らない・動かないといった障壁を排除し、AIに「目」を授けてサイトを縦横無尽に徘徊・デバッグさせるための技術的解決策."
+date: '2026-04-07'
+tags:
+  - Antigravity
+  - 自動化
+category: AIツール
+draft: false
+---
+
+import CtaInline from '../../../components/CtaInline.astro';
+import RelatedLinks from '../../../components/RelatedLinks.astro';
+
+## AIに「目」を授け、ブラウザを意のままに操る。
+
+Antigravityの真骨頂である「Browser Control」が動かない、画面が真っ黒だ——そんな障壁で、AIの視覚を閉ざしてはいませんか？
+動かない原因は、常に「接続・環境・表示」のいずれかに集約されます。
+
+AIがサイトを縦横無尽に徘徊し、あなたの代わりに情報を集め、デバッグを行う。その圧倒的な利便性を解放するための最短手順を、ここに集約しました。
+
+- <strong>MCP（Browser Control）を接続しているか</strong>
+- <strong>Agent Manager（ワークスペース）を設定済みか</strong>
+- <strong>ローカル環境（npm run dev）を起動しているか</strong>
+
+👉 <strong>この3つが揃って初めて、AIはあなたのサイトを認識し、自動操作を開始します。</strong>
+
+---
+
+最初は私も「ツールをONにしたんだから、勝手にサイトを見てくれるんでしょ？」と思っていました。しかし、画面は真っ黒のまま、AIは「サイトが見つかりません」と冷たい返事...。
+ですが、以下の「3つの前提条件」を整えた瞬間👇
+
+👉 <strong>AIが自律的にボタンを押し、動作テストを代行してくれる魔法のような環境が完成しました。</strong>
+
+<div class="comparison-table-wrapper">
+    <table class="comparison-table">
+        <thead>
+            <tr>
+                <th>項目</th>
+                <th>Browser Control OFF</th>
+                <th>Browser Control ON（正常）</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>プレビュー画面</td>
+                <td>❌ 真っ黒（何も映らない）</td>
+                <td class="highlight"><span class="check">✔</span> リアルタイム表示</td>
+            </tr>
+            <tr>
+                <td>AIの自律性</td>
+                <td>指示待ちのみ</td>
+                <td class="highlight"><span class="check">✔</span> 自動で入力を試行</td>
+            </tr>
+            <tr>
+                <td>デバッグ効率</td>
+                <td>手動確認が必要</td>
+                <td class="highlight">AIにお任せで完了</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+---
+
+## Browser Controlが動かない本当の理由
+
+結論：
+👉 <strong>「接続」と「実行環境」がリンクしていないだけ</strong>
+
+Browser Controlは単体では動きません。「道（接続）」「土台（設定）」「対象（起動中のサイト）」の3つが揃って初めて、AIの“目”が機能します。
+
+---
+
+## 手順（完全再現ステップ）
+
+### Step 1：MCPを「Connected」にする（接続）
+
+AIに「ブラウザを触る許可」を与えます。これが最大の詰まりポイントです。
+
+1. 右上「<strong>Additional Options</strong>」→「<strong>MCP Servers</strong>」をクリック
+2. 「<strong>Browser Control</strong>」を選択
+3. 「<strong>Connect</strong>」をクリック
+
+👉 <strong>「Connected」と緑色で表示されれば成功です。</strong>  
+なるほどポイント①： <strong>「スイッチをONにするだけでなく、“接続中”の状態を確認してください」</strong>
+
+---
+
+### Step 2：Agent Managerを確認する（土台）
+
+AIが「どのプロジェクトのサイトを見ればいいか」を認識させる必要があります。
+
+1. 「<strong>Additional Options</strong>」→「<strong>Agent Manager</strong>」をクリック
+2. ワークスペースが設定されているか、プロジェクトが表示されているか確認
+
+👉 <strong>プロジェクトが表示されていない場合は、ワークスペースを再設定しましょう。</strong>  
+なるほどポイント②： <strong>「作業場が特定できないと、Browser Controlは迷子になります」</strong>
+
+---
+
+### Step 3：ローカル環境を「起動」する（表示対象）
+
+AIが見るための「本番のサイト」があなたのパソコンで動いている必要があります。
+
+1. ターミナルを開く
+2. `npm run dev` を実行し、サイトを起動する
+3. ブラウザで実際にページが表示されていることを確認
+
+👉 <strong>「表示されていないものは、AIも操作できません。」</strong>  
+なるほどポイント③： <strong>「ブラウザでプレビューが動いていて初めて、AIはその画面を読み取れます」</strong>
+
+---
+
+## 実行ログ（リアルな変化）
+
+| 状態 | AIの反応 | プレビュー画面 |
+| :--- | :--- | :--- |
+| <strong>改善前</strong> | 「アクセスできませんでした」 | 真っ黒（無反応） |
+| <strong>改善後</strong> | <strong>「サイトを確認しました。エラー箇所を特定します」</strong> | <strong>自動でページが遷移する</strong> |
+
+👉 <strong>一度動き出せば、あなたは画面を見ているだけで修正案が次々と出てきます。</strong>
+
+---
+
+## ⚠ よくある失敗
+
+- <strong>「Connected」ではなく「Disconnected」のまま</strong>
+  → 原因：接続エラー。一度ボタンを押し直して再接続しましょう。
+- <strong>サイト（npm run dev）を起動し忘れている</strong>
+  → 原因：AIが見る対象が存在しません。
+- <strong>Agent Managerで別のプロジェクトを選んでいる</strong>
+  → 原因：場所間違い。今作業しているフォルダを正しく設定しましょう。
+
+---
+
+## 🎯 ここが重要（収益に直結）
+
+ここが本質です。
+
+👉 <strong>「目」を持たないAIは、半分以下の力しか発揮できない</strong>
+
+Browser Controlが動けば、AIはあなたの代わりにデザインの崩れを見つけ、ボタンが正しく動くかテストしてくれます。この「自律的な動作」こそが、収益化までの時間を大幅に短縮する鍵です。
+
+---
+
+## 関連記事
+
+<a href="/articles/antigravity-start/" class="custom-hanging-link">
+  <span class="label-box">👉 <strong>10倍速の原点：</strong></span>
+  <span class="title-box">
+    <span class="animated-underline-endpoint">ここから全てが始まる。Antigravity 導入・スタートガイド</span>
+  </span>
+</a>
+
+<a href="/articles/antigravity-performance-fix/" class="custom-hanging-link">
+  <span class="label-box">👉 <strong>パフォーマンス向上：</strong></span>
+  <span class="title-box">
+    <span class="animated-underline-endpoint">「重い・遅い」を1秒で解決する技術的アプローチ</span>
+  </span>
+</a>
+
+<a href="/articles/antigravity-initial-setup-guide/" class="custom-hanging-link">
+  <span class="label-box">👉 <strong>根本から見直す：</strong></span>
+  <span class="title-box">
+    <span class="animated-underline-endpoint">3分で終わらせる。Antigravity初期設定ガイド</span>
+  </span>
+</a>
+
+
+---
+
+## まとめ（読者へのアクション）
+
+Browser Controlを動かすための3要素。
+
+1. <strong>MCP接続（Connected状態）</strong>
+2. <strong>ワークスペースの設定</strong>
+3. <strong>npm run dev の起動</strong>
+
+この3点セットを確認すれば、あなたのAntigravityは「自ら考えて動く最強の相棒」に進化します。

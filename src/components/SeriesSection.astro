@@ -10,7 +10,7 @@ const seriesIds = [
 ];
 
 const seriesArticles = seriesIds
-  .map(id => articles.find(a => a.id === id))
+  .map(id => articles.find(a => (a.id.split('/').pop()?.replace(/\.(md|mdx)$/, '') || a.id) === id))
   .filter(Boolean);
 ---
 
@@ -20,14 +20,14 @@ const seriesArticles = seriesIds
       <span class="series-tag">Documentary Series</span>
       <h2 class="series-title">SYNCODE 構造改革の全記録</h2>
       <p class="series-desc">
-        分析から課題発見、そしてAIとの共同作業でサイトを成長させていく軌跡を、全4回のストーリーでまとめました。
+        分析から課題発見、そこでAIとの共同作業でサイトを成長させていく軌跡を、全4回のストーリーでまとめました。
       </p>
     </div>
   </div>
 
   <div class="series-timeline">
     {seriesArticles.map((article, index) => (
-      <a href={`/articles/${article.id}/`} class="series-item">
+      <a href={`/articles/${article.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="series-item">
         <div class="item-visual">
           <img src={article.data.image} alt={article.data.title} loading="lazy" />
         </div>

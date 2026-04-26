@@ -29,7 +29,7 @@ const getSlugFromHref = (href: string) => {
 const allArticles = await getCollection('articles');
 const relatedArticles = links.map(link => {
   const slug = getSlugFromHref(link.href);
-  const article = allArticles.find(a => a.id === slug);
+  const article = allArticles.find(a => (a.id.split('/').pop()?.replace(/\.(md|mdx)$/, '') || a.id) === slug);
   return article ? { ...article, customTitle: link.text } : null;
 }).filter(Boolean);
 

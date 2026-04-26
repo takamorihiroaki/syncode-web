@@ -20,7 +20,7 @@ const seriesArticles = allArticles
 
   <div class="series-grid">
     {seriesArticles.map((article) => (
-      <a href={`/articles/${article.id}/`} class="series-card">
+      <a href={`/articles/${article.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="series-card">
         <div class="card-image-wrapper">
           <div class="card-image">
             <img src={article.data.image} alt={`${article.data.title} - INSIGHT SALON`} loading="lazy" />

@@ -151,17 +151,17 @@ const faqJson = (faq && faq.length > 0) ? {
         <link
             rel="preload"
             as="style"
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
         />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
             rel="stylesheet"
             media="print"
             onload="this.media='all'"
         />
         <noscript>
             <link
-                href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap"
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
                 rel="stylesheet"
             />
         </noscript>
@@ -470,12 +470,13 @@ const faqJson = (faq && faq.length > 0) ? {
             }
 
             .site-header .logo {
-                font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-                font-size: 1.4rem !important;
-                font-weight: bold !important;
-                letter-spacing: 0.12em !important;
+                font-family: 'Outfit', sans-serif;
+                font-size: 1.6rem !important;
+                font-weight: 800 !important;
+                letter-spacing: 0.15em !important;
                 margin-bottom: 30px !important;
                 transition: all 0.3s ease;
+                color: #000;
             }
 
             /* ===== ヘッダー：スクロール後（固定状態） ===== */
@@ -485,12 +486,12 @@ const faqJson = (faq && faq.length > 0) ? {
                 left: 0 !important;
                 right: 0 !important;
                 padding: 0 !important;
-                background: var(--color-bg) !important;
-                opacity: 0.98;
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                border-bottom: 1px solid var(--color-border);
-                box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+                background: rgba(255, 255, 255, 0.75) !important;
+                opacity: 1;
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
             }
 
             .site-header.is-scrolled .header-inner {

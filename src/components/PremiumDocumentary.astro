@@ -11,7 +11,7 @@ const seriesIds = [
 
 const allArticles = await getCollection("articles");
 const seriesArticles = seriesIds
-  .map(id => allArticles.find(a => a.id === id))
+  .map(id => allArticles.find(a => (a.id.split('/').pop()?.replace(/\.(md|mdx)$/, '') || a.id) === id))
   .filter(Boolean);
 ---
 

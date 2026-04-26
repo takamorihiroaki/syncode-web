@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import FeaturedSeries from "../../components/FeaturedSeries.astro";
 import ArticleCard from "../../components/ArticleCard.astro";
 import TagCloud from "../../components/TagCloud.astro";
+import SubPageHero from "../../components/SubPageHero.astro";
 
 // 1. 全61記事を動的に取得
 const allArticles = await getCollection("articles");
@@ -72,19 +73,21 @@ sortedCategories.forEach(cat => {
 ---
 
 <BaseLayout title="Library - SYNCODE 技術と変革の全記録">
+    
+    <SubPageHero 
+        badge="Knowledge Ecosystem"
+        title="The Library"
+        description="体系化された技術、思考、そして進化の全記録。<br/>123件の記事から、あなたのビジネスを拡張する知を探索してください。"
+        accent="gold"
+    />
+
     <div class="archive-container">
-        <div class="section-title-wrapper top-title">
-            <h1 class="section-title">The Library</h1>
-            <p class="section-subtitle">体系化された技術、思考、そして進化の全記録</p>
-        </div>
-
         <FeaturedSeries />
-
         <TagCloud />
 
         {/* --- PILLAR 1: DOCUMENTATION PACKAGES --- */}
         <div class="archive-segment">
-            <h2 class="segment-title">DOCUMENTATION PACKAGES</h2>
+            <h2 class="segment-title">Documentation Packages</h2>
             {Object.values(seriesGroups).map(group => (
                 <div class="series-package">
                     <div class="package-header">
@@ -100,9 +103,9 @@ sortedCategories.forEach(cat => {
             ))}
         </div>
 
-        {/* --- PILLAR 2: SYSTEM CHRONICLES (日付のみの純化) --- */}
+        {/* --- PILLAR 2: SYSTEM CHRONICLES --- */}
         <div class="archive-segment">
-            <h2 class="segment-title">SYSTEM CHRONICLES</h2>
+            <h2 class="segment-title">System Chronicles</h2>
             <div class="logs-container">
                 {chronicles.map(log => (
                     <a href={`/articles/${log.id}/`} class="log-entry">
@@ -121,9 +124,9 @@ sortedCategories.forEach(cat => {
             </div>
         </div>
 
-        {/* --- PILLAR 3: KNOWLEDGE BASE (1-Column List by Category) --- */}
+        {/* --- PILLAR 3: KNOWLEDGE BASE --- */}
         <div class="archive-segment">
-            <h2 class="segment-title">KNOWLEDGE BASE</h2>
+            <h2 class="segment-title">Knowledge Base</h2>
             {
                 sortedCategories.map(category => (
                     <div class="category-group-section" key={category}>
@@ -156,73 +159,35 @@ sortedCategories.forEach(cat => {
 
 <style>
     .archive-container {
-        padding: 100px 0;
-    }
-
-    .section-title-wrapper {
-        margin-bottom: 120px;
-        text-align: center;
-        background: none;
-        padding: 60px 0;
-        margin: 0;
-        border-bottom: 1px solid #eee;
-    }
-
-    .section-title {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-size: 4.8rem;
-        font-weight: 900;
-        letter-spacing: -0.05em;
-        margin-bottom: 24px;
-        color: #000;
-        line-height: 1;
-    }
-
-    .section-subtitle {
-        color: #888;
-        font-size: 14.4px; /* 10.8pt */
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-    }
-
-    @media (max-width: 900px) {
-        .section-title-wrapper.top-title {
-            padding: 40px 24px;
-            margin-bottom: 60px;
-        }
-        .section-title {
-            font-size: 2.8rem;
-            margin-bottom: 16px;
-        }
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 60px 20px 140px;
     }
 
     .archive-segment {
-        margin-bottom: 120px;
-        max-width: 1100px;
-        margin-left: auto;
-        margin-right: auto;
+        margin-bottom: 160px;
     }
 
     .segment-title {
-        font-size: 0.75rem;
+        font-family: var(--font-heading);
+        font-size: 0.7rem;
+        font-weight: 800;
         text-transform: uppercase;
-        letter-spacing: 0.6em;
-        color: #0099ff;
+        letter-spacing: 0.4em;
+        color: #b8860b;
         margin-bottom: 60px;
-        text-align: left;
         padding-bottom: 24px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #f0f0f0;
     }
 
     /* Package Grid (Documentation) */
     .series-package {
         margin: 60px 0 120px 0;
-        background: #f8f8f8;
-        border: 1px solid #eee;
-        border-radius: 4px;
-        padding: 100px 80px;
+        background: #fafafa;
+        border: 1px solid #f0f0f0;
+        padding: 120px 80px;
+        position: relative;
     }
-
     @media (max-width: 900px) {
         .series-package {
             padding: 60px 24px;
@@ -235,56 +200,37 @@ sortedCategories.forEach(cat => {
     }
 
     .package-count {
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        font-size: 14.4px; /* 10.8pt */
+        font-family: var(--font-heading);
+        font-size: 0.7rem;
         color: #bbb;
-        letter-spacing: 0.08em; /* Tracking 80 */
+        letter-spacing: 0.2em;
         text-transform: uppercase;
+        font-weight: 800;
     }
 
     .package-title {
+        font-family: var(--font-heading);
         font-size: 2.2rem;
-        font-weight: 900;
+        font-weight: 800;
         margin-top: 10px;
         letter-spacing: -0.02em;
         color: #1a1a1a;
     }
 
-    /* ボックス内のカードタイトルの色指定 */
-    .series-package .card-title {
-        color: #333 !important;
-    }
-    .series-package .category-name {
-        color: #333 !important;
-    }
-    .series-package .post-date {
-        color: #999 !important;
-    }
-    .series-package .card-excerpt {
-        color: #777 !important;
-    }
-
     .package-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr)); /* カラム幅を厳密に固定 */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 80px 40px;
     }
 
     @media (max-width: 900px) {
-        .series-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 30px;
-            max-width: 1100px;
-            margin: 0 auto;
+        .package-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
         }
     }
 
-    /* 
-    ========================================
-    UNIFIED LIST DESIGN (Chronicles & Knowledge)
-    ========================================
-    */
+    /* UNIFIED LIST DESIGN */
     .logs-container,
     .article-compact-list {
         display: flex;
@@ -295,87 +241,68 @@ sortedCategories.forEach(cat => {
     .compact-article {
         display: flex;
         align-items: flex-start;
-        padding: 16px 0;
+        padding: 32px 0;
         text-decoration: none;
         color: inherit;
-        border-bottom: none;
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        border-bottom: 1px solid #f0f0f0;
+        transition: all 0.4s var(--ease-out-expo);
     }
 
     .log-entry:hover,
     .compact-article:hover {
         transform: translateX(15px);
         color: #000;
-        opacity: 1 !important;
     }
 
-    .log-entry:hover .log-title,
-    .compact-article:hover .article-title {
-        color: #000 !important;
-    }
-
-    /* 
-     * 掟：10.8pt / Tracking 80 の日付のみ
-     */
     .log-meta,
     .article-meta-area {
-        min-width: 100px; /* 日付のみに合わせて最適化 */
+        min-width: 120px;
         display: flex;
         flex-direction: column;
     }
 
     .log-date,
     .article-date {
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        font-size: 14.4px; /* 10.8pt */
+        font-family: var(--font-heading);
+        font-size: 0.75rem;
         color: #bbb;
-        letter-spacing: 0.08em; /* Tracking 80 */
-        text-transform: uppercase;
-        font-weight: 400;
+        letter-spacing: 0.1em;
+        font-weight: 800;
     }
 
-    /* 
-     * 掟：タイトルの極大化 (3.8rem / 900)
-     */
     .log-title,
     .article-title {
-        font-size: clamp(1.8rem, 8vw, 3.8rem);
-        font-weight: 900;
-        line-height: 1.1; /* 重なり防止のためわずかに拡大 */
-        color: #333;
-        letter-spacing: -0.05em;
+        font-family: var(--font-heading);
+        font-size: clamp(1.4rem, 4vw, 2.4rem);
+        font-weight: 800;
+        line-height: 1.2;
+        color: #1a1a1a;
+        letter-spacing: -0.02em;
         margin: 0;
         transition: color 0.3s ease;
         word-break: break-word;
     }
 
-    @media (max-width: 900px) {
-        .log-title,
-        .article-title {
-            font-size: clamp(1.5rem, 10vw, 2.2rem); /* モバイルでの大きさを抑制 */
-            line-height: 1.2;
-        }
-    }
-
-    /* --- KNOWLEDGE BASE Specific --- */
+    /* KNOWLEDGE BASE */
     .category-group-section {
         margin-bottom: 120px;
     }
 
     .category-header {
-        margin-bottom: 20px;
+        margin-bottom: 40px;
     }
 
     .category-group-name {
         position: relative;
-        display: block; /* 全幅にするため */
+        display: block;
         padding-bottom: 14px;
         margin-top: 60px;
     }
 
     .category-text {
-        font-size: 1.25rem;
-        font-weight: 900;
+        font-family: var(--font-heading);
+        font-size: 1.2rem;
+        font-weight: 800;
         letter-spacing: 0.1em;
         text-transform: uppercase;
         color: #000;
@@ -386,24 +313,19 @@ sortedCategories.forEach(cat => {
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 4px; /* 掟：厚みのある4pxライン */
+        height: 2px;
         background: #000;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 768px) {
         .log-entry,
         .compact-article {
             flex-direction: column;
-            padding: 50px 0;
+            padding: 32px 0;
         }
         .log-meta,
         .article-meta-area {
-            min-width: auto;
-            margin-bottom: 20px;
-            padding-top: 0;
-        }
-        .archive-segment {
-            padding: 0 24px;
+            margin-bottom: 12px;
         }
     }
 </style>

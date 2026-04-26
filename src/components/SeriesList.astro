@@ -13,7 +13,11 @@ const allArticles = await getCollection("articles");
 
 // Current article info
 const currentPath = Astro.url.pathname;
-const currentArticle = allArticles.find(a => currentPath.replace(/\/$/, "").split('/').pop() === a.id);
+const currentArticle = allArticles.find(a => {
+  const urlSlug = currentPath.replace(/\/$/, "").split('/').pop();
+  const articleSlug = a.id.split('/').pop()?.replace(/\.(md|mdx)$/, '');
+  return urlSlug === articleSlug;
+});
 const currentSeries = propSeries || currentArticle?.data.series;
 
 if (!currentSeries) {
@@ -62,7 +66,7 @@ const displaySeriesName = `連載のご案内（全${n}回）`;
               <span class="item-title">{cleanTitle}（本記事）</span>
             </div>
           ) : (
-            <a href={`/articles/${article.id}/`} class="series-item link">
+            <a href={`/articles/${article.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="series-item link">
               <span class="item-number">{String(article.data.seriesOrder).padStart(2, '0')}</span>
               <span class="item-title">{cleanTitle}</span>
               <span class="item-arrow">→</span>
@@ -75,7 +79,7 @@ const displaySeriesName = `連載のご案内（全${n}回）`;
 
   {nextArticle && (
     <div class="series-next-cta">
-      <a href={`/articles/${nextArticle.id}/`} class="next-cta-anchor">
+      <a href={`/articles/${nextArticle.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="next-cta-anchor">
         <div class="next-cta-content">
           <span class="next-cta-label">NEXT STEP</span>
           <h4 class="next-cta-title">{nextArticle.data.title.replace(/【.*?】/, "").split("｜")[0].trim()}</h4>

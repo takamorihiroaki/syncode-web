@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SubPageHero from '../components/SubPageHero.astro';
 import AISearchOptimizer from '../components/AISearchOptimizer.astro';
 ---
 
@@ -23,194 +24,125 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
             padding: 120px 5%;
         }
 
-        /* 1. Hero Section */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
-            position: relative;
-            padding: 100px 5%;
-        }
-
-        /* Subtle Gold Glow & Grid */
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(184, 134, 11, 0.12) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.5;
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            max-width: 800px;
-            animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .hero-badge {
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 0.5em;
-            color: #b8860b;
-            text-transform: uppercase;
-            margin-bottom: 32px;
-            display: block;
-        }
-
-        .hero-title {
-            font-size: 2.2rem;
-            font-weight: 300;
-            line-height: 1.5;
-            letter-spacing: 0.05em;
-            margin-bottom: 40px;
-            color: #fff;
-        }
-
-        .hero-title strong {
-            font-weight: 700;
-            background: linear-gradient(135deg, #fff 0%, #b8860b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-lead {
-            font-size: 1rem;
-            line-height: 2.2;
-            color: #a0a0a0;
-            letter-spacing: 0.08em;
-            text-align: left;
-            margin: 0 auto;
-            max-width: 700px;
-        }
 
         /* 2. Story Section */
         .story-section {
-            /* 背景とボーダーを削除し、完全にシームレスな空間へ */
+            padding: 140px 0;
         }
 
         .section-header {
-            margin-bottom: 60px;
+            margin-bottom: 80px;
+            text-align: center;
         }
 
         .section-num {
             font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #b8860b;
-            letter-spacing: 0.2em;
-            margin-bottom: 16px;
+            letter-spacing: 0.4em;
+            margin-bottom: 20px;
             display: block;
+            text-transform: uppercase;
+            font-weight: 800;
         }
 
         .section-title {
-            font-size: 1.6rem;
-            font-weight: 300;
-            letter-spacing: 0.05em;
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
             color: #fff;
-            line-height: 1.4;
+            line-height: 1.35;
         }
 
         .text-block {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             line-height: 2.2;
-            color: #ccc;
-            letter-spacing: 0.08em;
-            margin-bottom: 30px;
+            color: #bbb;
+            letter-spacing: 0.04em;
+            margin-bottom: 40px;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .text-block strong {
             color: #fff;
-            font-weight: 600;
+            font-weight: 800;
         }
 
         /* 3. Orchestration Section */
         .orchestration-section {
             background: #000;
+            padding: 140px 0;
         }
 
         .method-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            margin-top: 60px;
+            gap: 60px;
+            margin-top: 80px;
         }
 
         .method-card {
-            background: linear-gradient(145deg, #0a0a0a, #050505);
-            border: 1px solid rgba(184, 134, 11, 0.1);
-            padding: 50px 40px;
-            border-radius: 4px;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 80px 50px;
+            border-radius: 2px;
+            transition: all 0.6s var(--ease-out-expo);
             position: relative;
-            overflow: hidden;
             display: block;
             text-decoration: none;
         }
 
-        .method-card::before {
+        /* シグネチャー：L字ボーダー（サービスカード用） */
+        .method-card::before, .method-card::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at top right, rgba(184, 134, 11, 0.1), transparent 50%);
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgba(184, 134, 11, 0.4);
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: all 0.4s var(--ease-out-expo);
             pointer-events: none;
+            z-index: 10;
         }
+        .method-card::before { top: -12px; left: -12px; border-right: none; border-bottom: none; }
+        .method-card::after { bottom: -12px; right: -12px; border-left: none; border-top: none; }
 
         .method-card:hover {
-            border-color: rgba(184, 134, 11, 0.4);
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: #fff;
+            transform: translateY(-10px);
+            background: #0a0a0a;
         }
 
-        .method-card:hover::before {
+        .method-card:hover::before, .method-card:hover::after {
             opacity: 1;
+            width: 30px;
+            height: 30px;
         }
 
         .method-icon {
             margin-bottom: 30px;
             display: inline-block;
             background: rgba(184, 134, 11, 0.05);
-            padding: 16px;
-            border-radius: 50%;
+            padding: 20px;
             border: 1px solid rgba(184, 134, 11, 0.1);
-            transition: transform 0.5s ease, background 0.5s ease;
+            transition: transform 0.5s var(--ease-out-expo);
         }
 
         .method-card:hover .method-icon {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.1) translateY(-5px);
             background: rgba(184, 134, 11, 0.1);
         }
 
         .method-title {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 800;
             color: #fff;
-            margin-bottom: 16px;
-            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            letter-spacing: 0.05em;
         }
 
         .method-desc {
@@ -332,10 +264,78 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
             transform: none;
         }
 
+        /* 4. Strategy Section (Pillar Link) */
+        .featured-strategy-section {
+            padding: 80px 0;
+            background: #000;
+        }
+
+        .strategy-card {
+            background: linear-gradient(145deg, #0a0a0a 0%, #000 100%);
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            padding: 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .strategy-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.5), transparent);
+        }
+
+        .strategy-label {
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.5em;
+            color: #b8860b;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .strategy-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            color: #fff;
+        }
+
+        .strategy-desc {
+            font-size: 1rem;
+            color: #aaa;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        .strategy-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 0.2em;
+            padding: 18px 40px;
+            border: 1px solid #fff;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .strategy-link:hover {
+            background: #fff;
+            color: #000;
+        }
+
         @media (max-width: 768px) {
             .hero-title { font-size: 1.6rem; }
             .section-title { font-size: 1.4rem; }
             .method-grid { grid-template-columns: 1fr; }
+            .strategy-card { padding: 40px 20px; }
+            .strategy-title { font-size: 1.3rem; }
             .cta-title { font-size: 1.4rem; }
             .cta-button { padding: 20px 40px; width: 100%; justify-content: center; }
             .hero-lead { text-align: left; font-size: 0.95rem; }
@@ -345,16 +345,13 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
     <div class="sync-layout">
         
         <!-- 1. Hero Section -->
-        <section class="hero-section">
-            <div class="hero-content">
-                <span class="hero-badge">Orchestration & Co-creation</span>
-                <h1 class="hero-title">AIは手に入れた。では、あなたのビジネスの<br/><strong>「体温」と「感性」</strong>は誰が実装するのか？</h1>
-                <p class="hero-lead">
-                    AIを使えばコードは書ける。文章も一瞬で生成できる。しかし、自社のブランド価値や、なんとなくプレミアムな「Vibe（雰囲気）」はどうすれば反映できるのでしょうか。あるいは、<strong>「Antigravityが重くて作業にならない」</strong>といった、日々の技術的な摩擦に思考を奪われてはいませんか？<br/><br/>
-                    今日学んだノウハウが明日には「過去の遺物」になる時代において、AIを単なる効率化ツールとして消費し続けるのは危険です。SYNCODEは、AIを「パートナー」として迎え入れ、あなたの思考を拡張する新しい次元の戦い方を提示します。
-                </p>
-            </div>
-        </section>
+        <SubPageHero 
+            badge="Orchestration & Co-creation"
+            title="AIは手に入れた。では、あなたのビジネスの<br/><strong>「体温」と「感性」</strong>は誰が実装するのか？"
+            description="AIを使えばコードは書ける。文章も一瞬で生成できる。しかし、自社のブランド価値や、なんとなくプレミアムな「Vibe（雰囲気）」はどうすれば反映できるのでしょうか。あるいは、<strong>「Antigravityが重くて作業にならない」</strong>といった、日々の技術的な摩擦に思考を奪われてはいませんか？<br/><br/>今日学んだノウハウが明日には「過去の遺物」になる時代において、AIを単なる効率化ツールとして消費し続けるのは危険です。SYNCODEは、AIを「パートナー」として迎え入れ、あなたの思考を拡張する新しい次元の戦い方を提示します。"
+            theme="dark"
+            accent="gold"
+        />
 
         <!-- 2. Story Section -->
         <section class="story-section fade-in-section">
@@ -406,7 +403,24 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
             </div>
         </section>
 
-        <!-- 4. Proof Section -->
+        <!-- 4. Strategy Section (Pillar Link) -->
+        <section class="featured-strategy-section fade-in-section">
+            <div class="section-container">
+                <div class="strategy-card">
+                    <span class="strategy-label">THE MASTER STRATEGY</span>
+                    <h2 class="strategy-title">AIエージェント・フルスタック開発実践ガイド：<br/>3大知性を束ねる戦略</h2>
+                    <p class="strategy-desc">
+                        Antigravity、Cursor、Gemini。これらを「共有脳」で同期させ、一人の限界を超えるための決定版ガイド。SYNCODEの設計思想のすべてがここにあります。
+                    </p>
+                    <a href="/articles/ai-fullstack-dev-practical-guide/" class="strategy-link">
+                        <span>戦略の深層を読み解く</span>
+                        <span class="btn-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Proof Section -->
         <section class="proof-section fade-in-section">
             <div class="section-container">
                 <div class="section-header">
