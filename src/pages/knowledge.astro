@@ -1,0 +1,383 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SubPageHero from '../components/SubPageHero.astro';
+import AISearchOptimizer from '../components/AISearchOptimizer.astro';
+---
+
+<BaseLayout 
+    title="KNOWLEDGE HUB | プロジェクトの「共有脳」"
+    description="SYNCODEの開発プロセスそのものを可視化する「共有脳」。AIと人間の思考が同期し、プロダクトが形作られる生の記録を公開しています。"
+>
+    <style>
+        .knowledge-layout {
+            max-width: 100% !important;
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .section-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 120px 5%;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 2.2;
+            color: #bbb;
+            margin-bottom: 60px;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .folder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .folder-card {
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 50px 40px;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            display: block;
+            text-decoration: none;
+        }
+
+        .folder-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: #b8860b;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .folder-card:hover {
+            border-color: rgba(184, 134, 11, 0.2);
+            transform: translateY(-10px);
+            background: #0a0a0a;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .folder-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .folder-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .folder-card:hover .folder-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .folder-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .folder-desc {
+            font-size: 0.9rem;
+            color: #888;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
+        }
+
+        .file-item {
+            font-size: 0.8rem;
+            color: #aaa;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+            transition: color 0.3s ease;
+        }
+
+        .file-item:hover {
+            color: #fff;
+        }
+
+        .file-item::before {
+            content: '📄';
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .status-sync { background: rgba(184, 134, 11, 0.1); color: #b8860b; border: 1px solid rgba(184, 134, 11, 0.3); }
+        .status-gen { background: rgba(0, 153, 255, 0.1); color: #0099ff; border: 1px solid rgba(0, 153, 255, 0.3); }
+        .status-core { background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); }
+
+        .live-feed-section {
+            background: #000;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .live-feed-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 1px; height: 100px;
+            background: linear-gradient(to bottom, #b8860b, transparent);
+        }
+
+        .feed-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feed-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 80px;
+            letter-spacing: 0.1em;
+        }
+
+        /* ターミナル風デザイン */
+        .terminal-window {
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 40px;
+            padding-top: 60px;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .terminal-header {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            height: 30px;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            gap: 6px;
+        }
+
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .dot-r { background: #ff5f56; }
+        .dot-y { background: #ffbd2e; }
+        .dot-g { background: #27c93f; }
+
+        .feed-item {
+            padding: 25px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            position: relative;
+        }
+
+        .feed-item:last-child { border-bottom: none; }
+
+        .feed-date {
+            font-family: monospace;
+            font-size: 0.65rem;
+            color: #b8860b;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feed-date::before {
+            content: '>';
+            color: #b8860b;
+        }
+
+        .feed-content {
+            font-size: 0.9rem;
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        .feed-content strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background: #b8860b;
+            margin-left: 5px;
+            vertical-align: middle;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 60px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #b8860b;
+            border-color: #b8860b;
+        }
+
+    </style>
+
+    <div class="knowledge-layout">
+        <SubPageHero 
+            badge="Live Process Documentation"
+            title="KNOWLEDGE HUB<br/><strong>共有脳の全貌</strong>"
+            description="ここは、完成された美しい結果だけを展示する場所ではありません。<br/>AIと人間が泥臭く同期し、エラーと改善を繰り返しながらプロジェクトを形作っていく「生のプロセス」そのものを公開しています。"
+            theme="dark"
+            accent="gold"
+        />
+
+        <section class="section-container">
+            <div class="intro-text">
+                SYNCODEの裏側で稼働している <strong>Googleドライブ上の `knowledge` フォルダ</strong> を抽象化したアーカイブです。<br/>各フォルダの役割と、そこに蓄積されていく「知の結晶」をご覧ください。
+            </div>
+
+            <div class="folder-grid">
+                <!-- 01 Sources -->
+                <a href="/about/" class="folder-card">
+                    <span class="status-badge status-core">HUMAN INPUT</span>
+                    <span class="folder-icon">🛡️</span>
+                    <h3 class="folder-title">01_Sources</h3>
+                    <p class="folder-desc">
+                        プロジェクトの「なぜやるか」という哲学、人間の直感、インスピレーション、未加工の一次データが格納される源泉。
+                    </p>
+                    <ul class="file-list">
+                        <li class="file-item">brand-vibe-memo.txt</li>
+                        <li class="file-item">target-audience.md</li>
+                        <li class="file-item">design-inspiration.pdf</li>
+                    </ul>
+                    <div style="margin-top: 20px; font-size: 0.7rem; color: #b8860b; font-weight: 800;">哲学の核心を見る →</div>
+                </a>
+
+                <!-- 02 Outputs -->
+                <a href="/articles/" class="folder-card">
+                    <span class="status-badge status-gen">AI GENERATED</span>
+                    <span class="folder-icon">💎</span>
+                    <h3 class="folder-title">02_Outputs</h3>
+                    <p class="folder-desc">
+                        Sourcesを読み込んだAI（Antigravity / NotebookLM）が出力した分析結果、レポート、構成案などの「知の結晶」。
+                    </p>
+                    <ul class="file-list">
+                        <li class="file-item">seo-keyword-analysis.md</li>
+                        <li class="file-item">article-structure-draft.md</li>
+                        <li class="file-item">performance-audit.json</li>
+                    </ul>
+                    <div style="margin-top: 20px; font-size: 0.7rem; color: #0099ff; font-weight: 800;">成果物の記録を見る →</div>
+                </a>
+
+                <!-- 03 Project -->
+                <a href="/articles/ai-fullstack-dev-practical-guide/" class="folder-card">
+                    <span class="status-badge status-sync">SYNCED CONTEXT</span>
+                    <span class="folder-icon">🗺️</span>
+                    <h3 class="folder-title">03_Project</h3>
+                    <p class="folder-desc">
+                        人間とAIが合意した「どこへ向かうか」という絶対の指針。ガイドライン、進行管理、戦略ロードマップ。
+                    </p>
+                    <ul class="file-list">
+                        <li class="file-item">design-guidelines.md</li>
+                        <li class="file-item">development-roadmap.md</li>
+                        <li class="file-item">master-strategy.md</li>
+                    </ul>
+                    <div style="margin-top: 20px; font-size: 0.7rem; color: #b8860b; font-weight: 800;">戦略ロードマップを見る →</div>
+                </a>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="/service/" class="back-link">← オーケストレーション支援に戻る</a>
+            </div>
+        </section>
+
+        <!-- Live Feed Section -->
+        <section class="live-feed-section">
+            <div class="feed-container">
+                <h2 class="feed-title">RECENT SYNC LOGS</h2>
+                
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="dot dot-r"></div>
+                        <div class="dot dot-y"></div>
+                        <div class="dot dot-g"></div>
+                        <span style="font-size: 0.6rem; color: #666; margin-left: 10px; font-family: monospace;">antigravity@syncode: ~/knowledge</span>
+                    </div>
+
+                    <div class="feed-item">
+                        <div class="feed-date">2026.04.26 16:20:03 - LATEST SYNC</div>
+                        <div class="feed-content">
+                            <strong>Antigravity:</strong> Serviceページに「共有脳」の可視化図解を実装完了。データの流れを表現するフローアニメーションを適用。<br/>
+                            <strong>Human:</strong> 導線設計として、このKnowledge Hub自体をコンテンツ化する新ページを作成指示。
+                        </div>
+                    </div>
+
+                    <div class="feed-item">
+                        <div class="feed-date">2026.04.26 07:20:06 - PREVIOUS SYNC</div>
+                        <div class="feed-content">
+                            <strong>NotebookLM:</strong> 過去の「Vibe Coding」の実績から、AI共創の哲学を抽出。共有脳へのインデックスを生成。<br/>
+                            <strong>Human:</strong> 抽出された哲学を基に、フルスタック開発実践ガイドの構成を再定義。
+                        </div>
+                    </div>
+
+                    <div class="feed-item">
+                        <div class="feed-date">2026.04.25 23:08:56 - ARCHIVE</div>
+                        <div class="feed-content">
+                            <strong>Antigravity:</strong> 物理ドライブの遅延デバッグを完了。パフォーマンスが向上。ログを 02_Outputs に記録。<br/>
+                            <strong>Human:</strong> 解決プロセスをベースラインとして設定。全エージェントにプロトコルを同期。<span class="cursor-blink"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <AISearchOptimizer type="standard" />
+</BaseLayout>

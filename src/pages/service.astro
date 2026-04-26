@@ -21,13 +21,13 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         .section-container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 120px 5%;
+            padding: 160px 5%;
         }
 
 
         /* 2. Story Section */
         .story-section {
-            padding: 140px 0;
+            padding: 180px 0;
         }
 
         .section-header {
@@ -53,6 +53,18 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
             letter-spacing: -0.02em;
             color: #fff;
             line-height: 1.35;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .fade-in-section.is-visible .section-title {
+            animation: titleReveal 1.2s var(--ease-out-expo) both;
+        }
+
+        @keyframes titleReveal {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .text-block {
@@ -74,7 +86,7 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         /* 3. Orchestration Section */
         .orchestration-section {
             background: #000;
-            padding: 140px 0;
+            padding: 180px 0;
         }
 
         .method-grid {
@@ -85,11 +97,12 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         }
 
         .method-card {
-            background: #050505;
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
             padding: 80px 50px;
-            border-radius: 2px;
-            transition: all 0.6s var(--ease-out-expo);
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+            transition: all 0.7s var(--ease-out-expo);
             position: relative;
             display: block;
             text-decoration: none;
@@ -111,9 +124,10 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         .method-card::after { bottom: -12px; right: -12px; border-left: none; border-top: none; }
 
         .method-card:hover {
-            border-color: #fff;
-            transform: translateY(-10px);
-            background: #0a0a0a;
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-12px) scale(1.02);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
         }
 
         .method-card:hover::before, .method-card:hover::after {
@@ -271,12 +285,21 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         }
 
         .strategy-card {
-            background: linear-gradient(145deg, #0a0a0a 0%, #000 100%);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(184, 134, 11, 0.2);
-            padding: 80px;
+            padding: 100px 80px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.6s var(--ease-out-expo);
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(184, 134, 11, 0.5);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
         }
 
         .strategy-card::before {
@@ -328,6 +351,8 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
         .strategy-link:hover {
             background: #fff;
             color: #000;
+            transform: scale(1.05);
+            letter-spacing: 0.25em;
         }
 
         @media (max-width: 768px) {
@@ -339,6 +364,164 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
             .cta-title { font-size: 1.4rem; }
             .cta-button { padding: 20px 40px; width: 100%; justify-content: center; }
             .hero-lead { text-align: left; font-size: 0.95rem; }
+        }
+
+        /* 5. Knowledge Hub Visualization */
+        .knowledge-hub-section {
+            background: #000;
+            padding: 180px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hub-container {
+            position: relative;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 60px 0;
+        }
+
+        .hub-center {
+            width: 200px;
+            height: 200px;
+            background: rgba(184, 134, 11, 0.03);
+            border: 1px solid rgba(184, 134, 11, 0.3);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            position: relative;
+            box-shadow: 0 0 80px rgba(184, 134, 11, 0.15);
+            backdrop-filter: blur(5px);
+        }
+
+        .hub-center::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            border: 1px dashed rgba(184, 134, 11, 0.2);
+            border-radius: 50%;
+            animation: rotate 60s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hub-center-title {
+            font-size: 0.7rem;
+            color: #b8860b;
+            letter-spacing: 0.3em;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .hub-center-name {
+            font-size: 1.1rem;
+            color: #fff;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+        }
+
+        .hub-node {
+            position: absolute;
+            width: 200px;
+            padding: 28px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            z-index: 15;
+            backdrop-filter: blur(15px);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .hub-node:hover {
+            transform: translate(-50%, -10px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .node-ai-exec:hover, .node-ai-oracle:hover {
+            transform: translateY(-10px);
+        }
+
+        .node-human { top: 0; left: 50%; transform: translateX(-50%); }
+        .node-ai-exec { bottom: 0; left: 0; }
+        .node-ai-oracle { bottom: 0; right: 0; }
+
+        .node-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 0.1em;
+        }
+
+        .node-desc {
+            font-size: 0.85rem;
+            color: #aaa;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .hub-line {
+            position: absolute;
+            background: rgba(184, 134, 11, 0.2);
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        /* データの流れ（光の粒） */
+        .hub-line::after {
+            content: '';
+            position: absolute;
+            background: linear-gradient(to bottom, transparent, rgba(184, 134, 11, 0.6), transparent);
+            width: 100%;
+            height: 100px;
+            top: -100px;
+            animation: flow 4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes flow {
+            0% { top: -100px; opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        .line-1 { height: 160px; top: 80px; left: 50%; width: 2px; }
+        .line-2 { height: 200px; bottom: 80px; left: 180px; width: 2px; transform: rotate(45deg); transform-origin: top; }
+        .line-3 { height: 200px; bottom: 80px; right: 180px; width: 2px; transform: rotate(-45deg); transform-origin: top; }
+
+        /* パルス効果 */
+        .hub-center::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(184, 134, 11, 0.4);
+            border-radius: 50%;
+            animation: pulse 4s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .hub-container { height: auto; flex-direction: column; gap: 40px; }
+            .hub-node { position: static; width: 100%; transform: none; }
+            .hub-line { display: none; }
+            .hub-center { margin: 20px 0; }
         }
     </style>
 
@@ -403,7 +586,57 @@ import AISearchOptimizer from '../components/AISearchOptimizer.astro';
             </div>
         </section>
 
-        <!-- 4. Strategy Section (Pillar Link) -->
+        <!-- 4. Knowledge Hub Section -->
+        <section class="knowledge-hub-section fade-in-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="section-num">SHARED CONTEXT</span>
+                    <h2 class="section-title">プロジェクトの「共有脳」を、<br/>あなたとAIの真ん中に。</h2>
+                </div>
+                <div class="text-block">
+                    SYNCODEの開発はブラックボックスではありません。Googleドライブ上の<strong>「knowledgeフォルダ」</strong>をプロジェクトの共有脳（Shared Context）として定義し、すべての思考プロセスを可視化します。
+                </div>
+
+                <div class="hub-container">
+                    <div class="hub-line line-1"></div>
+                    <div class="hub-line line-2"></div>
+                    <div class="hub-line line-3"></div>
+
+                    <div class="hub-node node-human">
+                        <div class="node-title">HUMAN</div>
+                        <div class="node-desc">感性・意志・美学の決定</div>
+                    </div>
+
+                    <div class="hub-center">
+                        <div class="hub-center-title">SHARED BRAIN</div>
+                        <div class="hub-center-name">KNOWLEDGE</div>
+                    </div>
+
+                    <div class="hub-node node-ai-exec">
+                        <div class="node-title">ANTIGRAVITY</div>
+                        <div class="node-desc">自律的実行・実装</div>
+                    </div>
+
+                    <div class="hub-node node-ai-oracle">
+                        <div class="node-title">NOTEBOOK LM</div>
+                        <div class="node-desc">文脈解析・戦略提案</div>
+                    </div>
+                </div>
+
+                <div class="text-block">
+                    この共有脳があることで、昨日まで他人だったAIが、今日からあなたの「最高の右腕」として機能し始めます。知識は風化しても、このハブに蓄積された「共に歩んだプロセス」は、あなただけの無形資産となります。
+                </div>
+
+                <div style="text-align: center; margin-top: 60px;">
+                    <a href="/knowledge/" class="cta-button" style="border-color: rgba(255,255,255,0.2); color: #fff;">
+                        <span>共有脳の「内部」を覗く</span>
+                        <span class="btn-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Strategy Section (Pillar Link) -->
         <section class="featured-strategy-section fade-in-section">
             <div class="section-container">
                 <div class="strategy-card">

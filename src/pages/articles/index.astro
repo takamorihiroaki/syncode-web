@@ -108,7 +108,7 @@ sortedCategories.forEach(cat => {
             <h2 class="segment-title">System Chronicles</h2>
             <div class="logs-container">
                 {chronicles.map(log => (
-                    <a href={`/articles/${log.id}/`} class="log-entry">
+                    <a href={`/articles/${log.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="log-entry">
                         <div class="log-meta">
                             <span class="log-date">
                                 {log.data.date.toLocaleDateString("ja-JP", {
@@ -138,7 +138,7 @@ sortedCategories.forEach(cat => {
                         </div>
                         <div class="article-compact-list">
                             {categoryGroups[category].sort((a,b) => b.data.date - a.data.date).map(article => (
-                                <a href={`/articles/${article.id}/`} class="compact-article" key={article.id}>
+                                <a href={`/articles/${article.id.split('/').pop()?.replace(/\.(md|mdx)$/, '')}/`} class="compact-article" key={article.id}>
                                     <div class="article-meta-area">
                                         <span class="article-date">
                                             {article.data.date.toLocaleDateString("ja-JP", {

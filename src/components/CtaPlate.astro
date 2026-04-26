@@ -46,9 +46,9 @@ const { title, excerpt, image, link, label = "RECOMMENDED", category } = Astro.p
   }
 
   .cta-plate:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-    border-color: #000;
+    transform: translateY(-10px) scale(1.01);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.12);
+    border-color: rgba(0, 153, 255, 0.3);
   }
 
   .plate-anchor {
@@ -159,8 +159,9 @@ const { title, excerpt, image, link, label = "RECOMMENDED", category } = Astro.p
   }
 
   .cta-plate:hover .action-arrow {
-    transform: translateX(8px);
-    background: #0099ff;
+    transform: translateX(12px) scale(1.1);
+    background: #000;
+    box-shadow: 0 4px 15px rgba(0, 153, 255, 0.4);
   }
 
   @media (max-width: 850px) {

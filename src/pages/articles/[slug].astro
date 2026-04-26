@@ -152,10 +152,11 @@ const isSalon = entry.data.category?.includes("INSIGHT");
         </time>
     </div>
 
-    <div class="ai-collaboration-badge" style={`margin-bottom: 40px; display: flex; align-items: flex-start; gap: 12px; padding: 20px; background: ${isSalon ? "#fcfcfc" : "#fdfdfd"}; border-left: 2px solid #000; border-top: ${isSalon ? "1px solid #f0f0f0" : "none"}; border-right: ${isSalon ? "1px solid #f0f0f0" : "none"}; border-bottom: ${isSalon ? "1px solid #f0f0f0" : "none"};`}>
-        <div style="font-size: 1.1rem; line-height: 1;">{isSalon ? "🖋️" : "🤖"}</div>
-        <p style="font-size: 0.8rem; color: #666; line-height: 1.6; margin: 0; letter-spacing: 0.04em;">
-            <strong>{isSalon ? "Thought Partnership Active:" : "AI Collaboration Active:"}</strong> {isSalon ? "この記事は、AI（Antigravity）との対話を通じて得られた洞察を、人間が「思考の記録」として編纂したものです。技術の表面的な解説を超え、AI共生時代の本質的な生存戦略を探求しています。" : "この記事は AI エージェント（Antigravity）が自律的にコンテキストを解析し、構成の提案から執筆までを人間と共同で行っています。データに基づいた客観性と、AI による次世代の制作プロセスを反映しています。"}
+    <div class="ai-collaboration-badge" style={`margin: 40px 0 60px; display: flex; align-items: flex-start; gap: 16px; padding: 24px; background: ${isSalon ? "rgba(255, 255, 255, 0.5)" : "rgba(253, 253, 253, 0.8)"}; border-left: 2px solid #000; backdrop-filter: blur(10px); border-radius: 0 4px 4px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.02);`}>
+        <div style="font-size: 1.2rem; line-height: 1; padding-top: 2px;">{isSalon ? "🖋️" : "🤖"}</div>
+        <p style="font-size: 0.85rem; color: #555; line-height: 1.7; margin: 0; letter-spacing: 0.04em;">
+            <strong style="color: #000; font-weight: 800; display: block; margin-bottom: 4px; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;">{isSalon ? "Thought Partnership Active" : "AI Collaboration Active"}</strong>
+            {isSalon ? "この記事は、AI（Antigravity）との対話を通じて得られた洞察を、人間が「思考の記録」として編纂したものです。技術の表面的な解説を超え、AI共生時代の本質的な生存戦略を探求しています。" : "この記事は AI エージェント（Antigravity）が自律的にコンテキストを解析し、構成の提案から執筆までを人間と共同で行っています。データに基づいた客観性と、AI による次世代の制作プロセスを反映しています。"}
         </p>
     </div>
 
@@ -273,12 +274,12 @@ const isSalon = entry.data.category?.includes("INSIGHT");
   /* body.body-salon .site-header などのヘッダー用上書き設定を削除（通常メニューと共通化） */
 
   .is-salon {
-    max-width: 720px !important; /* さらに絞って可読性を向上 */
+    max-width: 720px !important;
     margin: 0 auto !important;
-    font-size: 1.1rem !important; /* 少し大きめでゆったり */
-    line-height: 2.2 !important; /* 行間を最大限に確保 */
+    font-size: 1.1rem !important;
+    line-height: 2.2 !important;
     letter-spacing: 0.03em !important;
-    font-family: 'Inter', 'Noto Sans JP', serif !important; /* 可能ならセリフ体を意識した並びに */
+    color: #1a1a1a !important;
   }
   
   .is-salon h2 {
@@ -317,11 +318,12 @@ const isSalon = entry.data.category?.includes("INSIGHT");
   }
   
   .article-header-salon .article-title {
-    font-size: 2.4rem !important;
-    line-height: 1.4 !important;
+    font-size: 2.6rem !important;
+    line-height: 1.3 !important;
     margin-top: 24px !important;
     margin-bottom: 24px !important;
     font-weight: 900 !important;
+    letter-spacing: -0.02em !important;
   }
   
   .article-eyecatch-salon {
@@ -367,11 +369,14 @@ const isSalon = entry.data.category?.includes("INSIGHT");
     font-size: 0.75rem;
     color: #999;
     text-decoration: none;
-    letter-spacing: 0.1em;
-    transition: color 0.3s ease;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: all 0.4s var(--ease-out-expo);
   }
   .nano-link:hover {
-    color: #333;
+    color: #000;
+    letter-spacing: 0.2em;
   }
 
   /* リンクリスト：線が走る演出 */

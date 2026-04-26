@@ -58,12 +58,13 @@ const displayDescription = description || (
   }
 
   .ai-summary-box {
-    padding: 40px;
-    border: 1px solid #eee;
-    background: #fafafa;
-    border-radius: 8px;
+    padding: 48px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background: linear-gradient(145deg, #ffffff 0%, #fcfcfc 100%);
+    border-radius: 4px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
   }
 
   .ai-summary-box::before {
@@ -71,9 +72,9 @@ const displayDescription = description || (
     position: absolute;
     top: 0;
     left: 0;
-    width: 3px;
+    width: 2px;
     height: 100%;
-    background: #000;
+    background: linear-gradient(to bottom, #000, #999);
   }
 
   .summary-label {
